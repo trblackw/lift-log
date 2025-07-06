@@ -50,24 +50,24 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   };
 
   return (
-    <div className="space-y-4">
-      <Label className="text-sm">Tags</Label>
+    <div className="space-y-4 lg:space-y-6">
+      <Label className="text-sm lg:text-base">Tags</Label>
       
       {/* Selected Tags */}
       {selectedTags.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2 lg:gap-3">
           {selectedTags.map((tag) => (
             <div
               key={tag.id}
-              className="flex items-center gap-1 px-2 rounded-md text-sm text-white h-8"
+              className="flex items-center gap-1 px-3 py-2 lg:px-4 lg:py-2.5 rounded-full text-sm lg:text-base text-white"
               style={{ backgroundColor: tag.color }}
             >
               {tag.name}
               <Button
                 type="button"
-                size="icon"
                 variant="ghost"
-                className="h-1 w-1 text-white cursor-pointer hover:text-white/50 hover:bg-red/20 ml-1"
+                size="sm"
+                className="h-5 w-5 lg:h-6 lg:w-6 p-0 text-white hover:bg-white/20 ml-1"
                 onClick={() => removeTag(tag.id)}
               >
                 ×
@@ -79,8 +79,8 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
       {/* Predefined Tags */}
       <div>
-        <Label className="text-xs text-muted-foreground">Quick Select:</Label>
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <Label className="text-xs lg:text-sm text-muted-foreground">Quick Select:</Label>
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-3 mt-2">
           {predefinedTags.map((tag) => {
             const isSelected = selectedTags.some(t => t.id === tag.id);
             return (
@@ -90,7 +90,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 variant={isSelected ? "default" : "outline"}
                 size="sm"
                 onClick={() => toggleTag(tag)}
-                className="h-10 text-xs font-medium cursor-pointer"
+                className="h-10 lg:h-12 text-xs lg:text-sm font-medium"
                 disabled={isSelected}
               >
                 {tag.name}
@@ -101,22 +101,22 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
       </div>
 
       {/* Custom Tag Input */}
-      <div className="space-y-2">
-        <Label className="text-xs text-muted-foreground">Create Custom Tag:</Label>
-        <div className="flex gap-2">
+      <div className="space-y-2 lg:space-y-3">
+        <Label className="text-xs lg:text-sm text-muted-foreground">Create Custom Tag:</Label>
+        <div className="flex gap-2 lg:gap-3">
           <Input
             value={newTagName}
             onChange={(e) => setNewTagName(e.target.value)}
             placeholder="Custom tag name"
             onKeyPress={(e) => e.key === 'Enter' && addCustomTag()}
-            className="h-10 text-sm"
+            className="h-10 lg:h-12 text-sm lg:text-base"
           />
           <Button
             type="button"
             onClick={addCustomTag}
             disabled={!newTagName.trim()}
             size="sm"
-            className="h-10 px-4"
+            className="h-10 lg:h-12 px-4 lg:px-6 text-sm lg:text-base"
           >
             Add
           </Button>

@@ -92,7 +92,7 @@ export function App() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-md mx-auto px-4 py-6">
+        <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
               <div className="text-4xl mb-4">💪</div>
@@ -108,7 +108,7 @@ export function App() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-md mx-auto px-4 py-6">
+        <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <Card>
             <CardContent className="pt-6">
               <div className="text-center py-8">
@@ -166,15 +166,15 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-md mx-auto px-4 py-6 pb-20">
-        <header className="mb-6 text-center">
-          <h1 className="text-3xl font-bold mb-2">Lift Log</h1>
-          <p className="text-sm text-muted-foreground">Track your workouts and progress</p>
+      <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-20">
+        <header className="mb-6 lg:mb-8 text-center">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
+          <p className="text-sm lg:text-base text-muted-foreground">Track your workouts and progress</p>
         </header>
 
         <Navigation currentView={currentView} onViewChange={setCurrentView} />
 
-        <div className="mt-6">
+        <div className="mt-6 lg:mt-8">
           {renderView()}
         </div>
       </div>

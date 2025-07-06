@@ -100,26 +100,27 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
   const totalExercises = workout.exercises.length;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 lg:space-y-6">
       {/* Header */}
       <Card>
-        <CardContent className="pt-4">
-          <div className="space-y-3">
+        <CardContent className="pt-4 lg:pt-6">
+          <div className="space-y-3 lg:space-y-4">
             <div className="text-center">
-              <h2 className="text-lg font-semibold truncate">{workout.name}</h2>
-              <div className="text-sm text-muted-foreground space-y-1">
+              <h2 className="text-lg lg:text-xl font-semibold truncate">{workout.name}</h2>
+              <div className="text-sm lg:text-base text-muted-foreground space-y-1 lg:space-y-0 lg:space-x-4 lg:flex lg:justify-center lg:items-center">
                 <div>{formatDuration(duration)}</div>
                 <div>{completedExercises}/{totalExercises} exercises done</div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              <Button variant="outline" onClick={onCancel} size="sm">
+            <div className="grid grid-cols-2 gap-2 lg:gap-4 max-w-md mx-auto">
+              <Button variant="outline" onClick={onCancel} size="sm" className="h-10 lg:h-12">
                 End Workout
               </Button>
               <Button 
                 onClick={completeWorkout}
                 disabled={completedExercises === 0}
                 size="sm"
+                className="h-10 lg:h-12"
               >
                 Complete
               </Button>
@@ -130,30 +131,31 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
 
       {/* Exercise Navigation */}
       <Card>
-        <CardContent className="pt-4">
-          <div className="space-y-3">
+        <CardContent className="pt-4 lg:pt-6">
+          <div className="space-y-3 lg:space-y-4">
             <div className="text-center">
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm lg:text-base text-muted-foreground">
                 Exercise {currentExerciseIndex + 1} of {totalExercises}
               </div>
-              <h3 className="text-xl font-semibold">{currentExercise.name}</h3>
-              <div className="text-sm text-muted-foreground">
+              <h3 className="text-xl lg:text-2xl font-semibold">{currentExercise.name}</h3>
+              <div className="text-sm lg:text-base text-muted-foreground">
                 Target: {currentExercise.sets} sets × {currentExercise.reps} reps
                 {currentExercise.weight && ` @ ${currentExercise.weight}lbs`}
               </div>
               {currentExercise.notes && (
-                <div className="text-xs text-muted-foreground mt-2 p-2 bg-muted rounded">
+                <div className="text-xs lg:text-sm text-muted-foreground mt-2 p-2 lg:p-3 bg-muted rounded">
                   {currentExercise.notes}
                 </div>
               )}
             </div>
             
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-2 lg:gap-4 max-w-md mx-auto">
               <Button 
                 variant="outline" 
                 size="sm"
                 onClick={previousExercise}
                 disabled={currentExerciseIndex === 0}
+                className="h-10 lg:h-12"
               >
                 ← Previous
               </Button>
@@ -162,6 +164,7 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
                 size="sm"
                 onClick={nextExercise}
                 disabled={currentExerciseIndex === workout.exercises.length - 1}
+                className="h-10 lg:h-12"
               >
                 Next →
               </Button>
@@ -173,29 +176,29 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
       {/* Sets */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Sets</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Sets</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
+        <CardContent className="space-y-3 lg:space-y-4">
           {Array.from({ length: currentExercise.sets }, (_, setIndex) => (
             <div 
               key={setIndex} 
-              className={`p-4 border rounded-lg ${
+              className={`p-4 lg:p-6 border rounded-lg ${
                 setIndex < currentExerciseSession.completedSets 
                   ? 'bg-green-50 border-green-200' 
                   : 'bg-background'
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <Label className="font-medium">Set {setIndex + 1}</Label>
+              <div className="flex items-center justify-between mb-3 lg:mb-4">
+                <Label className="font-medium text-sm lg:text-base">Set {setIndex + 1}</Label>
                 <Checkbox 
                   checked={setIndex < currentExerciseSession.completedSets}
                   readOnly
                 />
               </div>
               
-              <div className="space-y-3">
+              <div className="space-y-3 lg:space-y-4">
                 <div>
-                  <Label htmlFor={`reps-${setIndex}`} className="text-sm text-muted-foreground">
+                  <Label htmlFor={`reps-${setIndex}`} className="text-sm lg:text-base text-muted-foreground">
                     Reps (target: {currentExercise.reps})
                   </Label>
                   <Input
@@ -209,13 +212,13 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
                       handleSetComplete(setIndex, reps, weight);
                     }}
                     placeholder={currentExercise.reps.toString()}
-                    className="h-12 text-center text-lg"
+                    className="h-12 lg:h-14 text-center text-lg lg:text-xl"
                   />
                 </div>
                 
                 {currentExercise.weight && (
                   <div>
-                    <Label htmlFor={`weight-${setIndex}`} className="text-sm text-muted-foreground">
+                    <Label htmlFor={`weight-${setIndex}`} className="text-sm lg:text-base text-muted-foreground">
                       Weight (target: {currentExercise.weight}lbs)
                     </Label>
                     <Input
@@ -230,7 +233,7 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
                         handleSetComplete(setIndex, reps, weight);
                       }}
                       placeholder={currentExercise.weight.toString()}
-                      className="h-12 text-center text-lg"
+                      className="h-12 lg:h-14 text-center text-lg lg:text-xl"
                     />
                   </div>
                 )}
@@ -243,9 +246,9 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
       {/* Rest Timer */}
       {currentExercise.restTime && (
         <Card>
-          <CardContent className="pt-4">
-            <div className="text-center text-sm text-muted-foreground">
-              <div className="text-lg mb-1">⏰</div>
+          <CardContent className="pt-4 lg:pt-6">
+            <div className="text-center text-sm lg:text-base text-muted-foreground">
+              <div className="text-lg lg:text-xl mb-1">⏰</div>
               Recommended rest: {Math.floor(currentExercise.restTime / 60)}:{(currentExercise.restTime % 60).toString().padStart(2, '0')}
             </div>
           </CardContent>
@@ -255,14 +258,14 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
       {/* Session Notes */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Notes</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Notes</CardTitle>
         </CardHeader>
         <CardContent>
           <textarea
             value={sessionNotes}
             onChange={(e) => setSessionNotes(e.target.value)}
             placeholder="How did this workout feel?"
-            className="w-full min-h-[80px] p-3 border rounded-lg resize-none text-sm"
+            className="w-full min-h-[80px] lg:min-h-[100px] p-3 lg:p-4 border rounded-lg resize-none text-sm lg:text-base"
           />
         </CardContent>
       </Card>

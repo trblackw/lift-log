@@ -64,44 +64,46 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 lg:space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Workout Details</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">Workout Details</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <Label htmlFor="name" className="text-sm">Workout Name *</Label>
-            <Input
-              id="name"
-              {...register("name", { required: "Workout name is required" })}
-              placeholder="e.g., Push Day, Leg Day"
-              className="mt-1 h-12"
-            />
-            {errors.name && (
-              <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
-            )}
-          </div>
+        <CardContent className="space-y-4 lg:space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+            <div className="lg:col-span-2">
+              <Label htmlFor="name" className="text-sm lg:text-base">Workout Name *</Label>
+              <Input
+                id="name"
+                {...register("name", { required: "Workout name is required" })}
+                placeholder="e.g., Push Day, Leg Day"
+                className="mt-1 h-12 lg:h-14 lg:text-base"
+              />
+              {errors.name && (
+                <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
+              )}
+            </div>
 
-          <div>
-            <Label htmlFor="description" className="text-sm">Description</Label>
-            <Input
-              id="description"
-              {...register("description")}
-              placeholder="Brief description"
-              className="mt-1 h-12"
-            />
-          </div>
+            <div className="lg:col-span-2">
+              <Label htmlFor="description" className="text-sm lg:text-base">Description</Label>
+              <Input
+                id="description"
+                {...register("description")}
+                placeholder="Brief description"
+                className="mt-1 h-12 lg:h-14 lg:text-base"
+              />
+            </div>
 
-          <div>
-            <Label htmlFor="estimatedDuration" className="text-sm">Estimated Duration (minutes)</Label>
-            <Input
-              id="estimatedDuration"
-              type="number"
-              {...register("estimatedDuration", { min: 1 })}
-              placeholder="60"
-              className="mt-1 h-12"
-            />
+            <div>
+              <Label htmlFor="estimatedDuration" className="text-sm lg:text-base">Estimated Duration (minutes)</Label>
+              <Input
+                id="estimatedDuration"
+                type="number"
+                {...register("estimatedDuration", { min: 1 })}
+                placeholder="60"
+                className="mt-1 h-12 lg:h-14 lg:text-base"
+              />
+            </div>
           </div>
 
           <TagSelector
@@ -113,40 +115,42 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">
+          <CardTitle className="text-lg lg:text-xl">
             Exercises ({exercises.length})
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 lg:space-y-6">
           <ExerciseForm onAddExercise={addExercise} />
           
           {exercises.length > 0 && (
-            <div className="space-y-3">
-              <h4 className="font-medium text-sm">Added Exercises:</h4>
-              {exercises.map((exercise) => (
-                <div
-                  key={exercise.id}
-                  className="p-3 border rounded-lg bg-muted/30"
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-sm truncate">{exercise.name}</div>
-                      <div className="text-xs text-muted-foreground mt-1">
-                        {exercise.sets} sets × {exercise.reps} reps
-                        {exercise.weight && ` @ ${exercise.weight}lbs`}
+            <div className="space-y-3 lg:space-y-4">
+              <h4 className="font-medium text-sm lg:text-base">Added Exercises:</h4>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+                {exercises.map((exercise) => (
+                  <div
+                    key={exercise.id}
+                    className="p-3 lg:p-4 border rounded-lg bg-muted/30"
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-medium text-sm lg:text-base truncate">{exercise.name}</div>
+                        <div className="text-xs lg:text-sm text-muted-foreground mt-1">
+                          {exercise.sets} sets × {exercise.reps} reps
+                          {exercise.weight && ` @ ${exercise.weight}lbs`}
+                        </div>
                       </div>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => removeExercise(exercise.id)}
+                        className="ml-2 h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+                      >
+                        Remove
+                      </Button>
                     </div>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      onClick={() => removeExercise(exercise.id)}
-                      className="ml-2 h-8 px-2 text-xs"
-                    >
-                      Remove
-                    </Button>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
         </CardContent>
@@ -154,7 +158,7 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
 
       <Button 
         onClick={handleSubmit(onSubmit)} 
-        className="w-full h-12 text-base font-medium"
+        className="w-full h-12 lg:h-14 text-base lg:text-lg font-medium"
         disabled={exercises.length === 0}
       >
         Save Workout
