@@ -12,36 +12,55 @@ export function App() {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
   const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Load data from localStorage on mount
+  // Initialize storage and load data
   useEffect(() => {
-    const loadedWorkouts = storage.loadWorkouts();
-    const loadedSessions = storage.loadSessions();
-    
-    setWorkouts(loadedWorkouts);
-    setWorkoutSessions(loadedSessions);
-  }, []);
-
-  // Save workouts to localStorage whenever workouts change
-  useEffect(() => {
-    storage.saveWorkouts(workouts);
-  }, [workouts]);
-
-  // Save sessions to localStorage whenever sessions change
-  useEffect(() => {
-    storage.saveSessions(workoutSessions);
-  }, [workoutSessions]);
-
-  const handleSaveWorkout = (workoutData: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => {
-    const newWorkout: Workout = {
-      ...workoutData,
-      id: crypto.randomUUID(),
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    const initializeApp = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // Initialize IndexedDB
+        await storage.init();
+        
+        // Load existing data
+        const [loadedWorkouts, loadedSessions] = await Promise.all([
+          storage.loadWorkouts(),
+          storage.loadSessions()
+        ]);
+        
+        setWorkouts(loadedWorkouts);
+        setWorkoutSessions(loadedSessions);
+      } catch (err) {
+        console.error('Failed to initialize app:', err);
+        setError('Failed to load data. Please refresh the page.');
+      } finally {
+        setIsLoading(false);
+      }
     };
 
-    setWorkouts(prev => [...prev, newWorkout]);
-    setCurrentView('list');
+    initializeApp();
+  }, []);
+
+  const handleSaveWorkout = async (workoutData: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => {
+    try {
+      const newWorkout: Workout = {
+        ...workoutData,
+        id: crypto.randomUUID(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      // Save to IndexedDB and update local state
+      await storage.saveWorkout(newWorkout);
+      setWorkouts(prev => [newWorkout, ...prev]);
+      setCurrentView('list');
+    } catch (err) {
+      console.error('Failed to save workout:', err);
+      setError('Failed to save workout. Please try again.');
+    }
   };
 
   const handleStartWorkout = (workoutId: string) => {
@@ -49,11 +68,17 @@ export function App() {
     setCurrentView('active');
   };
 
-  const handleCompleteWorkout = (session: WorkoutSession) => {
-    setWorkoutSessions(prev => [...prev, session]);
-    setActiveWorkoutId(null);
-    setCurrentView('list');
-    // Could show a success message here
+  const handleCompleteWorkout = async (session: WorkoutSession) => {
+    try {
+      // Save session to IndexedDB and update local state
+      await storage.saveSession(session);
+      setWorkoutSessions(prev => [session, ...prev]);
+      setActiveWorkoutId(null);
+      setCurrentView('list');
+    } catch (err) {
+      console.error('Failed to save workout session:', err);
+      setError('Failed to save workout session. Please try again.');
+    }
   };
 
   const handleCancelWorkout = () => {
@@ -62,6 +87,47 @@ export function App() {
   };
 
   const activeWorkout = activeWorkoutId ? workouts.find(w => w.id === activeWorkoutId) : null;
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="max-w-md mx-auto px-4 py-6">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="text-4xl mb-4">💪</div>
+              <p className="text-muted-foreground">Loading Lift Log...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="max-w-md mx-auto px-4 py-6">
+          <Card>
+            <CardContent className="pt-6">
+              <div className="text-center py-8">
+                <div className="text-4xl mb-4">⚠️</div>
+                <h2 className="text-lg font-semibold mb-2">Error</h2>
+                <p className="text-muted-foreground text-sm mb-4">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm"
+                >
+                  Reload App
+                </button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   const renderView = () => {
     switch (currentView) {

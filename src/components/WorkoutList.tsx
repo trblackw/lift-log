@@ -1,8 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { storage } from "@/lib/storage";
 import type { Workout, Tag } from "@/lib/types";
 
 interface WorkoutListProps {
@@ -13,6 +14,8 @@ interface WorkoutListProps {
 export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
+  const [filteredWorkouts, setFilteredWorkouts] = useState<Workout[]>(workouts);
+  const [isSearching, setIsSearching] = useState(false);
 
   // Get all unique tags from workouts
   const allTags = useMemo(() => {
@@ -25,17 +28,61 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
     return Array.from(tagMap.values());
   }, [workouts]);
 
-  // Filter workouts based on search term and selected tag
-  const filteredWorkouts = useMemo(() => {
-    return workouts.filter(workout => {
-      const matchesSearch = workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (workout.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
-      
-      const matchesTag = !selectedTagFilter || 
-                        workout.tags.some(tag => tag.id === selectedTagFilter);
+  // Handle search and filtering with IndexedDB
+  useEffect(() => {
+    const performSearch = async () => {
+      if (!searchTerm && !selectedTagFilter) {
+        setFilteredWorkouts(workouts);
+        return;
+      }
 
-      return matchesSearch && matchesTag;
-    });
+      setIsSearching(true);
+      try {
+        let results: Workout[];
+
+        if (selectedTagFilter && searchTerm) {
+          // Both tag and search term - use client-side filtering
+          const tagResults = await storage.getWorkoutsByTag(selectedTagFilter);
+          results = tagResults.filter(workout => 
+            workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (workout.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
+            workout.exercises.some(exercise => 
+              exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+          );
+        } else if (selectedTagFilter) {
+          // Tag filter only
+          results = await storage.getWorkoutsByTag(selectedTagFilter);
+        } else if (searchTerm) {
+          // Search term only
+          results = await storage.searchWorkouts(searchTerm);
+        } else {
+          results = workouts;
+        }
+
+        setFilteredWorkouts(results);
+      } catch (error) {
+        console.error('Search failed:', error);
+        // Fallback to client-side filtering
+        const filtered = workouts.filter(workout => {
+          const matchesSearch = !searchTerm || 
+            workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (workout.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
+          
+          const matchesTag = !selectedTagFilter || 
+            workout.tags.some(tag => tag.id === selectedTagFilter);
+
+          return matchesSearch && matchesTag;
+        });
+        setFilteredWorkouts(filtered);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    // Debounce search to avoid too many IndexedDB queries
+    const timeoutId = setTimeout(performSearch, 300);
+    return () => clearTimeout(timeoutId);
   }, [workouts, searchTerm, selectedTagFilter]);
 
   const formatDate = (date: Date) => {
@@ -43,6 +90,11 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
       month: 'short',
       day: 'numeric'
     }).format(date);
+  };
+
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedTagFilter('');
   };
 
   if (workouts.length === 0) {
@@ -75,7 +127,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
               id="search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search by name..."
+              placeholder="Search by name, description, or exercise..."
               className="mt-1 h-12"
             />
           </div>
@@ -103,10 +155,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
-                setSearchTerm('');
-                setSelectedTagFilter('');
-              }}
+              onClick={clearFilters}
               className="w-full h-10"
             >
               Clear Filters
@@ -118,12 +167,12 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
       {/* Results Header */}
       <div className="flex items-center justify-between px-1">
         <span className="text-sm text-muted-foreground">
-          {filteredWorkouts.length} workout{filteredWorkouts.length !== 1 ? 's' : ''}
+          {isSearching ? 'Searching...' : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
         </span>
       </div>
 
       {/* Workout List */}
-      {filteredWorkouts.length === 0 ? (
+      {filteredWorkouts.length === 0 && !isSearching ? (
         <Card>
           <CardContent className="pt-6">
             <div className="text-center py-6">
@@ -131,6 +180,14 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
               <p className="text-muted-foreground text-sm">
                 No workouts match your filters.
               </p>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={clearFilters}
+                className="mt-3"
+              >
+                Clear Filters
+              </Button>
             </div>
           </CardContent>
         </Card>
