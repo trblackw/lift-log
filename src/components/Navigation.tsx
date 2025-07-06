@@ -20,7 +20,7 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
           key={item.id}
           variant={currentView === item.id ? "default" : "outline"}
           onClick={() => onViewChange(item.id)}
-          className="flex flex-col items-center gap-1 h-16 text-xs font-medium"
+          className="flex flex-col items-center gap-1 h-16 text-xs font-medium cursor-pointer"
           size="sm"
         >
           <span className="text-lg">{item.icon}</span>

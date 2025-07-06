@@ -59,15 +59,15 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
           {selectedTags.map((tag) => (
             <div
               key={tag.id}
-              className="flex items-center gap-1 px-3 py-2 rounded-full text-sm text-white"
+              className="flex items-center gap-1 px-2 rounded-md text-sm text-white h-8"
               style={{ backgroundColor: tag.color }}
             >
               {tag.name}
               <Button
                 type="button"
+                size="icon"
                 variant="ghost"
-                size="sm"
-                className="h-5 w-5 p-0 text-white hover:bg-white/20 ml-1"
+                className="h-1 w-1 text-white cursor-pointer hover:text-white/50 hover:bg-red/20 ml-1"
                 onClick={() => removeTag(tag.id)}
               >
                 ×
@@ -90,7 +90,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 variant={isSelected ? "default" : "outline"}
                 size="sm"
                 onClick={() => toggleTag(tag)}
-                className="h-10 text-xs font-medium"
+                className="h-10 text-xs font-medium cursor-pointer"
                 disabled={isSelected}
               >
                 {tag.name}
