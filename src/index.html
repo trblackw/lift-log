@@ -3,8 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
     <title>Lift Log</title>
     <script type="module" src="./frontend.tsx" async></script>
+    <script>
+      // Prevent flash of unstyled content by applying theme early
+      try {
+        const theme = localStorage.getItem('lift-log-theme') || 'system';
+        if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.add('light');
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

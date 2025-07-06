@@ -10,14 +10,14 @@ interface TagSelectorProps {
 }
 
 const predefinedTags: Tag[] = [
-  { id: 'strength', name: 'Strength', color: '#ef4444' },
-  { id: 'cardio', name: 'Cardio', color: '#22c55e' },
-  { id: 'upper-body', name: 'Upper Body', color: '#3b82f6' },
-  { id: 'lower-body', name: 'Lower Body', color: '#f59e0b' },
-  { id: 'full-body', name: 'Full Body', color: '#8b5cf6' },
-  { id: 'push', name: 'Push', color: '#ec4899' },
-  { id: 'pull', name: 'Pull', color: '#06b6d4' },
-  { id: 'legs', name: 'Legs', color: '#84cc16' },
+  { id: 'strength', name: 'Strength', color: '#71717a' },
+  { id: 'cardio', name: 'Cardio', color: '#78716c' },
+  { id: 'upper-body', name: 'Upper Body', color: '#6b7280' },
+  { id: 'lower-body', name: 'Lower Body', color: '#737373' },
+  { id: 'full-body', name: 'Full Body', color: '#6b7280' },
+  { id: 'push', name: 'Push', color: '#78716c' },
+  { id: 'pull', name: 'Pull', color: '#71717a' },
+  { id: 'legs', name: 'Legs', color: '#737373' },
 ];
 
 export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {

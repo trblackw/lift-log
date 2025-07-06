@@ -4,10 +4,12 @@ import { Navigation } from "./components/Navigation";
 import { WorkoutForm } from "./components/WorkoutForm";
 import { WorkoutList } from "./components/WorkoutList";
 import { ActiveWorkout } from "./components/ActiveWorkout";
+import { ThemeToggle } from "./components/ThemeToggle";
+import { ThemeProvider } from "./lib/theme";
 import { storage } from "./lib/storage";
 import type { ViewMode, Workout, WorkoutSession } from "./lib/types";
 
-export function App() {
+function AppContent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
@@ -165,11 +167,18 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background transition-colors duration-200">
       <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-20">
-        <header className="mb-6 lg:mb-8 text-center">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
-          <p className="text-sm lg:text-base text-muted-foreground">Track your workouts and progress</p>
+        <header className="mb-6 lg:mb-8">
+          <div className="flex justify-between items-start mb-4">
+            <div className="text-center flex-1">
+              <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
+              <p className="text-sm lg:text-base text-muted-foreground">Track your workouts and progress</p>
+            </div>
+            <div className="flex-shrink-0 ml-4">
+              <ThemeToggle />
+            </div>
+          </div>
         </header>
 
         <Navigation currentView={currentView} onViewChange={setCurrentView} />
@@ -179,6 +188,14 @@ export function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+export function App() {
+  return (
+    <ThemeProvider defaultTheme="system">
+      <AppContent />
+    </ThemeProvider>
   );
 }
 
