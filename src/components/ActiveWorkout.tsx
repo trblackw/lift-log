@@ -100,45 +100,62 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
   const totalExercises = workout.exercises.length;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Header */}
       <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <div>
-              <CardTitle>{workout.name}</CardTitle>
-              <p className="text-sm text-muted-foreground mt-1">
-                Duration: {formatDuration(duration)} • {completedExercises}/{totalExercises} exercises completed
-              </p>
+        <CardContent className="pt-4">
+          <div className="space-y-3">
+            <div className="text-center">
+              <h2 className="text-lg font-semibold truncate">{workout.name}</h2>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <div>{formatDuration(duration)}</div>
+                <div>{completedExercises}/{totalExercises} exercises done</div>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline" onClick={onCancel}>
+            <div className="grid grid-cols-2 gap-2">
+              <Button variant="outline" onClick={onCancel} size="sm">
                 End Workout
               </Button>
               <Button 
                 onClick={completeWorkout}
                 disabled={completedExercises === 0}
+                size="sm"
               >
-                Complete Workout
+                Complete
               </Button>
             </div>
           </div>
-        </CardHeader>
+        </CardContent>
       </Card>
 
-      {/* Exercise Progress */}
+      {/* Exercise Navigation */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span>Exercise {currentExerciseIndex + 1} of {totalExercises}</span>
-            <div className="flex gap-2">
+        <CardContent className="pt-4">
+          <div className="space-y-3">
+            <div className="text-center">
+              <div className="text-sm text-muted-foreground">
+                Exercise {currentExerciseIndex + 1} of {totalExercises}
+              </div>
+              <h3 className="text-xl font-semibold">{currentExercise.name}</h3>
+              <div className="text-sm text-muted-foreground">
+                Target: {currentExercise.sets} sets × {currentExercise.reps} reps
+                {currentExercise.weight && ` @ ${currentExercise.weight}lbs`}
+              </div>
+              {currentExercise.notes && (
+                <div className="text-xs text-muted-foreground mt-2 p-2 bg-muted rounded">
+                  {currentExercise.notes}
+                </div>
+              )}
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2">
               <Button 
                 variant="outline" 
                 size="sm"
                 onClick={previousExercise}
                 disabled={currentExerciseIndex === 0}
               >
-                Previous
+                ← Previous
               </Button>
               <Button 
                 variant="outline" 
@@ -146,111 +163,106 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
                 onClick={nextExercise}
                 disabled={currentExerciseIndex === workout.exercises.length - 1}
               >
-                Next
+                Next →
               </Button>
             </div>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-xl font-semibold">{currentExercise.name}</h3>
-              <p className="text-muted-foreground">
-                Target: {currentExercise.sets} sets × {currentExercise.reps} reps
-                {currentExercise.weight && ` @ ${currentExercise.weight}lbs`}
-              </p>
-              {currentExercise.notes && (
-                <p className="text-sm text-muted-foreground mt-1">
-                  Notes: {currentExercise.notes}
-                </p>
-              )}
-            </div>
-
-            {/* Sets */}
-            <div className="space-y-3">
-              <h4 className="font-medium">Sets:</h4>
-              {Array.from({ length: currentExercise.sets }, (_, setIndex) => (
-                <div 
-                  key={setIndex} 
-                  className={`p-3 border rounded-lg ${
-                    setIndex < currentExerciseSession.completedSets 
-                      ? 'bg-green-50 border-green-200' 
-                      : 'bg-background'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <Label className="font-medium">Set {setIndex + 1}</Label>
-                    <Checkbox 
-                      checked={setIndex < currentExerciseSession.completedSets}
-                      readOnly
-                    />
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <Label htmlFor={`reps-${setIndex}`} className="text-sm">
-                        Reps (target: {currentExercise.reps})
-                      </Label>
-                      <Input
-                        id={`reps-${setIndex}`}
-                        type="number"
-                        min="0"
-                        value={currentExerciseSession.actualReps[setIndex] || ''}
-                        onChange={(e) => {
-                          const reps = parseInt(e.target.value) || 0;
-                          const weight = currentExerciseSession.actualWeight[setIndex] || currentExercise.weight;
-                          handleSetComplete(setIndex, reps, weight);
-                        }}
-                        placeholder={currentExercise.reps.toString()}
-                      />
-                    </div>
-                    
-                    {currentExercise.weight && (
-                      <div>
-                        <Label htmlFor={`weight-${setIndex}`} className="text-sm">
-                          Weight (target: {currentExercise.weight}lbs)
-                        </Label>
-                        <Input
-                          id={`weight-${setIndex}`}
-                          type="number"
-                          min="0"
-                          step="0.5"
-                          value={currentExerciseSession.actualWeight[setIndex] || ''}
-                          onChange={(e) => {
-                            const weight = parseFloat(e.target.value) || 0;
-                            const reps = currentExerciseSession.actualReps[setIndex] || currentExercise.reps;
-                            handleSetComplete(setIndex, reps, weight);
-                          }}
-                          placeholder={currentExercise.weight.toString()}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Rest Timer */}
-            {currentExercise.restTime && (
-              <div className="text-center text-sm text-muted-foreground">
-                💡 Recommended rest: {Math.floor(currentExercise.restTime / 60)}:{(currentExercise.restTime % 60).toString().padStart(2, '0')}
-              </div>
-            )}
           </div>
         </CardContent>
       </Card>
 
+      {/* Sets */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Sets</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {Array.from({ length: currentExercise.sets }, (_, setIndex) => (
+            <div 
+              key={setIndex} 
+              className={`p-4 border rounded-lg ${
+                setIndex < currentExerciseSession.completedSets 
+                  ? 'bg-green-50 border-green-200' 
+                  : 'bg-background'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-3">
+                <Label className="font-medium">Set {setIndex + 1}</Label>
+                <Checkbox 
+                  checked={setIndex < currentExerciseSession.completedSets}
+                  readOnly
+                />
+              </div>
+              
+              <div className="space-y-3">
+                <div>
+                  <Label htmlFor={`reps-${setIndex}`} className="text-sm text-muted-foreground">
+                    Reps (target: {currentExercise.reps})
+                  </Label>
+                  <Input
+                    id={`reps-${setIndex}`}
+                    type="number"
+                    min="0"
+                    value={currentExerciseSession.actualReps[setIndex] || ''}
+                    onChange={(e) => {
+                      const reps = parseInt(e.target.value) || 0;
+                      const weight = currentExerciseSession.actualWeight[setIndex] || currentExercise.weight;
+                      handleSetComplete(setIndex, reps, weight);
+                    }}
+                    placeholder={currentExercise.reps.toString()}
+                    className="h-12 text-center text-lg"
+                  />
+                </div>
+                
+                {currentExercise.weight && (
+                  <div>
+                    <Label htmlFor={`weight-${setIndex}`} className="text-sm text-muted-foreground">
+                      Weight (target: {currentExercise.weight}lbs)
+                    </Label>
+                    <Input
+                      id={`weight-${setIndex}`}
+                      type="number"
+                      min="0"
+                      step="0.5"
+                      value={currentExerciseSession.actualWeight[setIndex] || ''}
+                      onChange={(e) => {
+                        const weight = parseFloat(e.target.value) || 0;
+                        const reps = currentExerciseSession.actualReps[setIndex] || currentExercise.reps;
+                        handleSetComplete(setIndex, reps, weight);
+                      }}
+                      placeholder={currentExercise.weight.toString()}
+                      className="h-12 text-center text-lg"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </CardContent>
+      </Card>
+
+      {/* Rest Timer */}
+      {currentExercise.restTime && (
+        <Card>
+          <CardContent className="pt-4">
+            <div className="text-center text-sm text-muted-foreground">
+              <div className="text-lg mb-1">⏰</div>
+              Recommended rest: {Math.floor(currentExercise.restTime / 60)}:{(currentExercise.restTime % 60).toString().padStart(2, '0')}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Session Notes */}
       <Card>
         <CardHeader>
-          <CardTitle>Session Notes</CardTitle>
+          <CardTitle className="text-lg">Notes</CardTitle>
         </CardHeader>
         <CardContent>
           <textarea
             value={sessionNotes}
             onChange={(e) => setSessionNotes(e.target.value)}
-            placeholder="How did this workout feel? Any observations or modifications..."
-            className="w-full min-h-[100px] p-3 border rounded-lg resize-none"
+            placeholder="How did this workout feel?"
+            className="w-full min-h-[80px] p-3 border rounded-lg resize-none text-sm"
           />
         </CardContent>
       </Card>

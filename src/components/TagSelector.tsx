@@ -51,7 +51,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
   return (
     <div className="space-y-4">
-      <Label>Tags</Label>
+      <Label className="text-sm">Tags</Label>
       
       {/* Selected Tags */}
       {selectedTags.length > 0 && (
@@ -59,7 +59,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
           {selectedTags.map((tag) => (
             <div
               key={tag.id}
-              className="flex items-center gap-1 px-2 py-1 rounded-full text-sm text-white"
+              className="flex items-center gap-1 px-3 py-2 rounded-full text-sm text-white"
               style={{ backgroundColor: tag.color }}
             >
               {tag.name}
@@ -67,7 +67,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="h-4 w-4 p-0 text-white hover:bg-white/20"
+                className="h-5 w-5 p-0 text-white hover:bg-white/20 ml-1"
                 onClick={() => removeTag(tag.id)}
               >
                 ×
@@ -79,8 +79,8 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
       {/* Predefined Tags */}
       <div>
-        <Label className="text-sm text-muted-foreground">Quick Select:</Label>
-        <div className="flex flex-wrap gap-2 mt-2">
+        <Label className="text-xs text-muted-foreground">Quick Select:</Label>
+        <div className="grid grid-cols-2 gap-2 mt-2">
           {predefinedTags.map((tag) => {
             const isSelected = selectedTags.some(t => t.id === tag.id);
             return (
@@ -90,7 +90,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 variant={isSelected ? "default" : "outline"}
                 size="sm"
                 onClick={() => toggleTag(tag)}
-                className="text-sm"
+                className="h-10 text-xs font-medium"
                 disabled={isSelected}
               >
                 {tag.name}
@@ -101,20 +101,26 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
       </div>
 
       {/* Custom Tag Input */}
-      <div className="flex gap-2">
-        <Input
-          value={newTagName}
-          onChange={(e) => setNewTagName(e.target.value)}
-          placeholder="Create custom tag"
-          onKeyPress={(e) => e.key === 'Enter' && addCustomTag()}
-        />
-        <Button
-          type="button"
-          onClick={addCustomTag}
-          disabled={!newTagName.trim()}
-        >
-          Add
-        </Button>
+      <div className="space-y-2">
+        <Label className="text-xs text-muted-foreground">Create Custom Tag:</Label>
+        <div className="flex gap-2">
+          <Input
+            value={newTagName}
+            onChange={(e) => setNewTagName(e.target.value)}
+            placeholder="Custom tag name"
+            onKeyPress={(e) => e.key === 'Enter' && addCustomTag()}
+            className="h-10 text-sm"
+          />
+          <Button
+            type="button"
+            onClick={addCustomTag}
+            disabled={!newTagName.trim()}
+            size="sm"
+            className="h-10 px-4"
+          >
+            Add
+          </Button>
+        </div>
       </div>
     </div>
   );

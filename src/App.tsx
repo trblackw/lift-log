@@ -6,7 +6,6 @@ import { WorkoutList } from "./components/WorkoutList";
 import { ActiveWorkout } from "./components/ActiveWorkout";
 import { storage } from "./lib/storage";
 import type { ViewMode, Workout, WorkoutSession } from "./lib/types";
-import "./index.css";
 
 export function App() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
@@ -88,7 +87,7 @@ export function App() {
           return (
             <Card>
               <CardContent className="pt-6">
-                <h2 className="text-2xl font-semibold mb-4">Active Workout</h2>
+                <h2 className="text-xl font-semibold mb-4">Active Workout</h2>
                 <p className="text-muted-foreground">No active workout. Start a workout from your workout list!</p>
               </CardContent>
             </Card>
@@ -100,15 +99,19 @@ export function App() {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <header className="mb-8">
-        <h1 className="text-4xl font-bold text-center mb-2">Lift Log</h1>
-        <p className="text-muted-foreground text-center">Track your workouts and progress</p>
-      </header>
+    <div className="min-h-screen bg-background">
+      <div className="max-w-md mx-auto px-4 py-6 pb-20">
+        <header className="mb-6 text-center">
+          <h1 className="text-3xl font-bold mb-2">Lift Log</h1>
+          <p className="text-sm text-muted-foreground">Track your workouts and progress</p>
+        </header>
 
-      <Navigation currentView={currentView} onViewChange={setCurrentView} />
+        <Navigation currentView={currentView} onViewChange={setCurrentView} />
 
-      {renderView()}
+        <div className="mt-6">
+          {renderView()}
+        </div>
+      </div>
     </div>
   );
 }

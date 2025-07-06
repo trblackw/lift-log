@@ -7,29 +7,37 @@
 
   body {
     @apply grid place-items-center min-w-[320px] min-h-screen relative m-0 bg-background text-foreground;
+    /* Prevent zoom on mobile input focus */
+    font-size: 16px;
+  }
+
+  /* Better mobile touch targets */
+  button, 
+  input, 
+  select, 
+  textarea {
+    @apply min-h-[44px];
+  }
+
+  /* Prevent mobile zoom on input focus */
+  input[type="text"], 
+  input[type="number"], 
+  input[type="email"], 
+  input[type="password"], 
+  select, 
+  textarea {
+    font-size: 16px;
   }
 }
 
-/* cool Bun background animation 😎 */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.05;
-  background: url("./logo.svg");
-  background-size: 256px;
-  transform: rotate(-12deg) scale(1.35);
-  animation: slide 30s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes slide {
-  from {
-    background-position: 0 0;
+/* Mobile-specific utilities */
+@layer utilities {
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
   }
-  to {
-    background-position: 256px 224px;
+
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
   }
 }
 

@@ -14,16 +14,17 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
   ];
 
   return (
-    <nav className="flex gap-2 justify-center mb-6">
+    <nav className="grid grid-cols-3 gap-2">
       {navItems.map((item) => (
         <Button
           key={item.id}
           variant={currentView === item.id ? "default" : "outline"}
           onClick={() => onViewChange(item.id)}
-          className="flex items-center gap-2"
+          className="flex flex-col items-center gap-1 h-16 text-xs font-medium"
+          size="sm"
         >
-          <span>{item.icon}</span>
-          {item.label}
+          <span className="text-lg">{item.icon}</span>
+          <span>{item.label}</span>
         </Button>
       ))}
     </nav>

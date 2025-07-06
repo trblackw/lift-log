@@ -41,8 +41,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+      day: 'numeric'
     }).format(date);
   };
 
@@ -51,12 +50,13 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center py-8">
-            <h2 className="text-2xl font-semibold mb-2">No Workouts Yet</h2>
-            <p className="text-muted-foreground mb-4">
+            <div className="text-6xl mb-4">💪</div>
+            <h2 className="text-xl font-semibold mb-2">No Workouts Yet</h2>
+            <p className="text-muted-foreground mb-4 text-sm">
               Create your first workout to get started!
             </p>
-            <p className="text-sm text-muted-foreground">
-              Click the "Create" tab above to build your first workout routine.
+            <p className="text-xs text-muted-foreground">
+              Tap "Create" below to build your first workout routine.
             </p>
           </div>
         </CardContent>
@@ -65,32 +65,29 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
+      {/* Search and Filter Controls */}
       <Card>
-        <CardHeader>
-          <CardTitle>Your Workouts ({filteredWorkouts.length})</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {/* Search and Filter Controls */}
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <Label htmlFor="search">Search Workouts</Label>
-              <Input
-                id="search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search by name or description..."
-                className="mt-1"
-              />
-            </div>
-            
-            <div className="sm:w-48">
-              <Label htmlFor="tagFilter">Filter by Tag</Label>
+        <CardContent className="pt-4 space-y-4">
+          <div>
+            <Label htmlFor="search" className="text-sm">Search Workouts</Label>
+            <Input
+              id="search"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search by name..."
+              className="mt-1 h-12"
+            />
+          </div>
+          
+          {allTags.length > 0 && (
+            <div>
+              <Label htmlFor="tagFilter" className="text-sm">Filter by Tag</Label>
               <select
                 id="tagFilter"
                 value={selectedTagFilter}
                 onChange={(e) => setSelectedTagFilter(e.target.value)}
-                className="mt-1 w-full px-3 py-2 border border-input rounded-md bg-background text-sm"
+                className="mt-1 w-full h-12 px-3 border border-input rounded-md bg-background text-sm"
               >
                 <option value="">All Tags</option>
                 {allTags.map((tag) => (
@@ -100,114 +97,117 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                 ))}
               </select>
             </div>
-          </div>
+          )}
 
-          {/* Clear Filters */}
           {(searchTerm || selectedTagFilter) && (
-            <div className="flex items-center gap-2 text-sm">
-              <span className="text-muted-foreground">Filters active:</span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setSearchTerm('');
-                  setSelectedTagFilter('');
-                }}
-              >
-                Clear All
-              </Button>
-            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedTagFilter('');
+              }}
+              className="w-full h-10"
+            >
+              Clear Filters
+            </Button>
           )}
         </CardContent>
       </Card>
+
+      {/* Results Header */}
+      <div className="flex items-center justify-between px-1">
+        <span className="text-sm text-muted-foreground">
+          {filteredWorkouts.length} workout{filteredWorkouts.length !== 1 ? 's' : ''}
+        </span>
+      </div>
 
       {/* Workout List */}
       {filteredWorkouts.length === 0 ? (
         <Card>
           <CardContent className="pt-6">
-            <div className="text-center py-4">
-              <p className="text-muted-foreground">
-                No workouts match your current filters.
+            <div className="text-center py-6">
+              <div className="text-4xl mb-2">🔍</div>
+              <p className="text-muted-foreground text-sm">
+                No workouts match your filters.
               </p>
             </div>
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-4">
+        <div className="space-y-3">
           {filteredWorkouts.map((workout) => (
             <Card key={workout.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="pt-6">
-                <div className="flex justify-between items-start mb-3">
-                  <div>
-                    <h3 className="text-xl font-semibold">{workout.name}</h3>
-                    {workout.description && (
-                      <p className="text-muted-foreground mt-1">{workout.description}</p>
+              <CardContent className="pt-4">
+                <div className="space-y-3">
+                  {/* Header */}
+                  <div className="flex justify-between items-start">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-lg leading-tight truncate">{workout.name}</h3>
+                      {workout.description && (
+                        <p className="text-muted-foreground text-sm mt-1 line-clamp-2">{workout.description}</p>
+                      )}
+                    </div>
+                    {onStartWorkout && (
+                      <Button
+                        onClick={() => onStartWorkout(workout.id)}
+                        size="sm"
+                        className="ml-3 h-9 px-3 text-xs shrink-0"
+                      >
+                        Start
+                      </Button>
                     )}
                   </div>
-                  {onStartWorkout && (
-                    <Button
-                      onClick={() => onStartWorkout(workout.id)}
-                      size="sm"
-                    >
-                      Start Workout
-                    </Button>
-                  )}
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-3">
-                  <div className="text-sm">
-                    <span className="text-muted-foreground">Exercises:</span>
-                    <span className="ml-2 font-medium">{workout.exercises.length}</span>
+                  {/* Stats */}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      {workout.exercises.length} exercise{workout.exercises.length !== 1 ? 's' : ''}
+                    </span>
+                    <span className="text-muted-foreground">
+                      {workout.estimatedDuration ? `${workout.estimatedDuration} min` : formatDate(workout.createdAt)}
+                    </span>
                   </div>
-                  {workout.estimatedDuration && (
-                    <div className="text-sm">
-                      <span className="text-muted-foreground">Duration:</span>
-                      <span className="ml-2 font-medium">{workout.estimatedDuration} min</span>
-                    </div>
-                  )}
-                  <div className="text-sm">
-                    <span className="text-muted-foreground">Created:</span>
-                    <span className="ml-2 font-medium">{formatDate(workout.createdAt)}</span>
-                  </div>
-                </div>
 
-                {/* Exercise Preview */}
-                <div className="mb-3">
-                  <p className="text-sm text-muted-foreground mb-2">Exercises:</p>
+                  {/* Exercise Preview */}
                   <div className="text-sm space-y-1">
-                    {workout.exercises.slice(0, 3).map((exercise) => (
-                      <div key={exercise.id} className="flex justify-between">
-                        <span>{exercise.name}</span>
-                        <span className="text-muted-foreground">
-                          {exercise.sets} × {exercise.reps}
-                          {exercise.weight && ` @ ${exercise.weight}lbs`}
+                    {workout.exercises.slice(0, 2).map((exercise) => (
+                      <div key={exercise.id} className="flex justify-between text-xs">
+                        <span className="truncate">{exercise.name}</span>
+                        <span className="text-muted-foreground ml-2 shrink-0">
+                          {exercise.sets}×{exercise.reps}
+                          {exercise.weight && ` @${exercise.weight}lbs`}
                         </span>
                       </div>
                     ))}
-                    {workout.exercises.length > 3 && (
-                      <p className="text-muted-foreground italic">
-                        +{workout.exercises.length - 3} more exercises
+                    {workout.exercises.length > 2 && (
+                      <p className="text-muted-foreground text-xs">
+                        +{workout.exercises.length - 2} more
                       </p>
                     )}
                   </div>
-                </div>
 
-                {/* Tags */}
-                {workout.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
-                    {workout.tags.map((tag) => (
-                      <span
-                        key={tag.id}
-                        className="px-2 py-1 rounded-full text-xs text-white cursor-pointer hover:opacity-80"
-                        style={{ backgroundColor: tag.color }}
-                        onClick={() => setSelectedTagFilter(tag.id)}
-                        title={`Filter by ${tag.name}`}
-                      >
-                        {tag.name}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                  {/* Tags */}
+                  {workout.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {workout.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag.id}
+                          className="px-2 py-1 rounded-full text-xs text-white cursor-pointer hover:opacity-80"
+                          style={{ backgroundColor: tag.color }}
+                          onClick={() => setSelectedTagFilter(tag.id)}
+                        >
+                          {tag.name}
+                        </span>
+                      ))}
+                      {workout.tags.length > 3 && (
+                        <span className="px-2 py-1 rounded-full text-xs bg-muted text-muted-foreground">
+                          +{workout.tags.length - 3}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
