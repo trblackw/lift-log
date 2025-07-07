@@ -9,6 +9,7 @@ import { WorkoutDetails } from './components/WorkoutDetails';
 import { CalendarView } from './components/CalendarView';
 import { DayView } from './components/DayView';
 import { ActiveWorkout } from './components/ActiveWorkout';
+import { ViewToggle } from './components/ViewToggle';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
 import { ThemeProvider } from './lib/theme';
@@ -20,9 +21,12 @@ import type {
   WorkoutSession,
   ActiveWorkoutSession,
 } from './lib/types';
+import type { ViewMode as WorkoutViewMode } from './components/ViewToggle';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
+  const [workoutListViewMode, setWorkoutListViewMode] =
+    useState<WorkoutViewMode>('card');
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeWorkoutSession, setActiveWorkoutSession] =
     useState<ActiveWorkoutSession | null>(null);
@@ -304,6 +308,15 @@ function AppContent() {
     ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
     : null;
 
+  // Conditional header content - only show ViewToggle on workout list page
+  const rightHeaderContent =
+    currentView === 'list' && !selectedWorkout ? (
+      <ViewToggle
+        currentView={workoutListViewMode}
+        onViewChange={setWorkoutListViewMode}
+      />
+    ) : null;
+
   // Loading state
   if (isLoading) {
     return (
@@ -345,6 +358,7 @@ function AppContent() {
             onStartWorkout={handleStartWorkout}
             onDeleteWorkout={handleDeleteWorkout}
             onViewWorkout={handleViewWorkout}
+            viewMode={workoutListViewMode}
           />
         );
       case 'create':
@@ -469,6 +483,7 @@ function AppContent() {
       activeWorkout={activeWorkout}
       onResumeWorkout={handleResumeWorkout}
       onEndWorkout={handleEndActiveWorkout}
+      rightHeaderContent={rightHeaderContent}
     >
       <div className="max-w-4xl mx-auto space-y-6">{renderView()}</div>
     </AppSidebarLayout>

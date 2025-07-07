@@ -14,6 +14,7 @@ import { TagGroup } from '@/components/ui/Tag';
 import { storage } from '@/lib/storage';
 import { formatRelativeTime } from '@/lib/utils';
 import type { Workout, Tag } from '@/lib/types';
+import type { ViewMode } from './ViewToggle';
 import IconDelete from './icons/icon-delete';
 import IconActiveRun from './icons/icon-active-run';
 
@@ -22,6 +23,7 @@ interface WorkoutListProps {
   onStartWorkout?: (workoutId: string) => void;
   onDeleteWorkout?: (workoutId: string) => void;
   onViewWorkout?: (workout: Workout) => void;
+  viewMode?: ViewMode;
 }
 
 export function WorkoutList({
@@ -29,6 +31,7 @@ export function WorkoutList({
   onStartWorkout,
   onDeleteWorkout,
   onViewWorkout,
+  viewMode = 'card',
 }: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
@@ -119,6 +122,177 @@ export function WorkoutList({
       day: 'numeric',
     }).format(date);
   };
+
+  const renderListView = () => (
+    <Card>
+      <CardContent className="p-0">
+        <div className="divide-y divide-border">
+          {filteredWorkouts.map(workout => (
+            <div
+              key={workout.id}
+              className="p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-between"
+              onClick={e => handleWorkoutClick(workout, e)}
+            >
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3">
+                  <h3 className="font-medium text-base truncate">
+                    {workout.name}
+                  </h3>
+                  {workout.lastCompleted && (
+                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0"></div>
+                  )}
+                </div>
+                <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                  <span>
+                    {workout.exercises.length} exercise
+                    {workout.exercises.length !== 1 ? 's' : ''}
+                  </span>
+                  {workout.estimatedDuration && (
+                    <span>{workout.estimatedDuration} min</span>
+                  )}
+                  {workout.lastCompleted && (
+                    <span className="text-green-600 dark:text-green-400">
+                      Last: {formatRelativeTime(workout.lastCompleted)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                {onDeleteWorkout && (
+                  <GhostButton
+                    onClick={() => handleDeleteClick(workout.id)}
+                    size="sm"
+                    className="hover:bg-destructive/10 text-destructive hover:text-destructive p-2"
+                  >
+                    <IconDelete className="size-4" />
+                  </GhostButton>
+                )}
+                {onStartWorkout && (
+                  <PrimaryButton
+                    onClick={() => onStartWorkout(workout.id)}
+                    size="sm"
+                    className="px-3"
+                  >
+                    <IconActiveRun className="size-4 mr-1" />
+                    Start
+                  </PrimaryButton>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+
+  const renderCardView = () => (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
+      {filteredWorkouts.map(workout => (
+        <Card
+          key={workout.id}
+          className="hover:shadow-md transition-shadow cursor-pointer flex flex-col"
+          onClick={e => handleWorkoutClick(workout, e)}
+        >
+          <CardContent className="p-6 flex-1">
+            <div className="space-y-3 lg:space-y-4">
+              {/* Header */}
+              <div>
+                <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
+                  {workout.name}
+                </h3>
+                {workout.description && (
+                  <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
+                    {workout.description}
+                  </p>
+                )}
+              </div>
+
+              {/* Stats */}
+              <div className="flex justify-between text-sm lg:text-base">
+                <span className="text-muted-foreground">
+                  {workout.exercises.length} exercise
+                  {workout.exercises.length !== 1 ? 's' : ''}
+                </span>
+                <span className="text-muted-foreground">
+                  {workout.estimatedDuration
+                    ? `${workout.estimatedDuration} min`
+                    : formatDate(workout.createdAt)}
+                </span>
+              </div>
+
+              {/* Exercise Preview */}
+              <div className="text-sm lg:text-base space-y-1">
+                {workout.exercises.slice(0, 2).map(exercise => (
+                  <div
+                    key={exercise.id}
+                    className="flex justify-between text-xs lg:text-sm"
+                  >
+                    <span className="truncate">{exercise.name}</span>
+                    <span className="text-muted-foreground ml-2 shrink-0">
+                      {exercise.duration
+                        ? `${exercise.duration}min`
+                        : `${exercise.sets}×${exercise.reps}`}
+                      {exercise.weight && ` @${exercise.weight}lbs`}
+                    </span>
+                  </div>
+                ))}
+                {workout.exercises.length > 2 && (
+                  <p className="text-muted-foreground text-xs lg:text-sm">
+                    +{workout.exercises.length - 2} more
+                  </p>
+                )}
+              </div>
+
+              {/* Last Completed */}
+              {workout.lastCompleted && (
+                <div className="flex items-center gap-2 mt-2">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <span className="text-xs text-green-600 dark:text-green-400">
+                    Last completed {formatRelativeTime(workout.lastCompleted)}
+                  </span>
+                </div>
+              )}
+
+              {/* Tags */}
+              {workout.tags.length > 0 && (
+                <TagGroup
+                  tags={workout.tags}
+                  variant="clickable"
+                  size="sm"
+                  maxVisible={3}
+                  onTagClick={tag => setSelectedTagFilter(tag.id)}
+                />
+              )}
+            </div>
+          </CardContent>
+
+          {/* Actions Footer */}
+          <CardFooter className="p-4 pt-0 border-t border-border">
+            <div className="flex justify-between gap-2 w-full mt-2">
+              {onDeleteWorkout && (
+                <GhostButton
+                  onClick={() => handleDeleteClick(workout.id)}
+                  size="sm"
+                  className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
+                >
+                  <IconDelete className="size-5" /> Delete
+                </GhostButton>
+              )}
+              {onStartWorkout && (
+                <PrimaryButton
+                  onClick={() => onStartWorkout(workout.id)}
+                  size="sm"
+                  className="cursor-pointer"
+                >
+                  <IconActiveRun className="size-5" /> Start
+                </PrimaryButton>
+              )}
+            </div>
+          </CardFooter>
+        </Card>
+      ))}
+    </div>
+  );
 
   const clearFilters = () => {
     setSearchTerm('');
@@ -261,114 +435,10 @@ export function WorkoutList({
             </div>
           </CardContent>
         </Card>
+      ) : viewMode === 'list' ? (
+        renderListView()
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
-          {filteredWorkouts.map(workout => (
-            <Card
-              key={workout.id}
-              className="hover:shadow-md transition-shadow cursor-pointer flex flex-col"
-              onClick={e => handleWorkoutClick(workout, e)}
-            >
-              <CardContent className="p-6 flex-1">
-                <div className="space-y-3 lg:space-y-4">
-                  {/* Header */}
-                  <div>
-                    <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
-                      {workout.name}
-                    </h3>
-                    {workout.description && (
-                      <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
-                        {workout.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Stats */}
-                  <div className="flex justify-between text-sm lg:text-base">
-                    <span className="text-muted-foreground">
-                      {workout.exercises.length} exercise
-                      {workout.exercises.length !== 1 ? 's' : ''}
-                    </span>
-                    <span className="text-muted-foreground">
-                      {workout.estimatedDuration
-                        ? `${workout.estimatedDuration} min`
-                        : formatDate(workout.createdAt)}
-                    </span>
-                  </div>
-
-                  {/* Exercise Preview */}
-                  <div className="text-sm lg:text-base space-y-1">
-                    {workout.exercises.slice(0, 2).map(exercise => (
-                      <div
-                        key={exercise.id}
-                        className="flex justify-between text-xs lg:text-sm"
-                      >
-                        <span className="truncate">{exercise.name}</span>
-                        <span className="text-muted-foreground ml-2 shrink-0">
-                          {exercise.duration
-                            ? `${exercise.duration}min`
-                            : `${exercise.sets}×${exercise.reps}`}
-                          {exercise.weight && ` @${exercise.weight}lbs`}
-                        </span>
-                      </div>
-                    ))}
-                    {workout.exercises.length > 2 && (
-                      <p className="text-muted-foreground text-xs lg:text-sm">
-                        +{workout.exercises.length - 2} more
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Last Completed */}
-                  {workout.lastCompleted && (
-                    <div className="flex items-center gap-2 mt-2">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs text-green-600 dark:text-green-400">
-                        Last completed{' '}
-                        {formatRelativeTime(workout.lastCompleted)}
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Tags */}
-                  {workout.tags.length > 0 && (
-                    <TagGroup
-                      tags={workout.tags}
-                      variant="clickable"
-                      size="sm"
-                      maxVisible={3}
-                      onTagClick={tag => setSelectedTagFilter(tag.id)}
-                    />
-                  )}
-                </div>
-              </CardContent>
-
-              {/* Actions Footer */}
-              <CardFooter className="p-4 pt-0 border-t border-border">
-                <div className="flex justify-between gap-2 w-full mt-2">
-                  {onDeleteWorkout && (
-                    <GhostButton
-                      onClick={() => handleDeleteClick(workout.id)}
-                      size="sm"
-                      className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
-                    >
-                      <IconDelete className="size-5" /> Delete
-                    </GhostButton>
-                  )}
-                  {onStartWorkout && (
-                    <PrimaryButton
-                      onClick={() => onStartWorkout(workout.id)}
-                      size="sm"
-                      className="cursor-pointer"
-                    >
-                      <IconActiveRun className="size-5" /> Start
-                    </PrimaryButton>
-                  )}
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+        renderCardView()
       )}
 
       {/* Delete Confirmation Modal */}
