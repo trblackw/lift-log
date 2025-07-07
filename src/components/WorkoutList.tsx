@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectItem } from "@/components/ui/select";
 import { storage } from "@/lib/storage";
 import type { Workout, Tag } from "@/lib/types";
 
@@ -152,20 +153,27 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout }: Worko
             
             {allTags.length > 0 && (
               <div>
-                <Label htmlFor="tagFilter" className="text-sm lg:text-base">Filter by Tag</Label>
-                <select
-                  id="tagFilter"
-                  value={selectedTagFilter}
-                  onChange={(e) => setSelectedTagFilter(e.target.value)}
-                  className="mt-1 w-full h-12 lg:h-14 border border-input rounded-md bg-background text-sm lg:text-base"
-                >
-                  <option value="">All Tags</option>
-                  {allTags.map((tag) => (
-                    <option key={tag.id} value={tag.id}>
-                      {tag.name}
-                    </option>
-                  ))}
-                </select>
+                <Label className="text-sm lg:text-base">Filter by Tag</Label>
+                <div className="mt-1">
+                  <Select
+                    value={selectedTagFilter}
+                    onValueChange={setSelectedTagFilter}
+                    placeholder="All Tags"
+                  >
+                    <SelectItem value="">All Tags</SelectItem>
+                    {allTags.map((tag) => (
+                      <SelectItem key={tag.id} value={tag.id}>
+                        <div className="flex items-center gap-2">
+                          <div 
+                            className="w-3 h-3 rounded-full" 
+                            style={{ backgroundColor: tag.color }}
+                          />
+                          {tag.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </Select>
+                </div>
               </div>
             )}
           </div>
