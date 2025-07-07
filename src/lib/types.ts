@@ -45,4 +45,14 @@ export interface WorkoutSession {
   notes?: string;
 }
 
+export interface ActiveWorkoutSession {
+  id: string;
+  workoutId: string;
+  startedAt: Date;
+  pausedAt?: Date;
+  totalPausedTime: number;
+  completedExercises: string[]; // Array of exercise IDs
+  duration: number; // Current duration in seconds
+}
+
 export type ViewMode = 'list' | 'create' | 'active' | 'details';

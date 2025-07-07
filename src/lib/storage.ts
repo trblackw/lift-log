@@ -1,4 +1,4 @@
-import type { Workout, WorkoutSession } from './types';
+import type { Workout, WorkoutSession, ActiveWorkoutSession } from './types';
 import { workoutDB } from './database';
 
 // Legacy localStorage keys for migration
@@ -273,6 +273,43 @@ class StorageManager {
       };
     }
   }
+
+  // Active workout session operations
+  async saveActiveWorkoutSession(session: ActiveWorkoutSession): Promise<void> {
+    try {
+      localStorage.setItem('lift-log-active-workout', JSON.stringify(session));
+    } catch (error) {
+      console.error('Failed to save active workout session:', error);
+      throw error;
+    }
+  }
+
+  async loadActiveWorkoutSession(): Promise<ActiveWorkoutSession | null> {
+    try {
+      const stored = localStorage.getItem('lift-log-active-workout');
+      if (!stored) return null;
+
+      const parsed = JSON.parse(stored);
+      // Revive dates
+      return {
+        ...parsed,
+        startedAt: new Date(parsed.startedAt),
+        pausedAt: parsed.pausedAt ? new Date(parsed.pausedAt) : undefined,
+      };
+    } catch (error) {
+      console.error('Failed to load active workout session:', error);
+      return null;
+    }
+  }
+
+  async clearActiveWorkoutSession(): Promise<void> {
+    try {
+      localStorage.removeItem('lift-log-active-workout');
+    } catch (error) {
+      console.error('Failed to clear active workout session:', error);
+      throw error;
+    }
+  }
 }
 
 // Create singleton instance
@@ -300,4 +337,10 @@ export const storage = {
   searchWorkouts: (query: string) => storageManager.searchWorkouts(query),
   getWorkoutsByTag: (tagId: string) => storageManager.getWorkoutsByTag(tagId),
   getStats: () => storageManager.getStats(),
+
+  // Active workout session methods
+  saveActiveWorkoutSession: (session: ActiveWorkoutSession) =>
+    storageManager.saveActiveWorkoutSession(session),
+  loadActiveWorkoutSession: () => storageManager.loadActiveWorkoutSession(),
+  clearActiveWorkoutSession: () => storageManager.clearActiveWorkoutSession(),
 };

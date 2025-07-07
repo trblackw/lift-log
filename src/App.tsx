@@ -9,12 +9,18 @@ import { WorkoutDetails } from './components/WorkoutDetails';
 import { ActiveWorkout } from './components/ActiveWorkout';
 import { ThemeProvider } from './lib/theme';
 import { storage } from './lib/storage';
-import type { ViewMode, Workout, WorkoutSession } from './lib/types';
+import type {
+  ViewMode,
+  Workout,
+  WorkoutSession,
+  ActiveWorkoutSession,
+} from './lib/types';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
   const [workouts, setWorkouts] = useState<Workout[]>([]);
-  const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
+  const [activeWorkoutSession, setActiveWorkoutSession] =
+    useState<ActiveWorkoutSession | null>(null);
   const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
   const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -31,13 +37,16 @@ function AppContent() {
         await storage.init();
 
         // Load existing data
-        const [loadedWorkouts, loadedSessions] = await Promise.all([
-          storage.loadWorkouts(),
-          storage.loadSessions(),
-        ]);
+        const [loadedWorkouts, loadedSessions, activeSession] =
+          await Promise.all([
+            storage.loadWorkouts(),
+            storage.loadSessions(),
+            storage.loadActiveWorkoutSession(),
+          ]);
 
         setWorkouts(loadedWorkouts);
         setWorkoutSessions(loadedSessions);
+        setActiveWorkoutSession(activeSession);
       } catch (err) {
         console.error('Failed to initialize app:', err);
         setError('Failed to load data. Please refresh the page.');
@@ -107,9 +116,24 @@ function AppContent() {
     }
   };
 
-  const handleStartWorkout = (workoutId: string) => {
-    setActiveWorkoutId(workoutId);
-    setCurrentView('active');
+  const handleStartWorkout = async (workoutId: string) => {
+    try {
+      const newActiveSession: ActiveWorkoutSession = {
+        id: crypto.randomUUID(),
+        workoutId,
+        startedAt: new Date(),
+        totalPausedTime: 0,
+        completedExercises: [],
+        duration: 0,
+      };
+
+      await storage.saveActiveWorkoutSession(newActiveSession);
+      setActiveWorkoutSession(newActiveSession);
+      setCurrentView('active');
+    } catch (err) {
+      console.error('Failed to start workout:', err);
+      setError('Failed to start workout. Please try again.');
+    }
   };
 
   const handleCompleteWorkout = async (session: WorkoutSession) => {
@@ -117,7 +141,9 @@ function AppContent() {
       // Save session to IndexedDB and update local state
       await storage.saveSession(session);
       setWorkoutSessions(prev => [session, ...prev]);
-      setActiveWorkoutId(null);
+      // Clear active workout session
+      await storage.clearActiveWorkoutSession();
+      setActiveWorkoutSession(null);
       setCurrentView('list');
     } catch (err) {
       console.error('Failed to save workout session:', err);
@@ -132,8 +158,9 @@ function AppContent() {
       setWorkouts(prev => prev.filter(w => w.id !== workoutId));
 
       // If the deleted workout was active, cancel it
-      if (activeWorkoutId === workoutId) {
-        setActiveWorkoutId(null);
+      if (activeWorkoutSession?.workoutId === workoutId) {
+        await storage.clearActiveWorkoutSession();
+        setActiveWorkoutSession(null);
         setCurrentView('list');
       }
 
@@ -148,9 +175,15 @@ function AppContent() {
     }
   };
 
-  const handleCancelWorkout = () => {
-    setActiveWorkoutId(null);
-    setCurrentView('list');
+  const handleCancelWorkout = async () => {
+    try {
+      await storage.clearActiveWorkoutSession();
+      setActiveWorkoutSession(null);
+      setCurrentView('list');
+    } catch (err) {
+      console.error('Failed to cancel workout:', err);
+      setError('Failed to cancel workout. Please try again.');
+    }
   };
 
   const handleBackToList = () => {
@@ -165,8 +198,8 @@ function AppContent() {
     setCurrentView(view);
   };
 
-  const activeWorkout = activeWorkoutId
-    ? workouts.find(w => w.id === activeWorkoutId)
+  const activeWorkout = activeWorkoutSession
+    ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
     : null;
 
   // Loading state
@@ -230,10 +263,12 @@ function AppContent() {
           />
         ) : null;
       case 'active':
-        if (activeWorkout) {
+        if (activeWorkout && activeWorkoutSession) {
           return (
             <ActiveWorkout
               workout={activeWorkout}
+              activeSession={activeWorkoutSession}
+              onSessionUpdate={setActiveWorkoutSession}
               onComplete={handleCompleteWorkout}
               onCancel={handleCancelWorkout}
             />
@@ -253,7 +288,7 @@ function AppContent() {
                   {workouts.length > 0 ? (
                     <Select
                       placeholder="Search and select a workout..."
-                      onValueChange={handleStartWorkout}
+                      onValueChange={workoutId => handleStartWorkout(workoutId)}
                     >
                       {workouts.map(workout => (
                         <SelectItem key={workout.id} value={workout.id}>
@@ -284,8 +319,23 @@ function AppContent() {
     }
   };
 
+  const handleResumeWorkout = () => {
+    setCurrentView('active');
+  };
+
+  const handleEndActiveWorkout = async () => {
+    await handleCancelWorkout();
+  };
+
   return (
-    <AppSidebarLayout currentView={currentView} onViewChange={handleViewChange}>
+    <AppSidebarLayout
+      currentView={currentView}
+      onViewChange={handleViewChange}
+      activeWorkoutSession={activeWorkoutSession}
+      activeWorkout={activeWorkout}
+      onResumeWorkout={handleResumeWorkout}
+      onEndWorkout={handleEndActiveWorkout}
+    >
       <div className="max-w-4xl mx-auto space-y-6">{renderView()}</div>
     </AppSidebarLayout>
   );

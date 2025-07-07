@@ -10,7 +10,8 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Settings } from './Settings';
-import type { ViewMode } from '@/lib/types';
+import { ActiveWorkoutBanner } from './ActiveWorkoutBanner';
+import type { ViewMode, Workout, ActiveWorkoutSession } from '@/lib/types';
 import IconList from './icons/icon-list';
 import IconPlusBordered from './icons/icon-plus-bordered';
 import IconActiveRun from './icons/icon-active-run';
@@ -98,12 +99,20 @@ interface AppSidebarLayoutProps {
   currentView: ViewMode;
   onViewChange: (view: ViewMode) => void;
   children: React.ReactNode;
+  activeWorkoutSession?: ActiveWorkoutSession | null;
+  activeWorkout?: Workout | null;
+  onResumeWorkout?: () => void;
+  onEndWorkout?: () => void;
 }
 
 export function AppSidebarLayout({
   currentView,
   onViewChange,
   children,
+  activeWorkoutSession,
+  activeWorkout,
+  onResumeWorkout,
+  onEndWorkout,
 }: AppSidebarLayoutProps) {
   return (
     <SidebarProvider defaultOpen={true}>
@@ -123,7 +132,22 @@ export function AppSidebarLayout({
             <div className="w-8" />{' '}
             {/* Spacer to balance the sidebar trigger */}
           </div>
-          <div className="p-4">{children}</div>
+          <div className="p-4 space-y-4">
+            {/* Active Workout Banner */}
+            {activeWorkoutSession &&
+              activeWorkout &&
+              onResumeWorkout &&
+              onEndWorkout && (
+                <ActiveWorkoutBanner
+                  activeSession={activeWorkoutSession}
+                  workout={activeWorkout}
+                  onResume={onResumeWorkout}
+                  onEnd={onEndWorkout}
+                />
+              )}
+
+            {children}
+          </div>
         </main>
       </div>
     </SidebarProvider>

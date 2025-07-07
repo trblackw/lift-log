@@ -5,39 +5,69 @@ import {
   OutlineButton,
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import type { Workout, WorkoutSession } from '@/lib/types';
+import { storage } from '@/lib/storage';
+import type {
+  Workout,
+  WorkoutSession,
+  ActiveWorkoutSession,
+} from '@/lib/types';
+import IconPauseStopwatch from './icons/icon-pause-stopwatch';
+import IconPlayStopwatch from './icons/icon-play-stopwatch';
+import IconStop from './icons/icon-stop';
 
 interface ActiveWorkoutProps {
   workout: Workout;
+  activeSession: ActiveWorkoutSession;
+  onSessionUpdate: (session: ActiveWorkoutSession) => void;
   onComplete: (session: WorkoutSession) => void;
   onCancel: () => void;
 }
 
 export function ActiveWorkout({
   workout,
+  activeSession,
+  onSessionUpdate,
   onComplete,
   onCancel,
 }: ActiveWorkoutProps) {
-  const [startedAt] = useState(new Date());
-  const [pausedAt, setPausedAt] = useState<Date | null>(null);
-  const [totalPausedTime, setTotalPausedTime] = useState(0);
-  const [completedExercises, setCompletedExercises] = useState<Set<string>>(
-    new Set()
-  );
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(activeSession.duration);
+
+  // Helper function to update session and persist it
+  const updateSession = async (updates: Partial<ActiveWorkoutSession>) => {
+    const updatedSession = { ...activeSession, ...updates };
+    try {
+      await storage.saveActiveWorkoutSession(updatedSession);
+      onSessionUpdate(updatedSession);
+    } catch (error) {
+      console.error('Failed to update active session:', error);
+    }
+  };
 
   // Calculate session duration
   useEffect(() => {
-    if (pausedAt) return; // Don't update timer when paused
+    if (activeSession.pausedAt) return; // Don't update timer when paused
 
     const interval = setInterval(() => {
       const now = Date.now();
-      const elapsed = Math.floor((now - startedAt.getTime()) / 1000);
-      setDuration(elapsed - totalPausedTime);
+      const elapsed = Math.floor(
+        (now - activeSession.startedAt.getTime()) / 1000
+      );
+      const currentDuration = elapsed - activeSession.totalPausedTime;
+      setDuration(currentDuration);
+
+      // Update session duration periodically (but don't save to storage every second)
+      if (currentDuration % 10 === 0) {
+        // Update every 10 seconds
+        updateSession({ duration: currentDuration });
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [startedAt, totalPausedTime, pausedAt]);
+  }, [
+    activeSession.startedAt,
+    activeSession.totalPausedTime,
+    activeSession.pausedAt,
+  ]);
 
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -46,28 +76,28 @@ export function ActiveWorkout({
   };
 
   const toggleExercise = (exerciseId: string) => {
-    setCompletedExercises(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(exerciseId)) {
-        newSet.delete(exerciseId);
-      } else {
-        newSet.add(exerciseId);
-      }
-      return newSet;
-    });
+    const currentCompleted = activeSession.completedExercises;
+    const newCompleted = currentCompleted.includes(exerciseId)
+      ? currentCompleted.filter(id => id !== exerciseId)
+      : [...currentCompleted, exerciseId];
+
+    updateSession({ completedExercises: newCompleted });
   };
 
   const pauseWorkout = () => {
-    if (pausedAt) {
+    if (activeSession.pausedAt) {
       // Resume
       const pauseDuration = Math.floor(
-        (Date.now() - pausedAt.getTime()) / 1000
+        (Date.now() - activeSession.pausedAt.getTime()) / 1000
       );
-      setTotalPausedTime(prev => prev + pauseDuration);
-      setPausedAt(null);
+      const newTotalPausedTime = activeSession.totalPausedTime + pauseDuration;
+      updateSession({
+        totalPausedTime: newTotalPausedTime,
+        pausedAt: undefined,
+      });
     } else {
       // Pause
-      setPausedAt(new Date());
+      updateSession({ pausedAt: new Date() });
     }
   };
 
@@ -75,21 +105,23 @@ export function ActiveWorkout({
     const completedSession: WorkoutSession = {
       id: crypto.randomUUID(),
       workoutId: workout.id,
-      startedAt,
+      startedAt: activeSession.startedAt,
       completedAt: new Date(),
       exercises: workout.exercises.map(exercise => ({
         exerciseId: exercise.id,
-        completedSets: completedExercises.has(exercise.id) ? exercise.sets : 0,
+        completedSets: activeSession.completedExercises.includes(exercise.id)
+          ? exercise.sets
+          : 0,
         actualReps: [],
         actualWeight: [],
-        completed: completedExercises.has(exercise.id),
+        completed: activeSession.completedExercises.includes(exercise.id),
       })),
     };
 
     onComplete(completedSession);
   };
 
-  const completedCount = completedExercises.size;
+  const completedCount = activeSession.completedExercises.length;
   const totalCount = workout.exercises.length;
   const progressPercentage =
     totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
@@ -104,10 +136,10 @@ export function ActiveWorkout({
               <h2 className="text-lg lg:text-xl font-semibold">
                 {workout.name}
               </h2>
-              <div className="text-sm lg:text-base text-muted-foreground mt-1">
-                {pausedAt ? (
-                  <span className="text-amber-500">
-                    ⏸️ Paused at {formatDuration(duration)}
+              <div className="text-sm lg:text-base text-muted-foreground mt-1 mb-2 flex items-center justify-center gap-2 mx-auto">
+                {activeSession.pausedAt ? (
+                  <span className="text-amber-500 flex items-center gap-2">
+                    <IconPauseStopwatch /> Paused at {formatDuration(duration)}
                   </span>
                 ) : (
                   <span>{formatDuration(duration)}</span>
@@ -127,7 +159,15 @@ export function ActiveWorkout({
 
             <div className="grid grid-cols-3 gap-2 lg:gap-3">
               <OutlineButton onClick={pauseWorkout} className="h-10 lg:h-12">
-                {pausedAt ? '▶️ Resume' : '⏸️ Pause '}
+                {activeSession.pausedAt ? (
+                  <>
+                    <IconPlayStopwatch className="size-5" /> Resume
+                  </>
+                ) : (
+                  <>
+                    <IconPauseStopwatch className="size-5" /> Pause
+                  </>
+                )}
               </OutlineButton>
               <SecondaryButton onClick={onCancel} className="h-10 lg:h-12">
                 End Workout
@@ -151,7 +191,9 @@ export function ActiveWorkout({
         </CardHeader>
         <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3">
           {workout.exercises.map(exercise => {
-            const isCompleted = completedExercises.has(exercise.id);
+            const isCompleted = activeSession.completedExercises.includes(
+              exercise.id
+            );
             const exerciseText = exercise.duration
               ? `${exercise.name} - ${exercise.duration} minutes${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`
               : `${exercise.name} - ${exercise.sets} × ${exercise.reps}${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`;
