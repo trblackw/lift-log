@@ -7,7 +7,7 @@ import {
   GhostButton,
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { SearchInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
 import { TagGroup } from '@/components/ui/Tag';
@@ -400,12 +400,12 @@ export function WorkoutList({
                     <Label htmlFor="search" className="text-sm lg:text-base">
                       Search Workouts
                     </Label>
-                    <Input
+                    <SearchInput
                       id="search"
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
                       placeholder="Search..."
-                      className="mt-1 h-12 lg:h-14 lg:text-base"
+                      className="mt-1 h-12 lg:h-14 lg:text-base pl-3"
                     />
                   </div>
 

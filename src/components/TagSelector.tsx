@@ -5,7 +5,7 @@ import {
   OutlineButton,
   GhostButton,
 } from '@/components/ui/standardButtons';
-import { Input } from '@/components/ui/input';
+import { StandardInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { Tag, TagGroup, tagUtils } from '@/components/ui/Tag';
 import type { Tag as TagType } from '@/lib/types';
@@ -116,7 +116,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
           Create Custom Tag:
         </Label>
         <div className="flex gap-2 lg:gap-3">
-          <Input
+          <StandardInput
             value={newTagName}
             onChange={e => setNewTagName(e.target.value)}
             placeholder="Custom tag name"

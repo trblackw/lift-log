@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Input } from './input';
+import { StandardInput } from './standardInputs';
 import { Popover, PopoverContent, PopoverAnchor } from './popover';
 import { storage } from '@/lib/storage';
 import type { UniqueExercise } from '@/lib/types';
@@ -152,7 +152,7 @@ export function ExerciseAutocomplete({
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverAnchor asChild>
         <div className="relative">
-          <Input
+          <StandardInput
             ref={inputRef}
             type="text"
             value={inputValue}

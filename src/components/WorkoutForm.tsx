@@ -8,7 +8,7 @@ import {
   GhostButton,
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
+import { FormInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { ExerciseForm } from '@/components/ExerciseForm';
 import { TagSelector } from '@/components/TagSelector';
@@ -139,7 +139,7 @@ export function WorkoutForm({
               <Label htmlFor="name" className="text-sm lg:text-base">
                 Workout Name *
               </Label>
-              <Input
+              <FormInput
                 id="name"
                 {...register('name', { required: 'Workout name is required' })}
                 placeholder="e.g., Push Day, Leg Day"
@@ -156,7 +156,7 @@ export function WorkoutForm({
               <Label htmlFor="description" className="text-sm lg:text-base">
                 Description
               </Label>
-              <Input
+              <FormInput
                 id="description"
                 {...register('description')}
                 placeholder="Brief description"
@@ -171,7 +171,7 @@ export function WorkoutForm({
               >
                 Estimated Duration (minutes)
               </Label>
-              <Input
+              <FormInput
                 id="estimatedDuration"
                 type="number"
                 {...register('estimatedDuration', {
@@ -225,7 +225,7 @@ export function WorkoutForm({
               onRemove={removeExercise}
               editingExercise={editingExercise}
               title={`Added Exercises (${exercises.length})`}
-              emptyMessage="No exercises added yet. Add your first exercise above to get started!"
+              emptyMessage="No exercises added yet."
             />
           </div>
         </CardContent>

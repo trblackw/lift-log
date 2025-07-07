@@ -230,7 +230,7 @@ export function ComposableExerciseList({
     return (
       <div className={cn('space-y-4', className)}>
         {title && <h4 className="font-medium text-sm lg:text-base">{title}</h4>}
-        <div className="text-center py-8 text-muted-foreground">
+        <div className="text-center py-8 text-muted-foreground bg-muted px-2 rounded-md">
           <IconList className="size-8 mb-2 mx-auto" />
           <p className="text-sm">{emptyMessage}</p>
         </div>

@@ -4,7 +4,7 @@ import {
   OutlineButton,
   GhostButton,
 } from '@/components/ui/standardButtons';
-import { Input } from '@/components/ui/input';
+import { FormInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -202,7 +202,7 @@ export function ExerciseForm({
             onChange={handleNameChange}
             onSelect={handleExerciseSelect}
             placeholder="e.g., Bench Press, Stairmaster, Running"
-            className="mt-1 h-12 lg:h-14 lg:text-base bg-muted/80"
+            className="mt-1 h-12 lg:h-14 lg:text-base"
           />
           {nameError && (
             <p className="text-sm text-destructive mt-1">{nameError}</p>
@@ -269,7 +269,7 @@ export function ExerciseForm({
               <Label htmlFor="sets" className="text-sm lg:text-base">
                 Sets
               </Label>
-              <Input
+              <FormInput
                 id="sets"
                 type="number"
                 min="1"
@@ -285,7 +285,7 @@ export function ExerciseForm({
                   },
                 })}
                 placeholder="3"
-                className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
+                className="mt-1 h-12 lg:h-14 text-center lg:text-base"
               />
               {errors.sets && (
                 <p className="text-xs lg:text-sm text-destructive mt-1">
@@ -298,7 +298,7 @@ export function ExerciseForm({
               <Label htmlFor="reps" className="text-sm lg:text-base">
                 Reps
               </Label>
-              <Input
+              <FormInput
                 id="reps"
                 type="number"
                 min="1"
@@ -314,7 +314,7 @@ export function ExerciseForm({
                   },
                 })}
                 placeholder="10"
-                className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
+                className="mt-1 h-12 lg:h-14 text-center lg:text-base"
               />
               {errors.reps && (
                 <p className="text-xs lg:text-sm text-destructive mt-1">
@@ -333,7 +333,7 @@ export function ExerciseForm({
           >
             Cardio Duration (minutes)
           </Label>
-          <Input
+          <FormInput
             id="duration"
             type="number"
             min="1"
@@ -347,7 +347,7 @@ export function ExerciseForm({
               },
             })}
             placeholder="30"
-            className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
+            className="mt-1 h-12 lg:h-14 text-center lg:text-base"
           />
           {errors.duration && (
             <p className="text-sm text-destructive mt-1">
@@ -361,14 +361,14 @@ export function ExerciseForm({
             <Label htmlFor="weight" className="text-sm lg:text-base">
               Weight (lbs)
             </Label>
-            <Input
+            <FormInput
               id="weight"
               type="number"
               min="0"
               step="0.5"
               {...register('weight')}
               placeholder="135"
-              className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
+              className="mt-1 h-12 lg:h-14 text-center lg:text-base"
             />
           </div>
 
@@ -376,13 +376,13 @@ export function ExerciseForm({
             <Label htmlFor="restTime" className="text-sm lg:text-base">
               Rest (seconds)
             </Label>
-            <Input
+            <FormInput
               id="restTime"
               type="number"
               min="0"
               {...register('restTime')}
               placeholder="60"
-              className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
+              className="mt-1 h-12 lg:h-14 text-center lg:text-base"
             />
           </div>
         </div>
@@ -391,11 +391,11 @@ export function ExerciseForm({
           <Label htmlFor="notes" className="text-sm lg:text-base">
             Notes
           </Label>
-          <Input
+          <FormInput
             id="notes"
             {...register('notes')}
             placeholder="Additional notes"
-            className="mt-1 h-12 lg:h-14 lg:text-base bg-muted/80"
+            className="mt-1 h-12 lg:h-14 lg:text-base"
           />
         </div>
       </div>
