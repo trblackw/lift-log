@@ -136,6 +136,8 @@ export function AppSidebarLayout({
   const displayActiveWorkoutBanner =
     activeWorkoutSession && activeWorkout && onResumeWorkout && onEndWorkout;
 
+  const isWorkoutListView = currentView === 'list';
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen w-full" style={{ width: '100vw' }}>
@@ -144,7 +146,7 @@ export function AppSidebarLayout({
           onViewChange={onViewChange}
         />
         <main className="flex-1 overflow-auto">
-          <div className="flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="sticky top-0 z-20 flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
             <div className="flex-1 flex justify-center">
               <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
@@ -153,6 +155,7 @@ export function AppSidebarLayout({
             </div>
             {rightHeaderContent || <div className="w-8" />}
           </div>
+
           <div className="p-4 space-y-4">
             {/* Active Workout Banner */}
             {displayActiveWorkoutBanner && (

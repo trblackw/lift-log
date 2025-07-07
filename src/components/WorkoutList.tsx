@@ -347,99 +347,103 @@ export function WorkoutList({
   }
 
   return (
-    <div>
-      {/* Search and Filter Controls */}
-      <Card>
-        <CardContent className="p-6 space-y-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-            <div>
-              <Label htmlFor="search" className="text-sm lg:text-base">
-                Search Workouts
-              </Label>
-              <Input
-                id="search"
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                placeholder="Search..."
-                className="mt-1 h-12 lg:h-14 lg:text-base"
-              />
+    <div className="h-full w-full flex flex-col">
+      {/* Search and Filter Controls - Fixed */}
+      <div className="flex-shrink-0 bg-background border-b border-border">
+        <Card className="border-0 rounded-none shadow-none">
+          <CardContent className="p-6 space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+              <div>
+                <Label htmlFor="search" className="text-sm lg:text-base">
+                  Search Workouts
+                </Label>
+                <Input
+                  id="search"
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                  placeholder="Search..."
+                  className="mt-1 h-12 lg:h-14 lg:text-base"
+                />
+              </div>
+
+              {allTags.length > 0 && (
+                <div>
+                  <Label className="text-sm lg:text-base">Filter by Tag</Label>
+                  <div className="mt-1">
+                    <Select
+                      value={selectedTagFilter}
+                      onValueChange={setSelectedTagFilter}
+                      placeholder="All Tags"
+                    >
+                      <SelectItem value="">All Tags</SelectItem>
+                      {allTags.map(tag => (
+                        <SelectItem key={tag.id} value={tag.id}>
+                          <div className="flex items-center gap-2">
+                            <div
+                              className="w-3 h-3 rounded-full border"
+                              style={{
+                                borderColor: tag.color,
+                                backgroundColor: 'transparent',
+                              }}
+                            />
+                            {tag.name}
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+                </div>
+              )}
             </div>
 
-            {allTags.length > 0 && (
-              <div>
-                <Label className="text-sm lg:text-base">Filter by Tag</Label>
-                <div className="mt-1">
-                  <Select
-                    value={selectedTagFilter}
-                    onValueChange={setSelectedTagFilter}
-                    placeholder="All Tags"
-                  >
-                    <SelectItem value="">All Tags</SelectItem>
-                    {allTags.map(tag => (
-                      <SelectItem key={tag.id} value={tag.id}>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-3 h-3 rounded-full border"
-                            style={{
-                              borderColor: tag.color,
-                              backgroundColor: 'transparent',
-                            }}
-                          />
-                          {tag.name}
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </Select>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {(searchTerm || selectedTagFilter) && (
-            <OutlineButton
-              size="sm"
-              onClick={clearFilters}
-              className="w-full lg:w-auto h-10 lg:h-11"
-            >
-              Clear Filters
-            </OutlineButton>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Results Header */}
-      <div className="flex items-center justify-center py-3 ml-auto">
-        <span className="text-sm lg:text-base text-muted-foreground">
-          {isSearching
-            ? 'Searching...'
-            : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
-        </span>
-      </div>
-
-      {/* Workout List */}
-      {filteredWorkouts.length === 0 && !isSearching ? (
-        <Card>
-          <CardContent className="p-6">
-            <div className="text-center py-6 lg:py-8">
-              <div className="text-4xl lg:text-6xl mb-2">🔍</div>
-              <p className="text-muted-foreground text-sm lg:text-base">
-                No workouts match your filters.
-              </p>
+            {(searchTerm || selectedTagFilter) && (
               <OutlineButton
                 size="sm"
                 onClick={clearFilters}
-                className="mt-3 lg:mt-4"
+                className="w-full lg:w-auto h-10 lg:h-11"
               >
                 Clear Filters
               </OutlineButton>
-            </div>
+            )}
           </CardContent>
         </Card>
-      ) : viewMode === 'list' ? (
-        renderListView()
-      ) : (
-        renderCardView()
-      )}
+
+        {/* Results Header */}
+        <div className="flex items-center justify-center py-3 bg-background">
+          <span className="text-sm lg:text-base text-muted-foreground">
+            {isSearching
+              ? 'Searching...'
+              : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
+          </span>
+        </div>
+      </div>
+
+      {/* Workout List - Scrollable */}
+      <div className="flex-1 min-h-0 overflow-y-auto p-4">
+        {filteredWorkouts.length === 0 && !isSearching ? (
+          <Card>
+            <CardContent className="p-6">
+              <div className="text-center py-6 lg:py-8">
+                <div className="text-4xl lg:text-6xl mb-2">🔍</div>
+                <p className="text-muted-foreground text-sm lg:text-base">
+                  No workouts match your filters.
+                </p>
+                <OutlineButton
+                  size="sm"
+                  onClick={clearFilters}
+                  className="mt-3 lg:mt-4"
+                >
+                  Clear Filters
+                </OutlineButton>
+              </div>
+            </CardContent>
+          </Card>
+        ) : viewMode === 'list' ? (
+          renderListView()
+        ) : (
+          renderCardView()
+        )}
+      </div>
 
       {/* Delete Confirmation Modal */}
       {workoutToDelete && (
