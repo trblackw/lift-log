@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { colorUtils } from './colors';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -7,6 +8,10 @@ interface ThemeContextType {
   resolvedTheme: 'light' | 'dark';
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+  // New utility functions for accessing colors
+  getColor: typeof colorUtils.getColor;
+  getSemanticColors: typeof colorUtils.getSemanticColors;
+  getChartColors: typeof colorUtils.getChartColors;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -49,7 +54,7 @@ export function ThemeProvider({
     return currentTheme as 'light' | 'dark';
   };
 
-  // Function to apply theme to document
+  // Function to apply theme to document with color palette integration
   const applyTheme = (resolvedTheme: 'light' | 'dark') => {
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
@@ -57,6 +62,12 @@ export function ThemeProvider({
 
     // Also set data attribute for better compatibility
     root.setAttribute('data-theme', resolvedTheme);
+
+    // Apply color palette CSS properties
+    const cssProperties = colorUtils.generateCSSProperties(resolvedTheme);
+    Object.entries(cssProperties).forEach(([property, value]) => {
+      root.style.setProperty(property, value);
+    });
   };
 
   // Update resolved theme and apply it
@@ -101,6 +112,10 @@ export function ThemeProvider({
     resolvedTheme,
     setTheme,
     toggleTheme,
+    // Expose color utilities through context
+    getColor: colorUtils.getColor,
+    getSemanticColors: colorUtils.getSemanticColors,
+    getChartColors: colorUtils.getChartColors,
   };
 
   return (

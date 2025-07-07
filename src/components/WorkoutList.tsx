@@ -7,6 +7,7 @@ import { Select, SelectItem } from '@/components/ui/select';
 import { storage } from '@/lib/storage';
 import type { Workout, Tag } from '@/lib/types';
 import IconDelete from './icons/icon-delete';
+import { ColorPaletteDemo } from './ColorPaletteDemo';
 
 interface WorkoutListProps {
   workouts: Workout[];
