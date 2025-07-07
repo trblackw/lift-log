@@ -13,6 +13,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
 import { ThemeProvider } from './lib/theme';
 import { storage } from './lib/storage';
+import { initializeDebugUtils } from './lib/debug';
 import type {
   ViewMode,
   Workout,
@@ -52,6 +53,9 @@ function AppContent() {
         setWorkouts(loadedWorkouts);
         setWorkoutSessions(loadedSessions);
         setActiveWorkoutSession(activeSession);
+
+        // Initialize debug utilities (only in development)
+        initializeDebugUtils();
       } catch (err) {
         console.error('Failed to initialize app:', err);
         setError('Failed to load data. Please refresh the page.');

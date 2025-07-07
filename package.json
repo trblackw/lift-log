@@ -11,7 +11,10 @@
     "build": "bun run build.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "seed": "bun run scripts/seed.ts",
+    "seed:large": "bun run scripts/seed.ts --count 50",
+    "seed:custom": "bun run scripts/seed.ts --output"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
