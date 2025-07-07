@@ -4,6 +4,7 @@ import {
   OutlineButton,
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { TagGroup } from '@/components/ui/Tag';
 import type { Workout } from '@/lib/types';
 
 interface WorkoutDetailsProps {
@@ -85,17 +86,7 @@ export function WorkoutDetails({
       {workout.tags.length > 0 && (
         <Card>
           <CardContent className="p-6">
-            <div className="flex flex-wrap gap-2">
-              {workout.tags.map(tag => (
-                <span
-                  key={tag.id}
-                  className="px-3 py-1.5 rounded-full text-sm text-white"
-                  style={{ backgroundColor: tag.color }}
-                >
-                  {tag.name}
-                </span>
-              ))}
-            </div>
+            <TagGroup tags={workout.tags} variant="default" size="md" />
           </CardContent>
         </Card>
       )}

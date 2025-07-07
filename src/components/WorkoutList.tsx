@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
+import { TagGroup } from '@/components/ui/Tag';
 import { storage } from '@/lib/storage';
 import type { Workout, Tag } from '@/lib/types';
 import IconDelete from './icons/icon-delete';
@@ -203,8 +204,11 @@ export function WorkoutList({
                       <SelectItem key={tag.id} value={tag.id}>
                         <div className="flex items-center gap-2">
                           <div
-                            className="w-3 h-3 rounded-full"
-                            style={{ backgroundColor: tag.color }}
+                            className="w-3 h-3 rounded-full border"
+                            style={{
+                              borderColor: tag.color,
+                              backgroundColor: 'transparent',
+                            }}
                           />
                           {tag.name}
                         </div>
@@ -338,23 +342,13 @@ export function WorkoutList({
 
                   {/* Tags */}
                   {workout.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 lg:gap-2">
-                      {workout.tags.slice(0, 3).map(tag => (
-                        <span
-                          key={tag.id}
-                          className="p-2 lg:py-1.5 rounded-full text-xs lg:text-sm text-white cursor-pointer hover:opacity-80"
-                          style={{ backgroundColor: tag.color }}
-                          onClick={() => setSelectedTagFilter(tag.id)}
-                        >
-                          {tag.name}
-                        </span>
-                      ))}
-                      {workout.tags.length > 3 && (
-                        <span className="py-1 lg:py-1.5 rounded-full text-xs lg:text-sm bg-muted text-muted-foreground">
-                          +{workout.tags.length - 3}
-                        </span>
-                      )}
-                    </div>
+                    <TagGroup
+                      tags={workout.tags}
+                      variant="clickable"
+                      size="sm"
+                      maxVisible={3}
+                      onTagClick={tag => setSelectedTagFilter(tag.id)}
+                    />
                   )}
                 </div>
               </CardContent>

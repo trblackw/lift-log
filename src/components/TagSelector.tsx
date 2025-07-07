@@ -7,28 +7,45 @@ import {
 } from '@/components/ui/standardButtons';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import type { Tag } from '@/lib/types';
+import { Tag, TagGroup, tagUtils } from '@/components/ui/Tag';
+import type { Tag as TagType } from '@/lib/types';
 
 interface TagSelectorProps {
-  selectedTags: Tag[];
-  onTagsChange: (tags: Tag[]) => void;
+  selectedTags: TagType[];
+  onTagsChange: (tags: TagType[]) => void;
 }
 
-const predefinedTags: Tag[] = [
-  { id: 'strength', name: 'Strength', color: '#71717a' },
-  { id: 'cardio', name: 'Cardio', color: '#78716c' },
-  { id: 'upper-body', name: 'Upper Body', color: '#6b7280' },
-  { id: 'lower-body', name: 'Lower Body', color: '#737373' },
-  { id: 'full-body', name: 'Full Body', color: '#6b7280' },
-  { id: 'push', name: 'Push', color: '#78716c' },
-  { id: 'pull', name: 'Pull', color: '#71717a' },
-  { id: 'legs', name: 'Legs', color: '#737373' },
+const predefinedTags: TagType[] = [
+  {
+    id: 'strength',
+    name: 'Strength',
+    color: tagUtils.generateTagColor('Strength'),
+  },
+  { id: 'cardio', name: 'Cardio', color: tagUtils.generateTagColor('Cardio') },
+  {
+    id: 'upper-body',
+    name: 'Upper Body',
+    color: tagUtils.generateTagColor('Upper Body'),
+  },
+  {
+    id: 'lower-body',
+    name: 'Lower Body',
+    color: tagUtils.generateTagColor('Lower Body'),
+  },
+  {
+    id: 'full-body',
+    name: 'Full Body',
+    color: tagUtils.generateTagColor('Full Body'),
+  },
+  { id: 'push', name: 'Push', color: tagUtils.generateTagColor('Push') },
+  { id: 'pull', name: 'Pull', color: tagUtils.generateTagColor('Pull') },
+  { id: 'legs', name: 'Legs', color: tagUtils.generateTagColor('Legs') },
 ];
 
 export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   const [newTagName, setNewTagName] = useState('');
 
-  const toggleTag = (tag: Tag) => {
+  const toggleTag = (tag: TagType) => {
     const isSelected = selectedTags.some(t => t.id === tag.id);
     if (isSelected) {
       onTagsChange(selectedTags.filter(t => t.id !== tag.id));
@@ -40,10 +57,10 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   const addCustomTag = () => {
     if (!newTagName.trim()) return;
 
-    const customTag: Tag = {
+    const customTag: TagType = {
       id: crypto.randomUUID(),
       name: newTagName.trim(),
-      color: '#6b7280',
+      color: tagUtils.getRandomTagColor(),
     };
 
     onTagsChange([...selectedTags, customTag]);
@@ -60,25 +77,12 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
       {/* Selected Tags */}
       {selectedTags.length > 0 && (
-        <div className="flex flex-wrap gap-2 lg:gap-3">
-          {selectedTags.map(tag => (
-            <div
-              key={tag.id}
-              className="flex items-center gap-1 px-2 py-0 h-8 rounded-full text-sm lg:text-base text-white"
-              style={{ backgroundColor: tag.color }}
-            >
-              {tag.name}
-              <GhostButton
-                type="button"
-                size="sm"
-                className="p-0 text-white hover:bg-white/20 ml-1"
-                onClick={() => removeTag(tag.id)}
-              >
-                ×
-              </GhostButton>
-            </div>
-          ))}
-        </div>
+        <TagGroup
+          tags={selectedTags}
+          variant="removable"
+          size="lg"
+          onTagRemove={removeTag}
+        />
       )}
 
       {/* Predefined Tags */}
