@@ -55,15 +55,16 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
             <Button
               onClick={() => onStart(workout.id)}
               className="flex-1 lg:flex-none lg:px-8"
+              variant="default"
             >
-              Start Workout
+              Start
             </Button>
             <Button
-              variant="outline"
+              variant="default"
               onClick={() => onEdit(workout)}
-              className="flex-1 lg:flex-none lg:px-8"
+              className="flex-1 lg:flex-none lg:px-8 bg-accent text-accent-foreground"
             >
-              Edit Workout
+              Edit
             </Button>
           </div>
         </CardContent>

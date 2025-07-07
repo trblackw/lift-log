@@ -95,6 +95,14 @@ function AppContent() {
     setCurrentView('create');
   };
 
+  const handleCancelEdit = () => {
+    if (selectedWorkout) {
+      setCurrentView('details');
+    } else {
+      setCurrentView('list');
+    }
+  };
+
   const handleStartWorkout = (workoutId: string) => {
     setActiveWorkoutId(workoutId);
     setCurrentView('active');
@@ -208,7 +216,7 @@ function AppContent() {
           />
         );
       case 'create':
-        return <WorkoutForm onSave={handleSaveWorkout} editWorkout={selectedWorkout} />;
+        return <WorkoutForm onSave={handleSaveWorkout} editWorkout={selectedWorkout} onCancel={handleCancelEdit} />;
       case 'details':
         return selectedWorkout ? (
           <WorkoutDetails

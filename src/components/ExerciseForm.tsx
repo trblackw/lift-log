@@ -92,11 +92,8 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 lg:space-y-6 p-4 lg:p-6 border rounded-lg bg-muted/50">
+    <form onSubmit={handleSubmit(onSubmit)} className="lg:space-y-6 p-4 lg:p-6 border rounded-lg">
       <div className="flex items-center justify-between">
-        <h4 className="font-medium text-sm lg:text-base">
-          {editingExercise ? 'Edit Exercise' : 'Add Exercise'}
-        </h4>
         {editingExercise && (
           <Button
             type="button"
@@ -110,14 +107,14 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
         )}
       </div>
       
-      <div className="space-y-4 lg:space-y-6">
+      <div className="lg:space-y-6">
         <div>
-          <Label htmlFor="exerciseName" className="text-sm lg:text-base">Exercise Name *</Label>
+          <Label htmlFor="exerciseName" className="text-sm lg:text-base">Name *</Label>
           <Input
             id="exerciseName"
             {...register("name", { required: "Exercise name is required" })}
             placeholder="e.g., Bench Press, Stairmaster, Running"
-            className="mt-1 h-12 lg:h-14 lg:text-base"
+            className="mt-1 h-12 lg:h-14 lg:text-base bg-muted/80"
           />
           {errors.name && (
             <p className="text-sm text-destructive mt-1">{errors.name.message}</p>
@@ -126,8 +123,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
 
         {/* Strength Training Fields */}
         <div className="space-y-3">
-          <Label className="text-sm lg:text-base font-medium">Strength Training</Label>
-          <div className="grid grid-cols-2 gap-3 lg:gap-4">
+          <div className="grid grid-cols-2 gap-3 lg:gap-4" >
             <div>
               <Label htmlFor="sets" className="text-sm lg:text-base">Sets</Label>
               <Input
@@ -146,7 +142,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
                   }
                 })}
                 placeholder="3"
-                className="mt-1 h-12 lg:h-14 text-center lg:text-base"
+                className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
               />
               {errors.sets && (
                 <p className="text-xs lg:text-sm text-destructive mt-1">{errors.sets.message}</p>
@@ -171,7 +167,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
                   }
                 })}
                 placeholder="10"
-                className="mt-1 h-12 lg:h-14 text-center lg:text-base"
+                className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
               />
               {errors.reps && (
                 <p className="text-xs lg:text-sm text-destructive mt-1">{errors.reps.message}</p>
@@ -197,7 +193,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
               }
             })}
             placeholder="30"
-            className="mt-1 h-12 lg:h-14 text-center lg:text-base"
+            className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
           />
           {errors.duration && (
             <p className="text-sm text-destructive mt-1">{errors.duration.message}</p>
@@ -214,7 +210,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
               step="0.5"
               {...register("weight")}
               placeholder="135"
-              className="mt-1 h-12 lg:h-14 text-center lg:text-base"
+              className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
             />
           </div>
 
@@ -226,7 +222,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
               min="0"
               {...register("restTime")}
               placeholder="60"
-              className="mt-1 h-12 lg:h-14 text-center lg:text-base"
+              className="mt-1 h-12 lg:h-14 text-center lg:text-base bg-muted/80"
             />
           </div>
         </div>
@@ -237,7 +233,7 @@ export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, o
             id="notes"
             {...register("notes")}
             placeholder="Additional notes"
-            className="mt-1 h-12 lg:h-14 lg:text-base"
+            className="mt-1 h-12 lg:h-14 lg:text-base bg-muted/80"
           />
         </div>
       </div>

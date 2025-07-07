@@ -17,9 +17,10 @@ interface WorkoutFormData {
 interface WorkoutFormProps {
   onSave: (workout: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => void;
   editWorkout?: Workout | null;
+  onCancel?: () => void;
 }
 
-export function WorkoutForm({ onSave, editWorkout }: WorkoutFormProps) {
+export function WorkoutForm({ onSave, editWorkout, onCancel }: WorkoutFormProps) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
@@ -107,9 +108,19 @@ export function WorkoutForm({ onSave, editWorkout }: WorkoutFormProps) {
   return (
     <div className="space-y-3 lg:space-y-6">
       <Card>
-        <CardHeader>
-          <CardTitle className="text-lg lg:text-xl">
-            {isEditing ? 'Edit Workout' : 'Workout Details'}
+        <CardHeader className="pb-0">
+          <CardTitle className="text-lg lg:text-xl flex items-center justify-between">
+            <span>{isEditing ? 'Edit Workout' : 'Workout Details'}</span>
+            {isEditing && onCancel && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={onCancel}
+                className="shrink-0"
+              >
+                Cancel
+              </Button>
+            )}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
@@ -201,19 +212,17 @@ export function WorkoutForm({ onSave, editWorkout }: WorkoutFormProps) {
                       </div>
                       <div className="flex gap-1 ml-2 shrink-0">
                         <Button
-                          variant="outline"
                           size="sm"
                           onClick={() => startEditingExercise(exercise)}
                           disabled={editingExercise !== null}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm bg-transparent text-white-500"
                         >
                           Edit
                         </Button>
                         <Button
-                          variant="destructive"
                           size="sm"
                           onClick={() => removeExercise(exercise.id)}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm bg-transparent text-muted-foreground"
                         >
                           Remove
                         </Button>
@@ -227,13 +236,24 @@ export function WorkoutForm({ onSave, editWorkout }: WorkoutFormProps) {
         </CardContent>
       </Card>
 
-      <Button 
-        onClick={handleSubmit(onSubmit)} 
-        className="w-full h-12 lg:h-14 text-base lg:text-lg font-medium"
-        disabled={exercises.length === 0}
-      >
-        {isEditing ? 'Update Workout' : 'Save Workout'}
-      </Button>
+      <div className="flex gap-3">
+        {isEditing && onCancel && (
+          <Button 
+            variant="outline"
+            onClick={onCancel}
+            className="flex-1 h-12 lg:h-14 text-base lg:text-lg font-medium"
+          >
+            Cancel
+          </Button>
+        )}
+        <Button 
+          onClick={handleSubmit(onSubmit)} 
+          className={`h-12 lg:h-14 text-base lg:text-lg font-medium ${isEditing ? 'flex-1' : 'w-full'}`}
+          disabled={exercises.length === 0}
+        >
+          {isEditing ? 'Update Workout' : 'Save Workout'}
+        </Button>
+      </div>
     </div>
   );
 } 

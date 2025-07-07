@@ -59,7 +59,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
           {selectedTags.map((tag) => (
             <div
               key={tag.id}
-              className="flex items-center gap-1 px-3 py-2 lg:px-4 lg:py-2.5 rounded-full text-sm lg:text-base text-white"
+              className="flex items-center gap-1 px-2 py-0 h-8 rounded-full text-sm lg:text-base text-white"
               style={{ backgroundColor: tag.color }}
             >
               {tag.name}
@@ -67,7 +67,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 type="button"
                 variant="ghost"
                 size="sm"
-                className="h-5 w-5 lg:h-6 lg:w-6 p-0 text-white hover:bg-white/20 ml-1"
+                className="p-0 text-white hover:bg-white/20 ml-1"
                 onClick={() => removeTag(tag.id)}
               >
                 ×
@@ -114,6 +114,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
           <Button
             type="button"
             onClick={addCustomTag}
+            variant="secondary"
             disabled={!newTagName.trim()}
             size="sm"
             className="h-10 lg:h-12 px-4 lg:px-6 text-sm lg:text-base"
