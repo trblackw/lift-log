@@ -1,4 +1,9 @@
-import type { Workout, WorkoutSession } from './types';
+import type {
+  Workout,
+  WorkoutSession,
+  UniqueExercise,
+  ExerciseLibrary,
+} from './types';
 
 const DB_NAME = 'LiftLogDB';
 const DB_VERSION = 1;
@@ -277,6 +282,103 @@ class WorkoutDatabase {
       totalSessions: sessions.length,
       totalCompletedSessions: completedSessions.length,
     };
+  }
+
+  // Exercise Library Methods
+  async buildExerciseLibrary(): Promise<ExerciseLibrary> {
+    const workouts = await this.getWorkouts();
+    const exerciseMap = new Map<string, UniqueExercise>();
+
+    for (const workout of workouts) {
+      for (const exercise of workout.exercises) {
+        const exerciseName = exercise.name.toLowerCase().trim();
+
+        if (exerciseMap.has(exerciseName)) {
+          const existing = exerciseMap.get(exerciseName)!;
+
+          // Update usage count and workout IDs
+          existing.usageCount += 1;
+          if (!existing.workoutIds.includes(workout.id)) {
+            existing.workoutIds.push(workout.id);
+          }
+
+          // Update last used date if this workout is newer
+          if (workout.createdAt > existing.lastUsed) {
+            existing.lastUsed = workout.createdAt;
+          }
+
+          // Aggregate common values (use most common or average)
+          if (exercise.sets !== undefined) {
+            existing.commonSets = existing.commonSets || exercise.sets;
+          }
+          if (exercise.reps !== undefined) {
+            existing.commonReps = existing.commonReps || exercise.reps;
+          }
+          if (exercise.weight !== undefined) {
+            existing.commonWeight = existing.commonWeight || exercise.weight;
+          }
+          if (exercise.duration !== undefined) {
+            existing.commonDuration =
+              existing.commonDuration || exercise.duration;
+          }
+          if (exercise.restTime !== undefined) {
+            existing.commonRestTime =
+              existing.commonRestTime || exercise.restTime;
+          }
+        } else {
+          // Create new unique exercise entry
+          const uniqueExercise: UniqueExercise = {
+            name: exercise.name, // Keep original casing for display
+            commonSets: exercise.sets,
+            commonReps: exercise.reps,
+            commonWeight: exercise.weight,
+            commonDuration: exercise.duration,
+            commonRestTime: exercise.restTime,
+            usageCount: 1,
+            workoutIds: [workout.id],
+            lastUsed: workout.createdAt,
+          };
+
+          exerciseMap.set(exerciseName, uniqueExercise);
+        }
+      }
+    }
+
+    // Convert map to array and sort by usage count (most used first)
+    const exercises = Array.from(exerciseMap.values()).sort(
+      (a, b) => b.usageCount - a.usageCount
+    );
+
+    return {
+      exercises,
+      lastUpdated: new Date(),
+      totalUniqueExercises: exercises.length,
+    };
+  }
+
+  async getUniqueExerciseNames(): Promise<string[]> {
+    const library = await this.buildExerciseLibrary();
+    return library.exercises.map(ex => ex.name);
+  }
+
+  async searchExerciseLibrary(query: string): Promise<UniqueExercise[]> {
+    const library = await this.buildExerciseLibrary();
+    const lowercaseQuery = query.toLowerCase();
+
+    return library.exercises.filter(exercise =>
+      exercise.name.toLowerCase().includes(lowercaseQuery)
+    );
+  }
+
+  async getExerciseUsageStats(
+    exerciseName: string
+  ): Promise<UniqueExercise | null> {
+    const library = await this.buildExerciseLibrary();
+    return (
+      library.exercises.find(
+        ex => ex.name.toLowerCase() === exerciseName.toLowerCase()
+      ) || null
+    );
   }
 }
 

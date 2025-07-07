@@ -12,10 +12,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { ExerciseAutocomplete } from '@/components/ui/ExerciseAutocomplete';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import type { Exercise, ScheduledWorkout } from '@/lib/types';
+import type { Exercise, ScheduledWorkout, UniqueExercise } from '@/lib/types';
 
 interface ExerciseFormData {
   name: string;
@@ -55,6 +56,7 @@ export function ExerciseForm({
 
   const [scheduledDate, setScheduledDate] = useState<Date>(new Date()); // Default to today
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [nameError, setNameError] = useState<string>('');
 
   const watchedSets = watch('sets');
   const watchedReps = watch('reps');
@@ -70,14 +72,28 @@ export function ExerciseForm({
       setValue('duration', editingExercise.duration || undefined);
       setValue('restTime', editingExercise.restTime || undefined);
       setValue('notes', editingExercise.notes || '');
+      setNameError(''); // Clear name error when editing
       // Keep current scheduled date when editing
     } else {
       reset();
       setScheduledDate(new Date()); // Reset to today
+      setNameError(''); // Clear name error when resetting
     }
   }, [editingExercise, setValue, reset]);
 
   const onSubmit = (data: ExerciseFormData) => {
+    // Get the current name value from the form
+    const currentName = watch('name');
+
+    // Validate that name is provided
+    if (!currentName || currentName.trim() === '') {
+      setNameError('Exercise name is required');
+      return;
+    }
+
+    // Clear name error if validation passes
+    setNameError('');
+
     // Validate that either (sets + reps) OR duration is provided
     const hasStrengthData = data.sets && data.reps;
     const hasCardioData = data.duration;
@@ -87,7 +103,7 @@ export function ExerciseForm({
     }
 
     const exerciseData = {
-      name: data.name,
+      name: currentName,
       sets: data.sets ? Number(data.sets) : undefined,
       reps: data.reps ? Number(data.reps) : undefined,
       weight: data.weight ? Number(data.weight) : undefined,
@@ -109,13 +125,51 @@ export function ExerciseForm({
 
     reset();
     setScheduledDate(new Date()); // Reset to today after submission
+    setNameError(''); // Clear name error after submission
   };
 
   const handleCancel = () => {
     reset();
     setScheduledDate(new Date()); // Reset to today
+    setNameError(''); // Clear name error
     if (onCancelEdit) {
       onCancelEdit();
+    }
+  };
+
+  const handleExerciseSelect = (exercise: UniqueExercise) => {
+    // Clear any name error
+    setNameError('');
+
+    // Auto-fill form fields with common values from the selected exercise
+    setValue('name', exercise.name);
+
+    if (exercise.commonSets) {
+      setValue('sets', exercise.commonSets);
+    }
+
+    if (exercise.commonReps) {
+      setValue('reps', exercise.commonReps);
+    }
+
+    if (exercise.commonWeight) {
+      setValue('weight', exercise.commonWeight);
+    }
+
+    if (exercise.commonDuration) {
+      setValue('duration', exercise.commonDuration);
+    }
+
+    if (exercise.commonRestTime) {
+      setValue('restTime', exercise.commonRestTime);
+    }
+  };
+
+  const handleNameChange = (value: string) => {
+    setValue('name', value);
+    // Clear name error when user starts typing
+    if (nameError && value.trim() !== '') {
+      setNameError('');
     }
   };
 
@@ -142,16 +196,16 @@ export function ExerciseForm({
           <Label htmlFor="exerciseName" className="text-sm lg:text-base">
             Name *
           </Label>
-          <Input
+          <ExerciseAutocomplete
             id="exerciseName"
-            {...register('name', { required: 'Exercise name is required' })}
+            value={watch('name') || ''}
+            onChange={handleNameChange}
+            onSelect={handleExerciseSelect}
             placeholder="e.g., Bench Press, Stairmaster, Running"
             className="mt-1 h-12 lg:h-14 lg:text-base bg-muted/80"
           />
-          {errors.name && (
-            <p className="text-sm text-destructive mt-1">
-              {errors.name.message}
-            </p>
+          {nameError && (
+            <p className="text-sm text-destructive mt-1">{nameError}</p>
           )}
         </div>
 

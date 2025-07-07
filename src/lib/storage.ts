@@ -1,4 +1,10 @@
-import type { Workout, WorkoutSession, ActiveWorkoutSession } from './types';
+import type {
+  Workout,
+  WorkoutSession,
+  ActiveWorkoutSession,
+  ExerciseLibrary,
+  UniqueExercise,
+} from './types';
 import { workoutDB } from './database';
 
 // Legacy localStorage keys for migration
@@ -334,16 +340,17 @@ class StorageManager {
 
   async loadActiveWorkoutSession(): Promise<ActiveWorkoutSession | null> {
     try {
-      const stored = localStorage.getItem('lift-log-active-workout');
-      if (!stored) return null;
+      const sessionData = localStorage.getItem('lift-log-active-workout');
+      if (!sessionData) return null;
 
-      const parsed = JSON.parse(stored);
-      // Revive dates
-      return {
-        ...parsed,
-        startedAt: new Date(parsed.startedAt),
-        pausedAt: parsed.pausedAt ? new Date(parsed.pausedAt) : undefined,
-      };
+      const session = JSON.parse(sessionData);
+      // Convert date strings back to Date objects
+      session.startedAt = new Date(session.startedAt);
+      if (session.pausedAt) {
+        session.pausedAt = new Date(session.pausedAt);
+      }
+
+      return session;
     } catch (error) {
       console.error('Failed to load active workout session:', error);
       return null;
@@ -356,6 +363,53 @@ class StorageManager {
     } catch (error) {
       console.error('Failed to clear active workout session:', error);
       throw error;
+    }
+  }
+
+  // Exercise Library operations
+  async buildExerciseLibrary(): Promise<ExerciseLibrary> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.buildExerciseLibrary();
+    } catch (error) {
+      console.error('Failed to build exercise library:', error);
+      throw error;
+    }
+  }
+
+  async getUniqueExerciseNames(): Promise<string[]> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.getUniqueExerciseNames();
+    } catch (error) {
+      console.error('Failed to get unique exercise names:', error);
+      return [];
+    }
+  }
+
+  async searchExerciseLibrary(query: string): Promise<UniqueExercise[]> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.searchExerciseLibrary(query);
+    } catch (error) {
+      console.error('Failed to search exercise library:', error);
+      return [];
+    }
+  }
+
+  async getExerciseUsageStats(
+    exerciseName: string
+  ): Promise<UniqueExercise | null> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.getExerciseUsageStats(exerciseName);
+    } catch (error) {
+      console.error('Failed to get exercise usage stats:', error);
+      return null;
     }
   }
 }
@@ -399,4 +453,12 @@ export const storage = {
     storageManager.saveActiveWorkoutSession(session),
   loadActiveWorkoutSession: () => storageManager.loadActiveWorkoutSession(),
   clearActiveWorkoutSession: () => storageManager.clearActiveWorkoutSession(),
+
+  // Exercise Library methods
+  buildExerciseLibrary: () => storageManager.buildExerciseLibrary(),
+  getUniqueExerciseNames: () => storageManager.getUniqueExerciseNames(),
+  searchExerciseLibrary: (query: string) =>
+    storageManager.searchExerciseLibrary(query),
+  getExerciseUsageStats: (exerciseName: string) =>
+    storageManager.getExerciseUsageStats(exerciseName),
 };

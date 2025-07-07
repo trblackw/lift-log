@@ -55,6 +55,26 @@ export interface ActiveWorkoutSession {
   duration: number; // Current duration in seconds
 }
 
+// Exercise Library Types
+export interface UniqueExercise {
+  name: string;
+  // Aggregated info from all instances
+  commonSets?: number;
+  commonReps?: number;
+  commonWeight?: number;
+  commonDuration?: number;
+  commonRestTime?: number;
+  usageCount: number; // How many times this exercise appears across workouts
+  workoutIds: string[]; // Which workouts contain this exercise
+  lastUsed: Date; // When this exercise was last used in a workout
+}
+
+export interface ExerciseLibrary {
+  exercises: UniqueExercise[];
+  lastUpdated: Date;
+  totalUniqueExercises: number;
+}
+
 export interface ScheduledWorkout {
   id: string;
   workoutId: string;
