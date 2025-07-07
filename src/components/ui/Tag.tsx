@@ -98,7 +98,7 @@ export function Tag({
     <span
       className={cn(
         // Base styles
-        'inline-flex items-center gap-1 rounded-full font-medium transition-all duration-200',
+        'inline-flex items-center gap-1 rounded-md h-8 font-medium transition-all duration-200',
         // Transparent background with colored text and border
         'bg-transparent border border-current',
         // Size variants
@@ -126,7 +126,7 @@ export function Tag({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-1 hover:text-current/80 rounded-full p-0.5 transition-colors cursor-pointer"
+          className="ml-1 hover:text-current/80 rounded-md h-8 p-0.5 transition-colors cursor-pointer"
           aria-label={`Remove ${tag.name} tag`}
         >
           <span className="text-xs leading-none">×</span>
@@ -183,7 +183,7 @@ export function TagGroup({
       {hiddenCount > 0 && (
         <span
           className={cn(
-            'inline-flex items-center rounded-full bg-muted text-muted-foreground font-medium',
+            'inline-flex items-center rounded-md h-8 bg-muted text-muted-foreground font-medium',
             sizeClasses[size]
           )}
         >

@@ -25,6 +25,7 @@ import {
 } from '@/components/ui/standardButtons';
 import { cn } from '@/lib/utils';
 import type { Exercise } from '@/lib/types';
+import IconList from './icons/icon-list';
 
 // Drag handle icon
 function DragHandleIcon() {
@@ -230,7 +231,7 @@ export function ComposableExerciseList({
       <div className={cn('space-y-4', className)}>
         {title && <h4 className="font-medium text-sm lg:text-base">{title}</h4>}
         <div className="text-center py-8 text-muted-foreground">
-          <div className="text-2xl mb-2">📝</div>
+          <IconList className="size-8 mb-2 mx-auto" />
           <p className="text-sm">{emptyMessage}</p>
         </div>
       </div>

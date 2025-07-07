@@ -174,10 +174,25 @@ export function WorkoutForm({
               <Input
                 id="estimatedDuration"
                 type="number"
-                {...register('estimatedDuration', { min: 1 })}
+                {...register('estimatedDuration', {
+                  validate: value => {
+                    // Allow empty values (optional field)
+                    if (!value || String(value).trim() === '') return true;
+                    // If value provided, must be at least 1
+                    const numValue = Number(value);
+                    return (
+                      numValue >= 1 || 'Duration must be at least 1 minute'
+                    );
+                  },
+                })}
                 placeholder="60"
                 className="mt-1 h-12 lg:h-14 lg:text-base"
               />
+              {errors.estimatedDuration && (
+                <p className="text-sm text-destructive mt-1">
+                  {errors.estimatedDuration.message}
+                </p>
+              )}
             </div>
           </div>
 
@@ -227,7 +242,7 @@ export function WorkoutForm({
         )}
         <PrimaryButton
           onClick={handleSubmit(onSubmit)}
-          className={`h-12 lg:h-14 text-base lg:text-lg font-medium ${isEditing ? 'flex-1' : 'w-full'}`}
+          className={`h-12 lg:h-14 text-base lg:text-lg font-medium ${isEditing ? 'flex-1' : 'w-full'} bg-green-500 hover:bg-green-600 text-white`}
           disabled={exercises.length === 0}
         >
           {isEditing ? 'Update Workout' : 'Save Workout'}

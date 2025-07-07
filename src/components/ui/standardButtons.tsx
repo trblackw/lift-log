@@ -19,7 +19,7 @@ export function PrimaryButton({ className, children, ...props }: ButtonProps) {
       variant="default"
       className={cn(
         // Enhanced styling with our color palette
-        'bg-primary text-primary-foreground',
+        'bg-primary text-primary-foreground cursor-pointer',
         'hover:bg-primary/90 active:bg-primary/95',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         'shadow-sm transition-all duration-200',
@@ -46,7 +46,7 @@ export function SecondaryButton({
       variant="secondary"
       className={cn(
         // Enhanced styling with our color palette
-        'bg-secondary text-secondary-foreground',
+        'bg-secondary text-secondary-foreground cursor-pointer',
         'hover:bg-secondary/80 active:bg-secondary/90',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         'shadow-sm transition-all duration-200',
