@@ -16,7 +16,7 @@ import { ExerciseAutocomplete } from '@/components/ui/ExerciseAutocomplete';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
-import type { Exercise, ScheduledWorkout, UniqueExercise } from '@/lib/types';
+import type { Exercise, UniqueExercise } from '@/lib/types';
 
 interface ExerciseFormData {
   name: string;

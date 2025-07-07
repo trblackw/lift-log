@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/popover';
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Tag } from '@/components/ui/Tag';
+import { formatDuration } from '@/lib/utils';
 import type { Workout, WorkoutSession, ScheduledWorkout } from '@/lib/types';
 import IconCheckCircle from './icons/icon-check-circle';
 import IconCalendar from './icons/icon-calendar';
@@ -191,6 +192,20 @@ export function DayView({
                         {session.exercises.filter(ex => ex.completed).length} of{' '}
                         {session.exercises.length} exercises completed
                       </div>
+
+                      {/* Duration Info */}
+                      {session.actualDuration && (
+                        <div className="text-sm mb-2">
+                          <span className="font-medium text-green-600 dark:text-green-400">
+                            Duration: {formatDuration(session.actualDuration)}
+                          </span>
+                          {workout.estimatedDuration && (
+                            <span className="text-muted-foreground ml-2">
+                              (est. {workout.estimatedDuration}m)
+                            </span>
+                          )}
+                        </div>
+                      )}
 
                       {/* Tags */}
                       {workout.tags.length > 0 && (

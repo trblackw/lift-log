@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
 import { Card, CardContent } from '@/components/ui/card';
+import { formatTimerDuration } from '@/lib/utils';
 import type { Workout, ActiveWorkoutSession } from '@/lib/types';
 import IconPauseStopwatch from './icons/icon-pause-stopwatch';
 
@@ -40,12 +41,6 @@ export function ActiveWorkoutBanner({
     activeSession.pausedAt,
   ]);
 
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const completedCount = activeSession.completedExercises.length;
   const totalCount = workout.exercises.length;
   const progressPercentage =
@@ -69,10 +64,10 @@ export function ActiveWorkoutBanner({
                 {activeSession.pausedAt ? (
                   <span className="text-amber-600 flex items-center gap-2">
                     <IconPauseStopwatch /> Paused at{' '}
-                    {formatDuration(currentDuration)}
+                    {formatTimerDuration(currentDuration)}
                   </span>
                 ) : (
-                  formatDuration(currentDuration)
+                  formatTimerDuration(currentDuration)
                 )}
               </div>
             </div>

@@ -177,6 +177,11 @@ function AppContent() {
       ).length;
       const totalExercises = session.exercises.length;
 
+      // Format duration for toast
+      const durationText = session.actualDuration
+        ? ` in ${Math.floor(session.actualDuration / 60)}m ${session.actualDuration % 60}s`
+        : '';
+
       // Save session to IndexedDB and update local state
       await storage.saveSession(session);
       setWorkoutSessions(prev => [session, ...prev]);
@@ -187,7 +192,7 @@ function AppContent() {
 
       // Show success toast with completion stats
       toast.success('Workout completed! 🎉', {
-        description: `"${workoutName}" finished! Completed ${completedExercises}/${totalExercises} exercises.`,
+        description: `"${workoutName}" finished${durationText}! Completed ${completedExercises}/${totalExercises} exercises.`,
       });
     } catch (err) {
       console.error('Failed to save workout session:', err);

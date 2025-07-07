@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   PrimaryButton,
   SecondaryButton,
@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { storage } from '@/lib/storage';
+import { formatTimerDuration } from '@/lib/utils';
 import type {
   Workout,
   WorkoutSession,
@@ -31,6 +32,12 @@ export function ActiveWorkout({
   onCancel,
 }: ActiveWorkoutProps) {
   const [duration, setDuration] = useState(activeSession.duration);
+  const activeSessionRef = useRef(activeSession);
+
+  // Keep ref updated with latest session
+  useEffect(() => {
+    activeSessionRef.current = activeSession;
+  }, [activeSession]);
 
   // Helper function to update session and persist it
   const updateSession = async (updates: Partial<ActiveWorkoutSession>) => {
@@ -45,35 +52,32 @@ export function ActiveWorkout({
 
   // Calculate session duration
   useEffect(() => {
-    if (activeSession.pausedAt) return; // Don't update timer when paused
-
     const interval = setInterval(() => {
+      const currentSession = activeSessionRef.current;
+
+      // Don't update timer when paused
+      if (currentSession.pausedAt) return;
+
       const now = Date.now();
       const elapsed = Math.floor(
-        (now - activeSession.startedAt.getTime()) / 1000
+        (now - currentSession.startedAt.getTime()) / 1000
       );
-      const currentDuration = elapsed - activeSession.totalPausedTime;
+      const currentDuration = elapsed - currentSession.totalPausedTime;
       setDuration(currentDuration);
 
       // Update session duration periodically (but don't save to storage every second)
+      // Use the ref to get the latest session state and avoid stale closure issues
       if (currentDuration % 10 === 0) {
-        // Update every 10 seconds
-        updateSession({ duration: currentDuration });
+        const updatedSession = { ...currentSession, duration: currentDuration };
+        storage.saveActiveWorkoutSession(updatedSession).catch(error => {
+          console.error('Failed to update duration:', error);
+        });
+        onSessionUpdate(updatedSession);
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [
-    activeSession.startedAt,
-    activeSession.totalPausedTime,
-    activeSession.pausedAt,
-  ]);
-
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
+  }, [onSessionUpdate]); // Minimal dependencies to avoid unnecessary timer resets
 
   const toggleExercise = (exerciseId: string) => {
     const currentCompleted = activeSession.completedExercises;
@@ -102,11 +106,19 @@ export function ActiveWorkout({
   };
 
   const completeWorkout = () => {
+    // Calculate final actual duration (current duration accounts for paused time)
+    const completionTime = new Date();
+    const totalElapsed = Math.floor(
+      (completionTime.getTime() - activeSession.startedAt.getTime()) / 1000
+    );
+    const actualDuration = totalElapsed - activeSession.totalPausedTime;
+
     const completedSession: WorkoutSession = {
       id: crypto.randomUUID(),
       workoutId: workout.id,
       startedAt: activeSession.startedAt,
-      completedAt: new Date(),
+      completedAt: completionTime,
+      actualDuration: actualDuration,
       exercises: workout.exercises.map(exercise => ({
         exerciseId: exercise.id,
         completedSets: activeSession.completedExercises.includes(exercise.id)
@@ -139,10 +151,11 @@ export function ActiveWorkout({
               <div className="text-sm lg:text-base text-muted-foreground mt-1 mb-2 flex items-center justify-center gap-2 mx-auto">
                 {activeSession.pausedAt ? (
                   <span className="text-amber-500 flex items-center gap-2">
-                    <IconPauseStopwatch /> Paused at {formatDuration(duration)}
+                    <IconPauseStopwatch /> Paused at{' '}
+                    {formatTimerDuration(duration)}
                   </span>
                 ) : (
-                  <span>{formatDuration(duration)}</span>
+                  <span>{formatTimerDuration(duration)}</span>
                 )}
               </div>
               <div className="text-xs text-muted-foreground">

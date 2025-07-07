@@ -3,6 +3,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
 import { format, isSameDay } from 'date-fns';
+import { formatDuration } from '@/lib/utils';
 import type { Workout, WorkoutSession, ScheduledWorkout } from '@/lib/types';
 import IconCalendar from './icons/icon-calendar';
 
@@ -116,6 +117,13 @@ export function CalendarView({
                       const workout = workouts.find(
                         w => w.id === session.workoutId
                       );
+                      const durationText = session.actualDuration
+                        ? formatDuration(session.actualDuration)
+                        : null;
+                      const estimatedText = workout?.estimatedDuration
+                        ? `${workout.estimatedDuration}m est`
+                        : null;
+
                       return (
                         <div
                           key={session.id}
@@ -124,10 +132,24 @@ export function CalendarView({
                           <p className="font-medium text-sm">
                             {workout?.name || 'Unknown Workout'}
                           </p>
-                          <p className="text-xs text-muted-foreground">
-                            {session.completedAt &&
-                              format(session.completedAt, 'h:mm a')}
-                          </p>
+                          <div className="text-xs text-muted-foreground space-y-1">
+                            <p>
+                              {session.completedAt &&
+                                format(session.completedAt, 'h:mm a')}
+                            </p>
+                            {durationText && (
+                              <p className="flex items-center gap-2">
+                                <span className="font-medium text-green-600 dark:text-green-400">
+                                  {durationText}
+                                </span>
+                                {estimatedText && (
+                                  <span className="text-muted-foreground">
+                                    vs {estimatedText}
+                                  </span>
+                                )}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       );
                     })}

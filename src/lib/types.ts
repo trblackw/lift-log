@@ -41,6 +41,7 @@ export interface WorkoutSession {
   workoutId: string;
   startedAt: Date;
   completedAt?: Date;
+  actualDuration?: number; // Total duration in seconds (excludes paused time)
   exercises: ExerciseSession[];
   notes?: string;
 }
