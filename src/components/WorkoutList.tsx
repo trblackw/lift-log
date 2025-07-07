@@ -11,12 +11,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
 import { TagGroup } from '@/components/ui/Tag';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { storage } from '@/lib/storage';
 import { formatRelativeTime } from '@/lib/utils';
 import type { Workout, Tag } from '@/lib/types';
 import type { ViewMode } from './ViewToggle';
 import IconDelete from './icons/icon-delete';
 import IconActiveRun from './icons/icon-active-run';
+import { ChevronDown } from 'lucide-react';
+import IconMagnifier from './icons/icon-magnifier';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -38,6 +45,7 @@ export function WorkoutList({
   const [filteredWorkouts, setFilteredWorkouts] = useState<Workout[]>(workouts);
   const [isSearching, setIsSearching] = useState(false);
   const [workoutToDelete, setWorkoutToDelete] = useState<string | null>(null);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   // Get all unique tags from workouts
   const allTags = useMemo(() => {
@@ -49,6 +57,13 @@ export function WorkoutList({
     });
     return Array.from(tagMap.values());
   }, [workouts]);
+
+  // Auto-expand filters when there are active filters
+  useEffect(() => {
+    if (searchTerm || selectedTagFilter) {
+      setIsFiltersOpen(true);
+    }
+  }, [searchTerm, selectedTagFilter]);
 
   // Handle search and filtering with IndexedDB
   useEffect(() => {
@@ -348,74 +363,101 @@ export function WorkoutList({
 
   return (
     <div className="h-full w-full flex flex-col">
-      {/* Search and Filter Controls - Fixed */}
-      <div className="flex-shrink-0 bg-background border-b border-border">
-        <Card className="border-0 rounded-none shadow-none">
-          <CardContent className="p-6 space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-              <div>
-                <Label htmlFor="search" className="text-sm lg:text-base">
-                  Search Workouts
-                </Label>
-                <Input
-                  id="search"
-                  value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
-                  placeholder="Search..."
-                  className="mt-1 h-12 lg:h-14 lg:text-base"
-                />
-              </div>
-
-              {allTags.length > 0 && (
-                <div>
-                  <Label className="text-sm lg:text-base">Filter by Tag</Label>
-                  <div className="mt-1">
-                    <Select
-                      value={selectedTagFilter}
-                      onValueChange={setSelectedTagFilter}
-                      placeholder="All Tags"
-                    >
-                      <SelectItem value="">All Tags</SelectItem>
-                      {allTags.map(tag => (
-                        <SelectItem key={tag.id} value={tag.id}>
-                          <div className="flex items-center gap-2">
-                            <div
-                              className="w-3 h-3 rounded-full border"
-                              style={{
-                                borderColor: tag.color,
-                                backgroundColor: 'transparent',
-                              }}
-                            />
-                            {tag.name}
-                          </div>
-                        </SelectItem>
-                      ))}
-                    </Select>
-                  </div>
+      {/* Search and Filter Controls - Collapsible */}
+      <div className="flex-shrink-0 bg-background">
+        <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
+          {/* Header with Toggle */}
+          <div className="flex items-center justify-between p-4 bg-background">
+            <div className="flex items-center gap-3">
+              <span className="text-sm lg:text-base text-muted-foreground">
+                {isSearching
+                  ? 'Searching...'
+                  : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
+              </span>
+              {(searchTerm || selectedTagFilter) && (
+                <div className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full">
+                  Filtered
                 </div>
               )}
             </div>
-
-            {(searchTerm || selectedTagFilter) && (
-              <OutlineButton
+            <CollapsibleTrigger asChild>
+              <GhostButton
                 size="sm"
-                onClick={clearFilters}
-                className="w-full lg:w-auto h-10 lg:h-11"
+                className="p-2 hover:bg-muted"
+                aria-label={isFiltersOpen ? 'Hide filters' : 'Show filters'}
               >
-                Clear Filters
-              </OutlineButton>
-            )}
-          </CardContent>
-        </Card>
+                <IconMagnifier
+                  className={`size-8 transition-transform duration-200 p-1 rounded-md text-muted-foreground ${
+                    isFiltersOpen ? 'bg-primary rotate-90' : ''
+                  }`}
+                />
+              </GhostButton>
+            </CollapsibleTrigger>
+          </div>
 
-        {/* Results Header */}
-        <div className="flex items-center justify-center py-3 bg-background">
-          <span className="text-sm lg:text-base text-muted-foreground">
-            {isSearching
-              ? 'Searching...'
-              : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
-          </span>
-        </div>
+          {/* Collapsible Content */}
+          <CollapsibleContent>
+            <Card className="border-0 rounded-none shadow-none">
+              <CardContent className="p-6 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+                  <div>
+                    <Label htmlFor="search" className="text-sm lg:text-base">
+                      Search Workouts
+                    </Label>
+                    <Input
+                      id="search"
+                      value={searchTerm}
+                      onChange={e => setSearchTerm(e.target.value)}
+                      placeholder="Search..."
+                      className="mt-1 h-12 lg:h-14 lg:text-base"
+                    />
+                  </div>
+
+                  {allTags.length > 0 && (
+                    <div>
+                      <Label className="text-sm lg:text-base">
+                        Filter by Tag
+                      </Label>
+                      <div className="mt-1">
+                        <Select
+                          value={selectedTagFilter}
+                          onValueChange={setSelectedTagFilter}
+                          placeholder="All Tags"
+                        >
+                          <SelectItem value="">All Tags</SelectItem>
+                          {allTags.map(tag => (
+                            <SelectItem key={tag.id} value={tag.id}>
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className="w-3 h-3 rounded-full border"
+                                  style={{
+                                    borderColor: tag.color,
+                                    backgroundColor: 'transparent',
+                                  }}
+                                />
+                                {tag.name}
+                              </div>
+                            </SelectItem>
+                          ))}
+                        </Select>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {(searchTerm || selectedTagFilter) && (
+                  <OutlineButton
+                    size="sm"
+                    onClick={clearFilters}
+                    className="w-full lg:w-auto h-10 lg:h-11"
+                  >
+                    Clear Filters
+                  </OutlineButton>
+                )}
+              </CardContent>
+            </Card>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
 
       {/* Workout List - Scrollable */}
