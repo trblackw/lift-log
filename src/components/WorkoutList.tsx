@@ -20,9 +20,9 @@ import { storage } from '@/lib/storage';
 import { formatRelativeTime } from '@/lib/utils';
 import type { Workout, Tag } from '@/lib/types';
 import type { ViewMode } from './ViewToggle';
+import { ViewToggle } from './ViewToggle';
 import IconDelete from './icons/icon-delete';
 import IconActiveRun from './icons/icon-active-run';
-import { ChevronDown } from 'lucide-react';
 import IconMagnifier from './icons/icon-magnifier';
 import IconCheckCircle from './icons/icon-check-circle';
 import IconDumbbell from './icons/icon-dumbbell';
@@ -34,6 +34,7 @@ interface WorkoutListProps {
   onDeleteWorkout?: (workoutId: string) => void;
   onViewWorkout?: (workout: Workout) => void;
   viewMode?: ViewMode;
+  onViewModeChange?: (viewMode: ViewMode) => void;
 }
 
 export function WorkoutList({
@@ -42,6 +43,7 @@ export function WorkoutList({
   onDeleteWorkout,
   onViewWorkout,
   viewMode = 'card',
+  onViewModeChange,
 }: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
@@ -278,7 +280,7 @@ export function WorkoutList({
           </CardContent>
 
           {/* Actions Footer */}
-          <CardFooter className="p-4 pt-0 border-t border-border">
+          <CardFooter className="p-2 border-t border-border">
             <div className="flex justify-between gap-2 w-full mt-2">
               {onDeleteWorkout && (
                 <GhostButton
@@ -293,7 +295,7 @@ export function WorkoutList({
                 <PrimaryButton
                   onClick={() => onStartWorkout(workout.id)}
                   size="sm"
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-green-800 text-white"
                 >
                   <IconActiveRun className="size-5" /> Start
                 </PrimaryButton>
@@ -363,8 +365,12 @@ export function WorkoutList({
       <div className="flex-shrink-0 bg-background">
         <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
           {/* Header with Toggle */}
-          <div className="flex items-center justify-between p-4 bg-background">
+          <div className="flex items-center justify-between p-3 bg-background">
             <div className="flex items-center gap-3">
+              <ViewToggle
+                currentView={viewMode}
+                onViewChange={onViewModeChange}
+              />
               <span className="text-sm lg:text-base text-muted-foreground">
                 {isSearching
                   ? 'Searching...'
@@ -376,19 +382,21 @@ export function WorkoutList({
                 </div>
               )}
             </div>
-            <CollapsibleTrigger asChild>
-              <GhostButton
-                size="sm"
-                className="p-2 hover:bg-muted"
-                aria-label={isFiltersOpen ? 'Hide filters' : 'Show filters'}
-              >
-                <IconMagnifier
-                  className={`size-8 transition-transform duration-200 p-1 rounded-md text-muted-foreground ${
-                    isFiltersOpen ? 'bg-primary rotate-90' : ''
-                  }`}
-                />
-              </GhostButton>
-            </CollapsibleTrigger>
+            <div className="flex items-center gap-3">
+              <CollapsibleTrigger asChild>
+                <GhostButton
+                  size="sm"
+                  className="p-2 hover:bg-muted"
+                  aria-label={isFiltersOpen ? 'Hide filters' : 'Show filters'}
+                >
+                  <IconMagnifier
+                    className={`size-8 transition-transform duration-200 p-1 rounded-md text-muted-foreground ${
+                      isFiltersOpen ? 'bg-primary rotate-90' : ''
+                    }`}
+                  />
+                </GhostButton>
+              </CollapsibleTrigger>
+            </div>
           </div>
 
           {/* Collapsible Content */}

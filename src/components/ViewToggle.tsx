@@ -13,7 +13,7 @@ interface ViewToggleProps {
 export function ViewToggle({ currentView, onViewChange }: ViewToggleProps) {
   const getClassName = useCallback(
     (view: ViewMode) => {
-      return `px-3 py-1 text-xs transition-all ${
+      return `px-2 py-1 text-xs transition-all ${
         currentView === view
           ? 'bg-background shadow-sm border-border'
           : 'bg-transparent border-transparent hover:bg-background/50'
@@ -23,20 +23,20 @@ export function ViewToggle({ currentView, onViewChange }: ViewToggleProps) {
   );
 
   return (
-    <div className="flex items-center bg-muted rounded-lg p-1">
+    <div className="flex items-center bg-muted rounded-lg">
       <OutlineButton
         size="sm"
         onClick={() => onViewChange('card')}
         className={getClassName('card')}
       >
-        <IconSquare className="size-4" />
+        <IconSquare className="size-5" />
       </OutlineButton>
       <OutlineButton
         size="sm"
         onClick={() => onViewChange('list')}
         className={getClassName('list')}
       >
-        <IconListMinimal className="size-4" />
+        <IconListMinimal className="size-5" />
       </OutlineButton>
     </div>
   );

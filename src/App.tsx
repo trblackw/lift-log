@@ -10,7 +10,6 @@ import { CalendarView } from './components/CalendarView';
 import { DayView } from './components/DayView';
 import { ActiveWorkout } from './components/ActiveWorkout';
 import { HistoryView } from './components/HistoryView';
-import { ViewToggle } from './components/ViewToggle';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
 import { ThemeProvider } from './lib/theme';
@@ -309,14 +308,7 @@ function AppContent() {
     ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
     : null;
 
-  // Conditional header content - only show ViewToggle on workout list page
-  const rightHeaderContent =
-    currentView === 'list' && !selectedWorkout ? (
-      <ViewToggle
-        currentView={workoutListViewMode}
-        onViewChange={setWorkoutListViewMode}
-      />
-    ) : null;
+  // No longer needed - ViewToggle is now inline in WorkoutList
 
   // Loading state
   if (isLoading) {
@@ -360,6 +352,7 @@ function AppContent() {
             onDeleteWorkout={handleDeleteWorkout}
             onViewWorkout={handleViewWorkout}
             viewMode={workoutListViewMode}
+            onViewModeChange={setWorkoutListViewMode}
           />
         );
       case 'create':
@@ -486,7 +479,6 @@ function AppContent() {
       activeWorkout={activeWorkout}
       onResumeWorkout={handleResumeWorkout}
       onEndWorkout={handleEndActiveWorkout}
-      rightHeaderContent={rightHeaderContent}
     >
       <div className="max-w-4xl mx-auto space-y-6">{renderView()}</div>
     </AppSidebarLayout>

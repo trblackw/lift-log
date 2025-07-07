@@ -127,7 +127,6 @@ interface AppSidebarLayoutProps {
   activeWorkout?: Workout | null;
   onResumeWorkout?: () => void;
   onEndWorkout?: () => void;
-  rightHeaderContent?: React.ReactNode;
 }
 
 export function AppSidebarLayout({
@@ -138,7 +137,6 @@ export function AppSidebarLayout({
   activeWorkout,
   onResumeWorkout,
   onEndWorkout,
-  rightHeaderContent,
 }: AppSidebarLayoutProps) {
   const displayActiveWorkoutBanner =
     activeWorkoutSession && activeWorkout && onResumeWorkout && onEndWorkout;
@@ -160,7 +158,7 @@ export function AppSidebarLayout({
                 Lift Log
               </h1>
             </div>
-            {rightHeaderContent || <div className="w-8" />}
+            <div className="w-8" />
           </div>
 
           <div className="p-4 space-y-4">
