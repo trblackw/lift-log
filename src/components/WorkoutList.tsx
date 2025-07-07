@@ -25,6 +25,8 @@ import IconActiveRun from './icons/icon-active-run';
 import { ChevronDown } from 'lucide-react';
 import IconMagnifier from './icons/icon-magnifier';
 import IconCheckCircle from './icons/icon-check-circle';
+import IconDumbbell from './icons/icon-dumbbell';
+import IconTimer from './icons/icon-timer';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -156,15 +158,21 @@ export function WorkoutList({
                   </h3>
                 </div>
                 <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
-                  <span>
-                    {workout.exercises.length} exercise
-                    {workout.exercises.length !== 1 ? 's' : ''}
+                  <span className="flex items-center">
+                    <IconDumbbell className="size-4 mr-1" />
+                    {workout.exercises.length}
                   </span>
                   {workout.estimatedDuration && (
-                    <span>{workout.estimatedDuration} min</span>
+                    <span className="flex items-center">
+                      <IconTimer className="size-4 mr-1" />
+                      {workout.estimatedDuration} min
+                    </span>
                   )}
                   {workout.lastCompleted && (
-                    <span className="text-green-600 text-xs whitespace-nowrap mt-auto pb-2 dark:text-green-400 flex items-center">
+                    <span
+                      style={{ paddingBottom: '2.5px' }}
+                      className="text-green-600 text-xs whitespace-nowrap mt-auto dark:text-green-400 flex items-center"
+                    >
                       <IconCheckCircle className="size-4 mr-1" />
                       {formatRelativeTime(workout.lastCompleted)}
                     </span>
@@ -172,24 +180,15 @@ export function WorkoutList({
                 </div>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0">
-                {onDeleteWorkout && (
-                  <GhostButton
-                    onClick={() => handleDeleteClick(workout.id)}
-                    size="sm"
-                    className="hover:bg-destructive/10 text-destructive hover:text-destructive p-2"
-                  >
-                    <IconDelete className="size-4" />
-                  </GhostButton>
-                )}
                 {onStartWorkout && (
-                  <PrimaryButton
+                  <SecondaryButton
                     onClick={() => onStartWorkout(workout.id)}
                     size="sm"
-                    className="px-3"
+                    className="bg-green-800 text-white"
                   >
-                    <IconActiveRun className="size-4 mr-1" />
+                    <IconActiveRun className="size-5 m-0" />
                     Start
-                  </PrimaryButton>
+                  </SecondaryButton>
                 )}
               </div>
             </div>
@@ -259,11 +258,9 @@ export function WorkoutList({
 
               {/* Last Completed */}
               {workout.lastCompleted && (
-                <div className="flex items-center gap-2 mt-2">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                  <span className="text-xs text-green-600 dark:text-green-400">
-                    Last completed {formatRelativeTime(workout.lastCompleted)}
-                  </span>
+                <div className="flex items-center gap-1 mt-2 text-xs text-green-600 dark:text-green-400">
+                  <IconCheckCircle className="size-4" />
+                  Last completed {formatRelativeTime(workout.lastCompleted)}
                 </div>
               )}
 
