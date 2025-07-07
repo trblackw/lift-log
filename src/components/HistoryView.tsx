@@ -57,7 +57,7 @@ const chartConfig = {
 
 export function HistoryView({ workoutSessions }: HistoryViewProps) {
   const [selectedTimeFrame, setSelectedTimeFrame] =
-    useState<TimeFrame>('1month');
+    useState<TimeFrame>('1week');
 
   const chartData = useMemo(() => {
     const now = new Date();
@@ -220,6 +220,7 @@ export function HistoryView({ workoutSessions }: HistoryViewProps) {
           <Select
             value={selectedTimeFrame}
             onValueChange={(value: TimeFrame) => setSelectedTimeFrame(value)}
+            searchable={false}
           >
             {timeFrameOptions.map(option => (
               <SelectItem key={option.value} value={option.value}>

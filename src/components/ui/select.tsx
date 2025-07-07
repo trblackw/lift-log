@@ -7,6 +7,7 @@ export interface SelectProps {
   onValueChange?: (value: string) => void;
   placeholder?: string;
   children: React.ReactNode;
+  searchable?: boolean;
 }
 
 export interface SelectItemProps {
@@ -30,6 +31,7 @@ export function Select({
   onValueChange,
   placeholder,
   children,
+  searchable = true,
 }: SelectProps) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [searchTerm, setSearchTerm] = React.useState('');
@@ -55,23 +57,27 @@ export function Select({
     onValueChange: (newValue: string) => {
       onValueChange?.(newValue);
       setIsOpen(false);
-      setSearchTerm('');
+      if (searchable) {
+        setSearchTerm('');
+      }
     },
     isOpen,
     setIsOpen,
   };
 
-  // Filter children based on search term
-  const filteredChildren = React.Children.toArray(children).filter(child => {
-    if (React.isValidElement<SelectItemProps>(child)) {
-      const childText =
-        typeof child.props.children === 'string'
-          ? child.props.children
-          : String(child.props.children);
-      return childText.toLowerCase().includes(searchTerm.toLowerCase());
-    }
-    return true;
-  });
+  // Filter children based on search term (only if searchable)
+  const filteredChildren = searchable
+    ? React.Children.toArray(children).filter(child => {
+        if (React.isValidElement<SelectItemProps>(child)) {
+          const childText =
+            typeof child.props.children === 'string'
+              ? child.props.children
+              : String(child.props.children);
+          return childText.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+        return true;
+      })
+    : React.Children.toArray(children);
 
   // Find selected item display text
   const selectedChild = React.Children.toArray(children).find(
@@ -101,23 +107,29 @@ export function Select({
 
         {isOpen && (
           <div className="absolute top-full left-0 right-0 z-50 mt-1 max-h-60 overflow-hidden rounded-md border bg-popover shadow-md">
-            <div className="flex items-center border-b px-3 py-2">
-              <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
-              <input
-                className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-                placeholder="Search workouts..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="max-h-48 overflow-auto">
+            {searchable && (
+              <div className="flex items-center border-b px-3 py-2">
+                <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                <input
+                  className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={e => setSearchTerm(e.target.value)}
+                />
+              </div>
+            )}
+            <div
+              className={
+                searchable ? 'max-h-48 overflow-auto' : 'max-h-60 overflow-auto'
+              }
+            >
               {filteredChildren.length > 0 ? (
                 filteredChildren
-              ) : (
+              ) : searchable ? (
                 <div className="py-6 text-center text-sm text-muted-foreground">
-                  No workouts found.
+                  No items found.
                 </div>
-              )}
+              ) : null}
             </div>
           </div>
         )}
