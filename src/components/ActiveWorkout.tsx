@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Workout, WorkoutSession } from "@/lib/types";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Workout, WorkoutSession } from '@/lib/types';
 
 interface ActiveWorkoutProps {
   workout: Workout;
@@ -9,11 +9,17 @@ interface ActiveWorkoutProps {
   onCancel: () => void;
 }
 
-export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutProps) {
+export function ActiveWorkout({
+  workout,
+  onComplete,
+  onCancel,
+}: ActiveWorkoutProps) {
   const [startedAt] = useState(new Date());
   const [pausedAt, setPausedAt] = useState<Date | null>(null);
   const [totalPausedTime, setTotalPausedTime] = useState(0);
-  const [completedExercises, setCompletedExercises] = useState<Set<string>>(new Set());
+  const [completedExercises, setCompletedExercises] = useState<Set<string>>(
+    new Set()
+  );
   const [duration, setDuration] = useState(0);
 
   // Calculate session duration
@@ -50,7 +56,9 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
   const pauseWorkout = () => {
     if (pausedAt) {
       // Resume
-      const pauseDuration = Math.floor((Date.now() - pausedAt.getTime()) / 1000);
+      const pauseDuration = Math.floor(
+        (Date.now() - pausedAt.getTime()) / 1000
+      );
       setTotalPausedTime(prev => prev + pauseDuration);
       setPausedAt(null);
     } else {
@@ -79,7 +87,8 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
 
   const completedCount = completedExercises.size;
   const totalCount = workout.exercises.length;
-  const progressPercentage = totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+  const progressPercentage =
+    totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
   return (
     <div className="space-y-3 lg:space-y-6">
@@ -88,10 +97,14 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
         <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
           <div className="space-y-4">
             <div className="text-center">
-              <h2 className="text-lg lg:text-xl font-semibold">{workout.name}</h2>
+              <h2 className="text-lg lg:text-xl font-semibold">
+                {workout.name}
+              </h2>
               <div className="text-sm lg:text-base text-muted-foreground mt-1">
                 {pausedAt ? (
-                  <span className="text-amber-500">⏸️ Paused at {formatDuration(duration)}</span>
+                  <span className="text-amber-500">
+                    ⏸️ Paused at {formatDuration(duration)}
+                  </span>
                 ) : (
                   <span>{formatDuration(duration)}</span>
                 )}
@@ -101,29 +114,29 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
               </div>
               {/* Progress bar */}
               <div className="w-full bg-muted rounded-full h-2 mt-2">
-                <div 
-                  className="bg-primary h-2 rounded-full transition-all duration-300" 
+                <div
+                  className="bg-primary h-2 rounded-full transition-all duration-300"
                   style={{ width: `${progressPercentage}%` }}
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-3 gap-2 lg:gap-3">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={pauseWorkout}
                 className="h-10 lg:h-12"
               >
                 {pausedAt ? '▶️ Resume' : '⏸️ Pause '}
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={onCancel}
                 className="h-10 lg:h-12"
               >
                 End Workout
               </Button>
-              <Button 
+              <Button
                 onClick={completeWorkout}
                 disabled={completedCount === 0}
                 className="h-10 lg:h-12"
@@ -141,41 +154,55 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
           <CardTitle className="text-lg lg:text-xl">Exercises</CardTitle>
         </CardHeader>
         <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3">
-          {workout.exercises.map((exercise) => {
+          {workout.exercises.map(exercise => {
             const isCompleted = completedExercises.has(exercise.id);
-            const exerciseText = exercise.duration 
+            const exerciseText = exercise.duration
               ? `${exercise.name} - ${exercise.duration} minutes${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`
               : `${exercise.name} - ${exercise.sets} × ${exercise.reps}${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`;
-            
+
             return (
-              <div 
+              <div
                 key={exercise.id}
                 className="flex items-center gap-3 p-3 hover:bg-muted/50 rounded-lg transition-colors cursor-pointer"
                 onClick={() => toggleExercise(exercise.id)}
               >
                 {/* Rounded checkbox */}
-                <div className={`
+                <div
+                  className={`
                   w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all
-                  ${isCompleted 
-                    ? 'bg-primary border-primary' 
-                    : 'border-muted-foreground hover:border-foreground/60'
+                  ${
+                    isCompleted
+                      ? 'bg-primary border-primary'
+                      : 'border-muted-foreground hover:border-foreground/60'
                   }
-                `}>
+                `}
+                >
                   {isCompleted && (
-                    <svg className="w-3 h-3 text-primary-foreground" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    <svg
+                      className="w-3 h-3 text-primary-foreground"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clipRule="evenodd"
+                      />
                     </svg>
                   )}
                 </div>
-                
+
                 {/* Exercise text */}
-                <span className={`
+                <span
+                  className={`
                   flex-1 text-sm lg:text-base transition-all
-                  ${isCompleted 
-                    ? 'line-through text-muted-foreground' 
-                    : 'text-foreground'
+                  ${
+                    isCompleted
+                      ? 'line-through text-muted-foreground'
+                      : 'text-foreground'
                   }
-                `}>
+                `}
+                >
                   {exerciseText}
                 </span>
               </div>
@@ -191,4 +218,4 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
       </Card>
     </div>
   );
-} 
+}

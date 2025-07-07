@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Select, SelectItem } from "@/components/ui/select";
-import { Navigation } from "./components/Navigation";
-import { WorkoutForm } from "./components/WorkoutForm";
-import { WorkoutList } from "./components/WorkoutList";
-import { WorkoutDetails } from "./components/WorkoutDetails";
-import { ActiveWorkout } from "./components/ActiveWorkout";
-import { Settings } from "./components/Settings";
-import { ThemeProvider } from "./lib/theme";
-import { storage } from "./lib/storage";
-import type { ViewMode, Workout, WorkoutSession } from "./lib/types";
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Select, SelectItem } from '@/components/ui/select';
+import { Navigation } from './components/Navigation';
+import { WorkoutForm } from './components/WorkoutForm';
+import { WorkoutList } from './components/WorkoutList';
+import { WorkoutDetails } from './components/WorkoutDetails';
+import { ActiveWorkout } from './components/ActiveWorkout';
+import { Settings } from './components/Settings';
+import { ThemeProvider } from './lib/theme';
+import { storage } from './lib/storage';
+import type { ViewMode, Workout, WorkoutSession } from './lib/types';
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
@@ -26,16 +26,16 @@ function AppContent() {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         // Initialize IndexedDB
         await storage.init();
-        
+
         // Load existing data
         const [loadedWorkouts, loadedSessions] = await Promise.all([
           storage.loadWorkouts(),
-          storage.loadSessions()
+          storage.loadSessions(),
         ]);
-        
+
         setWorkouts(loadedWorkouts);
         setWorkoutSessions(loadedSessions);
       } catch (err) {
@@ -49,7 +49,9 @@ function AppContent() {
     initializeApp();
   }, []);
 
-  const handleSaveWorkout = async (workoutData: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => {
+  const handleSaveWorkout = async (
+    workoutData: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>
+  ) => {
     try {
       if (selectedWorkout) {
         // Updating existing workout
@@ -62,7 +64,9 @@ function AppContent() {
 
         // Save to IndexedDB and update local state
         await storage.saveWorkout(updatedWorkout);
-        setWorkouts(prev => prev.map(w => w.id === updatedWorkout.id ? updatedWorkout : w));
+        setWorkouts(prev =>
+          prev.map(w => (w.id === updatedWorkout.id ? updatedWorkout : w))
+        );
         setSelectedWorkout(null);
         setCurrentView('list');
       } else {
@@ -126,13 +130,13 @@ function AppContent() {
       // Delete from IndexedDB and update local state
       await storage.deleteWorkout(workoutId);
       setWorkouts(prev => prev.filter(w => w.id !== workoutId));
-      
+
       // If the deleted workout was active, cancel it
       if (activeWorkoutId === workoutId) {
         setActiveWorkoutId(null);
         setCurrentView('list');
       }
-      
+
       // If the deleted workout was being viewed, go back to list
       if (selectedWorkout?.id === workoutId) {
         setSelectedWorkout(null);
@@ -161,7 +165,9 @@ function AppContent() {
     setCurrentView(view);
   };
 
-  const activeWorkout = activeWorkoutId ? workouts.find(w => w.id === activeWorkoutId) : null;
+  const activeWorkout = activeWorkoutId
+    ? workouts.find(w => w.id === activeWorkoutId)
+    : null;
 
   // Loading state
   if (isLoading) {
@@ -208,15 +214,21 @@ function AppContent() {
     switch (currentView) {
       case 'list':
         return (
-          <WorkoutList 
-            workouts={workouts} 
+          <WorkoutList
+            workouts={workouts}
             onStartWorkout={handleStartWorkout}
             onDeleteWorkout={handleDeleteWorkout}
             onViewWorkout={handleViewWorkout}
           />
         );
       case 'create':
-        return <WorkoutForm onSave={handleSaveWorkout} editWorkout={selectedWorkout} onCancel={handleCancelEdit} />;
+        return (
+          <WorkoutForm
+            onSave={handleSaveWorkout}
+            editWorkout={selectedWorkout}
+            onCancel={handleCancelEdit}
+          />
+        );
       case 'details':
         return selectedWorkout ? (
           <WorkoutDetails
@@ -240,23 +252,27 @@ function AppContent() {
             <div className="space-y-6">
               <Card>
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-semibold mb-4">Start a Workout</h2>
+                  <h2 className="text-xl font-semibold mb-4">
+                    Start a Workout
+                  </h2>
                   <p className="text-muted-foreground mb-4">
                     Choose a workout to get started:
                   </p>
-                  
+
                   {workouts.length > 0 ? (
-                    <Select 
+                    <Select
                       placeholder="Search and select a workout..."
                       onValueChange={handleStartWorkout}
                     >
-                      {workouts.map((workout) => (
+                      {workouts.map(workout => (
                         <SelectItem key={workout.id} value={workout.id}>
                           <div className="flex flex-col">
                             <span className="font-medium">{workout.name}</span>
                             <span className="text-xs text-muted-foreground">
-                              {workout.exercises.length} exercise{workout.exercises.length !== 1 ? 's' : ''}
-                              {workout.estimatedDuration && ` • ${workout.estimatedDuration} min`}
+                              {workout.exercises.length} exercise
+                              {workout.exercises.length !== 1 ? 's' : ''}
+                              {workout.estimatedDuration &&
+                                ` • ${workout.estimatedDuration} min`}
                             </span>
                           </div>
                         </SelectItem>
@@ -278,13 +294,18 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-200" style={{ width: "100vw" }}>
+    <div
+      className="min-h-screen bg-background transition-colors duration-200"
+      style={{ width: '100vw' }}
+    >
       <div className="max-w-2xl mx-auto px-4 py-4 lg:py-8 pb-20">
         <header className="mb-6 lg:mb-8">
           <div className="relative">
             <div className="text-center">
               <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
-              <p className="text-sm lg:text-base text-muted-foreground">Track your workouts and progress</p>
+              <p className="text-sm lg:text-base text-muted-foreground">
+                Track your workouts and progress
+              </p>
             </div>
             <div className="absolute top-0 right-0">
               <Settings />
@@ -293,12 +314,13 @@ function AppContent() {
         </header>
 
         {currentView !== 'details' && (
-          <Navigation currentView={currentView} onViewChange={handleViewChange} />
+          <Navigation
+            currentView={currentView}
+            onViewChange={handleViewChange}
+          />
         )}
 
-        <div className="mt-6 lg:mt-8">
-          {renderView()}
-        </div>
+        <div className="mt-6 lg:mt-8">{renderView()}</div>
       </div>
     </div>
   );

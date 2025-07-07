@@ -24,7 +24,10 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProviderProps) {
+export function ThemeProvider({
+  children,
+  defaultTheme = 'system',
+}: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(() => {
     // Try to get theme from localStorage first
     if (typeof window !== 'undefined') {
@@ -39,7 +42,9 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
   // Function to get the resolved theme based on system preference
   const getResolvedTheme = (currentTheme: Theme): 'light' | 'dark' => {
     if (currentTheme === 'system') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
     }
     return currentTheme as 'light' | 'dark';
   };
@@ -49,7 +54,7 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
     const root = document.documentElement;
     root.classList.remove('light', 'dark');
     root.classList.add(resolvedTheme);
-    
+
     // Also set data attribute for better compatibility
     root.setAttribute('data-theme', resolvedTheme);
   };
@@ -103,4 +108,4 @@ export function ThemeProvider({ children, defaultTheme = 'system' }: ThemeProvid
       {children}
     </ThemeContext.Provider>
   );
-} 
+}

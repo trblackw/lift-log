@@ -12,7 +12,7 @@ class StorageManager {
 
   async init(): Promise<void> {
     if (this.initialized) return;
-    
+
     try {
       await workoutDB.init();
       await this.migrateLegacyData();
@@ -45,7 +45,7 @@ class StorageManager {
 
       if (legacyWorkouts.length > 0 || legacySessions.length > 0) {
         console.log('Migrating data from localStorage to IndexedDB...');
-        
+
         // Migrate workouts
         for (const workout of legacyWorkouts) {
           await workoutDB.saveWorkout(workout);
@@ -60,7 +60,9 @@ class StorageManager {
         localStorage.removeItem(LEGACY_STORAGE_KEYS.WORKOUTS);
         localStorage.removeItem(LEGACY_STORAGE_KEYS.SESSIONS);
 
-        console.log(`Migrated ${legacyWorkouts.length} workouts and ${legacySessions.length} sessions`);
+        console.log(
+          `Migrated ${legacyWorkouts.length} workouts and ${legacySessions.length} sessions`
+        );
       }
     } catch (error) {
       console.warn('Failed to migrate legacy data:', error);
@@ -72,7 +74,7 @@ class StorageManager {
     try {
       const stored = localStorage.getItem(LEGACY_STORAGE_KEYS.WORKOUTS);
       if (!stored) return [];
-      
+
       const parsed = JSON.parse(stored);
       return this.reviveDates(parsed) || [];
     } catch {
@@ -84,7 +86,7 @@ class StorageManager {
     try {
       const stored = localStorage.getItem(LEGACY_STORAGE_KEYS.SESSIONS);
       if (!stored) return [];
-      
+
       const parsed = JSON.parse(stored);
       return this.reviveDates(parsed) || [];
     } catch {
@@ -95,16 +97,19 @@ class StorageManager {
   // Utility to convert date strings back to Date objects
   private reviveDates(obj: any): any {
     if (obj === null || typeof obj !== 'object') return obj;
-    
+
     if (Array.isArray(obj)) {
       return obj.map(item => this.reviveDates(item));
     }
-    
+
     const result: any = {};
     for (const key in obj) {
       const value = obj[key];
       // Convert ISO date strings back to Date objects
-      if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)) {
+      if (
+        typeof value === 'string' &&
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(value)
+      ) {
         result[key] = new Date(value);
       } else if (typeof value === 'object') {
         result[key] = this.reviveDates(value);
@@ -112,14 +117,14 @@ class StorageManager {
         result[key] = value;
       }
     }
-    
+
     return result;
   }
 
   // Workout operations
   async saveWorkouts(workouts: Workout[]): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       // Save each workout individually
       for (const workout of workouts) {
@@ -133,7 +138,7 @@ class StorageManager {
 
   async saveWorkout(workout: Workout): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       await workoutDB.saveWorkout(workout);
     } catch (error) {
@@ -144,7 +149,7 @@ class StorageManager {
 
   async loadWorkouts(): Promise<Workout[]> {
     this.ensureInitialized();
-    
+
     try {
       return await workoutDB.getWorkouts();
     } catch (error) {
@@ -155,7 +160,7 @@ class StorageManager {
 
   async deleteWorkout(id: string): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       await workoutDB.deleteWorkout(id);
     } catch (error) {
@@ -167,7 +172,7 @@ class StorageManager {
   // Session operations
   async saveSessions(sessions: WorkoutSession[]): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       // Save each session individually
       for (const session of sessions) {
@@ -181,7 +186,7 @@ class StorageManager {
 
   async saveSession(session: WorkoutSession): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       await workoutDB.saveSession(session);
     } catch (error) {
@@ -192,7 +197,7 @@ class StorageManager {
 
   async loadSessions(): Promise<WorkoutSession[]> {
     this.ensureInitialized();
-    
+
     try {
       return await workoutDB.getSessions();
     } catch (error) {
@@ -203,7 +208,7 @@ class StorageManager {
 
   async getSessionsByWorkoutId(workoutId: string): Promise<WorkoutSession[]> {
     this.ensureInitialized();
-    
+
     try {
       return await workoutDB.getSessionsByWorkoutId(workoutId);
     } catch (error) {
@@ -215,7 +220,7 @@ class StorageManager {
   // Search and filter operations
   async searchWorkouts(query: string): Promise<Workout[]> {
     this.ensureInitialized();
-    
+
     try {
       if (!query.trim()) {
         return await this.loadWorkouts();
@@ -229,7 +234,7 @@ class StorageManager {
 
   async getWorkoutsByTag(tagId: string): Promise<Workout[]> {
     this.ensureInitialized();
-    
+
     try {
       return await workoutDB.getWorkoutsByTag(tagId);
     } catch (error) {
@@ -241,7 +246,7 @@ class StorageManager {
   // Utility operations
   async clearAll(): Promise<void> {
     this.ensureInitialized();
-    
+
     try {
       await workoutDB.clearAllData();
     } catch (error) {
@@ -256,7 +261,7 @@ class StorageManager {
     totalCompletedSessions: number;
   }> {
     this.ensureInitialized();
-    
+
     try {
       return await workoutDB.getStats();
     } catch (error) {
@@ -281,7 +286,8 @@ export const storage = {
   // Legacy methods (maintained for backward compatibility)
   saveWorkouts: (workouts: Workout[]) => storageManager.saveWorkouts(workouts),
   loadWorkouts: () => storageManager.loadWorkouts(),
-  saveSessions: (sessions: WorkoutSession[]) => storageManager.saveSessions(sessions),
+  saveSessions: (sessions: WorkoutSession[]) =>
+    storageManager.saveSessions(sessions),
   loadSessions: () => storageManager.loadSessions(),
   clearAll: () => storageManager.clearAll(),
 
@@ -289,8 +295,9 @@ export const storage = {
   saveWorkout: (workout: Workout) => storageManager.saveWorkout(workout),
   saveSession: (session: WorkoutSession) => storageManager.saveSession(session),
   deleteWorkout: (id: string) => storageManager.deleteWorkout(id),
-  getSessionsByWorkoutId: (workoutId: string) => storageManager.getSessionsByWorkoutId(workoutId),
+  getSessionsByWorkoutId: (workoutId: string) =>
+    storageManager.getSessionsByWorkoutId(workoutId),
   searchWorkouts: (query: string) => storageManager.searchWorkouts(query),
   getWorkoutsByTag: (tagId: string) => storageManager.getWorkoutsByTag(tagId),
   getStats: () => storageManager.getStats(),
-}; 
+};

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Workout } from "@/lib/types";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import type { Workout } from '@/lib/types';
 
 interface WorkoutDetailsProps {
   workout: Workout;
@@ -9,14 +9,19 @@ interface WorkoutDetailsProps {
   onBack: () => void;
 }
 
-export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDetailsProps) {
+export function WorkoutDetails({
+  workout,
+  onEdit,
+  onStart,
+  onBack,
+}: WorkoutDetailsProps) {
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     }).format(date);
   };
 
@@ -27,9 +32,13 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h1 className="text-2xl lg:text-3xl font-bold mb-2">{workout.name}</h1>
+              <h1 className="text-2xl lg:text-3xl font-bold mb-2">
+                {workout.name}
+              </h1>
               {workout.description && (
-                <p className="text-muted-foreground text-sm lg:text-base">{workout.description}</p>
+                <p className="text-muted-foreground text-sm lg:text-base">
+                  {workout.description}
+                </p>
               )}
             </div>
             <Button
@@ -43,8 +52,13 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm lg:text-base text-muted-foreground mb-6">
-            <span>{workout.exercises.length} exercise{workout.exercises.length !== 1 ? 's' : ''}</span>
-            {workout.estimatedDuration && <span>{workout.estimatedDuration} minutes</span>}
+            <span>
+              {workout.exercises.length} exercise
+              {workout.exercises.length !== 1 ? 's' : ''}
+            </span>
+            {workout.estimatedDuration && (
+              <span>{workout.estimatedDuration} minutes</span>
+            )}
             <span>Created {formatDate(workout.createdAt)}</span>
             {workout.updatedAt.getTime() !== workout.createdAt.getTime() && (
               <span>Updated {formatDate(workout.updatedAt)}</span>
@@ -75,7 +89,7 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
         <Card>
           <CardContent className="p-6">
             <div className="flex flex-wrap gap-2">
-              {workout.tags.map((tag) => (
+              {workout.tags.map(tag => (
                 <span
                   key={tag.id}
                   className="px-3 py-1.5 rounded-full text-sm text-white"
@@ -109,23 +123,44 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
                       <span className="flex items-center justify-center w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-medium">
                         {index + 1}
                       </span>
-                      <h3 className="font-medium text-base lg:text-lg">{exercise.name}</h3>
+                      <h3 className="font-medium text-base lg:text-lg">
+                        {exercise.name}
+                      </h3>
                     </div>
-                    
+
                     <div className="ml-9 space-y-2">
                       <div className="flex flex-wrap gap-4 text-sm lg:text-base">
                         {exercise.duration ? (
-                          <span><strong>Duration:</strong> {exercise.duration} minutes</span>
+                          <span>
+                            <strong>Duration:</strong> {exercise.duration}{' '}
+                            minutes
+                          </span>
                         ) : (
                           <>
-                            {exercise.sets && <span><strong>Sets:</strong> {exercise.sets}</span>}
-                            {exercise.reps && <span><strong>Reps:</strong> {exercise.reps}</span>}
+                            {exercise.sets && (
+                              <span>
+                                <strong>Sets:</strong> {exercise.sets}
+                              </span>
+                            )}
+                            {exercise.reps && (
+                              <span>
+                                <strong>Reps:</strong> {exercise.reps}
+                              </span>
+                            )}
                           </>
                         )}
-                        {exercise.weight && <span><strong>Weight:</strong> {exercise.weight}lbs</span>}
-                        {exercise.restTime && <span><strong>Rest:</strong> {exercise.restTime}s</span>}
+                        {exercise.weight && (
+                          <span>
+                            <strong>Weight:</strong> {exercise.weight}lbs
+                          </span>
+                        )}
+                        {exercise.restTime && (
+                          <span>
+                            <strong>Rest:</strong> {exercise.restTime}s
+                          </span>
+                        )}
                       </div>
-                      
+
                       {exercise.notes && (
                         <div className="text-sm lg:text-base text-muted-foreground italic">
                           <strong>Notes:</strong> {exercise.notes}
@@ -141,4 +176,4 @@ export function WorkoutDetails({ workout, onEdit, onStart, onBack }: WorkoutDeta
       </Card>
     </div>
   );
-} 
+}

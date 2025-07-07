@@ -1,5 +1,5 @@
-import { serve } from "bun";
-import index from "./index.html";
+import { serve } from 'bun';
+import index from './index.html';
 
 const port = process.env.PORT || 3000;
 
@@ -7,10 +7,10 @@ const server = serve({
   port,
   routes: {
     // Serve index.html for all unmatched routes (SPA routing)
-    "/*": index,
+    '/*': index,
   },
 
-  development: process.env.NODE_ENV !== "production" && {
+  development: process.env.NODE_ENV !== 'production' && {
     // Enable browser hot reloading in development
     hmr: true,
 

@@ -1,6 +1,6 @@
-import * as React from "react";
-import { ChevronDown, Search } from "lucide-react";
-import { cn } from "@/lib/utils";
+import * as React from 'react';
+import { ChevronDown, Search } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface SelectProps {
   value?: string;
@@ -25,15 +25,23 @@ const SelectContext = React.createContext<{
   setIsOpen: () => {},
 });
 
-export function Select({ value, onValueChange, placeholder, children }: SelectProps) {
+export function Select({
+  value,
+  onValueChange,
+  placeholder,
+  children,
+}: SelectProps) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState('');
   const selectRef = React.useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
   React.useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (selectRef.current && !selectRef.current.contains(event.target as Node)) {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
@@ -47,26 +55,29 @@ export function Select({ value, onValueChange, placeholder, children }: SelectPr
     onValueChange: (newValue: string) => {
       onValueChange?.(newValue);
       setIsOpen(false);
-      setSearchTerm("");
+      setSearchTerm('');
     },
     isOpen,
     setIsOpen,
   };
 
   // Filter children based on search term
-  const filteredChildren = React.Children.toArray(children).filter((child) => {
+  const filteredChildren = React.Children.toArray(children).filter(child => {
     if (React.isValidElement<SelectItemProps>(child)) {
-      const childText = typeof child.props.children === 'string' 
-        ? child.props.children 
-        : String(child.props.children);
+      const childText =
+        typeof child.props.children === 'string'
+          ? child.props.children
+          : String(child.props.children);
       return childText.toLowerCase().includes(searchTerm.toLowerCase());
     }
     return true;
   });
 
   // Find selected item display text
-  const selectedChild = React.Children.toArray(children).find((child) => 
-    React.isValidElement<SelectItemProps>(child) && child.props.value === value
+  const selectedChild = React.Children.toArray(children).find(
+    child =>
+      React.isValidElement<SelectItemProps>(child) &&
+      child.props.value === value
   ) as React.ReactElement<SelectItemProps> | undefined;
 
   return (
@@ -75,13 +86,15 @@ export function Select({ value, onValueChange, placeholder, children }: SelectPr
         <button
           type="button"
           className={cn(
-            "flex h-12 lg:h-14 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm lg:text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-            !value && "text-muted-foreground"
+            'flex h-12 lg:h-14 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm lg:text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+            !value && 'text-muted-foreground'
           )}
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="truncate">
-            {value && selectedChild ? selectedChild.props.children : placeholder}
+            {value && selectedChild
+              ? selectedChild.props.children
+              : placeholder}
           </span>
           <ChevronDown className="h-4 w-4 opacity-50" />
         </button>
@@ -94,7 +107,7 @@ export function Select({ value, onValueChange, placeholder, children }: SelectPr
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 placeholder="Search workouts..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="max-h-48 overflow-auto">
@@ -115,12 +128,12 @@ export function Select({ value, onValueChange, placeholder, children }: SelectPr
 
 export function SelectItem({ value, children, onSelect }: SelectItemProps) {
   const context = React.useContext(SelectContext);
-  
+
   return (
     <div
       className={cn(
-        "relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-        context.value === value && "bg-accent text-accent-foreground"
+        'relative flex cursor-pointer select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        context.value === value && 'bg-accent text-accent-foreground'
       )}
       onClick={() => {
         context.onValueChange?.(value);

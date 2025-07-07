@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import type { Tag } from "@/lib/types";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import type { Tag } from '@/lib/types';
 
 interface TagSelectorProps {
   selectedTags: Tag[];
@@ -34,7 +34,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
   const addCustomTag = () => {
     if (!newTagName.trim()) return;
-    
+
     const customTag: Tag = {
       id: crypto.randomUUID(),
       name: newTagName.trim(),
@@ -52,11 +52,11 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
   return (
     <div className="space-y-4 lg:space-y-6">
       <Label className="text-sm lg:text-base">Tags</Label>
-      
+
       {/* Selected Tags */}
       {selectedTags.length > 0 && (
         <div className="flex flex-wrap gap-2 lg:gap-3">
-          {selectedTags.map((tag) => (
+          {selectedTags.map(tag => (
             <div
               key={tag.id}
               className="flex items-center gap-1 px-2 py-0 h-8 rounded-full text-sm lg:text-base text-white"
@@ -79,15 +79,17 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
       {/* Predefined Tags */}
       <div>
-        <Label className="text-xs lg:text-sm text-muted-foreground">Quick Select:</Label>
+        <Label className="text-xs lg:text-sm text-muted-foreground">
+          Quick Select:
+        </Label>
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-3 mt-2">
-          {predefinedTags.map((tag) => {
+          {predefinedTags.map(tag => {
             const isSelected = selectedTags.some(t => t.id === tag.id);
             return (
               <Button
                 key={tag.id}
                 type="button"
-                variant={isSelected ? "default" : "outline"}
+                variant={isSelected ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => toggleTag(tag)}
                 className="h-10 lg:h-12 text-xs lg:text-sm font-medium"
@@ -102,13 +104,15 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
       {/* Custom Tag Input */}
       <div className="space-y-2 lg:space-y-3">
-        <Label className="text-xs lg:text-sm text-muted-foreground">Create Custom Tag:</Label>
+        <Label className="text-xs lg:text-sm text-muted-foreground">
+          Create Custom Tag:
+        </Label>
         <div className="flex gap-2 lg:gap-3">
           <Input
             value={newTagName}
-            onChange={(e) => setNewTagName(e.target.value)}
+            onChange={e => setNewTagName(e.target.value)}
             placeholder="Custom tag name"
-            onKeyPress={(e) => e.key === 'Enter' && addCustomTag()}
+            onKeyPress={e => e.key === 'Enter' && addCustomTag()}
             className="h-10 lg:h-12 text-sm lg:text-base"
           />
           <Button
@@ -125,4 +129,4 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
       </div>
     </div>
   );
-} 
+}

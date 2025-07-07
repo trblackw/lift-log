@@ -1,11 +1,11 @@
-import { useState, useMemo, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectItem } from "@/components/ui/select";
-import { storage } from "@/lib/storage";
-import type { Workout, Tag } from "@/lib/types";
+import { useState, useMemo, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectItem } from '@/components/ui/select';
+import { storage } from '@/lib/storage';
+import type { Workout, Tag } from '@/lib/types';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -14,7 +14,12 @@ interface WorkoutListProps {
   onViewWorkout?: (workout: Workout) => void;
 }
 
-export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewWorkout }: WorkoutListProps) {
+export function WorkoutList({
+  workouts,
+  onStartWorkout,
+  onDeleteWorkout,
+  onViewWorkout,
+}: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
   const [filteredWorkouts, setFilteredWorkouts] = useState<Workout[]>(workouts);
@@ -47,12 +52,16 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
         if (selectedTagFilter && searchTerm) {
           // Both tag and search term - use client-side filtering
           const tagResults = await storage.getWorkoutsByTag(selectedTagFilter);
-          results = tagResults.filter(workout => 
-            workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (workout.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
-            workout.exercises.some(exercise => 
-              exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+          results = tagResults.filter(
+            workout =>
+              workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+              (workout.description
+                ?.toLowerCase()
+                .includes(searchTerm.toLowerCase()) ??
+                false) ||
+              workout.exercises.some(exercise =>
+                exercise.name.toLowerCase().includes(searchTerm.toLowerCase())
+              )
           );
         } else if (selectedTagFilter) {
           // Tag filter only
@@ -69,11 +78,16 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
         console.error('Search failed:', error);
         // Fallback to client-side filtering
         const filtered = workouts.filter(workout => {
-          const matchesSearch = !searchTerm || 
+          const matchesSearch =
+            !searchTerm ||
             workout.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (workout.description?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false);
-          
-          const matchesTag = !selectedTagFilter || 
+            (workout.description
+              ?.toLowerCase()
+              .includes(searchTerm.toLowerCase()) ??
+              false);
+
+          const matchesTag =
+            !selectedTagFilter ||
             workout.tags.some(tag => tag.id === selectedTagFilter);
 
           return matchesSearch && matchesTag;
@@ -92,7 +106,7 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
-      day: 'numeric'
+      day: 'numeric',
     }).format(date);
   };
 
@@ -121,7 +135,7 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
     if ((event.target as HTMLElement).closest('button')) {
       return;
     }
-    
+
     if (onViewWorkout) {
       onViewWorkout(workout);
     }
@@ -133,7 +147,9 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
         <CardContent className="p-6">
           <div className="text-center py-8 lg:py-12">
             <div className="text-6xl lg:text-8xl mb-4">💪</div>
-            <h2 className="text-xl lg:text-2xl font-semibold mb-2">No Workouts Yet</h2>
+            <h2 className="text-xl lg:text-2xl font-semibold mb-2">
+              No Workouts Yet
+            </h2>
             <p className="text-muted-foreground mb-4 text-sm lg:text-base">
               Create your first workout to get started!
             </p>
@@ -153,16 +169,18 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div>
-              <Label htmlFor="search" className="text-sm lg:text-base">Search Workouts</Label>
+              <Label htmlFor="search" className="text-sm lg:text-base">
+                Search Workouts
+              </Label>
               <Input
                 id="search"
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={e => setSearchTerm(e.target.value)}
                 placeholder="Search by name, description, or exercise..."
                 className="mt-1 h-12 lg:h-14 lg:text-base"
               />
             </div>
-            
+
             {allTags.length > 0 && (
               <div>
                 <Label className="text-sm lg:text-base">Filter by Tag</Label>
@@ -173,11 +191,11 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
                     placeholder="All Tags"
                   >
                     <SelectItem value="">All Tags</SelectItem>
-                    {allTags.map((tag) => (
+                    {allTags.map(tag => (
                       <SelectItem key={tag.id} value={tag.id}>
                         <div className="flex items-center gap-2">
-                          <div 
-                            className="w-3 h-3 rounded-full" 
+                          <div
+                            className="w-3 h-3 rounded-full"
                             style={{ backgroundColor: tag.color }}
                           />
                           {tag.name}
@@ -206,7 +224,9 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
       {/* Results Header */}
       <div className="flex items-center justify-center py-3 ml-auto">
         <span className="text-sm lg:text-base text-muted-foreground">
-          {isSearching ? 'Searching...' : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
+          {isSearching
+            ? 'Searching...'
+            : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
         </span>
       </div>
 
@@ -232,20 +252,24 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
         </Card>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
-          {filteredWorkouts.map((workout) => (
-            <Card 
-              key={workout.id} 
+          {filteredWorkouts.map(workout => (
+            <Card
+              key={workout.id}
               className="hover:shadow-md transition-shadow cursor-pointer"
-              onClick={(e) => handleWorkoutClick(workout, e)}
+              onClick={e => handleWorkoutClick(workout, e)}
             >
               <CardContent className="p-6">
                 <div className="space-y-3 lg:space-y-4">
                   {/* Header */}
                   <div className="flex justify-between items-start">
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">{workout.name}</h3>
+                      <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
+                        {workout.name}
+                      </h3>
                       {workout.description && (
-                        <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">{workout.description}</p>
+                        <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
+                          {workout.description}
+                        </p>
                       )}
                     </div>
                     <div className="flex gap-2 ml-3 shrink-0">
@@ -274,23 +298,28 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
                   {/* Stats */}
                   <div className="flex justify-between text-sm lg:text-base">
                     <span className="text-muted-foreground">
-                      {workout.exercises.length} exercise{workout.exercises.length !== 1 ? 's' : ''}
+                      {workout.exercises.length} exercise
+                      {workout.exercises.length !== 1 ? 's' : ''}
                     </span>
                     <span className="text-muted-foreground">
-                      {workout.estimatedDuration ? `${workout.estimatedDuration} min` : formatDate(workout.createdAt)}
+                      {workout.estimatedDuration
+                        ? `${workout.estimatedDuration} min`
+                        : formatDate(workout.createdAt)}
                     </span>
                   </div>
 
                   {/* Exercise Preview */}
                   <div className="text-sm lg:text-base space-y-1">
-                    {workout.exercises.slice(0, 2).map((exercise) => (
-                      <div key={exercise.id} className="flex justify-between text-xs lg:text-sm">
+                    {workout.exercises.slice(0, 2).map(exercise => (
+                      <div
+                        key={exercise.id}
+                        className="flex justify-between text-xs lg:text-sm"
+                      >
                         <span className="truncate">{exercise.name}</span>
                         <span className="text-muted-foreground ml-2 shrink-0">
-                          {exercise.duration 
-                            ? `${exercise.duration}min` 
-                            : `${exercise.sets}×${exercise.reps}`
-                          }
+                          {exercise.duration
+                            ? `${exercise.duration}min`
+                            : `${exercise.sets}×${exercise.reps}`}
                           {exercise.weight && ` @${exercise.weight}lbs`}
                         </span>
                       </div>
@@ -305,7 +334,7 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
                   {/* Tags */}
                   {workout.tags.length > 0 && (
                     <div className="flex flex-wrap gap-1 lg:gap-2">
-                      {workout.tags.slice(0, 3).map((tag) => (
+                      {workout.tags.slice(0, 3).map(tag => (
                         <span
                           key={tag.id}
                           className="p-2 lg:py-1.5 rounded-full text-xs lg:text-sm text-white cursor-pointer hover:opacity-80"
@@ -336,21 +365,14 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold mb-2">Delete Workout</h3>
               <p className="text-muted-foreground mb-4">
-                Are you sure you want to delete this workout? This action cannot be undone.
+                Are you sure you want to delete this workout? This action cannot
+                be undone.
               </p>
               <div className="flex gap-2 justify-end">
-                <Button
-                  onClick={cancelDelete}
-                  variant="outline"
-                  size="sm"
-                >
+                <Button onClick={cancelDelete} variant="outline" size="sm">
                   Cancel
                 </Button>
-                <Button
-                  onClick={confirmDelete}
-                  variant="destructive"
-                  size="sm"
-                >
+                <Button onClick={confirmDelete} variant="destructive" size="sm">
                   Delete
                 </Button>
               </div>
@@ -360,4 +382,4 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewW
       )}
     </div>
   );
-} 
+}

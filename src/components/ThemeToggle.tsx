@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { useTheme } from "@/lib/theme";
+import { Button } from '@/components/ui/button';
+import { useTheme } from '@/lib/theme';
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -41,4 +41,4 @@ export function ThemeToggle() {
       <span className="text-lg lg:text-xl">{getIcon()}</span>
     </Button>
   );
-} 
+}

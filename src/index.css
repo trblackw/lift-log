@@ -1,4 +1,4 @@
-@import "../styles/globals.css";
+@import '../styles/globals.css';
 
 @layer base {
   :root {
@@ -12,19 +12,19 @@
   }
 
   /* Better mobile touch targets */
-  button, 
-  input, 
-  select, 
+  button,
+  input,
+  select,
   textarea {
     @apply min-h-[44px];
   }
 
   /* Prevent mobile zoom on input focus */
-  input[type="text"], 
-  input[type="number"], 
-  input[type="email"], 
-  input[type="password"], 
-  select, 
+  input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  input[type='password'],
+  select,
   textarea {
     font-size: 16px;
   }

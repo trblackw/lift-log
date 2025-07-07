@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import type { ViewMode } from "@/lib/types";
+import { Button } from '@/components/ui/button';
+import type { ViewMode } from '@/lib/types';
 
 interface NavigationProps {
   currentView: ViewMode;
@@ -15,10 +15,10 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
 
   return (
     <nav className="grid grid-cols-3 gap-2 lg:gap-4">
-      {navItems.map((item) => (
+      {navItems.map(item => (
         <Button
           key={item.id}
-          variant={currentView === item.id ? "default" : "outline"}
+          variant={currentView === item.id ? 'default' : 'outline'}
           onClick={() => onViewChange(item.id)}
           className="flex flex-col items-center gap-1 h-16 lg:h-20 text-xs lg:text-sm font-medium cursor-pointer"
           size="sm"
@@ -29,4 +29,4 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
       ))}
     </nav>
   );
-} 
+}
