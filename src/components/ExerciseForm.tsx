@@ -1,5 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
+import {
+  PrimaryButton,
+  OutlineButton,
+  GhostButton,
+} from '@/components/ui/standardButtons';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
@@ -120,20 +124,20 @@ export function ExerciseForm({
       onSubmit={handleSubmit(onSubmit)}
       className="lg:space-y-6 p-4 lg:p-6 border rounded-lg"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-end">
         {editingExercise && (
-          <OutlineButton
+          <GhostButton
             type="button"
             size="sm"
             onClick={handleCancel}
             className="text-xs lg:text-sm"
           >
             Cancel
-          </OutlineButton>
+          </GhostButton>
         )}
       </div>
 
-      <div className="lg:space-y-6">
+      <div className="lg:space-y-4">
         <div>
           <Label htmlFor="exerciseName" className="text-sm lg:text-base">
             Name *
@@ -188,6 +192,24 @@ export function ExerciseForm({
 
         {/* Strength Training Fields */}
         <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-sm lg:text-base font-medium">
+                Strength Training
+              </span>
+              <GhostButton
+                type="button"
+                size="sm"
+                onClick={() => {
+                  setValue('sets', 3);
+                  setValue('reps', 10);
+                }}
+                className="text-xs px-2 py-1 h-6 text-muted-foreground hover:text-muted-foreground/80"
+              >
+                3×10 Default
+              </GhostButton>
+            </div>
+          </div>
           <div className="grid grid-cols-2 gap-3 lg:gap-4">
             <div>
               <Label htmlFor="sets" className="text-sm lg:text-base">
