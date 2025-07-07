@@ -4,6 +4,7 @@ import { Select, SelectItem } from "@/components/ui/select";
 import { Navigation } from "./components/Navigation";
 import { WorkoutForm } from "./components/WorkoutForm";
 import { WorkoutList } from "./components/WorkoutList";
+import { WorkoutDetails } from "./components/WorkoutDetails";
 import { ActiveWorkout } from "./components/ActiveWorkout";
 import { Settings } from "./components/Settings";
 import { ThemeProvider } from "./lib/theme";
@@ -14,6 +15,7 @@ function AppContent() {
   const [currentView, setCurrentView] = useState<ViewMode>('list');
   const [workouts, setWorkouts] = useState<Workout[]>([]);
   const [activeWorkoutId, setActiveWorkoutId] = useState<string | null>(null);
+  const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
   const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -49,21 +51,48 @@ function AppContent() {
 
   const handleSaveWorkout = async (workoutData: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => {
     try {
-      const newWorkout: Workout = {
-        ...workoutData,
-        id: crypto.randomUUID(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
+      if (selectedWorkout) {
+        // Updating existing workout
+        const updatedWorkout: Workout = {
+          ...workoutData,
+          id: selectedWorkout.id,
+          createdAt: selectedWorkout.createdAt,
+          updatedAt: new Date(),
+        };
 
-      // Save to IndexedDB and update local state
-      await storage.saveWorkout(newWorkout);
-      setWorkouts(prev => [newWorkout, ...prev]);
-      setCurrentView('list');
+        // Save to IndexedDB and update local state
+        await storage.saveWorkout(updatedWorkout);
+        setWorkouts(prev => prev.map(w => w.id === updatedWorkout.id ? updatedWorkout : w));
+        setSelectedWorkout(null);
+        setCurrentView('list');
+      } else {
+        // Creating new workout
+        const newWorkout: Workout = {
+          ...workoutData,
+          id: crypto.randomUUID(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+
+        // Save to IndexedDB and update local state
+        await storage.saveWorkout(newWorkout);
+        setWorkouts(prev => [newWorkout, ...prev]);
+        setCurrentView('list');
+      }
     } catch (err) {
       console.error('Failed to save workout:', err);
       setError('Failed to save workout. Please try again.');
     }
+  };
+
+  const handleViewWorkout = (workout: Workout) => {
+    setSelectedWorkout(workout);
+    setCurrentView('details');
+  };
+
+  const handleEditWorkout = (workout: Workout) => {
+    setSelectedWorkout(workout);
+    setCurrentView('create');
   };
 
   const handleStartWorkout = (workoutId: string) => {
@@ -95,6 +124,12 @@ function AppContent() {
         setActiveWorkoutId(null);
         setCurrentView('list');
       }
+      
+      // If the deleted workout was being viewed, go back to list
+      if (selectedWorkout?.id === workoutId) {
+        setSelectedWorkout(null);
+        setCurrentView('list');
+      }
     } catch (err) {
       console.error('Failed to delete workout:', err);
       setError('Failed to delete workout. Please try again.');
@@ -106,13 +141,25 @@ function AppContent() {
     setCurrentView('list');
   };
 
+  const handleBackToList = () => {
+    setSelectedWorkout(null);
+    setCurrentView('list');
+  };
+
+  const handleViewChange = (view: ViewMode) => {
+    if (view === 'create') {
+      setSelectedWorkout(null); // Clear any selected workout for fresh create form
+    }
+    setCurrentView(view);
+  };
+
   const activeWorkout = activeWorkoutId ? workouts.find(w => w.id === activeWorkoutId) : null;
 
   // Loading state
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4">
+        <div className="max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
               <div className="text-4xl mb-4">💪</div>
@@ -128,9 +175,9 @@ function AppContent() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4">
+        <div className="max-w-2xl mx-auto px-4 py-4">
           <Card>
-            <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
+            <CardContent className="p-6">
               <div className="text-center py-8">
                 <div className="text-4xl mb-4">⚠️</div>
                 <h2 className="text-lg font-semibold mb-2">Error</h2>
@@ -157,10 +204,20 @@ function AppContent() {
             workouts={workouts} 
             onStartWorkout={handleStartWorkout}
             onDeleteWorkout={handleDeleteWorkout}
+            onViewWorkout={handleViewWorkout}
           />
         );
       case 'create':
-        return <WorkoutForm onSave={handleSaveWorkout} />;
+        return <WorkoutForm onSave={handleSaveWorkout} editWorkout={selectedWorkout} />;
+      case 'details':
+        return selectedWorkout ? (
+          <WorkoutDetails
+            workout={selectedWorkout}
+            onEdit={handleEditWorkout}
+            onStart={handleStartWorkout}
+            onBack={handleBackToList}
+          />
+        ) : null;
       case 'active':
         if (activeWorkout) {
           return (
@@ -213,8 +270,8 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-200 min-w-full px-1" style={{ width: "100vw" }}>
-      <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4 lg:py-8 pb-20">
+    <div className="min-h-screen bg-background transition-colors duration-200" style={{ width: "100vw" }}>
+      <div className="max-w-2xl mx-auto px-4 py-4 lg:py-8 pb-20">
         <header className="mb-6 lg:mb-8">
           <div className="relative">
             <div className="text-center">
@@ -227,7 +284,9 @@ function AppContent() {
           </div>
         </header>
 
-        <Navigation currentView={currentView} onViewChange={setCurrentView} />
+        {currentView !== 'details' && (
+          <Navigation currentView={currentView} onViewChange={handleViewChange} />
+        )}
 
         <div className="mt-6 lg:mt-8">
           {renderView()}

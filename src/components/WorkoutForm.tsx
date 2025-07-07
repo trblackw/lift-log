@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,18 +16,37 @@ interface WorkoutFormData {
 
 interface WorkoutFormProps {
   onSave: (workout: Omit<Workout, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  editWorkout?: Workout | null;
 }
 
-export function WorkoutForm({ onSave }: WorkoutFormProps) {
+export function WorkoutForm({ onSave, editWorkout }: WorkoutFormProps) {
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
   
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors }
   } = useForm<WorkoutFormData>();
+
+  // Pre-populate form when editing
+  useEffect(() => {
+    if (editWorkout) {
+      setValue("name", editWorkout.name);
+      setValue("description", editWorkout.description || "");
+      setValue("estimatedDuration", editWorkout.estimatedDuration || 0);
+      setExercises(editWorkout.exercises);
+      setSelectedTags(editWorkout.tags);
+    } else {
+      reset();
+      setExercises([]);
+      setSelectedTags([]);
+      setEditingExercise(null);
+    }
+  }, [editWorkout, setValue, reset]);
 
   const addExercise = (exercise: Omit<Exercise, 'id'>) => {
     const newExercise: Exercise = {
@@ -37,8 +56,27 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
     setExercises(prev => [...prev, newExercise]);
   };
 
+  const editExercise = (updatedExercise: Exercise) => {
+    setExercises(prev => prev.map(ex => 
+      ex.id === updatedExercise.id ? updatedExercise : ex
+    ));
+    setEditingExercise(null);
+  };
+
   const removeExercise = (exerciseId: string) => {
     setExercises(prev => prev.filter(ex => ex.id !== exerciseId));
+    // Cancel edit if the exercise being edited is removed
+    if (editingExercise?.id === exerciseId) {
+      setEditingExercise(null);
+    }
+  };
+
+  const startEditingExercise = (exercise: Exercise) => {
+    setEditingExercise(exercise);
+  };
+
+  const cancelEdit = () => {
+    setEditingExercise(null);
   };
 
   const onSubmit = (data: WorkoutFormData) => {
@@ -61,13 +99,18 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
     reset();
     setExercises([]);
     setSelectedTags([]);
+    setEditingExercise(null);
   };
+
+  const isEditing = !!editWorkout;
 
   return (
     <div className="space-y-3 lg:space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg lg:text-xl">Workout Details</CardTitle>
+          <CardTitle className="text-lg lg:text-xl">
+            {isEditing ? 'Edit Workout' : 'Workout Details'}
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
@@ -120,16 +163,25 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
-          <ExerciseForm onAddExercise={addExercise} />
+          <ExerciseForm 
+            onAddExercise={addExercise}
+            onEditExercise={editExercise}
+            editingExercise={editingExercise}
+            onCancelEdit={cancelEdit}
+          />
           
           {exercises.length > 0 && (
-            <div className="space-y-3 lg:space-y-4">
+            <div className="space-y-3 lg:space-y-4 mt-6">
               <h4 className="font-medium text-sm lg:text-base">Added Exercises:</h4>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
                 {exercises.map((exercise) => (
                   <div
                     key={exercise.id}
-                    className="p-3 lg:p-4 border rounded-lg bg-muted/30"
+                    className={`p-3 lg:p-4 border rounded-lg transition-colors ${
+                      editingExercise?.id === exercise.id 
+                        ? 'bg-primary/10 border-primary' 
+                        : 'bg-muted/30'
+                    }`}
                   >
                     <div className="flex justify-between items-start">
                       <div className="flex-1 min-w-0">
@@ -141,15 +193,31 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
                           }
                           {exercise.weight && ` @ ${exercise.weight}lbs`}
                         </div>
+                        {exercise.notes && (
+                          <div className="text-xs text-muted-foreground mt-1 italic">
+                            "{exercise.notes}"
+                          </div>
+                        )}
                       </div>
-                      <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => removeExercise(exercise.id)}
-                        className="ml-2 h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
-                      >
-                        Remove
-                      </Button>
+                      <div className="flex gap-1 ml-2 shrink-0">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => startEditingExercise(exercise)}
+                          disabled={editingExercise !== null}
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          variant="destructive"
+                          size="sm"
+                          onClick={() => removeExercise(exercise.id)}
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+                        >
+                          Remove
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -164,7 +232,7 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
         className="w-full h-12 lg:h-14 text-base lg:text-lg font-medium"
         disabled={exercises.length === 0}
       >
-        Save Workout
+        {isEditing ? 'Update Workout' : 'Save Workout'}
       </Button>
     </div>
   );

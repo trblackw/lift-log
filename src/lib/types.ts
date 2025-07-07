@@ -45,4 +45,4 @@ export interface WorkoutSession {
   notes?: string;
 }
 
-export type ViewMode = 'list' | 'create' | 'active'; 
+export type ViewMode = 'list' | 'create' | 'active' | 'details'; 

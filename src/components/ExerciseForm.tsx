@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect } from "react";
 import type { Exercise } from "@/lib/types";
 
 interface ExerciseFormData {
@@ -15,21 +16,40 @@ interface ExerciseFormData {
 }
 
 interface ExerciseFormProps {
-  onAddExercise: (exercise: Omit<Exercise, 'id'>) => void;
+  onAddExercise?: (exercise: Omit<Exercise, 'id'>) => void;
+  onEditExercise?: (exercise: Exercise) => void;
+  editingExercise?: Exercise | null;
+  onCancelEdit?: () => void;
 }
 
-export function ExerciseForm({ onAddExercise }: ExerciseFormProps) {
+export function ExerciseForm({ onAddExercise, onEditExercise, editingExercise, onCancelEdit }: ExerciseFormProps) {
   const {
     register,
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors }
   } = useForm<ExerciseFormData>();
 
   const watchedSets = watch("sets");
   const watchedReps = watch("reps");
   const watchedDuration = watch("duration");
+
+  // Pre-populate form when editing
+  useEffect(() => {
+    if (editingExercise) {
+      setValue("name", editingExercise.name);
+      setValue("sets", editingExercise.sets || undefined);
+      setValue("reps", editingExercise.reps || undefined);
+      setValue("weight", editingExercise.weight || undefined);
+      setValue("duration", editingExercise.duration || undefined);
+      setValue("restTime", editingExercise.restTime || undefined);
+      setValue("notes", editingExercise.notes || "");
+    } else {
+      reset();
+    }
+  }, [editingExercise, setValue, reset]);
 
   const onSubmit = (data: ExerciseFormData) => {
     // Validate that either (sets + reps) OR duration is provided
@@ -40,7 +60,7 @@ export function ExerciseForm({ onAddExercise }: ExerciseFormProps) {
       return; // Form validation will handle this
     }
 
-    const exercise: Omit<Exercise, 'id'> = {
+    const exerciseData = {
       name: data.name,
       sets: data.sets ? Number(data.sets) : undefined,
       reps: data.reps ? Number(data.reps) : undefined,
@@ -50,13 +70,46 @@ export function ExerciseForm({ onAddExercise }: ExerciseFormProps) {
       notes: data.notes || undefined,
     };
 
-    onAddExercise(exercise);
+    if (editingExercise && onEditExercise) {
+      // Editing existing exercise
+      onEditExercise({
+        ...exerciseData,
+        id: editingExercise.id,
+      });
+    } else if (onAddExercise) {
+      // Adding new exercise
+      onAddExercise(exerciseData);
+    }
+
     reset();
+  };
+
+  const handleCancel = () => {
+    reset();
+    if (onCancelEdit) {
+      onCancelEdit();
+    }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 lg:space-y-6 p-4 lg:p-6 border rounded-lg bg-muted/50">
-    
+      <div className="flex items-center justify-between">
+        <h4 className="font-medium text-sm lg:text-base">
+          {editingExercise ? 'Edit Exercise' : 'Add Exercise'}
+        </h4>
+        {editingExercise && (
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={handleCancel}
+            className="text-xs lg:text-sm"
+          >
+            Cancel
+          </Button>
+        )}
+      </div>
+      
       <div className="space-y-4 lg:space-y-6">
         <div>
           <Label htmlFor="exerciseName" className="text-sm lg:text-base">Exercise Name *</Label>
@@ -74,7 +127,7 @@ export function ExerciseForm({ onAddExercise }: ExerciseFormProps) {
         {/* Strength Training Fields */}
         <div className="space-y-3">
           <Label className="text-sm lg:text-base font-medium">Strength Training</Label>
-          <div className="grid grid-cols-2 gap-3 lg:gap-4 mt-3">
+          <div className="grid grid-cols-2 gap-3 lg:gap-4">
             <div>
               <Label htmlFor="sets" className="text-sm lg:text-base">Sets</Label>
               <Input
@@ -190,7 +243,7 @@ export function ExerciseForm({ onAddExercise }: ExerciseFormProps) {
       </div>
 
       <Button type="submit" className="w-full h-12 lg:h-14 text-sm lg:text-base font-medium">
-        Add Exercise
+        {editingExercise ? 'Update Exercise' : 'Add Exercise'}
       </Button>
     </form>
   );

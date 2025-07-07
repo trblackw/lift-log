@@ -11,9 +11,10 @@ interface WorkoutListProps {
   workouts: Workout[];
   onStartWorkout?: (workoutId: string) => void;
   onDeleteWorkout?: (workoutId: string) => void;
+  onViewWorkout?: (workout: Workout) => void;
 }
 
-export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout }: WorkoutListProps) {
+export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout, onViewWorkout }: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
   const [filteredWorkouts, setFilteredWorkouts] = useState<Workout[]>(workouts);
@@ -113,6 +114,17 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout }: Worko
 
   const cancelDelete = () => {
     setWorkoutToDelete(null);
+  };
+
+  const handleWorkoutClick = (workout: Workout, event: React.MouseEvent) => {
+    // Don't trigger if clicking on action buttons
+    if ((event.target as HTMLElement).closest('button')) {
+      return;
+    }
+    
+    if (onViewWorkout) {
+      onViewWorkout(workout);
+    }
   };
 
   if (workouts.length === 0) {
@@ -221,7 +233,11 @@ export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout }: Worko
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
           {filteredWorkouts.map((workout) => (
-            <Card key={workout.id} className="hover:shadow-md transition-shadow">
+            <Card 
+              key={workout.id} 
+              className="hover:shadow-md transition-shadow cursor-pointer"
+              onClick={(e) => handleWorkoutClick(workout, e)}
+            >
               <CardContent className="p-6">
                 <div className="space-y-3 lg:space-y-4">
                   {/* Header */}
