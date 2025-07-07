@@ -231,22 +231,29 @@ export function WorkoutForm({
         </CardContent>
       </Card>
 
-      <div className="flex gap-3">
-        {isEditing && onCancel && (
-          <SecondaryButton
-            onClick={onCancel}
-            className="flex-1 h-12 lg:h-14 text-base lg:text-lg font-medium"
-          >
-            Cancel
-          </SecondaryButton>
+      <div className="space-y-3">
+        {/* Discard Button */}
+        {onCancel && (
+          <div className="flex justify-center">
+            <GhostButton
+              onClick={onCancel}
+              className="text-muted-foreground hover:text-destructive text-sm"
+            >
+              {isEditing ? 'Discard Changes' : 'Discard Workout'}
+            </GhostButton>
+          </div>
         )}
-        <PrimaryButton
-          onClick={handleSubmit(onSubmit)}
-          className={`h-12 lg:h-14 text-base lg:text-lg font-medium ${isEditing ? 'flex-1' : 'w-full'} bg-green-500 hover:bg-green-600 text-white`}
-          disabled={exercises.length === 0}
-        >
-          {isEditing ? 'Update Workout' : 'Save Workout'}
-        </PrimaryButton>
+
+        {/* Action Buttons */}
+        <div className="flex gap-3">
+          <PrimaryButton
+            onClick={handleSubmit(onSubmit)}
+            className="w-full h-12 lg:h-14 text-base lg:text-lg font-medium bg-green-500 hover:bg-green-600 text-white"
+            disabled={exercises.length === 0}
+          >
+            {isEditing ? 'Update Workout' : 'Save Workout'}
+          </PrimaryButton>
+        </div>
       </div>
     </div>
   );
