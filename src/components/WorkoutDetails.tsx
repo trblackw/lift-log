@@ -1,4 +1,8 @@
-import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  OutlineButton,
+} from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Workout } from '@/lib/types';
 
@@ -41,14 +45,9 @@ export function WorkoutDetails({
                 </p>
               )}
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={onBack}
-              className="shrink-0"
-            >
+            <OutlineButton size="sm" onClick={onBack} className="shrink-0">
               ← Back
-            </Button>
+            </OutlineButton>
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm lg:text-base text-muted-foreground mb-6">
@@ -66,20 +65,18 @@ export function WorkoutDetails({
           </div>
 
           <div className="flex gap-3">
-            <Button
+            <PrimaryButton
               onClick={() => onStart(workout.id)}
               className="flex-1 lg:flex-none lg:px-8"
-              variant="default"
             >
               Start
-            </Button>
-            <Button
-              variant="default"
+            </PrimaryButton>
+            <SecondaryButton
               onClick={() => onEdit(workout)}
-              className="flex-1 lg:flex-none lg:px-8 bg-accent text-accent-foreground"
+              className="flex-1 lg:flex-none lg:px-8"
             >
               Edit
-            </Button>
+            </SecondaryButton>
           </div>
         </CardContent>
       </Card>

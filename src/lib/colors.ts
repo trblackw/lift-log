@@ -27,6 +27,12 @@ export const ColorPalette = {
     hsl: 'hsl(63 60% 90%)', // Converted from rgb(246, 248, 213)
     description: 'Light cream - background accent',
   },
+  red: {
+    hex: '#DC2525',
+    rgb: 'rgb(220, 37, 37)',
+    hsl: 'hsl(0 83% 50%)', // Converted from rgb(220, 37, 37)
+    description: 'Red - for destructive actions and errors',
+  },
 } as const;
 
 // Semantic color mappings for theming
@@ -54,8 +60,8 @@ export const SemanticColors = {
     ring: ColorPalette.teal.hsl, // Focus ring
 
     // Status colors
-    destructive: 'hsl(0 84% 60%)', // Red for errors
-    destructiveForeground: 'hsl(0 0% 98%)',
+    destructive: ColorPalette.red.hsl,
+    destructiveForeground: 'hsl(0 0% 98%)', // White text on red
 
     // Popover colors
     popover: 'hsl(0 0% 100%)',
@@ -94,8 +100,8 @@ export const SemanticColors = {
     ring: ColorPalette.mint.hsl, // Focus ring
 
     // Status colors
-    destructive: 'hsl(0 62% 55%)', // Red for errors
-    destructiveForeground: 'hsl(0 0% 98%)',
+    destructive: 'hsl(0 75% 55%)', // Slightly lighter red for dark theme
+    destructiveForeground: 'hsl(0 0% 98%)', // White text on red
 
     // Popover colors
     popover: 'hsl(203 45% 12%)',

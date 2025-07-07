@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { GhostButton } from '@/components/ui/standardButtons';
 import { useTheme } from '@/lib/theme';
 
 export function ThemeToggle() {
@@ -31,14 +31,13 @@ export function ThemeToggle() {
   };
 
   return (
-    <Button
-      variant="ghost"
+    <GhostButton
       size="sm"
       onClick={toggleTheme}
       className="h-9 w-9 lg:h-10 lg:w-10 p-0 hover:bg-muted cursor-pointer"
       title={getTooltip()}
     >
       <span className="text-lg lg:text-xl">{getIcon()}</span>
-    </Button>
+    </GhostButton>
   );
 }

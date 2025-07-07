@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  OutlineButton,
+} from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Workout, WorkoutSession } from '@/lib/types';
 
@@ -122,27 +126,19 @@ export function ActiveWorkout({
             </div>
 
             <div className="grid grid-cols-3 gap-2 lg:gap-3">
-              <Button
-                variant="outline"
-                onClick={pauseWorkout}
-                className="h-10 lg:h-12"
-              >
+              <OutlineButton onClick={pauseWorkout} className="h-10 lg:h-12">
                 {pausedAt ? '▶️ Resume' : '⏸️ Pause '}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={onCancel}
-                className="h-10 lg:h-12"
-              >
+              </OutlineButton>
+              <SecondaryButton onClick={onCancel} className="h-10 lg:h-12">
                 End Workout
-              </Button>
-              <Button
+              </SecondaryButton>
+              <PrimaryButton
                 onClick={completeWorkout}
                 disabled={completedCount === 0}
                 className="h-10 lg:h-12"
               >
                 Complete
-              </Button>
+              </PrimaryButton>
             </div>
           </div>
         </CardContent>

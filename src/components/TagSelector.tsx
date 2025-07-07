@@ -1,5 +1,10 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  OutlineButton,
+  GhostButton,
+} from '@/components/ui/standardButtons';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import type { Tag } from '@/lib/types';
@@ -63,15 +68,14 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
               style={{ backgroundColor: tag.color }}
             >
               {tag.name}
-              <Button
+              <GhostButton
                 type="button"
-                variant="ghost"
                 size="sm"
                 className="p-0 text-white hover:bg-white/20 ml-1"
                 onClick={() => removeTag(tag.id)}
               >
                 ×
-              </Button>
+              </GhostButton>
             </div>
           ))}
         </div>
@@ -85,18 +89,18 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-3 mt-2">
           {predefinedTags.map(tag => {
             const isSelected = selectedTags.some(t => t.id === tag.id);
+            const ButtonComponent = isSelected ? PrimaryButton : OutlineButton;
             return (
-              <Button
+              <ButtonComponent
                 key={tag.id}
                 type="button"
-                variant={isSelected ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => toggleTag(tag)}
                 className="h-10 lg:h-12 text-xs lg:text-sm font-medium"
                 disabled={isSelected}
               >
                 {tag.name}
-              </Button>
+              </ButtonComponent>
             );
           })}
         </div>
@@ -115,16 +119,15 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
             onKeyPress={e => e.key === 'Enter' && addCustomTag()}
             className="h-10 lg:h-12 text-sm lg:text-base"
           />
-          <Button
+          <SecondaryButton
             type="button"
             onClick={addCustomTag}
-            variant="secondary"
             disabled={!newTagName.trim()}
             size="sm"
             className="h-10 lg:h-12 px-4 lg:px-6 text-sm lg:text-base"
           >
             Add
-          </Button>
+          </SecondaryButton>
         </div>
       </div>
     </div>

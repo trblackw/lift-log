@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectItem } from '@/components/ui/select';
+import { PrimaryButton } from '@/components/ui/standardButtons';
 import { Navigation } from './components/Navigation';
 import { WorkoutForm } from './components/WorkoutForm';
 import { WorkoutList } from './components/WorkoutList';
@@ -196,12 +197,9 @@ function AppContent() {
                 <div className="text-4xl mb-4">⚠️</div>
                 <h2 className="text-lg font-semibold mb-2">Error</h2>
                 <p className="text-muted-foreground text-sm mb-4">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm"
-                >
+                <PrimaryButton onClick={() => window.location.reload()}>
                   Reload App
-                </button>
+                </PrimaryButton>
               </div>
             </CardContent>
           </Card>

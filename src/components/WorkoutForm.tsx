@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  DestructiveButton,
+  OutlineButton,
+  GhostButton,
+} from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -116,14 +122,9 @@ export function WorkoutForm({
           <CardTitle className="text-lg lg:text-xl flex items-center justify-between">
             <span>{isEditing ? 'Edit Workout' : 'Workout Details'}</span>
             {isEditing && onCancel && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={onCancel}
-                className="shrink-0"
-              >
+              <OutlineButton size="sm" onClick={onCancel} className="shrink-0">
                 Cancel
-              </Button>
+              </OutlineButton>
             )}
           </CardTitle>
         </CardHeader>
@@ -229,21 +230,21 @@ export function WorkoutForm({
                         )}
                       </div>
                       <div className="flex gap-1 ml-2 shrink-0">
-                        <Button
+                        <GhostButton
                           size="sm"
                           onClick={() => startEditingExercise(exercise)}
                           disabled={editingExercise !== null}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm bg-transparent text-white-500"
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
                         >
                           Edit
-                        </Button>
-                        <Button
+                        </GhostButton>
+                        <DestructiveButton
                           size="sm"
                           onClick={() => removeExercise(exercise.id)}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm bg-transparent text-muted-foreground"
+                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
                         >
                           Remove
-                        </Button>
+                        </DestructiveButton>
                       </div>
                     </div>
                   </div>
@@ -256,21 +257,20 @@ export function WorkoutForm({
 
       <div className="flex gap-3">
         {isEditing && onCancel && (
-          <Button
-            variant="outline"
+          <SecondaryButton
             onClick={onCancel}
             className="flex-1 h-12 lg:h-14 text-base lg:text-lg font-medium"
           >
             Cancel
-          </Button>
+          </SecondaryButton>
         )}
-        <Button
+        <PrimaryButton
           onClick={handleSubmit(onSubmit)}
           className={`h-12 lg:h-14 text-base lg:text-lg font-medium ${isEditing ? 'flex-1' : 'w-full'}`}
           disabled={exercises.length === 0}
         >
           {isEditing ? 'Update Workout' : 'Save Workout'}
-        </Button>
+        </PrimaryButton>
       </div>
     </div>
   );

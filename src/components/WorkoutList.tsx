@@ -1,5 +1,11 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  DestructiveButton,
+  OutlineButton,
+  GhostButton,
+} from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -178,7 +184,7 @@ export function WorkoutList({
                 id="search"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                placeholder="Search by name, description, or exercise..."
+                placeholder="Search..."
                 className="mt-1 h-12 lg:h-14 lg:text-base"
               />
             </div>
@@ -211,14 +217,13 @@ export function WorkoutList({
           </div>
 
           {(searchTerm || selectedTagFilter) && (
-            <Button
-              variant="outline"
+            <OutlineButton
               size="sm"
               onClick={clearFilters}
               className="w-full lg:w-auto h-10 lg:h-11"
             >
               Clear Filters
-            </Button>
+            </OutlineButton>
           )}
         </CardContent>
       </Card>
@@ -241,14 +246,13 @@ export function WorkoutList({
               <p className="text-muted-foreground text-sm lg:text-base">
                 No workouts match your filters.
               </p>
-              <Button
-                variant="outline"
+              <OutlineButton
                 size="sm"
                 onClick={clearFilters}
                 className="mt-3 lg:mt-4"
               >
                 Clear Filters
-              </Button>
+              </OutlineButton>
             </div>
           </CardContent>
         </Card>
@@ -276,24 +280,22 @@ export function WorkoutList({
                     </div>
                     <div className="flex gap-2 ml-3 shrink-0">
                       {onStartWorkout && (
-                        <Button
+                        <PrimaryButton
                           onClick={() => onStartWorkout(workout.id)}
                           size="sm"
-                          variant="outline"
-                          className="cursor-pointer text-blue-500 border-blue-500 hover:text-blue-600 hover:border-blue-600 py-1"
+                          className="cursor-pointer py-1"
                         >
                           Start
-                        </Button>
+                        </PrimaryButton>
                       )}
                       {onDeleteWorkout && (
-                        <Button
+                        <GhostButton
                           onClick={() => handleDeleteClick(workout.id)}
-                          variant="ghost"
                           size="sm"
-                          className="hover:bg-transparent cursor-pointer text-red-500 hover:text-red-600"
+                          className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
                         >
                           <IconDelete className="w-4 h-4" />
-                        </Button>
+                        </GhostButton>
                       )}
                     </div>
                   </div>
@@ -372,12 +374,12 @@ export function WorkoutList({
                 be undone.
               </p>
               <div className="flex gap-2 justify-end">
-                <Button onClick={cancelDelete} variant="outline" size="sm">
+                <SecondaryButton onClick={cancelDelete} size="sm">
                   Cancel
-                </Button>
-                <Button onClick={confirmDelete} variant="destructive" size="sm">
+                </SecondaryButton>
+                <DestructiveButton onClick={confirmDelete} size="sm">
                   Delete
-                </Button>
+                </DestructiveButton>
               </div>
             </CardContent>
           </Card>

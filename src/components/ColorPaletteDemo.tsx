@@ -1,5 +1,12 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import {
+  PrimaryButton,
+  SecondaryButton,
+  DestructiveButton,
+  OutlineButton,
+  GhostButton,
+} from '@/components/ui/standardButtons';
 import { useColors } from '@/lib/useColors';
 import { useTheme } from '@/lib/theme';
 
@@ -41,9 +48,7 @@ export function ColorPaletteDemo() {
           Current theme: <span className="font-medium">{theme}</span>
           {theme === 'system' && ` (resolved: ${resolvedTheme})`}
         </p>
-        <Button onClick={toggleTheme} variant="outline">
-          Toggle Theme
-        </Button>
+        <OutlineButton onClick={toggleTheme}>Toggle Theme</OutlineButton>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
@@ -72,6 +77,11 @@ export function ColorPaletteDemo() {
                 color={colors.getCreamColor('hex')}
                 description={colors.palette.cream.description}
               />
+              <ColorSwatch
+                name="Red"
+                color={colors.getRedColor('hex')}
+                description={colors.palette.red.description}
+              />
             </div>
           </CardContent>
         </Card>
@@ -97,6 +107,11 @@ export function ColorPaletteDemo() {
                 description="Accent and highlight color"
               />
               <ColorSwatch
+                name="Destructive"
+                color={colors.css.destructive}
+                description="For dangerous actions"
+              />
+              <ColorSwatch
                 name="Background"
                 color={colors.css.background}
                 description="Main background color"
@@ -105,26 +120,20 @@ export function ColorPaletteDemo() {
           </CardContent>
         </Card>
 
-        {/* Component Examples */}
+        {/* Standardized Button Components */}
         <Card>
           <CardContent className="p-4 space-y-4">
-            <h2 className="text-xl font-semibold">Component Examples</h2>
+            <h2 className="text-xl font-semibold">Standardized Buttons</h2>
             <div className="space-y-3">
-              <Button variant="default" className="w-full">
-                Primary Button
-              </Button>
-              <Button variant="secondary" className="w-full">
+              <PrimaryButton className="w-full">Primary Button</PrimaryButton>
+              <SecondaryButton className="w-full">
                 Secondary Button
-              </Button>
-              <Button variant="outline" className="w-full">
-                Outline Button
-              </Button>
-              <div className="p-3 bg-muted rounded-md text-center">
-                Muted Background
-              </div>
-              <div className="p-3 bg-accent rounded-md text-center">
-                Accent Background
-              </div>
+              </SecondaryButton>
+              <DestructiveButton className="w-full">
+                Destructive Button
+              </DestructiveButton>
+              <OutlineButton className="w-full">Outline Button</OutlineButton>
+              <GhostButton className="w-full">Ghost Button</GhostButton>
             </div>
           </CardContent>
         </Card>
@@ -147,26 +156,60 @@ export function ColorPaletteDemo() {
         </Card>
       </div>
 
+      {/* Button Usage Examples */}
+      <Card>
+        <CardContent className="p-4 space-y-4">
+          <h2 className="text-xl font-semibold">Button Usage Examples</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="space-y-2">
+              <h3 className="font-medium">Form Actions</h3>
+              <div className="flex gap-2">
+                <PrimaryButton size="sm">Save</PrimaryButton>
+                <SecondaryButton size="sm">Cancel</SecondaryButton>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium">Workout Controls</h3>
+              <div className="flex gap-2">
+                <PrimaryButton size="sm">Start</PrimaryButton>
+                <OutlineButton size="sm">Edit</OutlineButton>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="font-medium">Danger Zone</h3>
+              <div className="flex gap-2">
+                <DestructiveButton size="sm">Delete</DestructiveButton>
+                <GhostButton size="sm">Cancel</GhostButton>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Usage Examples */}
       <Card>
         <CardContent className="p-4 space-y-4">
           <h2 className="text-xl font-semibold">Usage Examples</h2>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-2">
+              <h3 className="font-medium">Standardized Buttons</h3>
+              <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
+                {`import { 
+  PrimaryButton, 
+  DestructiveButton 
+} from '@/components/ui/standardButtons';
+
+<PrimaryButton onClick={handleSave}>
+  Save Workout
+</PrimaryButton>`}
+              </pre>
+            </div>
+            <div className="space-y-2">
               <h3 className="font-medium">Raw Colors</h3>
               <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
                 {`const colors = useColors();
 colors.getNavyColor('hex') // ${colors.getNavyColor('hex')}
-colors.getTealColor('hsl') // ${colors.getTealColor('hsl')}`}
-              </pre>
-            </div>
-            <div className="space-y-2">
-              <h3 className="font-medium">CSS Variables</h3>
-              <pre className="text-xs bg-muted p-2 rounded overflow-x-auto">
-                {`style={{ 
-  backgroundColor: colors.css.primary,
-  color: colors.css.foreground 
-}}`}
+colors.getRedColor('hsl') // ${colors.getRedColor('hsl')}`}
               </pre>
             </div>
           </div>

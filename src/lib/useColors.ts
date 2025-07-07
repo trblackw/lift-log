@@ -34,6 +34,8 @@ export function useColors() {
       foreground: 'hsl(var(--foreground))',
       muted: 'hsl(var(--muted))',
       border: 'hsl(var(--border))',
+      destructive: 'hsl(var(--destructive))',
+      destructiveForeground: 'hsl(var(--destructive-foreground))',
       // Add more as needed
     },
 
@@ -42,6 +44,7 @@ export function useColors() {
     getTealColor: (format: ColorFormat = 'hsl') => ColorPalette.teal[format],
     getMintColor: (format: ColorFormat = 'hsl') => ColorPalette.mint[format],
     getCreamColor: (format: ColorFormat = 'hsl') => ColorPalette.cream[format],
+    getRedColor: (format: ColorFormat = 'hsl') => ColorPalette.red[format],
   };
 }
 

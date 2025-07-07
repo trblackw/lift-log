@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { Button } from '@/components/ui/button';
+import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useEffect } from 'react';
@@ -103,15 +103,14 @@ export function ExerciseForm({
     >
       <div className="flex items-center justify-between">
         {editingExercise && (
-          <Button
+          <OutlineButton
             type="button"
-            variant="outline"
             size="sm"
             onClick={handleCancel}
             className="text-xs lg:text-sm"
           >
             Cancel
-          </Button>
+          </OutlineButton>
         )}
       </div>
 
@@ -271,12 +270,12 @@ export function ExerciseForm({
         </div>
       </div>
 
-      <Button
+      <PrimaryButton
         type="submit"
         className="w-full h-12 lg:h-14 text-sm lg:text-base font-medium"
       >
         {editingExercise ? 'Update Exercise' : 'Add Exercise'}
-      </Button>
+      </PrimaryButton>
     </form>
   );
 }

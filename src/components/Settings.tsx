@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { GhostButton } from '@/components/ui/standardButtons';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTheme } from '@/lib/theme';
 
@@ -14,8 +14,7 @@ export function Settings() {
 
   return (
     <div className="relative">
-      <Button
-        variant="ghost"
+      <GhostButton
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
         className="h-8 w-8 p-0 rounded-full"
@@ -39,7 +38,7 @@ export function Settings() {
             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
           />
         </svg>
-      </Button>
+      </GhostButton>
 
       {isOpen && (
         <>
@@ -52,8 +51,7 @@ export function Settings() {
           {/* Popup */}
           <Card className="absolute right-0 top-10 z-50 w-32">
             <CardContent className="p-3">
-              <Button
-                variant="ghost"
+              <GhostButton
                 size="sm"
                 onClick={toggleTheme}
                 className="w-full justify-start gap-2 h-8"
@@ -69,7 +67,7 @@ export function Settings() {
                     <span className="text-xs">Dark</span>
                   </>
                 )}
-              </Button>
+              </GhostButton>
             </CardContent>
           </Card>
         </>
