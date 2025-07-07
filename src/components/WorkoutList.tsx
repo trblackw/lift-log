@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
 import { storage } from '@/lib/storage';
 import type { Workout, Tag } from '@/lib/types';
+import IconDelete from './icons/icon-delete';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -277,7 +278,8 @@ export function WorkoutList({
                         <Button
                           onClick={() => onStartWorkout(workout.id)}
                           size="sm"
-                          className="h-9 lg:h-10 text-xs lg:text-sm"
+                          variant="outline"
+                          className="cursor-pointer text-blue-500 border-blue-500 hover:text-blue-600 hover:border-blue-600 py-1"
                         >
                           Start
                         </Button>
@@ -285,11 +287,11 @@ export function WorkoutList({
                       {onDeleteWorkout && (
                         <Button
                           onClick={() => handleDeleteClick(workout.id)}
-                          variant="outline"
+                          variant="ghost"
                           size="sm"
-                          className="h-9 lg:h-10 text-xs lg:text-sm hover:bg-destructive hover:text-destructive-foreground"
+                          className="hover:bg-transparent cursor-pointer text-red-500 hover:text-red-600"
                         >
-                          🗑️
+                          <IconDelete className="w-4 h-4" />
                         </Button>
                       )}
                     </div>

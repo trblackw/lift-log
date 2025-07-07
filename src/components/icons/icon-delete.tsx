@@ -1,10 +1,11 @@
-export default function IconDelete() {
+export default function IconDelete({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
       viewBox="0 0 24 24"
+      className={className}
     >
       <path
         fill="currentColor"
