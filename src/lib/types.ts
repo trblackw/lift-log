@@ -23,6 +23,7 @@ export interface Workout {
   tags: Tag[];
   createdAt: Date;
   updatedAt: Date;
+  lastCompleted?: Date; // When this workout was last completed
   estimatedDuration?: number; // in minutes
 }
 

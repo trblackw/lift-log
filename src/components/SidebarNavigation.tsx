@@ -131,6 +131,9 @@ export function AppSidebarLayout({
   onResumeWorkout,
   onEndWorkout,
 }: AppSidebarLayoutProps) {
+  const displayActiveWorkoutBanner =
+    activeWorkoutSession && activeWorkout && onResumeWorkout && onEndWorkout;
+
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen w-full" style={{ width: '100vw' }}>
@@ -151,18 +154,15 @@ export function AppSidebarLayout({
           </div>
           <div className="p-4 space-y-4">
             {/* Active Workout Banner */}
-            {activeWorkoutSession &&
-              activeWorkout &&
-              onResumeWorkout &&
-              onEndWorkout && (
-                <ActiveWorkoutBanner
-                  activeSession={activeWorkoutSession}
-                  workout={activeWorkout}
-                  onResume={onResumeWorkout}
-                  onEnd={onEndWorkout}
-                  currentView={currentView}
-                />
-              )}
+            {displayActiveWorkoutBanner && (
+              <ActiveWorkoutBanner
+                activeSession={activeWorkoutSession}
+                workout={activeWorkout}
+                onResume={onResumeWorkout}
+                onEnd={onEndWorkout}
+                currentView={currentView}
+              />
+            )}
 
             {children}
           </div>

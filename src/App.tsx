@@ -185,6 +185,20 @@ function AppContent() {
       // Save session to IndexedDB and update local state
       await storage.saveSession(session);
       setWorkoutSessions(prev => [session, ...prev]);
+
+      // Update workout's lastCompleted date
+      if (workout && session.completedAt) {
+        const updatedWorkout = {
+          ...workout,
+          lastCompleted: session.completedAt,
+          updatedAt: new Date(),
+        };
+        await storage.saveWorkout(updatedWorkout);
+        setWorkouts(prev =>
+          prev.map(w => (w.id === workout.id ? updatedWorkout : w))
+        );
+      }
+
       // Clear active workout session
       await storage.clearActiveWorkoutSession();
       setActiveWorkoutSession(null);

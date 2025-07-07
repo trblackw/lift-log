@@ -6,21 +6,15 @@ import {
   OutlineButton,
   GhostButton,
 } from '@/components/ui/standardButtons';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
 import { TagGroup } from '@/components/ui/Tag';
 import { storage } from '@/lib/storage';
+import { formatRelativeTime } from '@/lib/utils';
 import type { Workout, Tag } from '@/lib/types';
 import IconDelete from './icons/icon-delete';
-import { ColorPaletteDemo } from './ColorPaletteDemo';
 import IconActiveRun from './icons/icon-active-run';
 
 interface WorkoutListProps {
@@ -324,6 +318,17 @@ export function WorkoutList({
                       </p>
                     )}
                   </div>
+
+                  {/* Last Completed */}
+                  {workout.lastCompleted && (
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                      <span className="text-xs text-green-600 dark:text-green-400">
+                        Last completed{' '}
+                        {formatRelativeTime(workout.lastCompleted)}
+                      </span>
+                    </div>
+                  )}
 
                   {/* Tags */}
                   {workout.tags.length > 0 && (

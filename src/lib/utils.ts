@@ -1,8 +1,18 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { formatDistanceToNow } from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+/**
+ * Formats a date as a relative time string (e.g., "2 hours ago", "3 days ago")
+ * @param date The date to format
+ * @returns Formatted relative time string
+ */
+export function formatRelativeTime(date: Date): string {
+  return formatDistanceToNow(date, { addSuffix: true });
 }
 
 /**

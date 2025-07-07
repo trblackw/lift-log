@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/standardButtons';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { TagGroup } from '@/components/ui/Tag';
+import { formatRelativeTime } from '@/lib/utils';
 import type { Workout } from '@/lib/types';
 
 interface WorkoutDetailsProps {
@@ -64,6 +65,21 @@ export function WorkoutDetails({
               <span>Updated {formatDate(workout.updatedAt)}</span>
             )}
           </div>
+
+          {/* Last Completed Info */}
+          {workout.lastCompleted && (
+            <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm lg:text-base text-green-700 dark:text-green-300 font-medium">
+                  Last completed {formatRelativeTime(workout.lastCompleted)}
+                </span>
+              </div>
+              <div className="text-xs lg:text-sm text-green-600 dark:text-green-400 mt-1 ml-4">
+                {formatDate(workout.lastCompleted)}
+              </div>
+            </div>
+          )}
 
           <div className="flex gap-3">
             <PrimaryButton
