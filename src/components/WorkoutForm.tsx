@@ -64,12 +64,12 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
   };
 
   return (
-    <div className="space-y-4 lg:space-y-6">
+    <div className="space-y-3 lg:space-y-6">
       <Card>
         <CardHeader>
           <CardTitle className="text-lg lg:text-xl">Workout Details</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 lg:space-y-6">
+        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div className="lg:col-span-2">
               <Label htmlFor="name" className="text-sm lg:text-base">Workout Name *</Label>
@@ -119,7 +119,7 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
             Exercises ({exercises.length})
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 lg:space-y-6">
+        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
           <ExerciseForm onAddExercise={addExercise} />
           
           {exercises.length > 0 && (

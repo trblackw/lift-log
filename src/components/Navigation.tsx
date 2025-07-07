@@ -14,7 +14,7 @@ export function Navigation({ currentView, onViewChange }: NavigationProps) {
   ];
 
   return (
-    <nav className="grid grid-cols-3 gap-2 lg:gap-4 max-w-md lg:max-w-lg mx-auto">
+    <nav className="grid grid-cols-3 gap-2 lg:gap-4">
       {navItems.map((item) => (
         <Button
           key={item.id}

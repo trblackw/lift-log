@@ -4,7 +4,7 @@ import { Navigation } from "./components/Navigation";
 import { WorkoutForm } from "./components/WorkoutForm";
 import { WorkoutList } from "./components/WorkoutList";
 import { ActiveWorkout } from "./components/ActiveWorkout";
-import { ThemeToggle } from "./components/ThemeToggle";
+import { Settings } from "./components/Settings";
 import { ThemeProvider } from "./lib/theme";
 import { storage } from "./lib/storage";
 import type { ViewMode, Workout, WorkoutSession } from "./lib/types";
@@ -83,6 +83,8 @@ function AppContent() {
     }
   };
 
+
+
   const handleCancelWorkout = () => {
     setActiveWorkoutId(null);
     setCurrentView('list');
@@ -94,7 +96,7 @@ function AppContent() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4">
           <div className="flex items-center justify-center h-64">
             <div className="text-center">
               <div className="text-4xl mb-4">💪</div>
@@ -110,7 +112,7 @@ function AppContent() {
   if (error) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4">
           <Card>
             <CardContent className="pt-6">
               <div className="text-center py-8">
@@ -168,15 +170,15 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background transition-colors duration-200">
-      <div className="max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8 pb-20">
+      <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4 lg:py-8 pb-20">
         <header className="mb-6 lg:mb-8">
-          <div className="flex justify-between items-start mb-4">
-            <div className="text-center flex-1">
+          <div className="relative">
+            <div className="text-center">
               <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
               <p className="text-sm lg:text-base text-muted-foreground">Track your workouts and progress</p>
             </div>
-            <div className="flex-shrink-0 ml-4">
-              <ThemeToggle />
+            <div className="absolute top-0 right-0">
+              <Settings />
             </div>
           </div>
         </header>

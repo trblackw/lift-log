@@ -117,10 +117,10 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
   }
 
   return (
-    <div className="space-y-4 lg:space-y-6">
+    <div className="space-y-3 lg:space-y-6">
       {/* Search and Filter Controls */}
       <Card>
-        <CardContent className="pt-4 lg:pt-6 space-y-4 lg:space-y-6">
+        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div>
               <Label htmlFor="search" className="text-sm lg:text-base">Search Workouts</Label>
@@ -194,10 +194,10 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
           {filteredWorkouts.map((workout) => (
             <Card key={workout.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="pt-4 lg:pt-6">
+              <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
                 <div className="space-y-3 lg:space-y-4">
                   {/* Header */}
                   <div className="flex justify-between items-start">
