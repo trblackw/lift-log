@@ -68,7 +68,7 @@ interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
 export function Tag({
   tag,
   variant = 'default',
-  size = 'md',
+  size = 'sm',
   className,
   onRemove,
   onTagClick,
@@ -126,7 +126,7 @@ export function Tag({
             e.stopPropagation();
             onRemove();
           }}
-          className="ml-1 hover:bg-current hover:bg-opacity-20 rounded-full p-0.5 transition-colors"
+          className="ml-1 hover:text-current/80 rounded-full p-0.5 transition-colors cursor-pointer"
           aria-label={`Remove ${tag.name} tag`}
         >
           <span className="text-xs leading-none">×</span>

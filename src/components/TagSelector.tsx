@@ -73,14 +73,14 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
 
   return (
     <div className="space-y-4 lg:space-y-6">
-      <Label className="text-sm lg:text-base">Tags</Label>
+      <Label className="text-sm lg:text-base mb-3 block">Tags</Label>
 
       {/* Selected Tags */}
       {selectedTags.length > 0 && (
         <TagGroup
           tags={selectedTags}
           variant="removable"
-          size="lg"
+          size="sm"
           onTagRemove={removeTag}
         />
       )}

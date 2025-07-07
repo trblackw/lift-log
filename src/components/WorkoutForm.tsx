@@ -12,6 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { ExerciseForm } from '@/components/ExerciseForm';
 import { TagSelector } from '@/components/TagSelector';
+import { ComposableExerciseList } from '@/components/ComposableExerciseList';
 import type { Workout, Exercise, Tag } from '@/lib/types';
 
 interface WorkoutFormData {
@@ -80,6 +81,10 @@ export function WorkoutForm({
     if (editingExercise?.id === exerciseId) {
       setEditingExercise(null);
     }
+  };
+
+  const reorderExercises = (reorderedExercises: Exercise[]) => {
+    setExercises(reorderedExercises);
   };
 
   const startEditingExercise = (exercise: Exercise) => {
@@ -197,61 +202,17 @@ export function WorkoutForm({
             onCancelEdit={cancelEdit}
           />
 
-          {exercises.length > 0 && (
-            <div className="space-y-3 lg:space-y-4 mt-6">
-              <h4 className="font-medium text-sm lg:text-base">
-                Added Exercises:
-              </h4>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4">
-                {exercises.map(exercise => (
-                  <div
-                    key={exercise.id}
-                    className={`p-3 lg:p-4 border rounded-lg transition-colors ${
-                      editingExercise?.id === exercise.id
-                        ? 'bg-primary/10 border-primary'
-                        : 'bg-muted/30'
-                    }`}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div className="flex-1 min-w-0">
-                        <div className="font-medium text-sm lg:text-base truncate">
-                          {exercise.name}
-                        </div>
-                        <div className="text-xs lg:text-sm text-muted-foreground mt-1">
-                          {exercise.duration
-                            ? `${exercise.duration} minutes`
-                            : `${exercise.sets} sets × ${exercise.reps} reps`}
-                          {exercise.weight && ` @ ${exercise.weight}lbs`}
-                        </div>
-                        {exercise.notes && (
-                          <div className="text-xs text-muted-foreground mt-1 italic">
-                            "{exercise.notes}"
-                          </div>
-                        )}
-                      </div>
-                      <div className="flex gap-1 ml-2 shrink-0">
-                        <GhostButton
-                          size="sm"
-                          onClick={() => startEditingExercise(exercise)}
-                          disabled={editingExercise !== null}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
-                        >
-                          Edit
-                        </GhostButton>
-                        <DestructiveButton
-                          size="sm"
-                          onClick={() => removeExercise(exercise.id)}
-                          className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
-                        >
-                          Remove
-                        </DestructiveButton>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <div className="mt-6">
+            <ComposableExerciseList
+              exercises={exercises}
+              onReorder={reorderExercises}
+              onEdit={startEditingExercise}
+              onRemove={removeExercise}
+              editingExercise={editingExercise}
+              title={`Added Exercises (${exercises.length})`}
+              emptyMessage="No exercises added yet. Add your first exercise above to get started!"
+            />
+          </div>
         </CardContent>
       </Card>
 
