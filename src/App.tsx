@@ -9,6 +9,7 @@ import { WorkoutDetails } from './components/WorkoutDetails';
 import { CalendarView } from './components/CalendarView';
 import { DayView } from './components/DayView';
 import { ActiveWorkout } from './components/ActiveWorkout';
+import { HistoryView } from './components/HistoryView';
 import { ViewToggle } from './components/ViewToggle';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
@@ -462,6 +463,8 @@ function AppContent() {
             </div>
           );
         }
+      case 'history':
+        return <HistoryView workoutSessions={workoutSessions} />;
       default:
         return null;
     }

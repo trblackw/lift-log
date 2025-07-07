@@ -16,6 +16,7 @@ import IconList from './icons/icon-list';
 import IconPlusBordered from './icons/icon-plus-bordered';
 import IconActiveRun from './icons/icon-active-run';
 import IconCalendar from './icons/icon-calendar';
+import IconHistory from './icons/icon-history';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -53,6 +54,12 @@ const navItems: NavItem[] = [
     label: 'Calendar',
     icon: <IconCalendar />,
     description: 'View workout schedule',
+  },
+  {
+    id: 'history',
+    label: 'History',
+    icon: <IconHistory />,
+    description: 'View workout trends and analytics',
   },
 ];
 

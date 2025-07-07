@@ -20,7 +20,7 @@ export function Settings() {
         onClick={() => setIsOpen(!isOpen)}
         className="size-5 cursor-pointer hover:bg-transparent hover:text-primary"
       >
-        <IconGear className="h-4 w-4" />
+        <IconGear className="size-6" />
       </GhostButton>
 
       {isOpen && (
