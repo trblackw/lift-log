@@ -7,6 +7,7 @@ import { WorkoutForm } from './components/WorkoutForm';
 import { WorkoutList } from './components/WorkoutList';
 import { WorkoutDetails } from './components/WorkoutDetails';
 import { CalendarView } from './components/CalendarView';
+import { DayView } from './components/DayView';
 import { ActiveWorkout } from './components/ActiveWorkout';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
@@ -26,6 +27,7 @@ function AppContent() {
     useState<ActiveWorkoutSession | null>(null);
   const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
   const [workoutSessions, setWorkoutSessions] = useState<WorkoutSession[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -345,12 +347,29 @@ function AppContent() {
             workouts={workouts}
             workoutSessions={workoutSessions}
             onSelectDate={date => {
-              // Future: Navigate to day view for selected date
-              console.log('Selected date:', date);
+              setSelectedDate(date);
+              setCurrentView('day');
             }}
             onScheduleWorkout={() => {
-              // Future: Navigate to workout scheduling form
               setCurrentView('create');
+            }}
+          />
+        );
+      case 'day':
+        return (
+          <DayView
+            selectedDate={selectedDate}
+            workouts={workouts}
+            workoutSessions={workoutSessions}
+            onDateChange={date => {
+              setSelectedDate(date);
+            }}
+            onStartWorkout={handleStartWorkout}
+            onScheduleWorkout={() => {
+              setCurrentView('create');
+            }}
+            onBackToCalendar={() => {
+              setCurrentView('calendar');
             }}
           />
         );

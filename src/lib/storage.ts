@@ -217,6 +217,54 @@ class StorageManager {
     }
   }
 
+  // Date-based query operations
+  async getSessionsByDateRange(
+    startDate: Date,
+    endDate: Date
+  ): Promise<WorkoutSession[]> {
+    this.ensureInitialized();
+
+    try {
+      const sessions = await workoutDB.getSessions();
+      return sessions.filter(session => {
+        if (!session.completedAt) return false;
+        const sessionDate = new Date(session.completedAt);
+        sessionDate.setHours(0, 0, 0, 0);
+        const start = new Date(startDate);
+        start.setHours(0, 0, 0, 0);
+        const end = new Date(endDate);
+        end.setHours(23, 59, 59, 999);
+        return sessionDate >= start && sessionDate <= end;
+      });
+    } catch (error) {
+      console.error('Failed to get sessions by date range:', error);
+      return [];
+    }
+  }
+
+  async getSessionsByDate(date: Date): Promise<WorkoutSession[]> {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+    return this.getSessionsByDateRange(startOfDay, endOfDay);
+  }
+
+  async getSessionsByMonth(
+    year: number,
+    month: number
+  ): Promise<WorkoutSession[]> {
+    const startOfMonth = new Date(year, month, 1);
+    const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59, 999);
+    return this.getSessionsByDateRange(startOfMonth, endOfMonth);
+  }
+
+  async getSessionsByYear(year: number): Promise<WorkoutSession[]> {
+    const startOfYear = new Date(year, 0, 1);
+    const endOfYear = new Date(year, 11, 31, 23, 59, 59, 999);
+    return this.getSessionsByDateRange(startOfYear, endOfYear);
+  }
+
   // Search and filter operations
   async searchWorkouts(query: string): Promise<Workout[]> {
     this.ensureInitialized();
@@ -337,6 +385,14 @@ export const storage = {
   searchWorkouts: (query: string) => storageManager.searchWorkouts(query),
   getWorkoutsByTag: (tagId: string) => storageManager.getWorkoutsByTag(tagId),
   getStats: () => storageManager.getStats(),
+
+  // Date-based query methods
+  getSessionsByDateRange: (startDate: Date, endDate: Date) =>
+    storageManager.getSessionsByDateRange(startDate, endDate),
+  getSessionsByDate: (date: Date) => storageManager.getSessionsByDate(date),
+  getSessionsByMonth: (year: number, month: number) =>
+    storageManager.getSessionsByMonth(year, month),
+  getSessionsByYear: (year: number) => storageManager.getSessionsByYear(year),
 
   // Active workout session methods
   saveActiveWorkoutSession: (session: ActiveWorkoutSession) =>
