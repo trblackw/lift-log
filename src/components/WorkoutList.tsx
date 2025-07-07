@@ -9,13 +9,15 @@ import type { Workout, Tag } from "@/lib/types";
 interface WorkoutListProps {
   workouts: Workout[];
   onStartWorkout?: (workoutId: string) => void;
+  onDeleteWorkout?: (workoutId: string) => void;
 }
 
-export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
+export function WorkoutList({ workouts, onStartWorkout, onDeleteWorkout }: WorkoutListProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTagFilter, setSelectedTagFilter] = useState<string>('');
   const [filteredWorkouts, setFilteredWorkouts] = useState<Workout[]>(workouts);
   const [isSearching, setIsSearching] = useState(false);
+  const [workoutToDelete, setWorkoutToDelete] = useState<string | null>(null);
 
   // Get all unique tags from workouts
   const allTags = useMemo(() => {
@@ -97,10 +99,25 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
     setSelectedTagFilter('');
   };
 
+  const handleDeleteClick = (workoutId: string) => {
+    setWorkoutToDelete(workoutId);
+  };
+
+  const confirmDelete = () => {
+    if (workoutToDelete && onDeleteWorkout) {
+      onDeleteWorkout(workoutToDelete);
+      setWorkoutToDelete(null);
+    }
+  };
+
+  const cancelDelete = () => {
+    setWorkoutToDelete(null);
+  };
+
   if (workouts.length === 0) {
     return (
       <Card>
-        <CardContent className="pt-6">
+        <CardContent className="p-6">
           <div className="text-center py-8 lg:py-12">
             <div className="text-6xl lg:text-8xl mb-4">💪</div>
             <h2 className="text-xl lg:text-2xl font-semibold mb-2">No Workouts Yet</h2>
@@ -120,7 +137,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
     <div>
       {/* Search and Filter Controls */}
       <Card>
-        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
+        <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div>
               <Label htmlFor="search" className="text-sm lg:text-base">Search Workouts</Label>
@@ -140,7 +157,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                   id="tagFilter"
                   value={selectedTagFilter}
                   onChange={(e) => setSelectedTagFilter(e.target.value)}
-                  className="mt-1 w-full h-12 lg:h-14 px-3 border border-input rounded-md bg-background text-sm lg:text-base"
+                  className="mt-1 w-full h-12 lg:h-14 border border-input rounded-md bg-background text-sm lg:text-base"
                 >
                   <option value="">All Tags</option>
                   {allTags.map((tag) => (
@@ -158,7 +175,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
               variant="outline"
               size="sm"
               onClick={clearFilters}
-              className="w-full lg:w-auto h-10 lg:h-11 lg:px-6"
+              className="w-full lg:w-auto h-10 lg:h-11"
             >
               Clear Filters
             </Button>
@@ -167,7 +184,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
       </Card>
 
       {/* Results Header */}
-      <div className="flex items-center justify-between px-1">
+      <div className="flex items-center justify-center py-3 ml-auto">
         <span className="text-sm lg:text-base text-muted-foreground">
           {isSearching ? 'Searching...' : `${filteredWorkouts.length} workout${filteredWorkouts.length !== 1 ? 's' : ''}`}
         </span>
@@ -176,7 +193,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
       {/* Workout List */}
       {filteredWorkouts.length === 0 && !isSearching ? (
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="p-6">
             <div className="text-center py-6 lg:py-8">
               <div className="text-4xl lg:text-6xl mb-2">🔍</div>
               <p className="text-muted-foreground text-sm lg:text-base">
@@ -197,7 +214,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
           {filteredWorkouts.map((workout) => (
             <Card key={workout.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
+              <CardContent className="p-6">
                 <div className="space-y-3 lg:space-y-4">
                   {/* Header */}
                   <div className="flex justify-between items-start">
@@ -207,15 +224,27 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                         <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">{workout.description}</p>
                       )}
                     </div>
-                    {onStartWorkout && (
-                      <Button
-                        onClick={() => onStartWorkout(workout.id)}
-                        size="sm"
-                        className="ml-3 h-9 lg:h-10 px-3 lg:px-4 text-xs lg:text-sm shrink-0 cursor-pointer"
-                      >
-                        Start
-                      </Button>
-                    )}
+                    <div className="flex gap-2 ml-3 shrink-0">
+                      {onStartWorkout && (
+                        <Button
+                          onClick={() => onStartWorkout(workout.id)}
+                          size="sm"
+                          className="h-9 lg:h-10 text-xs lg:text-sm"
+                        >
+                          Start
+                        </Button>
+                      )}
+                      {onDeleteWorkout && (
+                        <Button
+                          onClick={() => handleDeleteClick(workout.id)}
+                          variant="outline"
+                          size="sm"
+                          className="h-9 lg:h-10 text-xs lg:text-sm hover:bg-destructive hover:text-destructive-foreground"
+                        >
+                          🗑️
+                        </Button>
+                      )}
+                    </div>
                   </div>
 
                   {/* Stats */}
@@ -255,7 +284,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                       {workout.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag.id}
-                          className="px-2 py-1 lg:px-3 lg:py-1.5 rounded-full text-xs lg:text-sm text-white cursor-pointer hover:opacity-80"
+                          className="p-2 lg:py-1.5 rounded-full text-xs lg:text-sm text-white cursor-pointer hover:opacity-80"
                           style={{ backgroundColor: tag.color }}
                           onClick={() => setSelectedTagFilter(tag.id)}
                         >
@@ -263,7 +292,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                         </span>
                       ))}
                       {workout.tags.length > 3 && (
-                        <span className="px-2 py-1 lg:px-3 lg:py-1.5 rounded-full text-xs lg:text-sm bg-muted text-muted-foreground">
+                        <span className="py-1 lg:py-1.5 rounded-full text-xs lg:text-sm bg-muted text-muted-foreground">
                           +{workout.tags.length - 3}
                         </span>
                       )}
@@ -273,6 +302,36 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
               </CardContent>
             </Card>
           ))}
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {workoutToDelete && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Card className="max-w-sm mx-4">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold mb-2">Delete Workout</h3>
+              <p className="text-muted-foreground mb-4">
+                Are you sure you want to delete this workout? This action cannot be undone.
+              </p>
+              <div className="flex gap-2 justify-end">
+                <Button
+                  onClick={cancelDelete}
+                  variant="outline"
+                  size="sm"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={confirmDelete}
+                  variant="destructive"
+                  size="sm"
+                >
+                  Delete
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>

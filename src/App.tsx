@@ -84,7 +84,22 @@ function AppContent() {
     }
   };
 
-
+  const handleDeleteWorkout = async (workoutId: string) => {
+    try {
+      // Delete from IndexedDB and update local state
+      await storage.deleteWorkout(workoutId);
+      setWorkouts(prev => prev.filter(w => w.id !== workoutId));
+      
+      // If the deleted workout was active, cancel it
+      if (activeWorkoutId === workoutId) {
+        setActiveWorkoutId(null);
+        setCurrentView('list');
+      }
+    } catch (err) {
+      console.error('Failed to delete workout:', err);
+      setError('Failed to delete workout. Please try again.');
+    }
+  };
 
   const handleCancelWorkout = () => {
     setActiveWorkoutId(null);
@@ -141,6 +156,7 @@ function AppContent() {
           <WorkoutList 
             workouts={workouts} 
             onStartWorkout={handleStartWorkout}
+            onDeleteWorkout={handleDeleteWorkout}
           />
         );
       case 'create':
@@ -156,11 +172,11 @@ function AppContent() {
           );
         } else {
           return (
-            <div className="space-y-3 lg:space-y-6">
+            <div className="space-y-6">
               <Card>
-                <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
+                <CardContent className="p-6">
                   <h2 className="text-xl font-semibold mb-4">Start a Workout</h2>
-                  <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                  <p className="text-muted-foreground mb-4">
                     Choose a workout to get started:
                   </p>
                   
