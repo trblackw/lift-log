@@ -100,7 +100,7 @@ export function TagSelector({ selectedTags, onTagsChange }: TagSelectorProps) {
                 type="button"
                 size="sm"
                 onClick={() => toggleTag(tag)}
-                className="h-10 lg:h-12 text-xs lg:text-sm font-medium"
+                className="h-10 lg:h-12 text-xs lg:text-sm font-medium cursor-pointer"
                 disabled={isSelected}
               >
                 {tag.name}
