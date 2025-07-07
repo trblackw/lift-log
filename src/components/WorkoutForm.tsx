@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ExerciseForm } from "./ExerciseForm";
-import { TagSelector } from "./TagSelector";
+import { ExerciseForm } from "@/components/ExerciseForm";
+import { TagSelector } from "@/components/TagSelector";
 import type { Workout, Exercise, Tag } from "@/lib/types";
 
 interface WorkoutFormData {
@@ -69,7 +69,7 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
         <CardHeader>
           <CardTitle className="text-lg lg:text-xl">Workout Details</CardTitle>
         </CardHeader>
-        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
+        <CardContent className="p-6 space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div className="lg:col-span-2">
               <Label htmlFor="name" className="text-sm lg:text-base">Workout Name *</Label>
@@ -119,7 +119,7 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
             Exercises ({exercises.length})
           </CardTitle>
         </CardHeader>
-        <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">
+        <CardContent className="p-4">
           <ExerciseForm onAddExercise={addExercise} />
           
           {exercises.length > 0 && (
@@ -135,7 +135,10 @@ export function WorkoutForm({ onSave }: WorkoutFormProps) {
                       <div className="flex-1 min-w-0">
                         <div className="font-medium text-sm lg:text-base truncate">{exercise.name}</div>
                         <div className="text-xs lg:text-sm text-muted-foreground mt-1">
-                          {exercise.sets} sets × {exercise.reps} reps
+                          {exercise.duration 
+                            ? `${exercise.duration} minutes` 
+                            : `${exercise.sets} sets × ${exercise.reps} reps`
+                          }
                           {exercise.weight && ` @ ${exercise.weight}lbs`}
                         </div>
                       </div>

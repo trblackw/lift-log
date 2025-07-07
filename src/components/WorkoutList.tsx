@@ -234,7 +234,10 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
                       <div key={exercise.id} className="flex justify-between text-xs lg:text-sm">
                         <span className="truncate">{exercise.name}</span>
                         <span className="text-muted-foreground ml-2 shrink-0">
-                          {exercise.sets}×{exercise.reps}
+                          {exercise.duration 
+                            ? `${exercise.duration}min` 
+                            : `${exercise.sets}×${exercise.reps}`
+                          }
                           {exercise.weight && ` @${exercise.weight}lbs`}
                         </span>
                       </div>

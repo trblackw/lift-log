@@ -143,7 +143,9 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
         <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3">
           {workout.exercises.map((exercise) => {
             const isCompleted = completedExercises.has(exercise.id);
-            const exerciseText = `${exercise.name} - ${exercise.sets} × ${exercise.reps}${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`;
+            const exerciseText = exercise.duration 
+              ? `${exercise.name} - ${exercise.duration} minutes${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`
+              : `${exercise.name} - ${exercise.sets} × ${exercise.reps}${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`;
             
             return (
               <div 

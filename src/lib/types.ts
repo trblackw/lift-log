@@ -1,9 +1,10 @@
 export interface Exercise {
   id: string;
   name: string;
-  sets: number;
-  reps: number;
+  sets?: number;
+  reps?: number;
   weight?: number;
+  duration?: number; // in minutes for cardio exercises
   restTime?: number; // in seconds
   notes?: string;
 }
