@@ -55,4 +55,20 @@ export interface ActiveWorkoutSession {
   duration: number; // Current duration in seconds
 }
 
-export type ViewMode = 'list' | 'create' | 'active' | 'details';
+export interface ScheduledWorkout {
+  id: string;
+  workoutId: string;
+  scheduledDate: Date;
+  completed: boolean;
+  completedAt?: Date;
+  notes?: string;
+  createdAt: Date;
+}
+
+export type ViewMode =
+  | 'list'
+  | 'create'
+  | 'active'
+  | 'details'
+  | 'calendar'
+  | 'day';

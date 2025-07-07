@@ -6,6 +6,7 @@ import { AppSidebarLayout } from './components/SidebarNavigation';
 import { WorkoutForm } from './components/WorkoutForm';
 import { WorkoutList } from './components/WorkoutList';
 import { WorkoutDetails } from './components/WorkoutDetails';
+import { CalendarView } from './components/CalendarView';
 import { ActiveWorkout } from './components/ActiveWorkout';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
@@ -338,6 +339,21 @@ function AppContent() {
             onBack={handleBackToList}
           />
         ) : null;
+      case 'calendar':
+        return (
+          <CalendarView
+            workouts={workouts}
+            workoutSessions={workoutSessions}
+            onSelectDate={date => {
+              // Future: Navigate to day view for selected date
+              console.log('Selected date:', date);
+            }}
+            onScheduleWorkout={() => {
+              // Future: Navigate to workout scheduling form
+              setCurrentView('create');
+            }}
+          />
+        );
       case 'active':
         if (activeWorkout && activeWorkoutSession) {
           return (

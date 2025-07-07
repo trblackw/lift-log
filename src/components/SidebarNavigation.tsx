@@ -15,6 +15,7 @@ import type { ViewMode, Workout, ActiveWorkoutSession } from '@/lib/types';
 import IconList from './icons/icon-list';
 import IconPlusBordered from './icons/icon-plus-bordered';
 import IconActiveRun from './icons/icon-active-run';
+import IconCalendar from './icons/icon-calendar';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -46,6 +47,12 @@ const navItems: NavItem[] = [
     label: 'Active',
     icon: <IconActiveRun />,
     description: 'Start or continue an active workout',
+  },
+  {
+    id: 'calendar',
+    label: 'Calendar',
+    icon: <IconCalendar />,
+    description: 'View workout schedule',
   },
 ];
 
