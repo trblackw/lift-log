@@ -60,6 +60,16 @@ export function SidebarNavigation({
   currentView,
   onViewChange,
 }: SidebarNavigationProps) {
+  const { setOpenMobile, isMobile } = useSidebar();
+
+  const handleNavigation = (view: ViewMode) => {
+    onViewChange(view);
+    // Close sidebar on mobile after navigation
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border">
@@ -81,7 +91,7 @@ export function SidebarNavigation({
           {navItems.map(item => (
             <SidebarMenuItem key={item.id}>
               <SidebarMenuButton
-                onClick={() => onViewChange(item.id)}
+                onClick={() => handleNavigation(item.id)}
                 isActive={currentView === item.id}
                 tooltip={item.description}
                 className="flex items-center gap-3 py-3"
