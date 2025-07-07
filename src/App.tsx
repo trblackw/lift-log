@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Select, SelectItem } from '@/components/ui/select';
 import { PrimaryButton } from '@/components/ui/standardButtons';
-import { Navigation } from './components/Navigation';
+import { AppSidebarLayout } from './components/SidebarNavigation';
 import { WorkoutForm } from './components/WorkoutForm';
 import { WorkoutList } from './components/WorkoutList';
 import { WorkoutDetails } from './components/WorkoutDetails';
 import { ActiveWorkout } from './components/ActiveWorkout';
-import { Settings } from './components/Settings';
 import { ThemeProvider } from './lib/theme';
 import { storage } from './lib/storage';
 import type { ViewMode, Workout, WorkoutSession } from './lib/types';
@@ -173,14 +172,10 @@ function AppContent() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-center h-64">
-            <div className="text-center">
-              <div className="text-4xl mb-4">💪</div>
-              <p className="text-muted-foreground">Loading Lift Log...</p>
-            </div>
-          </div>
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-4xl mb-4">💪</div>
+          <p className="text-muted-foreground">Loading Lift Log...</p>
         </div>
       </div>
     );
@@ -189,21 +184,19 @@ function AppContent() {
   // Error state
   if (error) {
     return (
-      <div className="min-h-screen bg-background">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <Card>
-            <CardContent className="p-6">
-              <div className="text-center py-8">
-                <div className="text-4xl mb-4">⚠️</div>
-                <h2 className="text-lg font-semibold mb-2">Error</h2>
-                <p className="text-muted-foreground text-sm mb-4">{error}</p>
-                <PrimaryButton onClick={() => window.location.reload()}>
-                  Reload App
-                </PrimaryButton>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+        <Card className="max-w-md w-full">
+          <CardContent className="p-6">
+            <div className="text-center py-8">
+              <div className="text-4xl mb-4">⚠️</div>
+              <h2 className="text-lg font-semibold mb-2">Error</h2>
+              <p className="text-muted-foreground text-sm mb-4">{error}</p>
+              <PrimaryButton onClick={() => window.location.reload()}>
+                Reload App
+              </PrimaryButton>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     );
   }
@@ -292,35 +285,9 @@ function AppContent() {
   };
 
   return (
-    <div
-      className="min-h-screen bg-background transition-colors duration-200"
-      style={{ width: '100vw' }}
-    >
-      <div className="max-w-2xl mx-auto px-4 py-4 lg:py-8 pb-20">
-        <header className="mb-6 lg:mb-8">
-          <div className="relative">
-            <div className="text-center">
-              <h1 className="text-3xl lg:text-4xl font-bold mb-2">Lift Log</h1>
-              <p className="text-sm lg:text-base text-muted-foreground">
-                Track your workouts and progress
-              </p>
-            </div>
-            <div className="absolute top-0 right-0">
-              <Settings />
-            </div>
-          </div>
-        </header>
-
-        {currentView !== 'details' && (
-          <Navigation
-            currentView={currentView}
-            onViewChange={handleViewChange}
-          />
-        )}
-
-        <div className="mt-6 lg:mt-8">{renderView()}</div>
-      </div>
-    </div>
+    <AppSidebarLayout currentView={currentView} onViewChange={handleViewChange}>
+      <div className="max-w-4xl mx-auto space-y-6">{renderView()}</div>
+    </AppSidebarLayout>
   );
 }
 

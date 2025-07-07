@@ -44,6 +44,7 @@
   --sidebar-accent-foreground: hsl(240 6% 15%); /* fallback */
   --sidebar-border: hsl(240 3% 88%); /* fallback */
   --sidebar-ring: hsl(217.2 80% 55%); /* fallback */
+  --sidebar: hsl(0 0% 98%);
 }
 
 /* 
@@ -84,6 +85,7 @@
   --sidebar-accent-foreground: hsl(240 5% 85%);
   --sidebar-border: hsl(240 6% 22%);
   --sidebar-ring: hsl(210 100% 60%);
+  --sidebar: hsl(240 5.9% 10%);
 }
 
 @theme inline {
