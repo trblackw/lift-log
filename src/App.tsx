@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Select, SelectItem } from "@/components/ui/select";
 import { Navigation } from "./components/Navigation";
 import { WorkoutForm } from "./components/WorkoutForm";
 import { WorkoutList } from "./components/WorkoutList";
@@ -114,7 +115,7 @@ function AppContent() {
       <div className="min-h-screen bg-background">
         <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4">
           <Card>
-            <CardContent className="pt-6">
+            <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
               <div className="text-center py-8">
                 <div className="text-4xl mb-4">⚠️</div>
                 <h2 className="text-lg font-semibold mb-2">Error</h2>
@@ -155,12 +156,39 @@ function AppContent() {
           );
         } else {
           return (
-            <Card>
-              <CardContent className="pt-6">
-                <h2 className="text-xl font-semibold mb-4">Active Workout</h2>
-                <p className="text-muted-foreground">No active workout. Start a workout from your workout list!</p>
-              </CardContent>
-            </Card>
+            <div className="space-y-3 lg:space-y-6">
+              <Card>
+                <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6">
+                  <h2 className="text-xl font-semibold mb-4">Start a Workout</h2>
+                  <p className="text-muted-foreground mb-4 text-sm lg:text-base">
+                    Choose a workout to get started:
+                  </p>
+                  
+                  {workouts.length > 0 ? (
+                    <Select 
+                      placeholder="Search and select a workout..."
+                      onValueChange={handleStartWorkout}
+                    >
+                      {workouts.map((workout) => (
+                        <SelectItem key={workout.id} value={workout.id}>
+                          <div className="flex flex-col">
+                            <span className="font-medium">{workout.name}</span>
+                            <span className="text-xs text-muted-foreground">
+                              {workout.exercises.length} exercise{workout.exercises.length !== 1 ? 's' : ''}
+                              {workout.estimatedDuration && ` • ${workout.estimatedDuration} min`}
+                            </span>
+                          </div>
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  ) : (
+                    <p className="text-muted-foreground text-sm">
+                      No workouts available. Create a workout first!
+                    </p>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           );
         }
       default:

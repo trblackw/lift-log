@@ -117,7 +117,7 @@ export function WorkoutList({ workouts, onStartWorkout }: WorkoutListProps) {
   }
 
   return (
-    <div className="space-y-3 lg:space-y-6">
+    <div className="">
       {/* Search and Filter Controls */}
       <Card>
         <CardContent className="pt-3 lg:pt-6 px-3 lg:px-6 space-y-3 lg:space-y-6">

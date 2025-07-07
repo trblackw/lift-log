@@ -90,11 +90,11 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
             <div className="text-center">
               <h2 className="text-lg lg:text-xl font-semibold">{workout.name}</h2>
               <div className="text-sm lg:text-base text-muted-foreground mt-1">
-                                  {pausedAt ? (
-                    <span className="text-amber-500">⏸️ Paused at {formatDuration(duration)}</span>
-                  ) : (
-                    <span>{formatDuration(duration)}</span>
-                  )}
+                {pausedAt ? (
+                  <span className="text-amber-500">⏸️ Paused at {formatDuration(duration)}</span>
+                ) : (
+                  <span>{formatDuration(duration)}</span>
+                )}
               </div>
               <div className="text-xs text-muted-foreground">
                 {completedCount} of {totalCount} exercises completed
@@ -108,25 +108,25 @@ export function ActiveWorkout({ workout, onComplete, onCancel }: ActiveWorkoutPr
               </div>
             </div>
 
-            <div className="flex gap-2 lg:gap-3">
+            <div className="grid grid-cols-3 gap-2 lg:gap-3">
               <Button 
                 variant="outline" 
                 onClick={pauseWorkout}
-                className="flex-1 h-10 lg:h-12"
+                className="h-10 lg:h-12"
               >
-                {pausedAt ? '▶️ Resume' : '⏸️ Pause'}
+                {pausedAt ? '▶️ Resume' : '⏸️ Pause '}
               </Button>
               <Button 
                 variant="outline" 
                 onClick={onCancel}
-                className="flex-1 h-10 lg:h-12"
+                className="h-10 lg:h-12"
               >
                 End Workout
               </Button>
               <Button 
                 onClick={completeWorkout}
                 disabled={completedCount === 0}
-                className="flex-1 h-10 lg:h-12"
+                className="h-10 lg:h-12"
               >
                 Complete
               </Button>
