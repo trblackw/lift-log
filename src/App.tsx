@@ -197,7 +197,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen bg-background transition-colors duration-200">
+    <div className="min-h-screen bg-background transition-colors duration-200 min-w-full px-1" style={{ width: "100vw" }}>
       <div className="max-w-full sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto px-1 sm:px-4 lg:px-8 py-4 lg:py-8 pb-20">
         <header className="mb-6 lg:mb-8">
           <div className="relative">
