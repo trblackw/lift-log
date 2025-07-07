@@ -24,6 +24,7 @@ import IconDelete from './icons/icon-delete';
 import IconActiveRun from './icons/icon-active-run';
 import { ChevronDown } from 'lucide-react';
 import IconMagnifier from './icons/icon-magnifier';
+import IconCheckCircle from './icons/icon-check-circle';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -145,7 +146,7 @@ export function WorkoutList({
           {filteredWorkouts.map(workout => (
             <div
               key={workout.id}
-              className="p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-between"
+              className="p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-between relative"
               onClick={e => handleWorkoutClick(workout, e)}
             >
               <div className="flex-1 min-w-0">
@@ -153,9 +154,6 @@ export function WorkoutList({
                   <h3 className="font-medium text-base truncate">
                     {workout.name}
                   </h3>
-                  {workout.lastCompleted && (
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0"></div>
-                  )}
                 </div>
                 <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                   <span>
@@ -166,8 +164,9 @@ export function WorkoutList({
                     <span>{workout.estimatedDuration} min</span>
                   )}
                   {workout.lastCompleted && (
-                    <span className="text-green-600 dark:text-green-400">
-                      Last: {formatRelativeTime(workout.lastCompleted)}
+                    <span className="text-green-600 text-xs whitespace-nowrap mt-auto pb-2 dark:text-green-400 flex items-center">
+                      <IconCheckCircle className="size-4 mr-1" />
+                      {formatRelativeTime(workout.lastCompleted)}
                     </span>
                   )}
                 </div>
@@ -461,7 +460,7 @@ export function WorkoutList({
       </div>
 
       {/* Workout List - Scrollable */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-4">
+      <div className="flex-1 min-h-0 overflow-y-auto p-2">
         {filteredWorkouts.length === 0 && !isSearching ? (
           <Card>
             <CardContent className="p-6">
