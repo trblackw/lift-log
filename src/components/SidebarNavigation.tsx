@@ -160,6 +160,7 @@ export function AppSidebarLayout({
                   workout={activeWorkout}
                   onResume={onResumeWorkout}
                   onEnd={onEndWorkout}
+                  currentView={currentView}
                 />
               )}
 

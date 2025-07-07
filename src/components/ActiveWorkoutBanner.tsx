@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
 import { Card, CardContent } from '@/components/ui/card';
 import { formatTimerDuration } from '@/lib/utils';
-import type { Workout, ActiveWorkoutSession } from '@/lib/types';
+import type { Workout, ActiveWorkoutSession, ViewMode } from '@/lib/types';
 import IconPauseStopwatch from './icons/icon-pause-stopwatch';
 
 interface ActiveWorkoutBannerProps {
@@ -10,6 +10,7 @@ interface ActiveWorkoutBannerProps {
   workout: Workout;
   onResume: () => void;
   onEnd: () => void;
+  currentView: ViewMode;
 }
 
 export function ActiveWorkoutBanner({
@@ -17,6 +18,7 @@ export function ActiveWorkoutBanner({
   workout,
   onResume,
   onEnd,
+  currentView,
 }: ActiveWorkoutBannerProps) {
   const [currentDuration, setCurrentDuration] = useState(
     activeSession.duration
@@ -46,6 +48,20 @@ export function ActiveWorkoutBanner({
   const progressPercentage =
     totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
 
+  function WorkoutTimer() {
+    if (currentView === 'active') {
+      return null;
+    }
+
+    return activeSession.pausedAt ? (
+      <span className="text-amber-600 flex items-center gap-2">
+        <IconPauseStopwatch /> Paused at {formatTimerDuration(currentDuration)}
+      </span>
+    ) : (
+      formatTimerDuration(currentDuration)
+    );
+  }
+
   return (
     <Card className="border-primary/20 bg-primary/5 shadow-md">
       <CardContent className="p-4">
@@ -61,14 +77,7 @@ export function ActiveWorkoutBanner({
                 className="text-sm text-muted-foreground"
                 style={{ position: 'absolute', top: -8, right: 5 }}
               >
-                {activeSession.pausedAt ? (
-                  <span className="text-amber-600 flex items-center gap-2">
-                    <IconPauseStopwatch /> Paused at{' '}
-                    {formatTimerDuration(currentDuration)}
-                  </span>
-                ) : (
-                  formatTimerDuration(currentDuration)
-                )}
+                <WorkoutTimer />
               </div>
             </div>
 
