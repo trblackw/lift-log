@@ -11,37 +11,47 @@ import {
 } from '@/components/ui/sidebar';
 import { Settings } from './Settings';
 import type { ViewMode } from '@/lib/types';
+import IconList from './icons/icon-list';
+import IconPlusBordered from './icons/icon-plus-bordered';
+import IconActiveRun from './icons/icon-active-run';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
   onViewChange: (view: ViewMode) => void;
 }
 
+interface NavItem {
+  id: ViewMode;
+  label: string;
+  icon: React.ReactNode;
+  description: string;
+}
+
+const navItems: NavItem[] = [
+  {
+    id: 'list',
+    label: 'Workouts',
+    icon: <IconList />,
+    description: 'View and manage your workouts',
+  },
+  {
+    id: 'create',
+    label: 'Create',
+    icon: <IconPlusBordered />,
+    description: 'Create a new workout',
+  },
+  {
+    id: 'active',
+    label: 'Active',
+    icon: <IconActiveRun />,
+    description: 'Start or continue an active workout',
+  },
+];
+
 export function SidebarNavigation({
   currentView,
   onViewChange,
 }: SidebarNavigationProps) {
-  const navItems = [
-    {
-      id: 'list' as ViewMode,
-      label: 'Workouts',
-      icon: '📝',
-      description: 'View and manage your workouts',
-    },
-    {
-      id: 'create' as ViewMode,
-      label: 'Create',
-      icon: '➕',
-      description: 'Create a new workout',
-    },
-    {
-      id: 'active' as ViewMode,
-      label: 'Active',
-      icon: '🏃‍♂️',
-      description: 'Start or continue an active workout',
-    },
-  ];
-
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border">
@@ -103,9 +113,15 @@ export function AppSidebarLayout({
           onViewChange={onViewChange}
         />
         <main className="flex-1 overflow-auto">
-          <div className="flex items-center gap-2 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
-            <div className="flex-1" />
+            <div className="flex-1 flex justify-center">
+              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
+                Lift Log
+              </h1>
+            </div>
+            <div className="w-8" />{' '}
+            {/* Spacer to balance the sidebar trigger */}
           </div>
           <div className="p-4">{children}</div>
         </main>

@@ -272,7 +272,7 @@ export function ExerciseForm({
 
       <PrimaryButton
         type="submit"
-        className="w-full h-12 lg:h-14 text-sm lg:text-base font-medium"
+        className="w-full h-12 lg:h-14 text-sm lg:text-base font-medium mt-4"
       >
         {editingExercise ? 'Update Exercise' : 'Add Exercise'}
       </PrimaryButton>
