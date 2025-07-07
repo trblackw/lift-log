@@ -6,7 +6,13 @@ import {
   OutlineButton,
   GhostButton,
 } from '@/components/ui/standardButtons';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
@@ -15,6 +21,7 @@ import { storage } from '@/lib/storage';
 import type { Workout, Tag } from '@/lib/types';
 import IconDelete from './icons/icon-delete';
 import { ColorPaletteDemo } from './ColorPaletteDemo';
+import IconActiveRun from './icons/icon-active-run';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -265,43 +272,21 @@ export function WorkoutList({
           {filteredWorkouts.map(workout => (
             <Card
               key={workout.id}
-              className="hover:shadow-md transition-shadow cursor-pointer"
+              className="hover:shadow-md transition-shadow cursor-pointer flex flex-col"
               onClick={e => handleWorkoutClick(workout, e)}
             >
-              <CardContent className="p-6">
+              <CardContent className="p-6 flex-1">
                 <div className="space-y-3 lg:space-y-4">
                   {/* Header */}
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
-                        {workout.name}
-                      </h3>
-                      {workout.description && (
-                        <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
-                          {workout.description}
-                        </p>
-                      )}
-                    </div>
-                    <div className="flex gap-2 ml-3 shrink-0">
-                      {onStartWorkout && (
-                        <PrimaryButton
-                          onClick={() => onStartWorkout(workout.id)}
-                          size="sm"
-                          className="cursor-pointer py-1"
-                        >
-                          Start
-                        </PrimaryButton>
-                      )}
-                      {onDeleteWorkout && (
-                        <GhostButton
-                          onClick={() => handleDeleteClick(workout.id)}
-                          size="sm"
-                          className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
-                        >
-                          <IconDelete className="w-4 h-4" />
-                        </GhostButton>
-                      )}
-                    </div>
+                  <div>
+                    <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
+                      {workout.name}
+                    </h3>
+                    {workout.description && (
+                      <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
+                        {workout.description}
+                      </p>
+                    )}
                   </div>
 
                   {/* Stats */}
@@ -352,6 +337,30 @@ export function WorkoutList({
                   )}
                 </div>
               </CardContent>
+
+              {/* Actions Footer */}
+              <CardFooter className="p-4 pt-0 border-t border-border">
+                <div className="flex justify-between gap-2 w-full mt-2">
+                  {onDeleteWorkout && (
+                    <GhostButton
+                      onClick={() => handleDeleteClick(workout.id)}
+                      size="sm"
+                      className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
+                    >
+                      <IconDelete className="size-5" /> Delete
+                    </GhostButton>
+                  )}
+                  {onStartWorkout && (
+                    <PrimaryButton
+                      onClick={() => onStartWorkout(workout.id)}
+                      size="sm"
+                      className="cursor-pointer"
+                    >
+                      <IconActiveRun className="size-5" /> Start
+                    </PrimaryButton>
+                  )}
+                </div>
+              </CardFooter>
             </Card>
           ))}
         </div>

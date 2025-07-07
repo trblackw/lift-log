@@ -7,6 +7,8 @@ import { WorkoutForm } from './components/WorkoutForm';
 import { WorkoutList } from './components/WorkoutList';
 import { WorkoutDetails } from './components/WorkoutDetails';
 import { ActiveWorkout } from './components/ActiveWorkout';
+import { Toaster } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 import { ThemeProvider } from './lib/theme';
 import { storage } from './lib/storage';
 import type {
@@ -78,6 +80,11 @@ function AppContent() {
         );
         setSelectedWorkout(null);
         setCurrentView('list');
+
+        // Show success toast for editing
+        toast.success('Workout updated successfully!', {
+          description: `"${updatedWorkout.name}" has been saved with your changes.`,
+        });
       } else {
         // Creating new workout
         const newWorkout: Workout = {
@@ -91,10 +98,20 @@ function AppContent() {
         await storage.saveWorkout(newWorkout);
         setWorkouts(prev => [newWorkout, ...prev]);
         setCurrentView('list');
+
+        // Show success toast for creation
+        toast.success('Workout created successfully!', {
+          description: `"${newWorkout.name}" is ready to use.`,
+        });
       }
     } catch (err) {
       console.error('Failed to save workout:', err);
       setError('Failed to save workout. Please try again.');
+
+      // Show error toast
+      toast.error('Failed to save workout', {
+        description: 'Please check your data and try again.',
+      });
     }
   };
 
@@ -118,6 +135,7 @@ function AppContent() {
 
   const handleStartWorkout = async (workoutId: string) => {
     try {
+      const workout = workouts.find(w => w.id === workoutId);
       const newActiveSession: ActiveWorkoutSession = {
         id: crypto.randomUUID(),
         workoutId,
@@ -130,14 +148,32 @@ function AppContent() {
       await storage.saveActiveWorkoutSession(newActiveSession);
       setActiveWorkoutSession(newActiveSession);
       setCurrentView('active');
+
+      // Show success toast
+      toast.success(`Started workout: ${workout?.name || 'Unknown'}`, {
+        description: 'Your workout is now active. Good luck!',
+      });
     } catch (err) {
       console.error('Failed to start workout:', err);
       setError('Failed to start workout. Please try again.');
+      toast.error('Failed to start workout', {
+        description: 'Please try again.',
+      });
     }
   };
 
   const handleCompleteWorkout = async (session: WorkoutSession) => {
     try {
+      // Get workout name for toast
+      const workout = workouts.find(w => w.id === session.workoutId);
+      const workoutName = workout?.name || 'Unknown';
+
+      // Calculate completion stats
+      const completedExercises = session.exercises.filter(
+        ex => ex.completed
+      ).length;
+      const totalExercises = session.exercises.length;
+
       // Save session to IndexedDB and update local state
       await storage.saveSession(session);
       setWorkoutSessions(prev => [session, ...prev]);
@@ -145,14 +181,28 @@ function AppContent() {
       await storage.clearActiveWorkoutSession();
       setActiveWorkoutSession(null);
       setCurrentView('list');
+
+      // Show success toast with completion stats
+      toast.success('Workout completed! 🎉', {
+        description: `"${workoutName}" finished! Completed ${completedExercises}/${totalExercises} exercises.`,
+      });
     } catch (err) {
       console.error('Failed to save workout session:', err);
       setError('Failed to save workout session. Please try again.');
+
+      // Show error toast
+      toast.error('Failed to save workout session', {
+        description: 'Your progress may not have been saved. Please try again.',
+      });
     }
   };
 
   const handleDeleteWorkout = async (workoutId: string) => {
     try {
+      // Get workout name before deletion for toast
+      const workout = workouts.find(w => w.id === workoutId);
+      const workoutName = workout?.name || 'Unknown';
+
       // Delete from IndexedDB and update local state
       await storage.deleteWorkout(workoutId);
       setWorkouts(prev => prev.filter(w => w.id !== workoutId));
@@ -169,20 +219,46 @@ function AppContent() {
         setSelectedWorkout(null);
         setCurrentView('list');
       }
+
+      // Show success toast
+      toast.success('Workout deleted successfully!', {
+        description: `"${workoutName}" has been removed from your workouts.`,
+      });
     } catch (err) {
       console.error('Failed to delete workout:', err);
       setError('Failed to delete workout. Please try again.');
+
+      // Show error toast
+      toast.error('Failed to delete workout', {
+        description: 'Please try again.',
+      });
     }
   };
 
   const handleCancelWorkout = async () => {
     try {
+      // Get workout name for toast
+      const workout = activeWorkoutSession
+        ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
+        : null;
+      const workoutName = workout?.name || 'workout';
+
       await storage.clearActiveWorkoutSession();
       setActiveWorkoutSession(null);
       setCurrentView('list');
+
+      // Show info toast for cancellation
+      toast.info('Workout ended', {
+        description: `Your ${workoutName} session has been ended.`,
+      });
     } catch (err) {
       console.error('Failed to cancel workout:', err);
       setError('Failed to cancel workout. Please try again.');
+
+      // Show error toast
+      toast.error('Failed to end workout', {
+        description: 'Please try again.',
+      });
     }
   };
 
@@ -345,6 +421,7 @@ export function App() {
   return (
     <ThemeProvider defaultTheme="system">
       <AppContent />
+      <Toaster />
     </ThemeProvider>
   );
 }
