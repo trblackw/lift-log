@@ -15,6 +15,10 @@ import {
 import { CalendarIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Tag } from '@/components/ui/Tag';
 import type { Workout, WorkoutSession, ScheduledWorkout } from '@/lib/types';
+import IconCheckCircle from './icons/icon-check-circle';
+import IconCalendar from './icons/icon-calendar';
+import IconArmFlex from './icons/icon-arm-flex';
+import IconCalendarEmpty from './icons/icon-calendar-empty';
 
 interface DayViewProps {
   selectedDate: Date;
@@ -148,7 +152,7 @@ export function DayView({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="text-green-600 dark:text-green-400">✅</span>
+              <IconCheckCircle className="size-6 text-green-600 dark:text-green-400" />
               Completed Workouts
               <span className="text-sm font-normal text-muted-foreground">
                 ({dayWorkouts.sessions.length})
@@ -209,8 +213,10 @@ export function DayView({
                 })}
               </div>
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <div className="text-4xl mb-2">💪</div>
+              <div className="text-center py-8 text-muted-foreground flex flex-col items-center">
+                <div className="text-4xl mb-2">
+                  <IconArmFlex className="size-12" />
+                </div>
                 <p>No workouts completed today</p>
               </div>
             )}
@@ -221,7 +227,7 @@ export function DayView({
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <span className="text-blue-600 dark:text-blue-400">📅</span>
+              <IconCalendar className="size-6 text-blue-600 dark:text-blue-500" />
               Scheduled Workouts
               <span className="text-sm font-normal text-muted-foreground">
                 ({dayWorkouts.scheduled.length})
@@ -298,8 +304,10 @@ export function DayView({
                 })}
               </div>
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
-                <div className="text-4xl mb-2">📅</div>
+              <div className="text-center py-8 text-muted-foreground flex flex-col items-center">
+                <div className="text-4xl mb-2">
+                  <IconCalendarEmpty className="size-12" />
+                </div>
                 <p>No workouts scheduled today</p>
                 {onScheduleWorkout && (
                   <SecondaryButton

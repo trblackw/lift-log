@@ -96,7 +96,7 @@ export function OutlineButton({ className, children, ...props }: ButtonProps) {
       variant="outline"
       className={cn(
         // Enhanced styling with our color palette
-        'border-border bg-background text-foreground',
+        'border-border bg-background text-foreground cursor-pointer',
         'hover:bg-accent hover:text-accent-foreground',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         'shadow-sm transition-all duration-200',
