@@ -9,6 +9,7 @@ import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
 import { useInitializeApp } from '../hooks/useInitializeApp';
 import type { ViewMode } from '../lib/types';
 import IconArmFlex from './icons/icon-arm-flex';
+import { useMemo } from 'react';
 
 function AppContent() {
   const location = useLocation();
@@ -36,9 +37,13 @@ function AppContent() {
     navigate(route);
   };
 
-  const activeWorkout = activeWorkoutSession
-    ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
-    : null;
+  const activeWorkout = useMemo(
+    () =>
+      activeWorkoutSession
+        ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
+        : null,
+    [activeWorkoutSession, workouts]
+  );
 
   // Loading state
   if (isAppLoading) {

@@ -63,7 +63,10 @@ export function ActiveWorkoutBanner({
   }
 
   return (
-    <Card className="border-primary/20 bg-primary/5 shadow-md">
+    <Card
+      className="border-primary/20 bg-primary/5 shadow-md"
+      onClick={onResume}
+    >
       <CardContent className="p-4">
         <div className="flex items-center justify-between gap-4 relative">
           {/* Left: Workout info and progress */}
