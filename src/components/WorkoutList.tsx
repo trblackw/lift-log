@@ -27,6 +27,7 @@ import IconMagnifier from './icons/icon-magnifier';
 import IconCheckCircle from './icons/icon-check-circle';
 import IconDumbbell from './icons/icon-dumbbell';
 import IconTimer from './icons/icon-timer';
+import IconArmFlex from './icons/icon-arm-flex';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -343,7 +344,9 @@ export function WorkoutList({
       <Card>
         <CardContent className="p-6">
           <div className="text-center py-8 lg:py-12">
-            <div className="text-6xl lg:text-8xl mb-4">💪</div>
+            <div className="text-6xl lg:text-8xl mb-4">
+              <IconArmFlex className="size-10" />
+            </div>
             <h2 className="text-xl lg:text-2xl font-semibold mb-2">
               No Workouts Yet
             </h2>
