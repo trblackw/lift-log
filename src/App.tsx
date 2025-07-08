@@ -24,10 +24,35 @@ import type {
 import type { ViewMode as WorkoutViewMode } from './components/ViewToggle';
 
 function AppContent() {
-  const [currentView, setCurrentView] = useState<ViewMode>('list');
+  // Initialize currentView from sessionStorage or default to 'list'
+  const [currentView, setCurrentView] = useState<ViewMode>(() => {
+    const savedView = sessionStorage.getItem('lift-log-current-view');
+    if (
+      savedView &&
+      [
+        'list',
+        'create',
+        'active',
+        'details',
+        'calendar',
+        'day',
+        'history',
+      ].includes(savedView)
+    ) {
+      return savedView as ViewMode;
+    }
+    return 'list';
+  });
+
   const [workoutListViewMode, setWorkoutListViewMode] =
     useState<WorkoutViewMode>('card');
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+
+  // Helper function to update view and save to sessionStorage
+  const updateCurrentView = (view: ViewMode) => {
+    setCurrentView(view);
+    sessionStorage.setItem('lift-log-current-view', view);
+  };
   const [activeWorkoutSession, setActiveWorkoutSession] =
     useState<ActiveWorkoutSession | null>(null);
   const [selectedWorkout, setSelectedWorkout] = useState<Workout | null>(null);
@@ -90,7 +115,7 @@ function AppContent() {
           prev.map(w => (w.id === updatedWorkout.id ? updatedWorkout : w))
         );
         setSelectedWorkout(null);
-        setCurrentView('list');
+        updateCurrentView('list');
 
         // Show success toast for editing
         toast.success('Workout updated successfully!', {
@@ -108,7 +133,7 @@ function AppContent() {
         // Save to IndexedDB and update local state
         await storage.saveWorkout(newWorkout);
         setWorkouts(prev => [newWorkout, ...prev]);
-        setCurrentView('list');
+        updateCurrentView('list');
 
         // Show success toast for creation
         toast.success('Workout created successfully!', {
@@ -128,19 +153,19 @@ function AppContent() {
 
   const handleViewWorkout = (workout: Workout) => {
     setSelectedWorkout(workout);
-    setCurrentView('details');
+    updateCurrentView('details');
   };
 
   const handleEditWorkout = (workout: Workout) => {
     setSelectedWorkout(workout);
-    setCurrentView('create');
+    updateCurrentView('create');
   };
 
   const handleCancelEdit = () => {
     if (selectedWorkout) {
-      setCurrentView('details');
+      updateCurrentView('details');
     } else {
-      setCurrentView('list');
+      updateCurrentView('list');
     }
   };
 
@@ -158,7 +183,7 @@ function AppContent() {
 
       await storage.saveActiveWorkoutSession(newActiveSession);
       setActiveWorkoutSession(newActiveSession);
-      setCurrentView('active');
+      updateCurrentView('active');
 
       // Show success toast
       toast.success(`Started workout: ${workout?.name || 'Unknown'}`, {
@@ -210,7 +235,7 @@ function AppContent() {
       // Clear active workout session
       await storage.clearActiveWorkoutSession();
       setActiveWorkoutSession(null);
-      setCurrentView('list');
+      updateCurrentView('list');
 
       // Show success toast with completion stats
       toast.success('Workout completed! 🎉', {
@@ -241,13 +266,13 @@ function AppContent() {
       if (activeWorkoutSession?.workoutId === workoutId) {
         await storage.clearActiveWorkoutSession();
         setActiveWorkoutSession(null);
-        setCurrentView('list');
+        updateCurrentView('list');
       }
 
       // If the deleted workout was being viewed, go back to list
       if (selectedWorkout?.id === workoutId) {
         setSelectedWorkout(null);
-        setCurrentView('list');
+        updateCurrentView('list');
       }
 
       // Show success toast
@@ -275,7 +300,7 @@ function AppContent() {
 
       await storage.clearActiveWorkoutSession();
       setActiveWorkoutSession(null);
-      setCurrentView('list');
+      updateCurrentView('list');
 
       // Show info toast for cancellation
       toast.info('Workout ended', {
@@ -294,14 +319,14 @@ function AppContent() {
 
   const handleBackToList = () => {
     setSelectedWorkout(null);
-    setCurrentView('list');
+    updateCurrentView('list');
   };
 
   const handleViewChange = (view: ViewMode) => {
     if (view === 'create') {
       setSelectedWorkout(null); // Clear any selected workout for fresh create form
     }
-    setCurrentView(view);
+    updateCurrentView(view);
   };
 
   const activeWorkout = activeWorkoutSession
@@ -379,10 +404,10 @@ function AppContent() {
             workoutSessions={workoutSessions}
             onSelectDate={date => {
               setSelectedDate(date);
-              setCurrentView('day');
+              updateCurrentView('day');
             }}
             onScheduleWorkout={() => {
-              setCurrentView('create');
+              updateCurrentView('create');
             }}
           />
         );
@@ -397,10 +422,10 @@ function AppContent() {
             }}
             onStartWorkout={handleStartWorkout}
             onScheduleWorkout={() => {
-              setCurrentView('create');
+              updateCurrentView('create');
             }}
             onBackToCalendar={() => {
-              setCurrentView('calendar');
+              updateCurrentView('calendar');
             }}
           />
         );
@@ -464,7 +489,7 @@ function AppContent() {
   };
 
   const handleResumeWorkout = () => {
-    setCurrentView('active');
+    updateCurrentView('active');
   };
 
   const handleEndActiveWorkout = async () => {
