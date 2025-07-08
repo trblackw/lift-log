@@ -146,20 +146,20 @@ export function HistoryView({ workoutSessions }: HistoryViewProps) {
         });
       }
 
-      const totalDuration = sessionInInterval.reduce((sum, session) => {
+      const totalDurationSeconds = sessionInInterval.reduce((sum, session) => {
         return sum + (session.actualDuration || 0);
       }, 0);
 
-      const avgDuration =
+      const avgDurationSeconds =
         sessionInInterval.length > 0
-          ? Math.round(totalDuration / sessionInInterval.length)
+          ? Math.round(totalDurationSeconds / sessionInInterval.length)
           : 0;
 
       return {
         date: format(intervalDate, formatKey),
         fullDate: intervalDate,
-        duration: avgDuration,
-        totalDuration,
+        duration: Math.round(avgDurationSeconds / 60), // Convert to minutes for chart display
+        totalDuration: totalDurationSeconds,
         count: sessionInInterval.length,
         sessions: sessionInInterval,
       };
@@ -173,13 +173,19 @@ export function HistoryView({ workoutSessions }: HistoryViewProps) {
       (sum, point) => sum + point.count,
       0
     );
-    const totalDuration = chartData.reduce(
+    const totalDurationSeconds = chartData.reduce(
       (sum, point) => sum + point.totalDuration,
       0
     );
+    // Convert seconds to minutes for display
+    const totalDuration = Math.round(totalDurationSeconds / 60);
     const avgDuration =
       totalSessions > 0 ? Math.round(totalDuration / totalSessions) : 0;
-    const maxDuration = Math.max(...chartData.map(point => point.duration), 0);
+    const maxDurationSeconds = Math.max(
+      ...chartData.map(point => point.duration),
+      0
+    );
+    const maxDuration = Math.round(maxDurationSeconds / 60);
 
     return {
       totalSessions,

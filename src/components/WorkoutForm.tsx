@@ -124,6 +124,7 @@ export function WorkoutForm({
       tags: selectedTags,
       estimatedDuration: data.estimatedDuration || undefined,
       scheduledDate: scheduledDate || undefined,
+      completedCount: editWorkout?.completedCount ?? 0, // System-managed: preserve existing or 0 for new
     };
 
     onSave(workout);
