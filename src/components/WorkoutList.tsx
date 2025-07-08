@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import {
   PrimaryButton,
   SecondaryButton,
@@ -68,6 +68,7 @@ export function WorkoutList({
   const [sortBy, setSortBy] = useState<
     'created' | 'alphabetical' | 'lastCompleted'
   >('created');
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Sort options
   const sortOptions = [
@@ -93,6 +94,17 @@ export function WorkoutList({
       setIsFiltersOpen(true);
     }
   }, [searchTerm, selectedTagFilter]);
+
+  // Auto-focus search input when filters are opened
+  useEffect(() => {
+    if (isFiltersOpen && searchInputRef.current) {
+      // Small delay to ensure the collapsible animation has started
+      const timeoutId = setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 150);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isFiltersOpen]);
 
   // Handle search and filtering with IndexedDB
   useEffect(() => {
@@ -561,6 +573,7 @@ export function WorkoutList({
                       Search Workouts
                     </Label>
                     <SearchInput
+                      ref={searchInputRef}
                       id="search"
                       value={searchTerm}
                       onChange={e => setSearchTerm(e.target.value)}
