@@ -44,6 +44,9 @@ export function ActiveWorkoutBanner({
   ]);
 
   const completedCount = activeSession.completedExercises.length;
+  const startedCount = Object.keys(
+    activeSession.exerciseStartTimes || {}
+  ).length;
   const totalCount = workout.exercises.length;
   const progressPercentage =
     totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
@@ -87,7 +90,11 @@ export function ActiveWorkoutBanner({
             <div className="mb-2">
               <h3 className="font-semibold text-sm truncate">{workout.name}</h3>
               <div className="text-xs text-muted-foreground">
-                {completedCount} of {totalCount} exercises completed
+                {completedCount > 0 && startedCount > completedCount
+                  ? `${completedCount} completed, ${startedCount - completedCount} in progress`
+                  : startedCount > completedCount
+                    ? `${startedCount - completedCount} in progress`
+                    : `${completedCount} of ${totalCount} exercises completed`}
               </div>
             </div>
 

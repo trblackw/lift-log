@@ -32,6 +32,7 @@ export function ActiveWorkout({
   onCancel,
 }: ActiveWorkoutProps) {
   const [duration, setDuration] = useState(activeSession.duration);
+  const [exerciseTimerTick, setExerciseTimerTick] = useState(0); // Force re-render for exercise timings
   const activeSessionRef = useRef(activeSession);
 
   // Keep ref updated with latest session
@@ -65,6 +66,9 @@ export function ActiveWorkout({
       const currentDuration = elapsed - currentSession.totalPausedTime;
       setDuration(currentDuration);
 
+      // Update exercise timer display
+      setExerciseTimerTick(prev => prev + 1);
+
       // Update session duration periodically (but don't save to storage every second)
       // Use the ref to get the latest session state and avoid stale closure issues
       if (currentDuration % 10 === 0) {
@@ -81,11 +85,58 @@ export function ActiveWorkout({
 
   const toggleExercise = (exerciseId: string) => {
     const currentCompleted = activeSession.completedExercises;
-    const newCompleted = currentCompleted.includes(exerciseId)
-      ? currentCompleted.filter(id => id !== exerciseId)
-      : [...currentCompleted, exerciseId];
+    const isCompleted = currentCompleted.includes(exerciseId);
+    const hasStarted =
+      activeSession.exerciseStartTimes[exerciseId] !== undefined;
+    const currentExerciseId = activeSession.currentExerciseId;
+    const now = new Date();
 
-    updateSession({ completedExercises: newCompleted });
+    if (!hasStarted) {
+      // First click: Start the exercise (record start time)
+      const newStartTimes = { ...activeSession.exerciseStartTimes };
+      const newEndTimes = { ...activeSession.exerciseEndTimes };
+      const newCompleted = [...currentCompleted];
+
+      // Auto-complete the previous exercise if there's one in progress
+      if (currentExerciseId && currentExerciseId !== exerciseId) {
+        if (!currentCompleted.includes(currentExerciseId)) {
+          newCompleted.push(currentExerciseId);
+          newEndTimes[currentExerciseId] = now;
+        }
+      }
+
+      // Start the new exercise
+      newStartTimes[exerciseId] = now;
+
+      updateSession({
+        exerciseStartTimes: newStartTimes,
+        exerciseEndTimes: newEndTimes,
+        completedExercises: newCompleted,
+        currentExerciseId: exerciseId,
+      });
+    } else if (!isCompleted) {
+      // Second click: Complete the exercise (record end time and mark as completed)
+      const newCompleted = [...currentCompleted, exerciseId];
+      const newEndTimes = { ...activeSession.exerciseEndTimes };
+      newEndTimes[exerciseId] = now;
+
+      updateSession({
+        completedExercises: newCompleted,
+        exerciseEndTimes: newEndTimes,
+        currentExerciseId: undefined,
+      });
+    } else {
+      // Third click: Uncomplete the exercise (remove from completed, keep timing)
+      const newCompleted = currentCompleted.filter(id => id !== exerciseId);
+      const newEndTimes = { ...activeSession.exerciseEndTimes };
+      delete newEndTimes[exerciseId];
+
+      updateSession({
+        completedExercises: newCompleted,
+        exerciseEndTimes: newEndTimes,
+        currentExerciseId: exerciseId, // Set as current again
+      });
+    }
   };
 
   const pauseWorkout = () => {
@@ -113,6 +164,16 @@ export function ActiveWorkout({
     );
     const actualDuration = totalElapsed - activeSession.totalPausedTime;
 
+    // Calculate individual exercise durations
+    const calculateExerciseDuration = (exerciseId: string): number => {
+      const startTime = activeSession.exerciseStartTimes[exerciseId];
+      const endTime = activeSession.exerciseEndTimes[exerciseId];
+
+      if (!startTime || !endTime) return 0;
+
+      return Math.floor((endTime.getTime() - startTime.getTime()) / 1000);
+    };
+
     const completedSession: WorkoutSession = {
       id: crypto.randomUUID(),
       workoutId: workout.id,
@@ -122,11 +183,14 @@ export function ActiveWorkout({
       exercises: workout.exercises.map(exercise => ({
         exerciseId: exercise.id,
         completedSets: activeSession.completedExercises.includes(exercise.id)
-          ? exercise.sets
+          ? exercise.sets || 1
           : 0,
         actualReps: [],
         actualWeight: [],
         completed: activeSession.completedExercises.includes(exercise.id),
+        startedAt: activeSession.exerciseStartTimes[exercise.id],
+        completedAt: activeSession.exerciseEndTimes[exercise.id],
+        actualDuration: calculateExerciseDuration(exercise.id),
       })),
     };
 
@@ -134,9 +198,35 @@ export function ActiveWorkout({
   };
 
   const completedCount = activeSession.completedExercises.length;
+  const startedCount = Object.keys(activeSession.exerciseStartTimes).length;
   const totalCount = workout.exercises.length;
   const progressPercentage =
     totalCount > 0 ? (completedCount / totalCount) * 100 : 0;
+
+  // Helper function to get exercise duration
+  const getExerciseDuration = (exerciseId: string): number => {
+    const startTime = activeSession.exerciseStartTimes[exerciseId];
+    const endTime = activeSession.exerciseEndTimes[exerciseId];
+
+    if (!startTime) return 0;
+
+    const currentTime = endTime || new Date();
+    return Math.floor((currentTime.getTime() - startTime.getTime()) / 1000);
+  };
+
+  // Helper function to format exercise duration
+  const formatExerciseDuration = (seconds: number): string => {
+    if (seconds <= 0) return '';
+
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+
+    if (minutes > 0) {
+      return `${minutes}m ${remainingSeconds}s`;
+    } else {
+      return `${remainingSeconds}s`;
+    }
+  };
 
   return (
     <div className="space-y-3 lg:space-y-6">
@@ -159,7 +249,11 @@ export function ActiveWorkout({
                 )}
               </div>
               <div className="text-xs text-muted-foreground">
-                {completedCount} of {totalCount} exercises completed
+                {completedCount > 0 && startedCount > completedCount
+                  ? `${completedCount} completed, ${startedCount - completedCount} in progress of ${totalCount} exercises`
+                  : startedCount > completedCount
+                    ? `${startedCount - completedCount} in progress of ${totalCount} exercises`
+                    : `${completedCount} of ${totalCount} exercises completed`}
               </div>
               {/* Progress bar */}
               <div className="w-full bg-muted rounded-full h-2 mt-2">
@@ -207,6 +301,13 @@ export function ActiveWorkout({
             const isCompleted = activeSession.completedExercises.includes(
               exercise.id
             );
+            const hasStarted =
+              activeSession.exerciseStartTimes[exercise.id] !== undefined;
+            const isCurrentExercise =
+              activeSession.currentExerciseId === exercise.id;
+            const exerciseDuration = getExerciseDuration(exercise.id);
+            const formattedDuration = formatExerciseDuration(exerciseDuration);
+
             const exerciseText = exercise.duration
               ? `${exercise.name} - ${exercise.duration} minutes${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`
               : `${exercise.name} - ${exercise.sets} × ${exercise.reps}${exercise.weight ? ` @ ${exercise.weight}lbs` : ''}`;
@@ -217,14 +318,16 @@ export function ActiveWorkout({
                 className="flex items-center gap-3 p-3 hover:bg-muted/50 rounded-lg transition-colors cursor-pointer"
                 onClick={() => toggleExercise(exercise.id)}
               >
-                {/* Rounded checkbox */}
+                {/* Status indicator */}
                 <div
                   className={`
                   w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all
                   ${
                     isCompleted
                       ? 'bg-primary border-primary'
-                      : 'border-muted-foreground hover:border-foreground/60'
+                      : hasStarted
+                        ? 'bg-yellow-500 border-yellow-500'
+                        : 'border-muted-foreground hover:border-foreground/60'
                   }
                 `}
                 >
@@ -241,21 +344,42 @@ export function ActiveWorkout({
                       />
                     </svg>
                   )}
+                  {hasStarted && !isCompleted && (
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                  )}
                 </div>
 
-                {/* Exercise text */}
-                <span
-                  className={`
-                  flex-1 text-sm lg:text-base transition-all
-                  ${
-                    isCompleted
-                      ? 'line-through text-muted-foreground'
-                      : 'text-foreground'
-                  }
-                `}
-                >
-                  {exerciseText}
-                </span>
+                {/* Exercise info */}
+                <div className="flex-1 min-w-0">
+                  <span
+                    className={`
+                    block text-sm lg:text-base transition-all
+                    ${
+                      isCompleted
+                        ? 'line-through text-muted-foreground'
+                        : 'text-foreground'
+                    }
+                  `}
+                  >
+                    {exerciseText}
+                  </span>
+
+                  {/* Exercise timing info */}
+                  {hasStarted && (
+                    <div className="flex items-center gap-2 mt-1 text-xs text-muted-foreground">
+                      {!isCompleted && (
+                        <span className="text-yellow-600 font-medium">
+                          In progress • {formattedDuration}
+                        </span>
+                      )}
+                      {isCompleted && (
+                        <span className="text-green-600 font-medium">
+                          Completed • {formattedDuration}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}

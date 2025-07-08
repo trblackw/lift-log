@@ -77,6 +77,9 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
           totalPausedTime: 0,
           completedExercises: [],
           duration: 0,
+          exerciseStartTimes: {},
+          exerciseEndTimes: {},
+          currentExerciseId: undefined,
         };
 
         await storage.saveActiveWorkoutSession(newActiveSession);
@@ -139,9 +142,29 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
 
         // Update workout's lastCompleted date and increment completed count
         if (workout && session.completedAt) {
+          // Calculate average duration for this workout
+          const allWorkoutSessions = await storage.getSessionsByWorkoutId(
+            session.workoutId
+          );
+          const completedSessions = [...allWorkoutSessions, session].filter(
+            s => s.completedAt && s.actualDuration
+          );
+          const averageDuration =
+            completedSessions.length > 0
+              ? Math.round(
+                  completedSessions.reduce(
+                    (sum, s) => sum + (s.actualDuration || 0),
+                    0
+                  ) /
+                    completedSessions.length /
+                    60
+                ) // Convert to minutes
+              : undefined;
+
           const updatedWorkout = {
             ...workout,
             lastCompleted: session.completedAt,
+            averageDuration: averageDuration,
             updatedAt: new Date(),
           };
           // Update the workout's lastCompleted date in the workouts store

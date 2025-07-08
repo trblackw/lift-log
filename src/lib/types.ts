@@ -26,6 +26,7 @@ export interface Workout {
   lastCompleted?: Date; // When this workout was last completed
   completedCount: number; // How many times this workout has been completed
   estimatedDuration?: number; // in minutes
+  averageDuration?: number; // in minutes - calculated from completed sessions
   scheduledDate?: Date; // When this workout is scheduled to be performed
 }
 
@@ -37,6 +38,7 @@ export interface ExerciseSession {
   completed: boolean;
   startedAt?: Date;
   completedAt?: Date;
+  actualDuration?: number; // Individual exercise duration in seconds
 }
 
 export interface WorkoutSession {
@@ -57,6 +59,9 @@ export interface ActiveWorkoutSession {
   totalPausedTime: number;
   completedExercises: string[]; // Array of exercise IDs
   duration: number; // Current duration in seconds
+  exerciseStartTimes: Record<string, Date>; // When each exercise was started
+  exerciseEndTimes: Record<string, Date>; // When each exercise was completed
+  currentExerciseId?: string; // Currently active exercise being performed
 }
 
 // Exercise Library Types

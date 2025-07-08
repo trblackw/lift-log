@@ -361,6 +361,33 @@ class StorageManager {
         session.pausedAt = new Date(session.pausedAt);
       }
 
+      // Handle new exercise timing fields with backward compatibility
+      if (!session.exerciseStartTimes) {
+        session.exerciseStartTimes = {};
+      }
+      if (!session.exerciseEndTimes) {
+        session.exerciseEndTimes = {};
+      }
+      if (!session.currentExerciseId) {
+        session.currentExerciseId = undefined;
+      }
+
+      // Convert date strings in exercise timing objects back to Date objects
+      for (const exerciseId in session.exerciseStartTimes) {
+        if (session.exerciseStartTimes[exerciseId]) {
+          session.exerciseStartTimes[exerciseId] = new Date(
+            session.exerciseStartTimes[exerciseId]
+          );
+        }
+      }
+      for (const exerciseId in session.exerciseEndTimes) {
+        if (session.exerciseEndTimes[exerciseId]) {
+          session.exerciseEndTimes[exerciseId] = new Date(
+            session.exerciseEndTimes[exerciseId]
+          );
+        }
+      }
+
       return session;
     } catch (error) {
       console.error('Failed to load active workout session:', error);

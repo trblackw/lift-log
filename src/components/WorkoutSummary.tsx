@@ -207,6 +207,70 @@ export function WorkoutSummary({
             </div>
           )}
 
+          {/* Exercise Time Breakdown */}
+          <div className="space-y-3">
+            <h3 className="font-semibold">Exercise Times</h3>
+            <div className="space-y-2">
+              {workout.exercises.map(exercise => {
+                const exerciseSession = session.exercises.find(
+                  ex => ex.exerciseId === exercise.id
+                );
+                const duration = exerciseSession?.actualDuration || 0;
+                const completed = exerciseSession?.completed || false;
+
+                return (
+                  <div
+                    key={exercise.id}
+                    className={`flex items-center justify-between p-3 rounded-lg border ${
+                      completed
+                        ? 'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800'
+                        : 'bg-muted/50 border-border'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-3 h-3 rounded-full ${
+                          completed ? 'bg-green-500' : 'bg-muted-foreground'
+                        }`}
+                      />
+                      <div>
+                        <div className="font-medium text-sm">
+                          {exercise.name}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {exercise.sets && exercise.reps
+                            ? `${exercise.sets} × ${exercise.reps}${
+                                exercise.weight
+                                  ? ` @ ${exercise.weight}lbs`
+                                  : ''
+                              }`
+                            : exercise.duration
+                              ? `${exercise.duration} minutes`
+                              : 'Custom exercise'}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      {completed && duration > 0 ? (
+                        <div className="font-mono text-sm">
+                          {formatTimerDuration(duration)}
+                        </div>
+                      ) : completed ? (
+                        <div className="text-xs text-muted-foreground">
+                          Completed
+                        </div>
+                      ) : (
+                        <div className="text-xs text-muted-foreground">
+                          Skipped
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Action Buttons */}
           <div className="flex flex-col gap-3 pt-4">
             <SecondaryButton onClick={onViewWorkout} variant="outline">

@@ -229,10 +229,12 @@ export function WorkoutList({
                     <IconDumbbell className="size-4 mr-1" />
                     {workout.exercises.length}
                   </span>
-                  {workout.estimatedDuration && (
+                  {(workout.averageDuration || workout.estimatedDuration) && (
                     <span className="flex items-center">
                       <IconTimer className="size-4 mr-1" />
-                      {workout.estimatedDuration} min
+                      {workout.averageDuration
+                        ? `${workout.averageDuration} min avg`
+                        : `${workout.estimatedDuration} min`}
                     </span>
                   )}
                   {workout.lastCompleted && (
@@ -293,9 +295,11 @@ export function WorkoutList({
                     {workout.exercises.length !== 1 ? 's' : ''}
                   </span>
                   <span className="text-muted-foreground">
-                    {workout.estimatedDuration
-                      ? `${workout.estimatedDuration} min`
-                      : formatDate(workout.createdAt)}
+                    {workout.averageDuration
+                      ? `${workout.averageDuration} min avg`
+                      : workout.estimatedDuration
+                        ? `${workout.estimatedDuration} min`
+                        : formatDate(workout.createdAt)}
                   </span>
                 </div>
 
