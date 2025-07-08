@@ -162,11 +162,29 @@ function AppContent() {
     updateCurrentView('create');
   };
 
-  const handleCancelEdit = () => {
-    if (selectedWorkout) {
-      updateCurrentView('details');
-    } else {
-      updateCurrentView('list');
+  const handleDiscardWorkout = () => {
+    try {
+      if (selectedWorkout) {
+        // Show toast for discarding changes to existing workout
+        toast.info('Changes discarded', {
+          description: `Your changes to "${selectedWorkout.name}" have been discarded.`,
+        });
+        updateCurrentView('details');
+      } else {
+        // Show toast for discarding new workout
+        toast.info('Workout discarded', {
+          description: 'Your new workout has been discarded.',
+        });
+        updateCurrentView('list');
+      }
+    } catch (err) {
+      console.error('Failed to discard workout:', err);
+      // Fallback to just navigation without toast
+      if (selectedWorkout) {
+        updateCurrentView('details');
+      } else {
+        updateCurrentView('list');
+      }
     }
   };
 
@@ -386,7 +404,7 @@ function AppContent() {
           <WorkoutForm
             onSave={handleSaveWorkout}
             editWorkout={selectedWorkout}
-            onCancel={handleCancelEdit}
+            onCancel={handleDiscardWorkout}
           />
         );
       case 'details':
