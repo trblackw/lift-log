@@ -457,9 +457,9 @@ export function WorkoutList({
   }
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col overflow-visible">
       {/* Search and Filter Controls - Collapsible */}
-      <div className="flex-shrink-0 bg-background">
+      <div className="flex-shrink-0 bg-background relative z-20">
         <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
           {/* Header with Toggle */}
           <div className="flex items-center justify-between p-3 bg-background">
@@ -491,7 +491,7 @@ export function WorkoutList({
                   >
                     <IconSort
                       className={`size-8 p-1 rounded-md text-muted-foreground ${
-                        isSortOpen ? 'bg-primary' : ''
+                        isSortOpen ? 'text-primary' : ''
                       }`}
                     />
                   </GhostButton>
@@ -543,7 +543,7 @@ export function WorkoutList({
                 >
                   <IconMagnifier
                     className={`size-8 transition-transform duration-200 p-1 rounded-md text-muted-foreground ${
-                      isFiltersOpen ? 'bg-primary' : ''
+                      isFiltersOpen ? 'text-primary' : ''
                     }`}
                   />
                 </GhostButton>
@@ -552,10 +552,10 @@ export function WorkoutList({
           </div>
 
           {/* Collapsible Content */}
-          <CollapsibleContent>
-            <Card className="border-0 rounded-none shadow-none">
+          <CollapsibleContent className="relative z-30">
+            <Card className="border-0 rounded-none shadow-none bg-background">
               <CardContent className="p-6 space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 overflow-visible">
                   <div>
                     <Label htmlFor="search" className="text-sm lg:text-base">
                       Search Workouts
@@ -575,7 +575,7 @@ export function WorkoutList({
                       <Label className="text-sm lg:text-base">
                         Filter by Tag
                       </Label>
-                      <div className="mt-1">
+                      <div className="mt-1 relative z-40">
                         <Select
                           value={selectedTagFilter}
                           onValueChange={setSelectedTagFilter}
@@ -617,8 +617,8 @@ export function WorkoutList({
         </Collapsible>
       </div>
 
-      {/* Workout List - Scrollable */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-2">
+      {/* Workout List */}
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-visible p-2">
         {sortedWorkouts.length === 0 && !isSearching ? (
           <Card>
             <CardContent className="p-6">
