@@ -124,6 +124,17 @@ function randomPastDate(maxDaysAgo: number): Date {
 }
 
 /**
+ * Generates a random date within the next N days
+ */
+function randomFutureDate(maxDaysAhead: number): Date {
+  const daysAhead = randomInt(1, maxDaysAhead);
+  const date = new Date();
+  date.setDate(date.getDate() + daysAhead);
+  date.setHours(randomInt(6, 22), randomInt(0, 59), 0, 0);
+  return date;
+}
+
+/**
  * Creates random exercises for a workout
  */
 function generateExercises(
@@ -258,6 +269,9 @@ function createRandomWorkout(): Omit<Workout, 'id'> {
   const createdAt = randomPastDate(60); // Created within last 60 days
   const lastCompleted = Math.random() > 0.4 ? randomPastDate(30) : undefined; // 60% chance of being completed
 
+  // Randomly assign scheduled dates to some workouts (30% chance)
+  const scheduledDate = Math.random() > 0.7 ? randomFutureDate(7) : undefined; // Future dates within 7 days
+
   return {
     name,
     description,
@@ -267,6 +281,7 @@ function createRandomWorkout(): Omit<Workout, 'id'> {
     updatedAt: lastCompleted || createdAt,
     lastCompleted,
     estimatedDuration,
+    scheduledDate,
   };
 }
 
@@ -536,6 +551,9 @@ export async function importCompleteData(data: {
       updatedAt: new Date(workout.updatedAt),
       lastCompleted: workout.lastCompleted
         ? new Date(workout.lastCompleted)
+        : undefined,
+      scheduledDate: workout.scheduledDate
+        ? new Date(workout.scheduledDate)
         : undefined,
     }));
 

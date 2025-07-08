@@ -6,16 +6,8 @@ import {
 } from '@/components/ui/standardButtons';
 import { FormInput, FormTextarea } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
-import { Calendar } from '@/components/ui/calendar';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
 import { ExerciseAutocomplete } from '@/components/ui/ExerciseAutocomplete';
 import { useEffect, useState } from 'react';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
 import type { Exercise, UniqueExercise } from '@/lib/types';
 
 interface ExerciseFormData {
@@ -26,14 +18,10 @@ interface ExerciseFormData {
   duration?: number;
   restTime?: number;
   notes?: string;
-  scheduledDate?: Date;
 }
 
 interface ExerciseFormProps {
-  onAddExercise?: (
-    exercise: Omit<Exercise, 'id'>,
-    scheduledDate?: Date
-  ) => void;
+  onAddExercise?: (exercise: Omit<Exercise, 'id'>) => void;
   onEditExercise?: (exercise: Exercise) => void;
   editingExercise?: Exercise | null;
   onCancelEdit?: () => void;
@@ -54,8 +42,6 @@ export function ExerciseForm({
     formState: { errors },
   } = useForm<ExerciseFormData>();
 
-  const [scheduledDate, setScheduledDate] = useState<Date>(new Date()); // Default to today
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [nameError, setNameError] = useState<string>('');
 
   const watchedSets = watch('sets');
@@ -73,10 +59,8 @@ export function ExerciseForm({
       setValue('restTime', editingExercise.restTime || undefined);
       setValue('notes', editingExercise.notes || '');
       setNameError(''); // Clear name error when editing
-      // Keep current scheduled date when editing
     } else {
       reset();
-      setScheduledDate(new Date()); // Reset to today
       setNameError(''); // Clear name error when resetting
     }
   }, [editingExercise, setValue, reset]);
@@ -119,18 +103,16 @@ export function ExerciseForm({
         id: editingExercise.id,
       });
     } else if (onAddExercise) {
-      // Adding new exercise with scheduled date
-      onAddExercise(exerciseData, scheduledDate);
+      // Adding new exercise
+      onAddExercise(exerciseData);
     }
 
     reset();
-    setScheduledDate(new Date()); // Reset to today after submission
     setNameError(''); // Clear name error after submission
   };
 
   const handleCancel = () => {
     reset();
-    setScheduledDate(new Date()); // Reset to today
     setNameError(''); // Clear name error
     if (onCancelEdit) {
       onCancelEdit();
@@ -207,41 +189,6 @@ export function ExerciseForm({
           {nameError && (
             <p className="text-sm text-destructive mt-1">{nameError}</p>
           )}
-        </div>
-
-        {/* Date Selector */}
-        <div>
-          <Label className="text-sm lg:text-base">Scheduled Date *</Label>
-          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-            <PopoverTrigger asChild>
-              <OutlineButton
-                type="button"
-                className={`w-full mt-1 h-12 lg:h-14 justify-start text-left font-normal bg-muted/80 ${
-                  !scheduledDate && 'text-muted-foreground'
-                }`}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {scheduledDate ? (
-                  format(scheduledDate, 'PPP')
-                ) : (
-                  <span>Pick a date</span>
-                )}
-              </OutlineButton>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={scheduledDate}
-                onSelect={date => {
-                  if (date) {
-                    setScheduledDate(date);
-                    setIsCalendarOpen(false);
-                  }
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
         </div>
 
         {/* Strength Training Fields */}

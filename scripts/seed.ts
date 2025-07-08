@@ -45,6 +45,7 @@ async function main() {
       createdAt: workout.createdAt.toISOString(),
       updatedAt: workout.updatedAt.toISOString(),
       lastCompleted: workout.lastCompleted?.toISOString(),
+      scheduledDate: workout.scheduledDate?.toISOString(),
     }));
 
     const serializedSessions = sessions.map(session => ({

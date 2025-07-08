@@ -10,6 +10,14 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FormInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { format } from 'date-fns';
+import { CalendarIcon } from 'lucide-react';
 import { ExerciseForm } from '@/components/ExerciseForm';
 import { TagSelector } from '@/components/TagSelector';
 import { ComposableExerciseList } from '@/components/ComposableExerciseList';
@@ -19,6 +27,7 @@ interface WorkoutFormData {
   name: string;
   description: string;
   estimatedDuration: number;
+  scheduledDate?: Date;
 }
 
 interface WorkoutFormProps {
@@ -35,6 +44,10 @@ export function WorkoutForm({
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [editingExercise, setEditingExercise] = useState<Exercise | null>(null);
+  const [scheduledDate, setScheduledDate] = useState<Date | undefined>(
+    new Date()
+  );
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const {
     register,
@@ -52,12 +65,14 @@ export function WorkoutForm({
       setValue('estimatedDuration', editWorkout.estimatedDuration || 45);
       setExercises(editWorkout.exercises);
       setSelectedTags(editWorkout.tags);
+      setScheduledDate(editWorkout.scheduledDate || new Date());
     } else {
       reset();
       setValue('estimatedDuration', 45); // Set default to 45 minutes
       setExercises([]);
       setSelectedTags([]);
       setEditingExercise(null);
+      setScheduledDate(new Date());
     }
   }, [editWorkout, setValue, reset]);
 
@@ -108,6 +123,7 @@ export function WorkoutForm({
       exercises,
       tags: selectedTags,
       estimatedDuration: data.estimatedDuration || undefined,
+      scheduledDate: scheduledDate || undefined,
     };
 
     onSave(workout);
@@ -117,6 +133,7 @@ export function WorkoutForm({
     setExercises([]);
     setSelectedTags([]);
     setEditingExercise(null);
+    setScheduledDate(undefined);
   };
 
   const isEditing = !!editWorkout;
@@ -195,6 +212,40 @@ export function WorkoutForm({
                   {errors.estimatedDuration.message}
                 </p>
               )}
+            </div>
+
+            <div>
+              <Label className="text-sm lg:text-base">Scheduled Date</Label>
+              <div className="flex gap-2 mt-1">
+                <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                  <PopoverTrigger asChild>
+                    <OutlineButton
+                      type="button"
+                      className={`flex-1 h-12 lg:h-14 justify-start text-left font-normal bg-muted/80 ${
+                        !scheduledDate && 'text-muted-foreground'
+                      }`}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {scheduledDate ? (
+                        format(scheduledDate, 'PPP')
+                      ) : (
+                        <span>Pick a date</span>
+                      )}
+                    </OutlineButton>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={scheduledDate}
+                      onSelect={date => {
+                        setScheduledDate(date);
+                        setIsCalendarOpen(false);
+                      }}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
           </div>
 

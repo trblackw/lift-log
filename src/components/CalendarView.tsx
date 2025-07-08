@@ -30,17 +30,32 @@ export function CalendarView({
       session => session.completedAt && isSameDay(session.completedAt, date)
     );
 
-    const scheduledForDate = scheduledWorkouts.filter(scheduled =>
+    // Get workouts scheduled for this date (using workout-level scheduledDate)
+    const scheduledForDate = workouts.filter(
+      workout => workout.scheduledDate && isSameDay(workout.scheduledDate, date)
+    );
+
+    // Also check separate ScheduledWorkout instances if provided
+    const scheduledInstancesForDate = scheduledWorkouts.filter(scheduled =>
       isSameDay(scheduled.scheduledDate, date)
     );
 
-    return { sessions: sessionsForDate, scheduled: scheduledForDate };
+    return {
+      sessions: sessionsForDate,
+      scheduled: scheduledForDate,
+      scheduledInstances: scheduledInstancesForDate,
+    };
   };
 
   // Check if a date has any workouts
   const hasWorkoutsOnDate = (date: Date) => {
-    const { sessions, scheduled } = getWorkoutsForDate(date);
-    return sessions.length > 0 || scheduled.length > 0;
+    const { sessions, scheduled, scheduledInstances } =
+      getWorkoutsForDate(date);
+    return (
+      sessions.length > 0 ||
+      scheduled.length > 0 ||
+      scheduledInstances.length > 0
+    );
   };
 
   const handleDateSelect = (date: Date | undefined) => {
@@ -157,7 +172,7 @@ export function CalendarView({
                 </div>
               )}
 
-              {/* Scheduled Workouts */}
+              {/* Scheduled Workouts (from workout-level scheduledDate) */}
               {selectedDateWorkouts.scheduled.length > 0 && (
                 <div>
                   <h3 className="font-medium text-sm text-blue-600 dark:text-blue-400 mb-2">
@@ -165,7 +180,37 @@ export function CalendarView({
                     {selectedDateWorkouts.scheduled.length})
                   </h3>
                   <div className="space-y-2">
-                    {selectedDateWorkouts.scheduled.map(scheduled => {
+                    {selectedDateWorkouts.scheduled.map(workout => (
+                      <div
+                        key={workout.id}
+                        className="p-2 rounded border bg-blue-50 dark:bg-blue-950"
+                      >
+                        <p className="font-medium text-sm">{workout.name}</p>
+                        {workout.description && (
+                          <p className="text-xs text-muted-foreground">
+                            {workout.description}
+                          </p>
+                        )}
+                        <div className="text-xs text-muted-foreground mt-1">
+                          {workout.exercises.length} exercises
+                          {workout.estimatedDuration &&
+                            ` • ${workout.estimatedDuration} min`}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Scheduled Workout Instances (from ScheduledWorkout array) */}
+              {selectedDateWorkouts.scheduledInstances.length > 0 && (
+                <div>
+                  <h3 className="font-medium text-sm text-purple-600 dark:text-purple-400 mb-2">
+                    📅 Scheduled Instances (
+                    {selectedDateWorkouts.scheduledInstances.length})
+                  </h3>
+                  <div className="space-y-2">
+                    {selectedDateWorkouts.scheduledInstances.map(scheduled => {
                       const workout = workouts.find(
                         w => w.id === scheduled.workoutId
                       );
@@ -175,7 +220,7 @@ export function CalendarView({
                           className={`p-2 rounded border ${
                             scheduled.completed
                               ? 'bg-green-50 dark:bg-green-950'
-                              : 'bg-blue-50 dark:bg-blue-950'
+                              : 'bg-purple-50 dark:bg-purple-950'
                           }`}
                         >
                           <p className="font-medium text-sm">
@@ -195,7 +240,8 @@ export function CalendarView({
 
               {/* No workouts message */}
               {selectedDateWorkouts.sessions.length === 0 &&
-                selectedDateWorkouts.scheduled.length === 0 && (
+                selectedDateWorkouts.scheduled.length === 0 &&
+                selectedDateWorkouts.scheduledInstances.length === 0 && (
                   <div className="text-center py-6">
                     <div className="text-2xl mb-2 flex justify-center">
                       <IconCalendar className="size-5" />
@@ -243,13 +289,22 @@ export function CalendarView({
                   <span>Scheduled:</span>
                   <span className="font-medium">
                     {
-                      scheduledWorkouts.filter(
-                        scheduled =>
-                          scheduled.scheduledDate.getMonth() ===
+                      // Count workouts with scheduledDate + ScheduledWorkout instances
+                      workouts.filter(
+                        workout =>
+                          workout.scheduledDate &&
+                          workout.scheduledDate.getMonth() ===
                             selectedDate.getMonth() &&
-                          scheduled.scheduledDate.getFullYear() ===
+                          workout.scheduledDate.getFullYear() ===
                             selectedDate.getFullYear()
-                      ).length
+                      ).length +
+                        scheduledWorkouts.filter(
+                          scheduled =>
+                            scheduled.scheduledDate.getMonth() ===
+                              selectedDate.getMonth() &&
+                            scheduled.scheduledDate.getFullYear() ===
+                              selectedDate.getFullYear()
+                        ).length
                     }
                   </span>
                 </div>

@@ -50,11 +50,21 @@ export function DayView({
       session => session.completedAt && isSameDay(session.completedAt, date)
     );
 
-    const scheduledForDate = scheduledWorkouts.filter(scheduled =>
+    // Get workouts scheduled for this date (using workout-level scheduledDate)
+    const scheduledForDate = workouts.filter(
+      workout => workout.scheduledDate && isSameDay(workout.scheduledDate, date)
+    );
+
+    // Also check separate ScheduledWorkout instances if provided
+    const scheduledInstancesForDate = scheduledWorkouts.filter(scheduled =>
       isSameDay(scheduled.scheduledDate, date)
     );
 
-    return { sessions: sessionsForDate, scheduled: scheduledForDate };
+    return {
+      sessions: sessionsForDate,
+      scheduled: scheduledForDate,
+      scheduledInstances: scheduledInstancesForDate,
+    };
   };
 
   const dayWorkouts = getWorkoutsForDate(selectedDate);
@@ -238,21 +248,76 @@ export function DayView({
           </CardContent>
         </Card>
 
-        {/* Scheduled Workouts */}
+        {/* Scheduled Workouts (from workout-level scheduledDate) */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <IconCalendar className="size-6 text-blue-600 dark:text-blue-500" />
               Scheduled Workouts
               <span className="text-sm font-normal text-muted-foreground">
-                ({dayWorkouts.scheduled.length})
+                (
+                {dayWorkouts.scheduled.length +
+                  dayWorkouts.scheduledInstances.length}
+                )
               </span>
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {dayWorkouts.scheduled.length > 0 ? (
+            {dayWorkouts.scheduled.length > 0 ||
+            dayWorkouts.scheduledInstances.length > 0 ? (
               <div className="space-y-4">
-                {dayWorkouts.scheduled.map(scheduled => {
+                {/* Workout-level scheduled dates */}
+                {dayWorkouts.scheduled.map(workout => (
+                  <div
+                    key={workout.id}
+                    className="p-4 rounded-lg border bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800"
+                  >
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-medium">{workout.name}</h3>
+                      <span className="text-xs text-blue-600 dark:text-blue-400">
+                        Scheduled
+                      </span>
+                    </div>
+
+                    {workout.description && (
+                      <p className="text-sm text-muted-foreground mb-2">
+                        {workout.description}
+                      </p>
+                    )}
+
+                    {/* Exercise Info */}
+                    <div className="text-sm text-muted-foreground mb-2">
+                      {workout.exercises.length} exercises
+                      {workout.estimatedDuration &&
+                        ` • ${workout.estimatedDuration} min`}
+                    </div>
+
+                    {/* Tags */}
+                    {workout.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {workout.tags.map(tag => (
+                          <Tag key={tag.id} tag={tag} variant="default">
+                            {tag.name}
+                          </Tag>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Action Button */}
+                    {onStartWorkout && (
+                      <PrimaryButton
+                        onClick={() => onStartWorkout(workout.id)}
+                        size="sm"
+                        className="w-full"
+                      >
+                        Start Workout
+                      </PrimaryButton>
+                    )}
+                  </div>
+                ))}
+
+                {/* ScheduledWorkout instances */}
+                {dayWorkouts.scheduledInstances.map(scheduled => {
                   const workout = getWorkoutById(scheduled.workoutId);
                   if (!workout) return null;
 
@@ -262,7 +327,7 @@ export function DayView({
                       className={`p-4 rounded-lg border ${
                         scheduled.completed
                           ? 'bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800'
-                          : 'bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800'
+                          : 'bg-purple-50 dark:bg-purple-950 border-purple-200 dark:border-purple-800'
                       }`}
                     >
                       <div className="flex justify-between items-start mb-2">
