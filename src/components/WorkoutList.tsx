@@ -10,6 +10,11 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { SearchInput } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { Select, SelectItem } from '@/components/ui/select';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { TagGroup } from '@/components/ui/Tag';
 import {
   Collapsible,
@@ -24,12 +29,17 @@ import { ViewToggle } from './ViewToggle';
 import IconDelete from './icons/icon-delete';
 import IconActiveRun from './icons/icon-active-run';
 import IconMagnifier from './icons/icon-magnifier';
+import IconSort from './icons/icon-sort';
 import IconCheckCircle from './icons/icon-check-circle';
 import IconDumbbell from './icons/icon-dumbbell';
 import IconTimer from './icons/icon-timer';
 import IconArmFlex from './icons/icon-arm-flex';
 import IconWeight from './icons/icon-weight';
 import IconDumbbellAlt from './icons/icon-dumbbell-alt';
+import IconSortAlphabetical from './icons/icon-sort-alphabetical';
+import IconCalendarCreate from './icons/icon-calendar-create';
+import IconCalendarComplete from './icons/icon-calendar-complete';
+import IconMagnifierList from './icons/icon-magnifier-list';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -54,6 +64,17 @@ export function WorkoutList({
   const [isSearching, setIsSearching] = useState(false);
   const [workoutToDelete, setWorkoutToDelete] = useState<string | null>(null);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
+  const [sortBy, setSortBy] = useState<
+    'created' | 'alphabetical' | 'lastCompleted'
+  >('created');
+
+  // Sort options
+  const sortOptions = [
+    { value: 'created' as const, label: 'Date Created' },
+    { value: 'alphabetical' as const, label: 'Alphabetically' },
+    { value: 'lastCompleted' as const, label: 'Last Completed' },
+  ];
 
   // Get all unique tags from workouts
   const allTags = useMemo(() => {
@@ -139,6 +160,33 @@ export function WorkoutList({
     return () => clearTimeout(timeoutId);
   }, [workouts, searchTerm, selectedTagFilter]);
 
+  // Sort workouts based on selected sort option
+  const sortedWorkouts = useMemo(() => {
+    const workoutsToSort = [...filteredWorkouts];
+
+    switch (sortBy) {
+      case 'alphabetical':
+        return workoutsToSort.sort((a, b) => a.name.localeCompare(b.name));
+      case 'lastCompleted':
+        return workoutsToSort.sort((a, b) => {
+          // Put workouts with lastCompleted first, then sort by date
+          if (!a.lastCompleted && !b.lastCompleted) return 0;
+          if (!a.lastCompleted) return 1;
+          if (!b.lastCompleted) return -1;
+          return (
+            new Date(b.lastCompleted).getTime() -
+            new Date(a.lastCompleted).getTime()
+          );
+        });
+      case 'created':
+      default:
+        return workoutsToSort.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
+    }
+  }, [filteredWorkouts, sortBy]);
+
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('en-US', {
       month: 'short',
@@ -150,7 +198,7 @@ export function WorkoutList({
     <Card>
       <CardContent className="p-0">
         <div className="divide-y divide-border">
-          {filteredWorkouts.map(workout => (
+          {sortedWorkouts.map(workout => (
             <div
               key={workout.id}
               className="p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-between relative"
@@ -204,7 +252,7 @@ export function WorkoutList({
 
   const renderCardView = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
-      {filteredWorkouts.map(workout => (
+      {sortedWorkouts.map(workout => (
         <Card
           key={workout.id}
           className="hover:shadow-md transition-shadow cursor-pointer flex flex-col"
@@ -325,7 +373,7 @@ export function WorkoutList({
         return (
           <span className="flex items-center">
             <IconTimer className="size-4 mr-1" />
-            {exercise.duration} min
+            {exercise.duration} <small>min</small>
           </span>
         );
       case 'set/rep': {
@@ -431,16 +479,71 @@ export function WorkoutList({
                 </div>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-end gap-1">
+              {/* Sort Popover */}
+              <Popover open={isSortOpen} onOpenChange={setIsSortOpen}>
+                <PopoverTrigger asChild>
+                  <GhostButton
+                    size="sm"
+                    style={{ paddingLeft: 0, paddingRight: 0 }}
+                    className="hover:bg-transparent"
+                    aria-label="Sort workouts"
+                  >
+                    <IconSort
+                      className={`size-8 p-1 rounded-md text-muted-foreground ${
+                        isSortOpen ? 'bg-primary' : ''
+                      }`}
+                    />
+                  </GhostButton>
+                </PopoverTrigger>
+                <PopoverContent className="w-48 p-2" align="end">
+                  <div className="space-y-1">
+                    <div className="px-2 py-1 text-sm font-medium text-muted-foreground">
+                      Sort by
+                    </div>
+                    {sortOptions.map(option => (
+                      <button
+                        key={option.value}
+                        onClick={() => setSortBy(option.value)}
+                        className={`w-full flex items-center gap-2 px-2 py-2 text-sm rounded-md hover:bg-muted transition-colors ${
+                          sortBy === option.value
+                            ? 'bg-primary/10 text-primary font-medium'
+                            : 'text-foreground'
+                        }`}
+                      >
+                        {(() => {
+                          switch (option.value) {
+                            case 'alphabetical':
+                              return (
+                                <IconSortAlphabetical className="size-5" />
+                              );
+                            case 'lastCompleted':
+                              return (
+                                <IconCalendarComplete className="size-5" />
+                              );
+                            case 'created':
+                              return <IconCalendarCreate className="size-5" />;
+                            default:
+                              return <IconSort className="size-5" />;
+                          }
+                        })()}
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+
               <CollapsibleTrigger asChild>
                 <GhostButton
                   size="sm"
-                  className="p-2 hover:bg-muted"
+                  style={{ paddingLeft: 0, paddingRight: 0 }}
+                  className="hover:bg-transparent hover:text-red-500"
                   aria-label={isFiltersOpen ? 'Hide filters' : 'Show filters'}
                 >
                   <IconMagnifier
                     className={`size-8 transition-transform duration-200 p-1 rounded-md text-muted-foreground ${
-                      isFiltersOpen ? 'bg-primary rotate-90' : ''
+                      isFiltersOpen ? 'bg-primary' : ''
                     }`}
                   />
                 </GhostButton>
@@ -463,6 +566,7 @@ export function WorkoutList({
                       onChange={e => setSearchTerm(e.target.value)}
                       placeholder="Search..."
                       className="mt-1 h-12 lg:h-14 lg:text-base pl-3"
+                      autoComplete="off"
                     />
                   </div>
 
@@ -515,12 +619,12 @@ export function WorkoutList({
 
       {/* Workout List - Scrollable */}
       <div className="flex-1 min-h-0 overflow-y-auto p-2">
-        {filteredWorkouts.length === 0 && !isSearching ? (
+        {sortedWorkouts.length === 0 && !isSearching ? (
           <Card>
             <CardContent className="p-6">
               <div className="text-center py-6 lg:py-8">
-                <div className="text-4xl lg:text-6xl mb-2">🔍</div>
-                <p className="text-muted-foreground text-sm lg:text-base">
+                <p className="text-muted-foreground text-sm lg:text-base flex items-center justify-center gap-2">
+                  <IconMagnifierList className="size-7" />
                   No workouts match your filters.
                 </p>
                 <OutlineButton

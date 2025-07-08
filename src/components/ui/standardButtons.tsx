@@ -119,7 +119,7 @@ export function GhostButton({ className, children, ...props }: ButtonProps) {
       variant="ghost"
       className={cn(
         // Enhanced styling with our color palette
-        'text-foreground',
+        'text-foreground cursor-pointer',
         'hover:bg-accent hover:text-accent-foreground',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
         'transition-all duration-200',
