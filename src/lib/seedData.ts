@@ -1,5 +1,11 @@
 import { storage } from './storage';
-import type { Workout, Tag, Exercise } from './types';
+import type {
+  Workout,
+  Tag,
+  Exercise,
+  WorkoutSession,
+  ExerciseSession,
+} from './types';
 
 // Predefined exercise data for realistic workouts
 const EXERCISE_TEMPLATES = {
@@ -265,6 +271,121 @@ function createRandomWorkout(): Omit<Workout, 'id'> {
 }
 
 /**
+ * Creates exercise sessions based on workout exercises
+ */
+function createExerciseSessions(exercises: Exercise[]): ExerciseSession[] {
+  return exercises.map(exercise => {
+    const completed = Math.random() > 0.1; // 90% completion rate
+
+    if (exercise.sets && exercise.reps) {
+      // Strength exercise
+      const completedSets = completed
+        ? exercise.sets
+        : randomInt(1, exercise.sets - 1);
+      const actualReps = Array.from(
+        { length: completedSets },
+        () => exercise.reps! + randomInt(-2, 3) // Some variation in actual reps
+      );
+      const actualWeight = Array.from({ length: completedSets }, () =>
+        exercise.weight ? exercise.weight + randomInt(-10, 10) : 0
+      );
+
+      return {
+        exerciseId: exercise.id,
+        completedSets,
+        actualReps,
+        actualWeight,
+        completed,
+        startedAt: new Date(),
+        completedAt: completed ? new Date() : undefined,
+      };
+    } else {
+      // Cardio exercise
+      return {
+        exerciseId: exercise.id,
+        completedSets: 1,
+        actualReps: [1],
+        actualWeight: [0],
+        completed,
+        startedAt: new Date(),
+        completedAt: completed ? new Date() : undefined,
+      };
+    }
+  });
+}
+
+/**
+ * Creates a random workout session for a given workout
+ */
+function createWorkoutSession(
+  workout: Workout,
+  sessionDate?: Date
+): WorkoutSession {
+  const startedAt = sessionDate || randomPastDate(30);
+  const exercises = createExerciseSessions(workout.exercises);
+
+  // Calculate session duration based on workout type and completion
+  let baseDuration = workout.estimatedDuration || 45; // minutes
+  baseDuration += randomInt(-10, 15); // Add some variation
+  baseDuration = Math.max(10, baseDuration); // Minimum 10 minutes
+
+  const actualDurationMinutes = baseDuration;
+  const actualDurationSeconds = actualDurationMinutes * 60;
+
+  const completedAt = new Date(startedAt);
+  completedAt.setMinutes(completedAt.getMinutes() + actualDurationMinutes);
+
+  return {
+    id: crypto.randomUUID(),
+    workoutId: workout.id,
+    startedAt,
+    completedAt,
+    actualDuration: actualDurationSeconds,
+    exercises,
+    notes:
+      Math.random() > 0.8 ? 'Great workout! Felt strong today.' : undefined,
+  };
+}
+
+/**
+ * Generates workout sessions for given workouts
+ */
+function generateWorkoutSessions(workouts: Workout[]): WorkoutSession[] {
+  const sessions: WorkoutSession[] = [];
+
+  // Generate sessions for the past 60 days with realistic frequency
+  const completedWorkouts = workouts.filter(w => w.lastCompleted);
+
+  completedWorkouts.forEach(workout => {
+    // Each completed workout gets 1-4 sessions in the past 60 days
+    const sessionCount = randomInt(1, 4);
+
+    for (let i = 0; i < sessionCount; i++) {
+      const sessionDate = randomPastDate(60);
+      const session = createWorkoutSession(workout, sessionDate);
+      sessions.push(session);
+    }
+  });
+
+  // Generate some additional recent sessions for variety
+  const recentDays = 14;
+  for (let day = 0; day < recentDays; day++) {
+    if (Math.random() > 0.6) {
+      // 40% chance of workout each day
+      const randomWorkout = workouts[randomInt(0, workouts.length - 1)];
+      const sessionDate = new Date();
+      sessionDate.setDate(sessionDate.getDate() - day);
+      sessionDate.setHours(randomInt(6, 20), randomInt(0, 59), 0, 0);
+
+      const session = createWorkoutSession(randomWorkout, sessionDate);
+      sessions.push(session);
+    }
+  }
+
+  return sessions;
+}
+
+/**
  * Generates workout data (works in both browser and Node.js)
  */
 export function generateWorkoutData(count: number = 20): Workout[] {
@@ -283,12 +404,25 @@ export function generateWorkoutData(count: number = 20): Workout[] {
 }
 
 /**
+ * Generates both workout and session data (works in both browser and Node.js)
+ */
+export function generateCompleteWorkoutData(workoutCount: number = 20): {
+  workouts: Workout[];
+  sessions: WorkoutSession[];
+} {
+  const workouts = generateWorkoutData(workoutCount);
+  const sessions = generateWorkoutSessions(workouts);
+
+  return { workouts, sessions };
+}
+
+/**
  * Seeds the database with debug workout data (browser only)
  */
 export async function seedDebugData(): Promise<void> {
   if (typeof window === 'undefined') {
     throw new Error(
-      'seedDebugData can only be run in a browser environment. Use generateWorkoutData() for Node.js environments.'
+      'seedDebugData can only be run in a browser environment. Use generateCompleteWorkoutData() for Node.js environments.'
     );
   }
 
@@ -298,22 +432,33 @@ export async function seedDebugData(): Promise<void> {
     // Initialize storage if needed
     await storage.init();
 
-    // Generate workouts
-    const workouts = generateWorkoutData(20);
+    // Generate workouts and sessions
+    const { workouts, sessions } = generateCompleteWorkoutData(20);
 
     // Save all workouts
     for (const workout of workouts) {
       await storage.saveWorkout(workout);
     }
 
-    console.log(`✅ Successfully seeded ${workouts.length} workouts!`);
+    // Save all sessions
+    for (const session of sessions) {
+      await storage.saveSession(session);
+    }
+
+    console.log(
+      `✅ Successfully seeded ${workouts.length} workouts and ${sessions.length} sessions!`
+    );
     console.log('📊 Summary:');
     console.log(`   • Total workouts: ${workouts.length}`);
+    console.log(`   • Total sessions: ${sessions.length}`);
     console.log(
       `   • Completed workouts: ${workouts.filter(w => w.lastCompleted).length}`
     );
     console.log(
       `   • Average exercises per workout: ${Math.round(workouts.reduce((sum, w) => sum + w.exercises.length, 0) / workouts.length)}`
+    );
+    console.log(
+      `   • Average session duration: ${Math.round(sessions.reduce((sum, s) => sum + (s.actualDuration || 0), 0) / sessions.length / 60)} minutes`
     );
     console.log(
       `   • Unique tags created: ${new Set(workouts.flatMap(w => w.tags.map(t => t.name))).size}`
@@ -359,6 +504,85 @@ export async function importWorkoutData(workouts: Workout[]): Promise<void> {
     );
   } catch (error) {
     console.error('❌ Failed to import workout data:', error);
+    throw error;
+  }
+}
+
+/**
+ * Imports complete workout and session data into the browser database
+ */
+export async function importCompleteData(data: {
+  workouts: any[];
+  sessions: any[];
+}): Promise<void> {
+  if (typeof window === 'undefined') {
+    throw new Error(
+      'importCompleteData can only be run in a browser environment.'
+    );
+  }
+
+  console.log(
+    `🔄 Importing ${data.workouts.length} workouts and ${data.sessions.length} sessions...`
+  );
+
+  try {
+    // Initialize storage if needed
+    await storage.init();
+
+    // Convert date strings back to Date objects for workouts
+    const workouts: Workout[] = data.workouts.map(workout => ({
+      ...workout,
+      createdAt: new Date(workout.createdAt),
+      updatedAt: new Date(workout.updatedAt),
+      lastCompleted: workout.lastCompleted
+        ? new Date(workout.lastCompleted)
+        : undefined,
+    }));
+
+    // Convert date strings back to Date objects for sessions
+    const sessions: WorkoutSession[] = data.sessions.map(session => ({
+      ...session,
+      startedAt: new Date(session.startedAt),
+      completedAt: session.completedAt
+        ? new Date(session.completedAt)
+        : undefined,
+      exercises: session.exercises.map((ex: any) => ({
+        ...ex,
+        startedAt: ex.startedAt ? new Date(ex.startedAt) : undefined,
+        completedAt: ex.completedAt ? new Date(ex.completedAt) : undefined,
+      })),
+    }));
+
+    // Save all workouts
+    for (const workout of workouts) {
+      await storage.saveWorkout(workout);
+    }
+
+    // Save all sessions
+    for (const session of sessions) {
+      await storage.saveSession(session);
+    }
+
+    console.log(
+      `✅ Successfully imported ${workouts.length} workouts and ${sessions.length} sessions!`
+    );
+    console.log('📊 Summary:');
+    console.log(`   • Total workouts: ${workouts.length}`);
+    console.log(`   • Total sessions: ${sessions.length}`);
+    console.log(
+      `   • Completed workouts: ${workouts.filter(w => w.lastCompleted).length}`
+    );
+    console.log(
+      `   • Average exercises per workout: ${Math.round(workouts.reduce((sum, w) => sum + w.exercises.length, 0) / workouts.length)}`
+    );
+    console.log(
+      `   • Average session duration: ${Math.round(sessions.reduce((sum, s) => sum + (s.actualDuration || 0), 0) / sessions.length / 60)} minutes`
+    );
+    console.log(
+      `   • Unique tags created: ${new Set(workouts.flatMap(w => w.tags.map(t => t.name))).size}`
+    );
+  } catch (error) {
+    console.error('❌ Failed to import complete data:', error);
     throw error;
   }
 }

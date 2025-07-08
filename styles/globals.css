@@ -30,8 +30,8 @@
   --border: hsl(240 3% 88%); /* fallback */
   --input: hsl(240 3% 88%); /* fallback */
   --ring: hsl(240 6% 10%); /* fallback */
-  --chart-1: hsl(12 60% 55%); /* fallback */
-  --chart-2: hsl(173 50% 40%); /* fallback */
+  --chart-1: hsl(210 100% 60%); /* poppy blue */
+  --chart-2: hsl(210 90% 55%); /* poppy blue variant */
   --chart-3: hsl(197 30% 30%); /* fallback */
   --chart-4: hsl(43 60% 60%); /* fallback */
   --chart-5: hsl(27 70% 60%); /* fallback */
@@ -72,8 +72,8 @@
   --border: hsl(240 6% 22%);
   --input: hsl(240 6% 22%);
   --ring: hsl(210 100% 60%);
-  --chart-1: hsl(220 60% 55%);
-  --chart-2: hsl(160 50% 45%);
+  --chart-1: hsl(210 100% 70%); /* poppy blue for dark theme */
+  --chart-2: hsl(210 90% 65%); /* poppy blue variant for dark theme */
   --chart-3: hsl(30 70% 55%);
   --chart-4: hsl(280 55% 60%);
   --chart-5: hsl(340 65% 55%);

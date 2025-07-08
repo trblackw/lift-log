@@ -47,11 +47,11 @@ const timeFrameOptions = [
 const chartConfig = {
   duration: {
     label: 'Workout Duration',
-    color: 'hsl(var(--chart-1))',
+    color: 'var(--chart-1)',
   },
   count: {
     label: 'Workout Count',
-    color: 'hsl(var(--chart-2))',
+    color: 'var(--chart-2)',
   },
 } satisfies ChartConfig;
 

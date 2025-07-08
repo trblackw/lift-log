@@ -3,6 +3,7 @@ import {
   clearAllData,
   logDatabaseStats,
   importWorkoutData,
+  importCompleteData,
 } from './seedData';
 import { logExerciseLibrary } from './exerciseLibraryUtils';
 import type { Workout } from './types';
@@ -75,6 +76,28 @@ export const debugUtils = {
   },
 
   /**
+   * Imports complete data (workouts + sessions) from JSON (from the seed script)
+   */
+  async importCompleteData(data: {
+    workouts: any[];
+    sessions: any[];
+  }): Promise<void> {
+    console.log('📥 Importing complete workout and session data...');
+
+    try {
+      await importCompleteData(data);
+      console.log(
+        '🎉 Import complete! Refresh the page to see your workouts and history data.'
+      );
+    } catch (error) {
+      console.error('❌ Failed to import complete data:', error);
+      console.log(
+        '💡 Make sure you copied the full data object from the seed file.'
+      );
+    }
+  },
+
+  /**
    * Shows help for debug functions
    */
   help(): void {
@@ -82,12 +105,19 @@ export const debugUtils = {
     console.log('Available commands:');
     console.log('');
     console.log('📊 Data Management:');
-    console.log('  debug.seedData()           - Add 20 random workouts');
     console.log(
-      '  debug.clearData()          - Clear all data (⚠️ destructive)'
+      '  debug.seedData()               - Add 20 random workouts + sessions'
     );
-    console.log('  debug.resetWithSeedData()  - Clear + seed fresh data');
-    console.log('  debug.importFromJSON(data) - Import workout data from JSON');
+    console.log(
+      '  debug.clearData()              - Clear all data (⚠️ destructive)'
+    );
+    console.log('  debug.resetWithSeedData()      - Clear + seed fresh data');
+    console.log(
+      '  debug.importFromJSON(data)     - Import workout data from JSON'
+    );
+    console.log(
+      '  debug.importCompleteData(data) - Import workouts + sessions from JSON'
+    );
     console.log('');
     console.log('📈 Inspection:');
     console.log('  debug.showStats()          - Show database statistics');
@@ -95,7 +125,10 @@ export const debugUtils = {
     console.log('');
     console.log('ℹ️ Tips:');
     console.log('  • Run debug.help() to see this help again');
-    console.log('  • Use debug.resetWithSeedData() for a quick setup');
+    console.log(
+      '  • Use debug.resetWithSeedData() for a quick setup with history data'
+    );
+    console.log('  • Use debug.importCompleteData() for full seed script data');
     console.log('  • Refresh the page after seeding to see changes');
   },
 };
