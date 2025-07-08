@@ -133,23 +133,13 @@ export function ExerciseAutocomplete({
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    console.log('😵 INPUT BLUR:', {
-      focused: document.activeElement === inputRef.current,
-      activeElement: document.activeElement?.tagName,
-      activeElementClass: document.activeElement?.className,
-      relatedTarget: e.relatedTarget?.tagName,
-      relatedTargetClass: e.relatedTarget?.className,
-    });
-
     // Don't close if focus is moving to the popover content
     const relatedTarget = e.relatedTarget as Element;
     if (relatedTarget?.closest('[data-radix-popover-content]')) {
-      console.log('😵 BLUR: Focus moving to popover, not closing');
       return;
     }
 
     setTimeout(() => {
-      console.log('😵 BLUR TIMEOUT EXECUTED - closing popover');
       setIsOpen(false);
       setSelectedIndex(-1);
     }, 150);
@@ -178,18 +168,7 @@ export function ExerciseAutocomplete({
   };
 
   return (
-    <Popover
-      open={isOpen}
-      onOpenChange={open => {
-        console.log('🎈 POPOVER onOpenChange:', {
-          open,
-          currentIsOpen: isOpen,
-          focused: document.activeElement === inputRef.current,
-        });
-        setIsOpen(open);
-      }}
-      modal={false}
-    >
+    <Popover open={isOpen} onOpenChange={setIsOpen} modal={false}>
       <PopoverAnchor asChild>
         <div className="relative">
           <FormInput
@@ -201,14 +180,8 @@ export function ExerciseAutocomplete({
             onBlur={handleBlur}
             onFocus={() => {
               const currentValue = inputRef.current?.value || '';
-              console.log('👁️ INPUT FOCUS:', {
-                currentValue,
-                suggestionsLength: suggestions.length,
-                focused: document.activeElement === inputRef.current,
-              });
 
               if (suggestions.length > 0 && currentValue.length >= 2) {
-                console.log('👁️ FOCUS: Opening popover');
                 setIsOpen(true);
               }
             }}
@@ -231,11 +204,9 @@ export function ExerciseAutocomplete({
         side="bottom"
         sideOffset={4}
         onOpenAutoFocus={e => {
-          console.log('🚫 PREVENTING POPOVER AUTO FOCUS');
           e.preventDefault();
         }}
         onCloseAutoFocus={e => {
-          console.log('🚫 PREVENTING POPOVER CLOSE FOCUS');
           e.preventDefault();
         }}
       >

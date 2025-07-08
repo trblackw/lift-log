@@ -4,7 +4,7 @@ import {
   OutlineButton,
   GhostButton,
 } from '@/components/ui/standardButtons';
-import { FormInput } from '@/components/ui/standardInputs';
+import { FormInput, FormTextarea } from '@/components/ui/standardInputs';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -391,11 +391,12 @@ export function ExerciseForm({
           <Label htmlFor="notes" className="text-sm lg:text-base">
             Notes
           </Label>
-          <FormInput
+          <FormTextarea
             id="notes"
             {...register('notes')}
-            placeholder="Additional notes"
-            className="mt-1 h-12 lg:h-14 lg:text-base"
+            placeholder="Additional notes (e.g., form cues, target muscle groups, variations)"
+            className="mt-1 lg:text-base"
+            rows={3}
           />
         </div>
       </div>

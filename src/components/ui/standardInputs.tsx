@@ -5,6 +5,9 @@ import { cn } from '@/lib/utils';
 // Define InputProps type based on the Input component
 type InputProps = React.ComponentProps<'input'>;
 
+// Define TextareaProps type based on the Textarea component
+type TextareaProps = React.ComponentProps<'textarea'>;
+
 /**
  * Standard Input - Enhanced contrast with proper background colors
  * This is the main input component for forms with better visibility
@@ -83,8 +86,38 @@ export function FormInput({ className, ...props }: InputProps) {
   );
 }
 
+/**
+ * Form Textarea - Designed for multi-line forms with optimal contrast in containers
+ */
+export function FormTextarea({ className, ...props }: TextareaProps) {
+  return (
+    <textarea
+      className={cn(
+        // Form-optimized styling with maximum contrast (matching FormInput)
+        'flex min-h-[100px] w-full rounded-md',
+        'bg-background border-2 text-foreground',
+        'border-border hover:border-border/80',
+        'focus-visible:border-primary focus-visible:ring-primary/25',
+        'placeholder:text-muted-foreground/80',
+        'shadow-sm transition-all duration-200',
+        'px-3 py-2 text-sm',
+        // Enhanced focus states
+        'focus-visible:ring-4 focus-visible:outline-none',
+        // Dark mode enhancements
+        'dark:bg-background dark:text-foreground',
+        'dark:border-border/60 dark:hover:border-border',
+        'dark:focus-visible:border-primary/70 dark:focus-visible:ring-primary/30',
+        // Textarea-specific styling
+        'resize-none sm:resize-y',
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 // Type exports for convenience
-export type { InputProps };
+export type { InputProps, TextareaProps };
 
 // Re-export the base Input for cases where custom variants are needed
 export { Input as BaseInput } from './input';
