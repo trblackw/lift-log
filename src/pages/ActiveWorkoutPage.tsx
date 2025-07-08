@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { ActiveWorkout } from '../components/ActiveWorkout';
+import { ROUTES } from '../lib/routes';
 
 export function ActiveWorkoutPage() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export function ActiveWorkoutPage() {
   const handleCompleteWorkout = async (session: any) => {
     try {
       await completeWorkout(session);
-      navigate('/workouts');
+      navigate(ROUTES.WORKOUTS);
     } catch (error) {
       // Error handling is done in the store
       console.error('Failed to complete workout:', error);
@@ -45,7 +46,7 @@ export function ActiveWorkoutPage() {
   const handleCancelWorkout = async () => {
     try {
       await cancelWorkout();
-      navigate('/workouts');
+      navigate(ROUTES.WORKOUTS);
     } catch (error) {
       // Error handling is done in the store
       console.error('Failed to cancel workout:', error);

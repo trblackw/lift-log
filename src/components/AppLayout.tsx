@@ -1,10 +1,10 @@
-import React from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { PrimaryButton } from '@/components/ui/standardButtons';
 import { AppSidebarLayout } from './SidebarNavigation';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '../lib/theme';
+import { navigation } from '../lib/routes';
 import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
 import { useInitializeApp } from '../hooks/useInitializeApp';
 import type { ViewMode } from '../lib/types';
@@ -26,41 +26,14 @@ function AppContent() {
   );
   const cancelWorkout = useSessionsStore(state => state.cancelWorkout);
 
-  // Map current route to view mode for sidebar navigation
+  // Map current route to view mode for sidebar navigation using typed utilities
   const getCurrentViewFromLocation = (): ViewMode => {
-    const pathname = location.pathname;
-    if (pathname === '/workouts') return 'list';
-    if (pathname === '/workouts/create') return 'create';
-    if (pathname.startsWith('/workouts/') && pathname.endsWith('/edit'))
-      return 'create';
-    if (pathname.startsWith('/workouts/')) return 'details';
-    if (pathname === '/active') return 'active';
-    if (pathname === '/calendar') return 'calendar';
-    if (pathname.startsWith('/calendar/')) return 'day';
-    if (pathname === '/history') return 'history';
-    return 'list';
+    return navigation.getViewModeFromPath(location.pathname);
   };
 
   const handleViewChange = (view: ViewMode) => {
-    switch (view) {
-      case 'list':
-        navigate('/workouts');
-        break;
-      case 'create':
-        navigate('/workouts/create');
-        break;
-      case 'active':
-        navigate('/active');
-        break;
-      case 'calendar':
-        navigate('/calendar');
-        break;
-      case 'history':
-        navigate('/history');
-        break;
-      default:
-        navigate('/workouts');
-    }
+    const route = navigation.getRouteForViewMode(view);
+    navigate(route);
   };
 
   const activeWorkout = activeWorkoutSession

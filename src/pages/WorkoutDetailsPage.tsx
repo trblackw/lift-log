@@ -1,7 +1,7 @@
-import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { WorkoutDetails } from '../components/WorkoutDetails';
+import { buildRoute, ROUTES } from '../lib/routes';
 import type { Workout } from '../lib/types';
 
 export function WorkoutDetailsPage() {
@@ -29,17 +29,17 @@ export function WorkoutDetailsPage() {
   }
 
   const handleEditWorkout = (workout: Workout) => {
-    navigate(`/workouts/${workout.id}/edit`);
+    navigate(buildRoute.workoutEdit(workout.id));
   };
 
   const handleBackToList = () => {
-    navigate('/workouts');
+    navigate(ROUTES.WORKOUTS);
   };
 
   const handleStartWorkout = async (workoutId: string) => {
     try {
       await startWorkout(workoutId);
-      navigate('/active');
+      navigate(ROUTES.ACTIVE);
     } catch (error) {
       // Error handling is done in the store
       console.error('Failed to start workout:', error);
@@ -49,7 +49,7 @@ export function WorkoutDetailsPage() {
   const handleDeleteWorkout = async (workoutId: string) => {
     try {
       await deleteWorkout(workoutId);
-      navigate('/workouts');
+      navigate(ROUTES.WORKOUTS);
     } catch (error) {
       // Error handling is done in the store
       console.error('Failed to delete workout:', error);

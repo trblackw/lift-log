@@ -24,6 +24,7 @@ import {
 } from '@/components/ui/collapsible';
 import { storage } from '@/lib/storage';
 import { formatRelativeTime } from '@/lib/utils';
+import { buildRoute } from '@/lib/routes';
 import type { Workout, Tag, Exercise } from '@/lib/types';
 import type { ViewMode } from './ViewToggle';
 import { ViewToggle } from './ViewToggle';
@@ -214,7 +215,10 @@ export function WorkoutList({
               key={workout.id}
               className="p-4 hover:bg-muted/50 transition-colors flex items-center justify-between relative"
             >
-              <Link to={`/workouts/${workout.id}`} className="flex-1 min-w-0">
+              <Link
+                to={buildRoute.workoutDetail(workout.id)}
+                className="flex-1 min-w-0"
+              >
                 <div className="flex items-center gap-3">
                   <h3 className="font-medium text-base truncate">
                     {workout.name}
@@ -267,7 +271,7 @@ export function WorkoutList({
           key={workout.id}
           className="hover:shadow-md transition-shadow flex flex-col"
         >
-          <Link to={`/workouts/${workout.id}`} className="flex-1">
+          <Link to={buildRoute.workoutDetail(workout.id)} className="flex-1">
             <CardContent className="p-6 flex-1">
               <div className="space-y-3 lg:space-y-4">
                 {/* Header */}

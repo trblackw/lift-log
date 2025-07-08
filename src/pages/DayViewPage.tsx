@@ -1,7 +1,7 @@
-import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
 import { DayView } from '../components/DayView';
+import { buildRoute, ROUTES } from '../lib/routes';
 import { parseISO, isValid } from 'date-fns';
 
 export function DayViewPage() {
@@ -19,12 +19,12 @@ export function DayViewPage() {
   const viewDate = isValid(parsedDate) ? parsedDate : selectedDate;
 
   const handleBackToCalendar = () => {
-    navigate('/calendar');
+    navigate(ROUTES.CALENDAR);
   };
 
   const handleDateChange = (newDate: Date) => {
     setSelectedDate(newDate);
-    navigate(`/calendar/${newDate.toISOString().split('T')[0]}`);
+    navigate(buildRoute.calendarDay(newDate));
   };
 
   return (

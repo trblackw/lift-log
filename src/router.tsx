@@ -1,4 +1,5 @@
 import { createBrowserRouter, redirect } from 'react-router-dom';
+import { ROUTES, PATHS } from './lib/routes';
 import { AppLayout } from './components/AppLayout';
 import { ActiveWorkoutPage } from './pages/ActiveWorkoutPage';
 import { CalendarPage } from './pages/CalendarPage';
@@ -12,47 +13,47 @@ import { WorkoutListPage } from './pages/WorkoutListPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: ROUTES.ROOT,
     element: <AppLayout />,
     children: [
       {
         index: true,
-        loader: () => redirect('/workouts'),
+        loader: () => redirect(ROUTES.WORKOUTS),
       },
       {
-        path: 'workouts',
+        path: PATHS.WORKOUTS,
         element: <WorkoutListPage />,
       },
       {
-        path: 'workouts/create',
+        path: `${PATHS.WORKOUTS}/${PATHS.CREATE}`,
         element: <CreateWorkoutPage />,
       },
       {
-        path: 'workouts/:workoutId',
+        path: `${PATHS.WORKOUTS}/${PATHS.WORKOUT_ID}`,
         element: <WorkoutDetailsPage />,
       },
       {
-        path: 'workouts/:workoutId/edit',
+        path: `${PATHS.WORKOUTS}/${PATHS.WORKOUT_ID}/${PATHS.EDIT}`,
         element: <EditWorkoutPage />,
       },
       {
-        path: 'active',
+        path: PATHS.ACTIVE,
         element: <ActiveWorkoutPage />,
       },
       {
-        path: 'calendar',
+        path: PATHS.CALENDAR,
         element: <CalendarPage />,
       },
       {
-        path: 'calendar/:date',
+        path: `${PATHS.CALENDAR}/${PATHS.DATE}`,
         element: <DayViewPage />,
       },
       {
-        path: 'history',
+        path: PATHS.HISTORY,
         element: <HistoryPage />,
       },
       {
-        path: '*',
+        path: ROUTES.NOT_FOUND,
         element: <NotFoundPage />,
       },
     ],

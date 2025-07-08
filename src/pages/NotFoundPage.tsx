@@ -1,7 +1,7 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { PrimaryButton, OutlineButton } from '@/components/ui/standardButtons';
+import { ROUTES } from '../lib/routes';
 import Icon404 from '../components/icons/icon-404';
 
 export function NotFoundPage() {
@@ -18,10 +18,10 @@ export function NotFoundPage() {
             been moved or doesn't exist.
           </p>
           <div className="space-y-3">
-            <Link to="/workouts" className="block">
+            <Link to={ROUTES.WORKOUTS} className="block">
               <PrimaryButton className="w-full">Go to Workouts</PrimaryButton>
             </Link>
-            <Link to="/calendar" className="block">
+            <Link to={ROUTES.CALENDAR} className="block">
               <OutlineButton className="w-full">View Calendar</OutlineButton>
             </Link>
           </div>

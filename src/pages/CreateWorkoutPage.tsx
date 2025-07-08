@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useWorkoutsStore } from '../stores';
 import { WorkoutForm } from '../components/WorkoutForm';
+import { buildRoute, ROUTES } from '../lib/routes';
 import type { Workout } from '../lib/types';
 
 export function CreateWorkoutPage() {
@@ -28,10 +29,10 @@ export function CreateWorkoutPage() {
           createdAt: editingWorkout.createdAt,
           updatedAt: new Date(),
         });
-        navigate(`/workouts/${editingWorkout.id}`);
+        navigate(buildRoute.workoutDetail(editingWorkout.id));
       } else {
         await createWorkout(workoutData);
-        navigate('/workouts');
+        navigate(ROUTES.WORKOUTS);
       }
     } catch (error) {
       // Error handling is done in the store
@@ -40,7 +41,7 @@ export function CreateWorkoutPage() {
   };
 
   const handleCancel = () => {
-    navigate('/workouts');
+    navigate(ROUTES.WORKOUTS);
   };
 
   return (
