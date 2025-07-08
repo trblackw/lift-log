@@ -22,6 +22,7 @@ import type {
   ActiveWorkoutSession,
 } from './lib/types';
 import type { ViewMode as WorkoutViewMode } from './components/ViewToggle';
+import IconArmFlex from './components/icons/icon-arm-flex';
 
 function AppContent() {
   // Initialize currentView from sessionStorage or default to 'list'
@@ -333,14 +334,14 @@ function AppContent() {
     ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
     : null;
 
-  // No longer needed - ViewToggle is now inline in WorkoutList
-
   // Loading state
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
-          <div className="text-4xl mb-4">💪</div>
+          <div className="text-4xl mb-4">
+            <IconArmFlex className="size-10" />
+          </div>
           <p className="text-muted-foreground">Loading Lift Log...</p>
         </div>
       </div>

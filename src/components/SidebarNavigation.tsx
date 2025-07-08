@@ -17,6 +17,7 @@ import IconPlusBordered from './icons/icon-plus-bordered';
 import IconActiveRun from './icons/icon-active-run';
 import IconCalendar from './icons/icon-calendar';
 import IconHistory from './icons/icon-history';
+import IconBench from './icons/icon-bench';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -153,7 +154,8 @@ export function AppSidebarLayout({
         <main className="flex-1 overflow-auto">
           <div className="sticky top-0 z-20 flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
-            <div className="flex-1 flex justify-center">
+            <div className="flex-1 flex items-center justify-center gap-2">
+              <IconBench className="size-8" />
               <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
                 Lift Log
               </h1>

@@ -286,7 +286,7 @@ export function WorkoutList({
                 <GhostButton
                   onClick={() => handleDeleteClick(workout.id)}
                   size="sm"
-                  className="hover:bg-destructive/10 cursor-pointer text-destructive hover:text-destructive"
+                  className="hover:bg-destructive/10 text-destructive/90 cursor-pointer hover:text-destructive"
                 >
                   <IconDelete className="size-5" /> Delete
                 </GhostButton>
