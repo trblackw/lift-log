@@ -59,6 +59,62 @@ bun run build
 bun start
 ```
 
+## Seeding Data
+
+To help you explore the app's features, Lift Log includes sample data generation tools.
+
+### Option 1: Seed Script (Recommended)
+
+Generate sample workouts and workout sessions with realistic data:
+
+```bash
+# Generate 10 workouts with corresponding workout sessions
+bun run seed
+
+# Generate custom amount (e.g., 25 workouts)
+bun run seed 25
+```
+
+This creates:
+
+- ✅ **Workouts**: Complete routines with exercises, sets, reps, and weights
+- ✅ **Tags**: Categorized by workout type (Strength, Cardio, Flexibility, etc.)
+- ✅ **Workout Sessions**: Historical completion data for charts and analytics
+- ✅ **Realistic Timeline**: Sessions distributed over the past 60 days
+
+### Option 2: Browser Console
+
+For more control, use the debug utilities in your browser's developer console:
+
+```javascript
+// Import sample workouts only
+await importWorkouts();
+
+// Import both workouts and workout sessions
+await importCompleteData();
+
+// Clear all data (if needed)
+await clearAllData();
+```
+
+**To access debug utilities:**
+
+1. Open browser developer tools (F12)
+2. Go to the Console tab
+3. Run any of the above commands
+
+### What Gets Generated
+
+The seed data includes:
+
+- **🏋️ Strength Training**: Compound movements, isolation exercises
+- **🏃 Cardio**: Running, cycling, circuit training
+- **🧘 Flexibility**: Yoga, stretching routines
+- **⚡ HIIT**: High-intensity interval workouts
+- **🎯 Functional**: CrossFit-style and functional movements
+
+All data is stored locally in your browser's IndexedDB and persists between sessions.
+
 ## Usage
 
 1. **Create Workouts**: Add exercises with sets, reps, and weights
