@@ -297,28 +297,42 @@ export function WorkoutList({
                 </span>
               </div>
 
-              {/* Exercise Preview */}
-              <div className="text-sm lg:text-base space-y-1">
-                {workout.exercises.slice(0, 2).map(exercise => (
-                  <div
-                    key={exercise.id}
-                    className="flex flex-col justify-start text-xs lg:text-sm mb-2"
-                  >
-                    <span className="truncate pb-2">{exercise.name}</span>
-                    <div className="text-muted-foreground shrink-0 flex flex-col justify-start items-start gap-1">
-                      <ExercisePreviewStat
-                        type="duration"
-                        exercise={exercise}
-                      />
-                      <ExercisePreviewStat type="set/rep" exercise={exercise} />
-                      <ExercisePreviewStat type="weight" exercise={exercise} />
+              {/* Exercise Preview - Grid Layout */}
+              <div className="space-y-2">
+                <div className="grid grid-cols-2 gap-3 text-xs lg:text-sm">
+                  {workout.exercises.slice(0, 4).map(exercise => (
+                    <div
+                      key={exercise.id}
+                      className="flex flex-col justify-start p-2 bg-muted-foreground/10 rounded-md border"
+                    >
+                      <span className="truncate font-medium mb-1">
+                        {exercise.name}
+                      </span>
+                      <div className="text-muted-foreground flex flex-col gap-0.5">
+                        <ExercisePreviewStat
+                          type="duration"
+                          exercise={exercise}
+                        />
+                        <ExercisePreviewStat
+                          type="set/rep"
+                          exercise={exercise}
+                        />
+                        <ExercisePreviewStat
+                          type="weight"
+                          exercise={exercise}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                {workout.exercises.length > 4 && (
+                  <div className="flex justify-end">
+                    <div className="py-1 px-2 bg-muted/20 rounded-md border border-dashed border-muted-foreground text-muted-foreground flex items-center">
+                      <span className="text-xs">
+                        +{workout.exercises.length - 4} more
+                      </span>
                     </div>
                   </div>
-                ))}
-                {workout.exercises.length > 2 && (
-                  <p className="text-muted-foreground text-xs lg:text-sm">
-                    +{workout.exercises.length - 2} more
-                  </p>
                 )}
               </div>
 
