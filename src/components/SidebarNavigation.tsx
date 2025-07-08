@@ -83,12 +83,15 @@ export function SidebarNavigation({
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center justify-between px-2 py-4">
-          <div>
-            <h2 className="text-lg font-semibold text-sidebar-foreground">
-              Lift Log
-            </h2>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-2">
+              <IconBench className="size-5" />
+              <h2 className="text-lg font-semibold text-sidebar-foreground">
+                Lift Log
+              </h2>
+            </div>
             <p className="text-xs text-sidebar-foreground/70">
-              Track your progress
+              {format(new Date(), 'EEEE, MMMM d, yyyy')}
             </p>
           </div>
           <Settings />
@@ -153,12 +156,10 @@ export function AppSidebarLayout({
         <main className="flex-1 overflow-auto">
           <div className="sticky top-0 z-20 flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
-            <div className="flex-1 flex flex-col items-center justify-center gap-1">
+            <div className="flex-1 flex flex-col items-center justify-center gap-1 lg:hidden">
               <div className="flex items-center gap-2">
                 <IconBench className="size-8" />
-                <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
-                  Lift Log
-                </h1>
+                <h1 className="text-2xl font-bold text-foreground">Lift Log</h1>
               </div>
               <p className="text-sm text-muted-foreground">
                 {format(new Date(), 'EEEE, MMMM d, yyyy')}
