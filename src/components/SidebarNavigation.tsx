@@ -18,6 +18,7 @@ import IconActiveRun from './icons/icon-active-run';
 import IconCalendar from './icons/icon-calendar';
 import IconHistory from './icons/icon-history';
 import IconBench from './icons/icon-bench';
+import { format } from 'date-fns';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -142,8 +143,6 @@ export function AppSidebarLayout({
   const displayActiveWorkoutBanner =
     activeWorkoutSession && activeWorkout && onResumeWorkout && onEndWorkout;
 
-  const isWorkoutListView = currentView === 'list';
-
   return (
     <SidebarProvider defaultOpen={true}>
       <div className="flex h-screen w-full" style={{ width: '100vw' }}>
@@ -154,11 +153,16 @@ export function AppSidebarLayout({
         <main className="flex-1 overflow-auto">
           <div className="sticky top-0 z-20 flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
-            <div className="flex-1 flex items-center justify-center gap-2">
-              <IconBench className="size-8" />
-              <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
-                Lift Log
-              </h1>
+            <div className="flex-1 flex flex-col items-center justify-center gap-1">
+              <div className="flex items-center gap-2">
+                <IconBench className="size-8" />
+                <h1 className="text-2xl lg:text-3xl font-bold text-foreground">
+                  Lift Log
+                </h1>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {format(new Date(), 'EEEE, MMMM d, yyyy')}
+              </p>
             </div>
             <div className="w-8" />
           </div>
