@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import {
   PrimaryButton,
   SecondaryButton,
@@ -45,7 +46,6 @@ interface WorkoutListProps {
   workouts: Workout[];
   onStartWorkout?: (workoutId: string) => void;
   onDeleteWorkout?: (workoutId: string) => void;
-  onViewWorkout?: (workout: Workout) => void;
   viewMode?: ViewMode;
   onViewModeChange?: (viewMode: ViewMode) => void;
 }
@@ -54,7 +54,6 @@ export function WorkoutList({
   workouts,
   onStartWorkout,
   onDeleteWorkout,
-  onViewWorkout,
   viewMode = 'card',
   onViewModeChange,
 }: WorkoutListProps) {
@@ -213,10 +212,9 @@ export function WorkoutList({
           {sortedWorkouts.map(workout => (
             <div
               key={workout.id}
-              className="p-4 hover:bg-muted/50 transition-colors cursor-pointer flex items-center justify-between relative"
-              onClick={e => handleWorkoutClick(workout, e)}
+              className="p-4 hover:bg-muted/50 transition-colors flex items-center justify-between relative"
             >
-              <div className="flex-1 min-w-0">
+              <Link to={`/workouts/${workout.id}`} className="flex-1 min-w-0">
                 <div className="flex items-center gap-3">
                   <h3 className="font-medium text-base truncate">
                     {workout.name}
@@ -242,7 +240,7 @@ export function WorkoutList({
                     </span>
                   )}
                 </div>
-              </div>
+              </Link>
               <div className="flex items-center gap-2 flex-shrink-0">
                 {onStartWorkout && (
                   <SecondaryButton
@@ -267,95 +265,96 @@ export function WorkoutList({
       {sortedWorkouts.map(workout => (
         <Card
           key={workout.id}
-          className="hover:shadow-md transition-shadow cursor-pointer flex flex-col"
-          onClick={e => handleWorkoutClick(workout, e)}
+          className="hover:shadow-md transition-shadow flex flex-col"
         >
-          <CardContent className="p-6 flex-1">
-            <div className="space-y-3 lg:space-y-4">
-              {/* Header */}
-              <div>
-                <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
-                  {workout.name}
-                </h3>
-                {workout.description && (
-                  <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
-                    {workout.description}
-                  </p>
-                )}
-              </div>
+          <Link to={`/workouts/${workout.id}`} className="flex-1">
+            <CardContent className="p-6 flex-1">
+              <div className="space-y-3 lg:space-y-4">
+                {/* Header */}
+                <div>
+                  <h3 className="font-semibold text-lg lg:text-xl leading-tight truncate">
+                    {workout.name}
+                  </h3>
+                  {workout.description && (
+                    <p className="text-muted-foreground text-sm lg:text-base mt-1 line-clamp-2">
+                      {workout.description}
+                    </p>
+                  )}
+                </div>
 
-              {/* Stats */}
-              <div className="flex justify-between text-sm lg:text-base">
-                <span className="text-muted-foreground">
-                  {workout.exercises.length} exercise
-                  {workout.exercises.length !== 1 ? 's' : ''}
-                </span>
-                <span className="text-muted-foreground">
-                  {workout.estimatedDuration
-                    ? `${workout.estimatedDuration} min`
-                    : formatDate(workout.createdAt)}
-                </span>
-              </div>
+                {/* Stats */}
+                <div className="flex justify-between text-sm lg:text-base">
+                  <span className="text-muted-foreground">
+                    {workout.exercises.length} exercise
+                    {workout.exercises.length !== 1 ? 's' : ''}
+                  </span>
+                  <span className="text-muted-foreground">
+                    {workout.estimatedDuration
+                      ? `${workout.estimatedDuration} min`
+                      : formatDate(workout.createdAt)}
+                  </span>
+                </div>
 
-              {/* Exercise Preview - Grid Layout */}
-              <div className="space-y-2">
-                <div className="grid grid-cols-2 gap-3 text-xs lg:text-sm">
-                  {workout.exercises.slice(0, 4).map(exercise => (
-                    <div
-                      key={exercise.id}
-                      className="flex flex-col justify-start p-2 bg-muted-foreground/10 rounded-md border"
-                    >
-                      <span className="truncate font-medium mb-1">
-                        {exercise.name}
-                      </span>
-                      <div className="text-muted-foreground flex flex-col gap-0.5">
-                        <ExercisePreviewStat
-                          type="duration"
-                          exercise={exercise}
-                        />
-                        <ExercisePreviewStat
-                          type="set/rep"
-                          exercise={exercise}
-                        />
-                        <ExercisePreviewStat
-                          type="weight"
-                          exercise={exercise}
-                        />
+                {/* Exercise Preview - Grid Layout */}
+                <div className="space-y-2">
+                  <div className="grid grid-cols-2 gap-3 text-xs lg:text-sm">
+                    {workout.exercises.slice(0, 4).map(exercise => (
+                      <div
+                        key={exercise.id}
+                        className="flex flex-col justify-start p-2 bg-muted-foreground/10 rounded-md border"
+                      >
+                        <span className="truncate font-medium mb-1">
+                          {exercise.name}
+                        </span>
+                        <div className="text-muted-foreground flex flex-col gap-0.5">
+                          <ExercisePreviewStat
+                            type="duration"
+                            exercise={exercise}
+                          />
+                          <ExercisePreviewStat
+                            type="set/rep"
+                            exercise={exercise}
+                          />
+                          <ExercisePreviewStat
+                            type="weight"
+                            exercise={exercise}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {workout.exercises.length > 4 && (
+                    <div className="flex justify-end">
+                      <div className="py-1 px-2 bg-muted/20 rounded-md border border-dashed border-muted-foreground text-muted-foreground flex items-center">
+                        <span className="text-xs">
+                          +{workout.exercises.length - 4} more
+                        </span>
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
-                {workout.exercises.length > 4 && (
-                  <div className="flex justify-end">
-                    <div className="py-1 px-2 bg-muted/20 rounded-md border border-dashed border-muted-foreground text-muted-foreground flex items-center">
-                      <span className="text-xs">
-                        +{workout.exercises.length - 4} more
-                      </span>
-                    </div>
+
+                {/* Last Completed */}
+                {workout.lastCompleted && (
+                  <div className="flex items-center gap-1 mt-2 text-xs text-green-600 dark:text-green-400">
+                    <IconCheckCircle className="size-4" />
+                    Last completed {formatRelativeTime(workout.lastCompleted)}
                   </div>
                 )}
+
+                {/* Tags */}
+                {workout.tags.length > 0 && (
+                  <TagGroup
+                    tags={workout.tags}
+                    variant="clickable"
+                    size="sm"
+                    maxVisible={3}
+                    onTagClick={tag => setSelectedTagFilter(tag.id)}
+                  />
+                )}
               </div>
-
-              {/* Last Completed */}
-              {workout.lastCompleted && (
-                <div className="flex items-center gap-1 mt-2 text-xs text-green-600 dark:text-green-400">
-                  <IconCheckCircle className="size-4" />
-                  Last completed {formatRelativeTime(workout.lastCompleted)}
-                </div>
-              )}
-
-              {/* Tags */}
-              {workout.tags.length > 0 && (
-                <TagGroup
-                  tags={workout.tags}
-                  variant="clickable"
-                  size="sm"
-                  maxVisible={3}
-                  onTagClick={tag => setSelectedTagFilter(tag.id)}
-                />
-              )}
-            </div>
-          </CardContent>
+            </CardContent>
+          </Link>
 
           {/* Actions Footer */}
           <CardFooter className="p-2 border-t border-border">
@@ -448,26 +447,13 @@ export function WorkoutList({
     setWorkoutToDelete(null);
   };
 
-  const handleWorkoutClick = (workout: Workout, event: React.MouseEvent) => {
-    // Don't trigger if clicking on action buttons
-    if ((event.target as HTMLElement).closest('button')) {
-      return;
-    }
-
-    if (onViewWorkout) {
-      onViewWorkout(workout);
-    }
-  };
-
   if (workouts.length === 0) {
     return (
       <Card>
         <CardContent className="p-6">
-          <div className="text-center py-8 lg:py-12">
-            <div className="text-6xl lg:text-8xl mb-4">
+          <div className="text-center py-8 lg:py-12 flex flex-col items-center justify-center">
+            <h2 className="text-xl lg:text-2xl font-semibold mb-2 flex items-center gap-2">
               <IconArmFlex className="size-10" />
-            </div>
-            <h2 className="text-xl lg:text-2xl font-semibold mb-2">
               No Workouts Yet
             </h2>
             <p className="text-muted-foreground mb-4 text-sm lg:text-base">
