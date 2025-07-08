@@ -9,7 +9,6 @@ import {
   SidebarTrigger,
   useSidebar,
 } from '@/components/ui/sidebar';
-import { Settings } from './Settings';
 import { ActiveWorkoutBanner } from './ActiveWorkoutBanner';
 import type { ViewMode, Workout, ActiveWorkoutSession } from '@/lib/types';
 import IconList from './icons/icon-list';
@@ -17,6 +16,7 @@ import IconPlusBordered from './icons/icon-plus-bordered';
 import IconActiveRun from './icons/icon-active-run';
 import IconCalendar from './icons/icon-calendar';
 import IconHistory from './icons/icon-history';
+import IconGear from './icons/icon-gear';
 import IconBench from './icons/icon-bench';
 import { format } from 'date-fns';
 
@@ -61,7 +61,13 @@ const navItems: NavItem[] = [
     id: 'history',
     label: 'History',
     icon: <IconHistory />,
-    description: 'View workout trends and analytics',
+    description: 'View workout trends & analytics',
+  },
+  {
+    id: 'settings',
+    label: 'Settings',
+    icon: <IconGear className="size-5" />,
+    description: 'App preferences',
   },
 ];
 
@@ -82,9 +88,9 @@ export function SidebarNavigation({
   return (
     <Sidebar>
       <SidebarHeader className="border-b border-sidebar-border">
-        <div className="flex items-center justify-between px-2 py-4">
+        <div className="flex items-center justify-center px-2 py-4">
           <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center gap-2">
               <IconBench className="size-5" />
               <h2 className="text-lg font-semibold text-sidebar-foreground">
                 Lift Log
@@ -94,7 +100,6 @@ export function SidebarNavigation({
               {format(new Date(), 'EEEE, MMMM d, yyyy')}
             </p>
           </div>
-          <Settings />
         </div>
       </SidebarHeader>
 

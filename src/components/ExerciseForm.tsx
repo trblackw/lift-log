@@ -156,10 +156,7 @@ export function ExerciseForm({
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="lg:space-y-6 p-4 lg:p-6 border rounded-lg"
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="lg:space-y-6 p-2 lg:p-6">
       <div className="flex items-center justify-end">
         {editingExercise && (
           <GhostButton

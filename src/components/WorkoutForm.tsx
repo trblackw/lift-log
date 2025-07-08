@@ -259,10 +259,10 @@ export function WorkoutForm({
       <Card>
         <CardHeader>
           <CardTitle className="text-lg lg:text-xl">
-            Exercises ({exercises.length})
+            Exercises <small>({exercises.length})</small>
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4">
+        <CardContent className="px-4">
           <ExerciseForm
             onAddExercise={addExercise}
             onEditExercise={editExercise}

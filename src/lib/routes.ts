@@ -22,6 +22,7 @@ export const PATHS = {
   ACTIVE: 'active',
   CALENDAR: 'calendar',
   HISTORY: 'history',
+  SETTINGS: 'settings',
 
   // Action segments
   CREATE: 'create',
@@ -55,6 +56,9 @@ export const ROUTES = {
 
   // History
   HISTORY: `/${PATHS.HISTORY}`,
+
+  // Settings
+  SETTINGS: `/${PATHS.SETTINGS}`,
 
   // 404 catch-all
   NOT_FOUND: PATHS.WILDCARD,
@@ -148,7 +152,8 @@ export const navigation = {
     | 'active'
     | 'calendar'
     | 'day'
-    | 'history' => {
+    | 'history'
+    | 'settings' => {
     if (pathname === ROUTES.WORKOUTS) return 'list';
     if (pathname === ROUTES.WORKOUTS_CREATE) return 'create';
     if (parseRoute.isRoute(pathname, ROUTES.WORKOUTS_EDIT)) return 'create';
@@ -157,6 +162,7 @@ export const navigation = {
     if (pathname === ROUTES.CALENDAR) return 'calendar';
     if (parseRoute.isRoute(pathname, ROUTES.CALENDAR_DAY)) return 'day';
     if (pathname === ROUTES.HISTORY) return 'history';
+    if (pathname === ROUTES.SETTINGS) return 'settings';
     return 'list';
   },
 
@@ -177,6 +183,8 @@ export const navigation = {
         return ROUTES.CALENDAR;
       case 'history':
         return ROUTES.HISTORY;
+      case 'settings':
+        return ROUTES.SETTINGS;
       default:
         return ROUTES.WORKOUTS;
     }

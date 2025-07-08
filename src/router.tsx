@@ -8,6 +8,7 @@ import { DayViewPage } from './pages/DayViewPage';
 import { EditWorkoutPage } from './pages/EditWorkoutPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { SettingsPage } from './pages/SettingsPage';
 import { WorkoutDetailsPage } from './pages/WorkoutDetailsPage';
 import { WorkoutListPage } from './pages/WorkoutListPage';
 
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: PATHS.HISTORY,
         element: <HistoryPage />,
+      },
+      {
+        path: PATHS.SETTINGS,
+        element: <SettingsPage />,
       },
       {
         path: ROUTES.NOT_FOUND,

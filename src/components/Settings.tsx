@@ -1,54 +1,43 @@
-import { useState } from 'react';
-import { GhostButton } from '@/components/ui/standardButtons';
-import { Card, CardContent } from '@/components/ui/card';
+import { SecondaryButton } from '@/components/ui/standardButtons';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useTheme } from '@/lib/theme';
-import IconGear from './icons/icon-gear';
+import { MoonIcon, SunIcon } from 'lucide-react';
 
 export function Settings() {
-  const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
-    setIsOpen(false);
   };
 
   return (
-    <div className="relative">
-      <GhostButton
-        size="sm"
-        onClick={() => setIsOpen(!isOpen)}
-        className="size-5 cursor-pointer hover:bg-transparent hover:text-primary"
-      >
-        <IconGear className="size-6" />
-      </GhostButton>
-
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-40"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Popup */}
-          <Card className="absolute right-0 top-10 z-50 w-32">
-            <CardContent className="p-2">
-              <GhostButton
-                size="sm"
-                onClick={toggleTheme}
-                className="w-full justify-start gap-2 h-8"
-              >
-                {theme === 'dark' ? (
-                  <span className="text-xs">Light</span>
-                ) : (
-                  <span className="text-xs">Dark</span>
-                )}
-              </GhostButton>
-            </CardContent>
-          </Card>
-        </>
-      )}
+    <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Appearance</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="space-y-1">
+              <div className="font-medium">Theme</div>
+              <div className="text-sm text-muted-foreground">
+                Choose your preferred color scheme
+              </div>
+            </div>
+            <SecondaryButton
+              onClick={toggleTheme}
+              variant="outline"
+              className="min-w-20"
+            >
+              {theme === 'dark' ? (
+                <MoonIcon className="size-6 text-primary" />
+              ) : (
+                <SunIcon className="size-6 text-yellow-400" />
+              )}
+            </SecondaryButton>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }

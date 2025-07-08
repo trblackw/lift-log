@@ -95,4 +95,5 @@ export type ViewMode =
   | 'details'
   | 'calendar'
   | 'day'
-  | 'history';
+  | 'history'
+  | 'settings';
