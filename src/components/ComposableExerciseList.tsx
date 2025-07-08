@@ -4,6 +4,8 @@ import {
   closestCenter,
   KeyboardSensor,
   PointerSensor,
+  TouchSensor,
+  MouseSensor,
   useSensor,
   useSensors,
   DragOverlay,
@@ -31,7 +33,7 @@ import IconList from './icons/icon-list';
 function DragHandleIcon() {
   return (
     <svg
-      className="w-4 h-4 text-muted-foreground"
+      className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -71,20 +73,21 @@ function ExerciseItem({
   return (
     <div
       className={cn(
-        'p-3 lg:p-4 border rounded-lg transition-all duration-200',
+        'p-3 lg:p-4 border rounded-lg transition-all duration-200 touch-manipulation',
         {
           'bg-primary/10 border-primary': isEditing,
           'bg-muted/30': !isEditing,
           'opacity-50': isDragging,
           'cursor-grabbing': isDragging,
           'cursor-grab': !isDragging && !disabled,
+          'active:scale-[0.98]': !isDragging && !disabled, // Subtle scale on touch for feedback
         },
         className
       )}
     >
       <div className="flex items-center gap-3">
         {/* Drag Handle */}
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 p-1 -m-1 touch-manipulation">
           <DragHandleIcon />
         </div>
 
@@ -113,14 +116,14 @@ function ExerciseItem({
               size="sm"
               onClick={() => onEdit?.(exercise)}
               disabled={disabled}
-              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm touch-manipulation"
             >
               Edit
             </GhostButton>
             <DestructiveButton
               size="sm"
               onClick={() => onRemove?.(exercise.id)}
-              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm"
+              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm touch-manipulation"
             >
               Remove
             </DestructiveButton>
@@ -152,7 +155,13 @@ function SortableExerciseItem({ id, ...props }: SortableExerciseItemProps) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="touch-none select-none"
+    >
       <ExerciseItem {...props} isDragging={isDragging} />
     </div>
   );
@@ -191,10 +200,18 @@ export function ComposableExerciseList({
 }: ComposableExerciseListProps) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
+  // Configure sensors for cross-platform drag and drop support
+  // MouseSensor for desktop, TouchSensor for mobile devices
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         distance: 8, // Minimum distance to start drag (prevents accidental drags)
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 100, // Short delay to distinguish from scrolling
+        tolerance: 8, // Tolerance for movement during delay
       },
     }),
     useSensor(KeyboardSensor, {
