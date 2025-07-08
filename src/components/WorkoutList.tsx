@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/collapsible';
 import { storage } from '@/lib/storage';
 import { formatRelativeTime } from '@/lib/utils';
-import type { Workout, Tag } from '@/lib/types';
+import type { Workout, Tag, Exercise } from '@/lib/types';
 import type { ViewMode } from './ViewToggle';
 import { ViewToggle } from './ViewToggle';
 import IconDelete from './icons/icon-delete';
@@ -28,6 +28,8 @@ import IconCheckCircle from './icons/icon-check-circle';
 import IconDumbbell from './icons/icon-dumbbell';
 import IconTimer from './icons/icon-timer';
 import IconArmFlex from './icons/icon-arm-flex';
+import IconWeight from './icons/icon-weight';
+import IconDumbbellAlt from './icons/icon-dumbbell-alt';
 
 interface WorkoutListProps {
   workouts: Workout[];
@@ -245,10 +247,12 @@ export function WorkoutList({
                   >
                     <span className="truncate">{exercise.name}</span>
                     <span className="text-muted-foreground ml-2 shrink-0">
-                      {exercise.duration
-                        ? `${exercise.duration}min`
-                        : `${exercise.sets}×${exercise.reps}`}
-                      {exercise.weight && ` @${exercise.weight}lbs`}
+                      <ExercisePreviewStat
+                        type="duration"
+                        exercise={exercise}
+                      />
+                      <ExercisePreviewStat type="set/rep" exercise={exercise} />
+                      <ExercisePreviewStat type="weight" exercise={exercise} />
                     </span>
                   </div>
                 ))}
@@ -307,6 +311,49 @@ export function WorkoutList({
       ))}
     </div>
   );
+
+  interface ExercisePreviewStatProps {
+    type: 'duration' | 'set/rep' | 'weight';
+    exercise: Exercise;
+  }
+
+  function ExercisePreviewStat({ type, exercise }: ExercisePreviewStatProps) {
+    switch (type) {
+      case 'duration':
+        if (exercise.duration === undefined) {
+          return null;
+        }
+        return (
+          <span className="flex items-center">
+            <IconTimer className="size-4 mr-1" />
+            {exercise.duration} min
+          </span>
+        );
+      case 'set/rep': {
+        if (exercise.sets === undefined || exercise.reps === undefined) {
+          return null;
+        }
+        return (
+          <span className="flex items-center">
+            <IconDumbbellAlt className="size-4 mr-1" />
+            {exercise.sets} <small>x</small> {exercise.reps}
+          </span>
+        );
+      }
+      case 'weight':
+        if (exercise.weight === undefined) {
+          return null;
+        }
+        return (
+          <span className="flex items-center">
+            <IconWeight className="size-4 mr-1" />
+            {exercise.weight} <small>lbs</small>
+          </span>
+        );
+      default:
+        return null;
+    }
+  }
 
   const clearFilters = () => {
     setSearchTerm('');
