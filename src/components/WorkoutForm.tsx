@@ -49,11 +49,12 @@ export function WorkoutForm({
     if (editWorkout) {
       setValue('name', editWorkout.name);
       setValue('description', editWorkout.description || '');
-      setValue('estimatedDuration', editWorkout.estimatedDuration || 0);
+      setValue('estimatedDuration', editWorkout.estimatedDuration || 45);
       setExercises(editWorkout.exercises);
       setSelectedTags(editWorkout.tags);
     } else {
       reset();
+      setValue('estimatedDuration', 45); // Set default to 45 minutes
       setExercises([]);
       setSelectedTags([]);
       setEditingExercise(null);
@@ -137,13 +138,15 @@ export function WorkoutForm({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
             <div className="lg:col-span-2">
               <Label htmlFor="name" className="text-sm lg:text-base">
-                Workout Name *
+                Workout Name <span className="text-destructive">*</span>
               </Label>
               <FormInput
                 id="name"
                 {...register('name', { required: 'Workout name is required' })}
                 placeholder="e.g., Push Day, Leg Day"
                 className="mt-1 h-12 lg:h-14 lg:text-base"
+                autoComplete="off"
+                autoCorrect="off"
               />
               {errors.name && (
                 <p className="text-sm text-destructive mt-1">
@@ -169,23 +172,22 @@ export function WorkoutForm({
                 htmlFor="estimatedDuration"
                 className="text-sm lg:text-base"
               >
-                Estimated Duration (minutes)
+                Estimated Duration (minutes){' '}
+                <span className="text-destructive">*</span>
               </Label>
               <FormInput
                 id="estimatedDuration"
                 type="number"
                 {...register('estimatedDuration', {
+                  required: 'Duration is required',
                   validate: value => {
-                    // Allow empty values (optional field)
-                    if (!value || String(value).trim() === '') return true;
-                    // If value provided, must be at least 1
                     const numValue = Number(value);
                     return (
                       numValue >= 1 || 'Duration must be at least 1 minute'
                     );
                   },
                 })}
-                placeholder="60"
+                placeholder="45"
                 className="mt-1 h-12 lg:h-14 lg:text-base"
               />
               {errors.estimatedDuration && (
