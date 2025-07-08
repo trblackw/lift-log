@@ -6,6 +6,7 @@ import { format, isSameDay } from 'date-fns';
 import { formatDuration } from '@/lib/utils';
 import type { Workout, WorkoutSession, ScheduledWorkout } from '@/lib/types';
 import IconCalendar from './icons/icon-calendar';
+import IconCheckCircle from './icons/icon-check-circle';
 
 interface CalendarViewProps {
   workouts: Workout[];
@@ -124,8 +125,9 @@ export function CalendarView({
               {/* Completed Workouts */}
               {selectedDateWorkouts.sessions.length > 0 && (
                 <div>
-                  <h3 className="font-medium text-sm text-green-600 dark:text-green-400 mb-2">
-                    ✅ Completed ({selectedDateWorkouts.sessions.length})
+                  <h3 className="font-medium text-sm text-green-600 dark:text-green-400 mb-2 flex items-center gap-2">
+                    <IconCheckCircle className="size-5" /> Completed (
+                    {selectedDateWorkouts.sessions.length})
                   </h3>
                   <div className="space-y-2">
                     {selectedDateWorkouts.sessions.map(session => {
@@ -175,7 +177,7 @@ export function CalendarView({
               {/* Scheduled Workouts (from workout-level scheduledDate) */}
               {selectedDateWorkouts.scheduled.length > 0 && (
                 <div>
-                  <h3 className="font-medium text-sm text-blue-600 dark:text-blue-400 mb-2">
+                  <h3 className="font-medium text-sm text-blue-600 dark:text-blue-400 mb-2 flex items-center gap-2">
                     <IconCalendar className="size-5" /> Scheduled (
                     {selectedDateWorkouts.scheduled.length})
                   </h3>
