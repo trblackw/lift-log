@@ -194,7 +194,7 @@ export function ExerciseForm({
       <div className="lg:space-y-4">
         <div>
           <Label htmlFor="exerciseName" className="text-sm lg:text-base">
-            Name *
+            Name <span className="text-destructive">*</span>
           </Label>
           <ExerciseAutocomplete
             id="exerciseName"

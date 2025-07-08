@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { StandardInput } from './standardInputs';
+import { FormInput } from './standardInputs';
 import { Popover, PopoverContent, PopoverAnchor } from './popover';
 import { storage } from '@/lib/storage';
 import type { UniqueExercise } from '@/lib/types';
@@ -23,16 +23,15 @@ export function ExerciseAutocomplete({
   className,
   ...props
 }: ExerciseAutocompleteProps) {
-  const [inputValue, setInputValue] = useState(value);
   const [suggestions, setSuggestions] = useState<UniqueExercise[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const [isLoading, setIsLoading] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Debounced search function
+  // Search function
   const searchExercises = useCallback(async (query: string) => {
     if (!query || query.length < 2) {
       setSuggestions([]);
@@ -43,8 +42,11 @@ export function ExerciseAutocomplete({
     setIsLoading(true);
     try {
       const results = await storage.searchExerciseLibrary(query);
-      setSuggestions(results.slice(0, 8)); // Limit to 8 suggestions
-      setIsOpen(results.length > 0);
+      const limitedResults = results.slice(0, 8);
+      const shouldOpen = results.length > 0;
+
+      setSuggestions(limitedResults);
+      setIsOpen(shouldOpen);
       setSelectedIndex(-1);
     } catch (error) {
       console.error('Failed to search exercises:', error);
@@ -55,34 +57,47 @@ export function ExerciseAutocomplete({
     }
   }, []);
 
-  // Debounce the search
+  // Set initial value once
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      searchExercises(inputValue);
-    }, 200);
-
-    return () => clearTimeout(timeoutId);
-  }, [inputValue, searchExercises]);
-
-  // Update input value when value prop changes
-  useEffect(() => {
-    setInputValue(value);
+    if (inputRef.current && value && !inputRef.current.value) {
+      inputRef.current.value = value;
+    }
   }, [value]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (searchTimeoutRef.current) {
+        clearTimeout(searchTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setInputValue(newValue);
+
     onChange?.(newValue);
+
+    // Clear existing timeout
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    // Debounce search
+    searchTimeoutRef.current = setTimeout(() => {
+      searchExercises(newValue);
+    }, 200);
   };
 
   const handleSelectExercise = (exercise: UniqueExercise) => {
-    setInputValue(exercise.name);
+    if (inputRef.current) {
+      inputRef.current.value = exercise.name;
+    }
     setIsOpen(false);
     setSuggestions([]);
     setSelectedIndex(-1);
     onChange?.(exercise.name);
     onSelect?.(exercise);
-    inputRef.current?.blur();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -113,17 +128,31 @@ export function ExerciseAutocomplete({
       case 'Escape':
         setIsOpen(false);
         setSelectedIndex(-1);
-        inputRef.current?.blur();
         break;
     }
   };
 
-  const handleBlur = () => {
-    // Delay closing to allow for click on suggestions
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    console.log('😵 INPUT BLUR:', {
+      focused: document.activeElement === inputRef.current,
+      activeElement: document.activeElement?.tagName,
+      activeElementClass: document.activeElement?.className,
+      relatedTarget: e.relatedTarget?.tagName,
+      relatedTargetClass: e.relatedTarget?.className,
+    });
+
+    // Don't close if focus is moving to the popover content
+    const relatedTarget = e.relatedTarget as Element;
+    if (relatedTarget?.closest('[data-radix-popover-content]')) {
+      console.log('😵 BLUR: Focus moving to popover, not closing');
+      return;
+    }
+
     setTimeout(() => {
+      console.log('😵 BLUR TIMEOUT EXECUTED - closing popover');
       setIsOpen(false);
       setSelectedIndex(-1);
-    }, 200);
+    }, 150);
   };
 
   const formatExerciseDetails = (exercise: UniqueExercise): string => {
@@ -149,18 +178,37 @@ export function ExerciseAutocomplete({
   };
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
+    <Popover
+      open={isOpen}
+      onOpenChange={open => {
+        console.log('🎈 POPOVER onOpenChange:', {
+          open,
+          currentIsOpen: isOpen,
+          focused: document.activeElement === inputRef.current,
+        });
+        setIsOpen(open);
+      }}
+      modal={false}
+    >
       <PopoverAnchor asChild>
         <div className="relative">
-          <StandardInput
+          <FormInput
             ref={inputRef}
             type="text"
-            value={inputValue}
+            defaultValue={value}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             onBlur={handleBlur}
             onFocus={() => {
-              if (suggestions.length > 0) {
+              const currentValue = inputRef.current?.value || '';
+              console.log('👁️ INPUT FOCUS:', {
+                currentValue,
+                suggestionsLength: suggestions.length,
+                focused: document.activeElement === inputRef.current,
+              });
+
+              if (suggestions.length > 0 && currentValue.length >= 2) {
+                console.log('👁️ FOCUS: Opening popover');
                 setIsOpen(true);
               }
             }}
@@ -182,8 +230,16 @@ export function ExerciseAutocomplete({
         align="start"
         side="bottom"
         sideOffset={4}
+        onOpenAutoFocus={e => {
+          console.log('🚫 PREVENTING POPOVER AUTO FOCUS');
+          e.preventDefault();
+        }}
+        onCloseAutoFocus={e => {
+          console.log('🚫 PREVENTING POPOVER CLOSE FOCUS');
+          e.preventDefault();
+        }}
       >
-        <div ref={listRef} className="max-h-64 overflow-auto">
+        <div className="max-h-64 overflow-auto">
           {suggestions.map((exercise, index) => {
             const details = formatExerciseDetails(exercise);
 
@@ -208,11 +264,14 @@ export function ExerciseAutocomplete({
             );
           })}
 
-          {suggestions.length === 0 && inputValue.length >= 2 && !isLoading && (
-            <div className="px-3 py-2 text-sm text-muted-foreground">
-              No exercises found
-            </div>
-          )}
+          {suggestions.length === 0 &&
+            inputRef.current?.value &&
+            inputRef.current.value.length >= 2 &&
+            !isLoading && (
+              <div className="px-3 py-2 text-sm text-muted-foreground">
+                No exercises found
+              </div>
+            )}
         </div>
       </PopoverContent>
     </Popover>
