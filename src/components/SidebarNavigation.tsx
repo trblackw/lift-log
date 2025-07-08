@@ -34,22 +34,22 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    id: 'list',
-    label: 'Workouts',
-    icon: <IconList />,
-    description: 'View and manage your workouts',
-  },
-  {
     id: 'create',
     label: 'Create',
     icon: <IconPlusBordered />,
     description: 'Create a new workout',
   },
   {
+    id: 'list',
+    label: 'Workouts',
+    icon: <IconList />,
+    description: 'View and manage your workouts',
+  },
+  {
     id: 'active',
     label: 'Active',
     icon: <IconActiveRun />,
-    description: 'Start or continue an active workout',
+    description: 'Start or continue a workout',
   },
   {
     id: 'calendar',

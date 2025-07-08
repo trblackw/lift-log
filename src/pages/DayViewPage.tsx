@@ -1,19 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppContext } from '../components/AppLayout';
+import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
 import { DayView } from '../components/DayView';
 import { parseISO, isValid } from 'date-fns';
 
 export function DayViewPage() {
-  const context = useContext(AppContext);
   const navigate = useNavigate();
   const { date } = useParams<{ date: string }>();
 
-  if (!context) {
-    throw new Error('DayViewPage must be used within AppLayout');
-  }
-
-  const { workouts, workoutSessions, selectedDate, setSelectedDate } = context;
+  // Subscribe to store state and actions
+  const workouts = useWorkoutsStore(state => state.workouts);
+  const workoutSessions = useSessionsStore(state => state.workoutSessions);
+  const selectedDate = useUIStore(state => state.selectedDate);
+  const setSelectedDate = useUIStore(state => state.setSelectedDate);
 
   // Parse the date from the URL
   const parsedDate = date ? parseISO(date) : selectedDate;

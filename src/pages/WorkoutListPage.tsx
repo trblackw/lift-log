@@ -1,25 +1,22 @@
-import React, { useContext, useState } from 'react';
-import { AppContext } from '../components/AppLayout';
+import React, { useState } from 'react';
+import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { WorkoutList } from '../components/WorkoutList';
 import type { ViewMode as WorkoutViewMode } from '../components/ViewToggle';
-import type { Workout } from '../lib/types';
 
 export function WorkoutListPage() {
-  const context = useContext(AppContext);
   const [workoutListViewMode, setWorkoutListViewMode] =
     useState<WorkoutViewMode>('card');
 
-  if (!context) {
-    throw new Error('WorkoutListPage must be used within AppLayout');
-  }
-
-  const { workouts, handleStartWorkout, handleDeleteWorkout } = context;
+  // Subscribe to store state and actions
+  const workouts = useWorkoutsStore(state => state.workouts);
+  const deleteWorkout = useWorkoutsStore(state => state.deleteWorkout);
+  const startWorkout = useSessionsStore(state => state.startWorkout);
 
   return (
     <WorkoutList
       workouts={workouts}
-      onStartWorkout={handleStartWorkout}
-      onDeleteWorkout={handleDeleteWorkout}
+      onStartWorkout={startWorkout}
+      onDeleteWorkout={deleteWorkout}
       viewMode={workoutListViewMode}
       onViewModeChange={setWorkoutListViewMode}
     />

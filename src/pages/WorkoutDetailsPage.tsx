@@ -1,19 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { AppContext } from '../components/AppLayout';
+import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { WorkoutDetails } from '../components/WorkoutDetails';
 import type { Workout } from '../lib/types';
 
 export function WorkoutDetailsPage() {
-  const context = useContext(AppContext);
   const navigate = useNavigate();
   const { workoutId } = useParams<{ workoutId: string }>();
 
-  if (!context) {
-    throw new Error('WorkoutDetailsPage must be used within AppLayout');
-  }
-
-  const { workouts, handleStartWorkout, handleDeleteWorkout } = context;
+  // Subscribe to store state and actions
+  const workouts = useWorkoutsStore(state => state.workouts);
+  const deleteWorkout = useWorkoutsStore(state => state.deleteWorkout);
+  const startWorkout = useSessionsStore(state => state.startWorkout);
 
   const workout = workoutId
     ? workouts.find(w => w.id === workoutId)
@@ -36,6 +34,26 @@ export function WorkoutDetailsPage() {
 
   const handleBackToList = () => {
     navigate('/workouts');
+  };
+
+  const handleStartWorkout = async (workoutId: string) => {
+    try {
+      await startWorkout(workoutId);
+      navigate('/active');
+    } catch (error) {
+      // Error handling is done in the store
+      console.error('Failed to start workout:', error);
+    }
+  };
+
+  const handleDeleteWorkout = async (workoutId: string) => {
+    try {
+      await deleteWorkout(workoutId);
+      navigate('/workouts');
+    } catch (error) {
+      // Error handling is done in the store
+      console.error('Failed to delete workout:', error);
+    }
   };
 
   return (

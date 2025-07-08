@@ -1,15 +1,10 @@
-import React, { useContext } from 'react';
-import { AppContext } from '../components/AppLayout';
+import React from 'react';
+import { useSessionsStore } from '../stores';
 import { HistoryView } from '../components/HistoryView';
 
 export function HistoryPage() {
-  const context = useContext(AppContext);
-
-  if (!context) {
-    throw new Error('HistoryPage must be used within AppLayout');
-  }
-
-  const { workoutSessions } = context;
+  // Subscribe to store state
+  const workoutSessions = useSessionsStore(state => state.workoutSessions);
 
   return <HistoryView workoutSessions={workoutSessions} />;
 }

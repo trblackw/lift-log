@@ -1,23 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../components/AppLayout';
+import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { ActiveWorkout } from '../components/ActiveWorkout';
 
 export function ActiveWorkoutPage() {
-  const context = useContext(AppContext);
   const navigate = useNavigate();
 
-  if (!context) {
-    throw new Error('ActiveWorkoutPage must be used within AppLayout');
-  }
-
-  const {
-    workouts,
-    activeWorkoutSession,
-    setActiveWorkoutSession,
-    handleCompleteWorkout,
-    handleCancelWorkout,
-  } = context;
+  // Subscribe to store state and actions
+  const workouts = useWorkoutsStore(state => state.workouts);
+  const activeWorkoutSession = useSessionsStore(
+    state => state.activeWorkoutSession
+  );
+  const updateActiveSession = useSessionsStore(
+    state => state.updateActiveSession
+  );
+  const completeWorkout = useSessionsStore(state => state.completeWorkout);
+  const cancelWorkout = useSessionsStore(state => state.cancelWorkout);
 
   const currentWorkout = activeWorkoutSession
     ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
@@ -34,11 +32,31 @@ export function ActiveWorkoutPage() {
     );
   }
 
+  const handleCompleteWorkout = async (session: any) => {
+    try {
+      await completeWorkout(session);
+      navigate('/workouts');
+    } catch (error) {
+      // Error handling is done in the store
+      console.error('Failed to complete workout:', error);
+    }
+  };
+
+  const handleCancelWorkout = async () => {
+    try {
+      await cancelWorkout();
+      navigate('/workouts');
+    } catch (error) {
+      // Error handling is done in the store
+      console.error('Failed to cancel workout:', error);
+    }
+  };
+
   return (
     <ActiveWorkout
       workout={currentWorkout}
       activeSession={activeWorkoutSession}
-      onSessionUpdate={setActiveWorkoutSession}
+      onSessionUpdate={updateActiveSession}
       onComplete={handleCompleteWorkout}
       onCancel={handleCancelWorkout}
     />

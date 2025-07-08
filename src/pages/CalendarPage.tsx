@@ -1,18 +1,15 @@
-import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppContext } from '../components/AppLayout';
+import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
 import { CalendarView } from '../components/CalendarView';
 import { format } from 'date-fns';
 
 export function CalendarPage() {
-  const context = useContext(AppContext);
   const navigate = useNavigate();
 
-  if (!context) {
-    throw new Error('CalendarPage must be used within AppLayout');
-  }
-
-  const { workouts, workoutSessions, selectedDate, setSelectedDate } = context;
+  // Subscribe to store state and actions
+  const workouts = useWorkoutsStore(state => state.workouts);
+  const workoutSessions = useSessionsStore(state => state.workoutSessions);
+  const setSelectedDate = useUIStore(state => state.setSelectedDate);
 
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
