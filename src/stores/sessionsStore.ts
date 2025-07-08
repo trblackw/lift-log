@@ -7,6 +7,7 @@ import type { WorkoutSession, ActiveWorkoutSession } from '../lib/types';
 interface SessionsState {
   workoutSessions: WorkoutSession[];
   activeWorkoutSession: ActiveWorkoutSession | null;
+  completedSession: WorkoutSession | null; // For showing workout summary
   isLoading: boolean;
   error: string | null;
 }
@@ -24,9 +25,13 @@ interface SessionsActions {
   // Session history
   addSession: (session: WorkoutSession) => void;
 
+  // Completed session management
+  clearCompletedSession: () => void;
+
   // State setters
   setSessions: (sessions: WorkoutSession[]) => void;
   setActiveSession: (session: ActiveWorkoutSession | null) => void;
+  setCompletedSession: (session: WorkoutSession | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
 }
@@ -36,6 +41,7 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
     // Initial state
     workoutSessions: [],
     activeWorkoutSession: null,
+    completedSession: null,
     isLoading: true,
     error: null,
 
@@ -74,7 +80,12 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
         };
 
         await storage.saveActiveWorkoutSession(newActiveSession);
-        set({ activeWorkoutSession: newActiveSession });
+
+        // Clear any existing completed session when starting a new workout
+        set({
+          activeWorkoutSession: newActiveSession,
+          completedSession: null,
+        });
 
         toast.success(`Started workout: ${workout?.name || 'Unknown'}`, {
           description: 'Your workout is now active. Good luck!',
@@ -96,10 +107,14 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
 
     completeWorkout: async session => {
       try {
+        console.log('🏁 Starting workout completion process...');
+
         const workout = useWorkoutsStore
           .getState()
           .getWorkoutById(session.workoutId);
         const workoutName = workout?.name || 'Unknown';
+
+        console.log('💾 Saving completed session to storage...');
 
         // Calculate completion stats
         const completedExercises = session.exercises.filter(
@@ -113,12 +128,16 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
           : '';
 
         // Save session and update local state
+        console.log('💾 Saving session to storage...');
         await storage.saveSession(session);
+        console.log('✅ Session saved successfully');
+
         set(state => ({
           workoutSessions: [session, ...state.workoutSessions],
         }));
+        console.log('✅ Local state updated');
 
-        // Update workout's lastCompleted date
+        // Update workout's lastCompleted date and increment completed count
         if (workout && session.completedAt) {
           const updatedWorkout = {
             ...workout,
@@ -135,7 +154,15 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
             );
           // Also save to storage
           await storage.saveWorkout(updatedWorkout);
+
+          // Increment the completed count
+          await useWorkoutsStore
+            .getState()
+            .incrementWorkoutCompletedCount(session.workoutId);
         }
+
+        // Set completed session for summary display
+        set({ completedSession: session });
 
         // Clear active session
         await storage.clearActiveWorkoutSession();
@@ -167,10 +194,15 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
         const workoutName = workout?.name || 'workout';
 
         await storage.clearActiveWorkoutSession();
-        set({ activeWorkoutSession: null });
+
+        // Clear both active and completed sessions when cancelling
+        set({
+          activeWorkoutSession: null,
+          completedSession: null,
+        });
 
         toast.info('Workout ended', {
-          description: `Your ${workoutName} session has been ended.`,
+          description: `Your ${workoutName} session has ended.`,
         });
       } catch (error) {
         console.error('Failed to cancel workout:', error);
@@ -189,8 +221,13 @@ export const useSessionsStore = create<SessionsState & SessionsActions>(
       }));
     },
 
+    clearCompletedSession: () => {
+      set({ completedSession: null });
+    },
+
     setSessions: workoutSessions => set({ workoutSessions }),
     setActiveSession: activeWorkoutSession => set({ activeWorkoutSession }),
+    setCompletedSession: completedSession => set({ completedSession }),
     setLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
   })

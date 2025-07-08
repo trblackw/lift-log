@@ -13,6 +13,7 @@ export function DayViewPage() {
   const workoutSessions = useSessionsStore(state => state.workoutSessions);
   const selectedDate = useUIStore(state => state.selectedDate);
   const setSelectedDate = useUIStore(state => state.setSelectedDate);
+  const startWorkout = useSessionsStore(state => state.startWorkout);
 
   // Parse the date from the URL
   const parsedDate = date ? parseISO(date) : selectedDate;
@@ -27,6 +28,15 @@ export function DayViewPage() {
     navigate(buildRoute.calendarDay(newDate));
   };
 
+  const handleStartWorkout = async (workoutId: string) => {
+    try {
+      await startWorkout(workoutId);
+      navigate(ROUTES.ACTIVE);
+    } catch (error) {
+      console.error('Failed to start workout:', error);
+    }
+  };
+
   return (
     <DayView
       selectedDate={viewDate}
@@ -34,6 +44,7 @@ export function DayViewPage() {
       workoutSessions={workoutSessions}
       onBackToCalendar={handleBackToCalendar}
       onDateChange={handleDateChange}
+      onStartWorkout={handleStartWorkout}
     />
   );
 }

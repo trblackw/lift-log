@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorkoutsStore, useSessionsStore } from '../stores';
 import { ActiveWorkout } from '../components/ActiveWorkout';
+import { WorkoutSummary } from '../components/WorkoutSummary';
 import { WorkoutSelect } from '../components/ui/WorkoutSelect';
 import {
   PrimaryButton,
@@ -26,15 +27,23 @@ export function ActiveWorkoutPage() {
   const activeWorkoutSession = useSessionsStore(
     state => state.activeWorkoutSession
   );
+  const completedSession = useSessionsStore(state => state.completedSession);
   const updateActiveSession = useSessionsStore(
     state => state.updateActiveSession
   );
   const completeWorkout = useSessionsStore(state => state.completeWorkout);
   const cancelWorkout = useSessionsStore(state => state.cancelWorkout);
   const startWorkout = useSessionsStore(state => state.startWorkout);
+  const clearCompletedSession = useSessionsStore(
+    state => state.clearCompletedSession
+  );
 
   const currentWorkout = activeWorkoutSession
     ? workouts.find(w => w.id === activeWorkoutSession.workoutId)
+    : null;
+
+  const completedWorkout = completedSession
+    ? workouts.find(w => w.id === completedSession.workoutId)
     : null;
 
   const handleStartWorkout = async () => {
@@ -43,7 +52,7 @@ export function ActiveWorkoutPage() {
     setIsStarting(true);
     try {
       await startWorkout(selectedWorkout.id);
-      // The store will handle navigation after successful start
+      // User stays on active workout page after starting
     } catch (error) {
       console.error('Failed to start workout:', error);
     } finally {
@@ -55,6 +64,30 @@ export function ActiveWorkoutPage() {
     if (!selectedWorkout) return;
     navigate(buildRoute.workoutDetail(selectedWorkout.id));
   };
+
+  const handleSummaryContinue = () => {
+    clearCompletedSession();
+    navigate(ROUTES.WORKOUTS);
+  };
+
+  const handleSummaryViewWorkout = () => {
+    if (completedWorkout) {
+      clearCompletedSession();
+      navigate(buildRoute.workoutDetail(completedWorkout.id));
+    }
+  };
+
+  // Show workout summary if there's a completed session
+  if (completedSession && completedWorkout) {
+    return (
+      <WorkoutSummary
+        workout={completedWorkout}
+        session={completedSession}
+        onContinue={handleSummaryContinue}
+        onViewWorkout={handleSummaryViewWorkout}
+      />
+    );
+  }
 
   if (!activeWorkoutSession || !currentWorkout) {
     return (
@@ -138,7 +171,8 @@ export function ActiveWorkoutPage() {
   const handleCompleteWorkout = async (session: any) => {
     try {
       await completeWorkout(session);
-      navigate(ROUTES.WORKOUTS);
+      // Don't navigate here - let the WorkoutSummary handle navigation
+      // The completedSession state will trigger the summary view
     } catch (error) {
       // Error handling is done in the store
       console.error('Failed to complete workout:', error);

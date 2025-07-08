@@ -22,6 +22,7 @@ interface WorkoutsActions {
 
   // Computed helpers
   getWorkoutById: (workoutId: string) => Workout | undefined;
+  incrementWorkoutCompletedCount: (workoutId: string) => Promise<void>;
 
   // State setters
   setWorkouts: (workouts: Workout[]) => void;
@@ -58,6 +59,7 @@ export const useWorkoutsStore = create<WorkoutsState & WorkoutsActions>(
           id: crypto.randomUUID(),
           createdAt: new Date(),
           updatedAt: new Date(),
+          completedCount: 0,
         };
 
         await storage.saveWorkout(newWorkout);
@@ -138,6 +140,37 @@ export const useWorkoutsStore = create<WorkoutsState & WorkoutsActions>(
     getWorkoutById: workoutId => {
       const { workouts } = get();
       return workouts.find(w => w.id === workoutId);
+    },
+
+    incrementWorkoutCompletedCount: async workoutId => {
+      try {
+        const { workouts } = get();
+        const workout = workouts.find(w => w.id === workoutId);
+
+        if (!workout) {
+          console.error(
+            'Workout not found for completedCount increment:',
+            workoutId
+          );
+          return;
+        }
+
+        const updatedWorkout: Workout = {
+          ...workout,
+          completedCount: workout.completedCount + 1,
+          updatedAt: new Date(),
+        };
+
+        await storage.saveWorkout(updatedWorkout);
+
+        set(state => ({
+          workouts: state.workouts.map(w =>
+            w.id === workoutId ? updatedWorkout : w
+          ),
+        }));
+      } catch (error) {
+        console.error('Failed to increment workout completed count:', error);
+      }
     },
 
     setWorkouts: workouts => set({ workouts }),

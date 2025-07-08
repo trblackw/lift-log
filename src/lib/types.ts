@@ -24,6 +24,7 @@ export interface Workout {
   createdAt: Date;
   updatedAt: Date;
   lastCompleted?: Date; // When this workout was last completed
+  completedCount: number; // How many times this workout has been completed
   estimatedDuration?: number; // in minutes
   scheduledDate?: Date; // When this workout is scheduled to be performed
 }

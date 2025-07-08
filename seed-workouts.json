@@ -1,2071 +1,3304 @@
 {
   "workouts": [
     {
-      "id": "b153f891-169b-4666-b6b7-563beae7f784",
-      "name": "Evening Wind Down",
-      "description": "A comprehensive workout targeting major muscle groups",
+      "id": "e77baa19-93c5-4d97-b29a-0b1e5feec89a",
+      "name": "Sweat Session",
+      "description": "Great for busy schedules - maximum impact in minimum time",
       "exercises": [
         {
-          "id": "35a97e95-2e5f-4f25-a047-e032983d868e",
-          "name": "Overhead Press",
+          "id": "22bad60a-76ea-4921-915d-27a190e0c3e6",
+          "name": "Face Pulls",
           "sets": 3,
-          "reps": 6,
-          "weight": 108,
-          "restTime": 89
+          "reps": 15,
+          "weight": 58,
+          "restTime": 115
         },
         {
-          "id": "f63aa4e8-9206-425b-8344-7886b19386eb",
-          "name": "Pull-ups",
+          "id": "ba1f8ca0-7fe5-4d4a-918e-1c748d0ca349",
+          "name": "Dumbbell Shoulder Press",
           "sets": 2,
-          "reps": 6,
-          "restTime": 96
-        },
-        {
-          "id": "cfa93b07-55db-4a1a-9175-661a361e51bb",
-          "name": "Lateral Raises",
-          "sets": 2,
-          "reps": 12,
-          "weight": 19,
-          "restTime": 95
-        },
-        {
-          "id": "1c494079-b028-4d98-b327-d7c96080d1b6",
-          "name": "Barbell Bench Press",
-          "sets": 5,
           "reps": 9,
-          "weight": 205,
-          "restTime": 76
+          "weight": 55,
+          "restTime": 108
         },
         {
-          "id": "9c331e6d-0e3e-4a45-8f8e-7db4ddcc1731",
-          "name": "Bulgarian Split Squats",
-          "sets": 3,
-          "reps": 10,
-          "weight": 13,
-          "restTime": 110
+          "id": "77ccb7fb-1047-441f-b19c-4f721449029c",
+          "name": "Tricep Dips",
+          "sets": 4,
+          "reps": 9,
+          "restTime": 103
         },
         {
-          "id": "874c962a-e6ab-4d40-af7d-a18326de63c6",
-          "name": "Walking Lunges",
-          "sets": 3,
+          "id": "ef201674-5bad-4524-9e06-930c060fa6cf",
+          "name": "Overhead Press",
+          "sets": 4,
+          "reps": 5,
+          "weight": 104,
+          "restTime": 104
+        },
+        {
+          "id": "9354e7ac-88e0-4191-b720-77b0bc97053e",
+          "name": "Leg Curls",
+          "sets": 4,
           "reps": 12,
-          "weight": 49,
-          "restTime": 89
-        },
-        {
-          "id": "f4da9822-038d-4c49-bf1c-a105b5d18396",
-          "name": "Russian Twists",
-          "sets": 2,
-          "reps": 18,
-          "weight": 22,
-          "restTime": 81
+          "weight": 89,
+          "restTime": 98
         }
       ],
       "tags": [
         {
-          "name": "Cardio",
-          "color": "#f97316",
-          "id": "7e57caa0-ea73-4044-a301-f1850f423389"
-        }
-      ],
-      "createdAt": "2025-05-12T21:07:00.000Z",
-      "updatedAt": "2025-05-12T21:07:00.000Z",
-      "estimatedDuration": 40
-    },
-    {
-      "id": "c2ce7820-0432-4559-90db-feff390bbc26",
-      "name": "Pull Day Strength",
-      "description": "Dynamic workout to keep things interesting",
-      "exercises": [
-        {
-          "id": "4aab6179-7bb5-42cf-97eb-2b3a76ebb908",
-          "name": "Walking Lunges",
-          "sets": 3,
-          "reps": 12,
-          "weight": 30,
-          "restTime": 87
+          "name": "Evening",
+          "color": "#6366f1",
+          "id": "970fff77-8f34-4fb3-ac8d-f5568a57a9f3"
         },
         {
-          "id": "8b60498a-7343-4762-ab34-93dd88c48a60",
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "93a6cfe9-debe-45bb-9baa-e3f861c6ac0a"
+        }
+      ],
+      "createdAt": "2025-05-17T04:33:00.000Z",
+      "updatedAt": "2025-06-20T21:35:00.000Z",
+      "lastCompleted": "2025-06-20T21:35:00.000Z",
+      "estimatedDuration": 38
+    },
+    {
+      "id": "d3b947ac-e6cb-412a-9820-45049f362403",
+      "name": "Power Hour",
+      "exercises": [
+        {
+          "id": "fbff0b0c-ff04-4ede-986e-5ca188e21355",
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 85
+        },
+        {
+          "id": "ceefaf0e-f273-4b06-9cbf-01b5d0ddf10d",
           "name": "Hammer Curls",
           "sets": 3,
           "reps": 12,
           "weight": 30,
+          "restTime": 89
+        },
+        {
+          "id": "e7252ca6-2cde-4310-b40c-1cc5691ab629",
+          "name": "Russian Twists",
+          "sets": 3,
+          "reps": 20,
+          "weight": 25,
+          "restTime": 85
+        },
+        {
+          "id": "2488fa66-ba6d-455c-a6af-50f81e865337",
+          "name": "Leg Curls",
+          "sets": 3,
+          "reps": 12,
+          "weight": 80,
           "restTime": 84
         },
         {
-          "id": "42217d30-70e2-4094-8d33-e666fe3edc20",
-          "name": "Overhead Press",
-          "sets": 3,
-          "reps": 6,
-          "weight": 95,
-          "restTime": 69
+          "id": "6b96a4ba-0d7c-417e-b967-02fc921590c9",
+          "name": "Jump Rope",
+          "duration": 10
         },
         {
-          "id": "80e7b0f9-9dcc-416c-884d-2eee9047438b",
-          "name": "Lateral Raises",
-          "sets": 3,
-          "reps": 12,
-          "weight": 20,
-          "restTime": 87
-        },
-        {
-          "id": "9ef345a0-40e7-41ae-bc31-2d5c8a22b435",
-          "name": "Treadmill Running",
-          "duration": 30
-        },
-        {
-          "id": "d1811b66-7693-45ac-9be0-a197fa2f8dd8",
-          "name": "Elliptical",
-          "duration": 25
-        },
-        {
-          "id": "411b91af-2fe2-41cb-bb24-93d530a719b6",
+          "id": "ef5c13ff-cd63-4164-a67f-7c08bd6869a7",
           "name": "Cycling",
           "duration": 45
-        }
-      ],
-      "tags": [
-        {
-          "name": "HIIT",
-          "color": "#8b5cf6",
-          "id": "d62b9d87-08ca-4ea9-a01f-dd4058ec071f"
-        }
-      ],
-      "createdAt": "2025-06-22T03:25:00.000Z",
-      "updatedAt": "2025-06-22T03:25:00.000Z",
-      "estimatedDuration": 122
-    },
-    {
-      "id": "3dcc9dc0-8cab-46c4-b856-aa9c5b53e330",
-      "name": "Quick Session",
-      "exercises": [
-        {
-          "id": "59daa17e-3f16-44d5-b091-1a76901d59d3",
-          "name": "Rowing Machine",
-          "duration": 27
         },
         {
-          "id": "bcf46144-afed-4211-a1c6-b7d9348c8cf7",
-          "name": "Jump Rope",
-          "duration": 7
-        },
-        {
-          "id": "bb21b460-408d-4cde-88fe-6816a5c30e5b",
-          "name": "Stairmaster",
-          "duration": 11
-        },
-        {
-          "id": "e488f529-9169-4b10-888c-786ee2d73297",
-          "name": "Burpees",
-          "duration": 11
+          "id": "5d19ef9b-19b4-4507-a276-78ad03bb2131",
+          "name": "Treadmill Running",
+          "duration": 30
         }
       ],
       "tags": [
         {
           "name": "Strength",
           "color": "#ef4444",
-          "id": "62565048-da88-4e4a-8ca4-e195921f95cf"
+          "id": "a3a7bc4c-6fbe-40c5-b51a-dbb5a2a8795f"
         },
         {
-          "name": "Cardio",
-          "color": "#f97316",
-          "id": "e6950b64-32f5-431a-b1c6-01069c7a20c2"
+          "name": "HIIT",
+          "color": "#8b5cf6",
+          "id": "b86ff747-7e9f-4282-bede-4834851e2068"
         }
       ],
-      "createdAt": "2025-05-31T15:00:00.000Z",
-      "updatedAt": "2025-06-18T19:30:00.000Z",
-      "lastCompleted": "2025-06-18T19:30:00.000Z",
-      "estimatedDuration": 56
+      "createdAt": "2025-05-21T01:35:00.000Z",
+      "updatedAt": "2025-06-23T03:13:00.000Z",
+      "lastCompleted": "2025-06-23T03:13:00.000Z",
+      "estimatedDuration": 110
     },
     {
-      "id": "8a3027a6-0a39-4873-a06b-7235173dc6ba",
-      "name": "Iron Paradise",
-      "description": "A comprehensive workout targeting major muscle groups",
+      "id": "d436ee47-2f8e-4aab-a916-2c436c9580b1",
+      "name": "Evening Wind Down",
+      "description": "Challenging workout to push your limits",
       "exercises": [
         {
-          "id": "7d41ab57-4d73-476f-b1f3-7c69f61e2b38",
+          "id": "1544dbe0-43ad-496b-a161-e11f69a4c717",
+          "name": "Face Pulls",
+          "sets": 4,
+          "reps": 14,
+          "weight": 57,
+          "restTime": 69
+        },
+        {
+          "id": "07aa965e-cdd4-4ef7-8807-84e057fd5a8c",
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 166,
+          "restTime": 119
+        },
+        {
+          "id": "36396d66-dfb5-4fc7-b690-820ade90a870",
+          "name": "Incline Dumbbell Press",
+          "sets": 2,
+          "reps": 9,
+          "weight": 79,
+          "restTime": 72
+        },
+        {
+          "id": "6f576b65-a56c-4a54-ba51-7947908aea38",
+          "name": "Barbell Curls",
+          "sets": 2,
+          "reps": 12,
+          "weight": 55,
+          "restTime": 115
+        },
+        {
+          "id": "b45a0fb8-1bbb-4f92-b04b-078588a25452",
+          "name": "Back Squat",
+          "sets": 5,
+          "reps": 6,
+          "weight": 228,
+          "restTime": 70
+        }
+      ],
+      "tags": [
+        {
+          "name": "Beginner",
+          "color": "#10b981",
+          "id": "976e2aac-c947-4008-bde0-285a174dd1b1"
+        }
+      ],
+      "createdAt": "2025-05-25T12:42:00.000Z",
+      "updatedAt": "2025-05-25T12:42:00.000Z",
+      "estimatedDuration": 33
+    },
+    {
+      "id": "a3a472e3-8a38-40be-b1c5-89e3346dac55",
+      "name": "Iron Paradise",
+      "exercises": [
+        {
+          "id": "a9bf686f-6383-4eaa-bdcf-c575e676bb26",
+          "name": "Russian Twists",
+          "sets": 3,
+          "reps": 20,
+          "weight": 25,
+          "restTime": 69
+        },
+        {
+          "id": "eceec883-c563-4977-b2c1-830dd90a4737",
           "name": "Barbell Bench Press",
           "sets": 4,
           "reps": 8,
           "weight": 185,
-          "restTime": 66
+          "restTime": 83
         },
         {
-          "id": "896999bd-4e8b-46af-bf73-2a957fc6c0d6",
+          "id": "08cb367b-7f62-4a01-8cd7-a2db1379a576",
+          "name": "Romanian Deadlift",
+          "sets": 3,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 86
+        },
+        {
+          "id": "da5178c2-5bd2-4a89-b7ac-29677d44e8cb",
+          "name": "Close-Grip Bench Press",
+          "sets": 3,
+          "reps": 8,
+          "weight": 135,
+          "restTime": 75
+        },
+        {
+          "id": "62aace46-40dc-4ea7-91a6-22f04c3565b2",
+          "name": "Treadmill Running",
+          "duration": 30
+        },
+        {
+          "id": "0fbfc217-ac94-4349-8c55-dbcc4f4b7609",
+          "name": "Jump Rope",
+          "duration": 10
+        },
+        {
+          "id": "1b08d278-36dc-4ba7-8d34-e16f87c9b210",
+          "name": "Burpees",
+          "duration": 8
+        }
+      ],
+      "tags": [
+        {
+          "name": "Push",
+          "color": "#06b6d4",
+          "id": "09339dee-b79f-4b91-b416-081f09a569ab"
+        },
+        {
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "42027b1e-8e4d-431f-b0ab-46e5c332c705"
+        }
+      ],
+      "createdAt": "2025-06-16T21:19:00.000Z",
+      "updatedAt": "2025-06-20T02:16:00.000Z",
+      "lastCompleted": "2025-06-20T02:16:00.000Z",
+      "estimatedDuration": 72
+    },
+    {
+      "id": "9fe49f2c-8b7c-42a9-9dbc-a2b6c5fde10c",
+      "name": "Muscle Builder",
+      "description": "Perfect for building strength and endurance",
+      "exercises": [
+        {
+          "id": "c5304d3a-cd1b-4899-aab5-62f112537fa2",
+          "name": "Face Pulls",
+          "sets": 3,
+          "reps": 16,
+          "weight": 50,
+          "restTime": 115
+        },
+        {
+          "id": "7a9fe329-40bf-4adb-a6a9-0e575ba884e4",
+          "name": "Romanian Deadlift",
+          "sets": 2,
+          "reps": 6,
+          "weight": 193,
+          "restTime": 100
+        },
+        {
+          "id": "1ba74fbe-2c10-4438-bf9d-0374fcef5774",
+          "name": "Walking Lunges",
+          "sets": 3,
+          "reps": 12,
+          "weight": 29,
+          "restTime": 75
+        },
+        {
+          "id": "3f7e852d-371b-4acc-a7eb-f91f78cd7f94",
+          "name": "Leg Press",
+          "sets": 5,
+          "reps": 12,
+          "weight": 271,
+          "restTime": 92
+        },
+        {
+          "id": "fd011151-ccc0-4791-a43a-7370da6d2d7b",
+          "name": "Incline Dumbbell Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 65,
+          "restTime": 67
+        },
+        {
+          "id": "7fbec2f5-a5ff-471f-94ca-949fd39d4a33",
+          "name": "Barbell Curls",
+          "sets": 2,
+          "reps": 10,
+          "weight": 75,
+          "restTime": 76
+        },
+        {
+          "id": "b0fb0780-e33f-4093-8bad-e515f206529b",
+          "name": "Tricep Dips",
+          "sets": 4,
+          "reps": 12,
+          "restTime": 101
+        }
+      ],
+      "tags": [
+        {
+          "name": "Pull",
+          "color": "#3b82f6",
+          "id": "85555f97-e925-43aa-8ee4-c2f18e534382"
+        }
+      ],
+      "createdAt": "2025-06-03T16:01:00.000Z",
+      "updatedAt": "2025-06-03T16:01:00.000Z",
+      "estimatedDuration": 46
+    },
+    {
+      "id": "76aa640d-39c5-4ec1-8c8f-e249d6072f8f",
+      "name": "Pump Protocol",
+      "exercises": [
+        {
+          "id": "27928f8b-35ab-4566-85d2-47a6f4f4ce86",
+          "name": "Pull-ups",
+          "sets": 3,
+          "reps": 8,
+          "restTime": 81
+        },
+        {
+          "id": "a9372cb4-f354-4c28-903a-84bb2c800893",
           "name": "Incline Dumbbell Press",
           "sets": 3,
           "reps": 10,
           "weight": 60,
-          "restTime": 68
+          "restTime": 86
         },
         {
-          "id": "f6145848-34c1-478e-93cc-e85f2fa3d6d9",
-          "name": "Hammer Curls",
-          "sets": 3,
-          "reps": 12,
-          "weight": 30,
-          "restTime": 63
+          "id": "d9d2ccc3-0f06-4ee5-861f-6a4d957340f4",
+          "name": "Treadmill Running",
+          "duration": 30
         },
         {
-          "id": "eaabad26-6310-4313-8f46-5dddc5ef9844",
-          "name": "Back Squat",
+          "id": "de3c67c2-2e58-42b8-ac40-88d23e19adea",
+          "name": "Stairmaster",
+          "duration": 15
+        },
+        {
+          "id": "ddd08ffa-7dcf-4249-ace0-f1d00dab26c0",
+          "name": "Jump Rope",
+          "duration": 10
+        }
+      ],
+      "tags": [
+        {
+          "name": "Evening",
+          "color": "#6366f1",
+          "id": "c0c9a49b-1655-43ba-980d-944ca27e8647"
+        },
+        {
+          "name": "Gym",
+          "color": "#dc2626",
+          "id": "59ef2a35-f7f1-47ee-b474-c0bc6afb2a19"
+        },
+        {
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "76a57268-f52b-45f1-929f-8c25a6f2b33b"
+        },
+        {
+          "name": "Full Body",
+          "color": "#ec4899",
+          "id": "955188c5-8b23-43c8-ad57-35ce1f016902"
+        }
+      ],
+      "createdAt": "2025-06-06T21:32:00.000Z",
+      "updatedAt": "2025-06-21T00:18:00.000Z",
+      "lastCompleted": "2025-06-21T00:18:00.000Z",
+      "estimatedDuration": 66
+    },
+    {
+      "id": "f17466ed-373c-436c-9643-ab6fec416aab",
+      "name": "HIIT Circuit",
+      "description": "High-intensity training for maximum results",
+      "exercises": [
+        {
+          "id": "5dca7dd3-3d6a-4355-9206-c3f90cde2389",
+          "name": "Incline Dumbbell Press",
           "sets": 4,
-          "reps": 6,
-          "weight": 225,
+          "reps": 10,
+          "weight": 74,
+          "restTime": 103
+        },
+        {
+          "id": "dfd7af80-8f7e-450d-8eb4-4792da655c69",
+          "name": "Russian Twists",
+          "sets": 2,
+          "reps": 22,
+          "weight": 29,
+          "restTime": 116
+        },
+        {
+          "id": "f5d9d3eb-a100-4d2b-ba44-39dbdf65bc64",
+          "name": "Tricep Dips",
+          "sets": 2,
+          "reps": 12,
           "restTime": 84
         },
         {
-          "id": "64041ff7-9996-4d62-a6b3-700e6adffa53",
-          "name": "Elliptical",
-          "duration": 25
+          "id": "5ec0d1fc-1806-4b84-adb4-95b2162f5ac1",
+          "name": "Barbell Curls",
+          "sets": 3,
+          "reps": 11,
+          "weight": 76,
+          "restTime": 83
         },
         {
-          "id": "d1fe8bbd-d65a-4826-a9e2-3f8994b579cd",
-          "name": "Stairmaster",
-          "duration": 15
+          "id": "57555bd8-f4a8-4c50-88a4-83aecb9fd1fc",
+          "name": "Hammer Curls",
+          "sets": 2,
+          "reps": 13,
+          "weight": 47,
+          "restTime": 111
+        }
+      ],
+      "tags": [
+        {
+          "name": "Lower Body",
+          "color": "#22c55e",
+          "id": "1dfcebb3-2418-4f9f-95f8-7f09a2064196"
+        }
+      ],
+      "createdAt": "2025-07-08T02:19:00.000Z",
+      "updatedAt": "2025-07-08T02:19:00.000Z",
+      "estimatedDuration": 28
+    },
+    {
+      "id": "6c035700-6832-4da8-a2eb-82e329a3f1fd",
+      "name": "Full Body Flow",
+      "description": "Dynamic workout to keep things interesting",
+      "exercises": [
+        {
+          "id": "279056c9-a719-4f2a-92d6-51800839872c",
+          "name": "Burpees",
+          "duration": 7
+        },
+        {
+          "id": "1947398c-6f5a-4a00-bf93-529a85e85dce",
+          "name": "Rowing Machine",
+          "duration": 30
+        }
+      ],
+      "tags": [
+        {
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "837a8d37-1f60-43ef-9817-b1a5104d3fd8"
+        },
+        {
+          "name": "Quick",
+          "color": "#84cc16",
+          "id": "18016372-8619-4754-b94d-ff221736b056"
+        }
+      ],
+      "createdAt": "2025-05-16T14:32:00.000Z",
+      "updatedAt": "2025-05-16T14:32:00.000Z",
+      "estimatedDuration": 37
+    },
+    {
+      "id": "86a844f9-ee94-4ec7-a536-2fbabfc506f5",
+      "name": "Weekend Warrior",
+      "exercises": [
+        {
+          "id": "6a7fc4ad-59de-4645-bc45-d08b57ac8475",
+          "name": "Bulgarian Split Squats",
+          "sets": 3,
+          "reps": 9,
+          "weight": 40,
+          "restTime": 81
+        },
+        {
+          "id": "26422c23-f85c-41a2-9c1b-69b4ef5e9453",
+          "name": "Tricep Dips",
+          "sets": 2,
+          "reps": 11,
+          "restTime": 74
+        },
+        {
+          "id": "56df209c-03fe-4d38-9166-53b3f51fe5d1",
+          "name": "Lateral Raises",
+          "sets": 2,
+          "reps": 14,
+          "weight": 23,
+          "restTime": 101
+        },
+        {
+          "id": "f36c7e21-c92f-4911-8da8-9f9927c36e72",
+          "name": "Pull-ups",
+          "sets": 3,
+          "reps": 6,
+          "restTime": 115
+        },
+        {
+          "id": "ab244f70-2f92-4fa3-9a31-d2bb2ba210d5",
+          "name": "Barbell Bench Press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 171,
+          "restTime": 106
+        },
+        {
+          "id": "6e944748-07be-47c4-b849-09494ae1ca89",
+          "name": "Dumbbell Shoulder Press",
+          "sets": 4,
+          "reps": 12,
+          "weight": 49,
+          "restTime": 70
+        },
+        {
+          "id": "80d8adf0-8768-479c-b4c8-cd941d238369",
+          "name": "Barbell Curls",
+          "sets": 3,
+          "reps": 10,
+          "weight": 51,
+          "restTime": 76
+        },
+        {
+          "id": "0b1537e4-dbd9-4daa-9d92-26cc6dd1179e",
+          "name": "Romanian Deadlift",
+          "sets": 2,
+          "reps": 7,
+          "weight": 179,
+          "restTime": 91
         }
       ],
       "tags": [
         {
           "name": "Gym",
           "color": "#dc2626",
-          "id": "c8eafd31-54f1-4334-ac44-da333c615cb1"
+          "id": "c6dd20f4-5d85-4087-80f4-2cccd634e3e1"
+        },
+        {
+          "name": "Full Body",
+          "color": "#ec4899",
+          "id": "97f9c4f9-4d2f-4ec8-a0a2-bb93d8cfb11b"
+        },
+        {
+          "name": "HIIT",
+          "color": "#8b5cf6",
+          "id": "bc116bd8-e3b4-44ec-9c8e-5cd35ef7aaa7"
+        }
+      ],
+      "createdAt": "2025-06-27T18:45:00.000Z",
+      "updatedAt": "2025-07-04T17:39:00.000Z",
+      "lastCompleted": "2025-07-04T17:39:00.000Z",
+      "estimatedDuration": 43,
+      "scheduledDate": "2025-07-13T15:21:00.000Z"
+    },
+    {
+      "id": "0f872b64-73ec-42f9-baaa-ab69e8505cb0",
+      "name": "Shred Circuit",
+      "exercises": [
+        {
+          "id": "e6469641-fb65-4a38-bfd8-c4afd77e5a68",
+          "name": "Pull-ups",
+          "sets": 4,
+          "reps": 7,
+          "restTime": 108
+        },
+        {
+          "id": "9b0c2f81-0344-44c4-bb07-19f3a46720e4",
+          "name": "Leg Press",
+          "sets": 5,
+          "reps": 13,
+          "weight": 278,
+          "restTime": 98
+        },
+        {
+          "id": "ea7c63a6-23c4-42de-ab89-b2029bb2c417",
+          "name": "Leg Curls",
+          "sets": 4,
+          "reps": 12,
+          "weight": 65,
+          "restTime": 67
+        },
+        {
+          "id": "baef49ab-ad63-4bc7-8eae-99fad7d579f6",
+          "name": "Barbell Bench Press",
+          "sets": 3,
+          "reps": 8,
+          "weight": 202,
+          "restTime": 82
+        },
+        {
+          "id": "43c9cf45-5115-45d9-b6d6-2d4d8524b713",
+          "name": "Incline Dumbbell Press",
+          "sets": 4,
+          "reps": 11,
+          "weight": 54,
+          "restTime": 82
+        },
+        {
+          "id": "745f945d-32a7-4904-aea1-138a183d4baf",
+          "name": "Lateral Raises",
+          "sets": 4,
+          "reps": 12,
+          "weight": 1,
+          "restTime": 112
+        },
+        {
+          "id": "bc732550-07ea-45a3-9c58-d69a1926de97",
+          "name": "Barbell Curls",
+          "sets": 2,
+          "reps": 11,
+          "weight": 68,
+          "restTime": 64
+        },
+        {
+          "id": "54474491-4a2f-4682-8b50-a1138bdc0fec",
+          "name": "Dumbbell Shoulder Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 56,
+          "restTime": 92
+        }
+      ],
+      "tags": [
+        {
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "3d2d606d-01f9-421e-964a-12a32ba00def"
+        },
+        {
+          "name": "HIIT",
+          "color": "#8b5cf6",
+          "id": "6ae81637-9e28-4400-99d4-943e932f4814"
+        }
+      ],
+      "createdAt": "2025-07-07T22:36:00.000Z",
+      "updatedAt": "2025-07-07T22:36:00.000Z",
+      "estimatedDuration": 60
+    },
+    {
+      "id": "8629615e-2223-48f3-b367-0b87e0cc9180",
+      "name": "Endurance Test",
+      "description": "Challenging workout to push your limits",
+      "exercises": [
+        {
+          "id": "5adae254-6787-494d-a652-66abff620488",
+          "name": "Leg Curls",
+          "sets": 3,
+          "reps": 12,
+          "weight": 80,
+          "restTime": 88
+        },
+        {
+          "id": "9e0681a5-87d0-40a9-a546-c269a07b9ae4",
+          "name": "Pull-ups",
+          "sets": 3,
+          "reps": 8,
+          "restTime": 83
+        },
+        {
+          "id": "fd8c8e09-9d3f-4603-8337-437404ed4a79",
+          "name": "Elliptical",
+          "duration": 25
+        },
+        {
+          "id": "b40d7f77-123d-4bd0-9c32-56d87d36f2a2",
+          "name": "Burpees",
+          "duration": 8
+        },
+        {
+          "id": "2501f38c-6bdc-4341-8649-8ae58c8af576",
+          "name": "Rowing Machine",
+          "duration": 20
+        }
+      ],
+      "tags": [
+        {
+          "name": "Pull",
+          "color": "#3b82f6",
+          "id": "14ddc105-2a4b-4789-9b54-b4a57d36af52"
         },
         {
           "name": "Strength",
           "color": "#ef4444",
-          "id": "68da6bd1-4a3c-4241-ac29-0b4ed6da6eaf"
+          "id": "7a82a6e8-394a-48fb-b262-5f9a11197bfc"
         },
         {
           "name": "Home",
           "color": "#14b8a6",
-          "id": "c04c0b3f-ad0c-4c01-9326-563dbfe556d5"
+          "id": "39b514e7-5b01-48a0-8677-255de4724ec7"
         }
       ],
-      "createdAt": "2025-05-16T20:09:00.000Z",
-      "updatedAt": "2025-06-11T14:36:00.000Z",
-      "lastCompleted": "2025-06-11T14:36:00.000Z",
-      "estimatedDuration": 64
+      "createdAt": "2025-05-23T01:17:00.000Z",
+      "updatedAt": "2025-07-03T18:07:00.000Z",
+      "lastCompleted": "2025-07-03T18:07:00.000Z",
+      "estimatedDuration": 65
     },
     {
-      "id": "08c653e2-b819-499c-84cf-74b7df8745fd",
-      "name": "HIIT Circuit",
+      "id": "81a79492-ee85-44e8-8c25-45dcf8fdb567",
+      "name": "Cardio Burn",
       "description": "High-intensity training for maximum results",
       "exercises": [
         {
-          "id": "e350d580-4592-45f6-be80-2c4308aa1d29",
-          "name": "Calf Raises",
+          "id": "2a7f2f79-ce62-4815-be59-2f2929ffb7f2",
+          "name": "Russian Twists",
           "sets": 4,
-          "reps": 17,
-          "weight": 150,
-          "restTime": 98
+          "reps": 22,
+          "weight": 30,
+          "restTime": 80
         },
         {
-          "id": "2819b701-be4a-43b8-a680-015acd511bd0",
-          "name": "Incline Dumbbell Press",
+          "id": "62ec92c3-40de-4746-9a97-70da0e3898f8",
+          "name": "Face Pulls",
+          "sets": 2,
+          "reps": 16,
+          "weight": 28,
+          "restTime": 90
+        },
+        {
+          "id": "514e971c-d4dd-44d3-ae92-4db44599f1ca",
+          "name": "Dumbbell Shoulder Press",
           "sets": 2,
           "reps": 8,
-          "weight": 73,
-          "restTime": 87
+          "weight": 49,
+          "restTime": 66
         },
         {
-          "id": "653eccc6-f6cb-4bb4-8a0f-f3d553ff58a4",
-          "name": "Pull-ups",
-          "sets": 2,
-          "reps": 7,
-          "restTime": 76
-        },
-        {
-          "id": "62bb895f-658f-4405-9f4e-5ecdbbb0d171",
-          "name": "Close-Grip Bench Press",
-          "sets": 2,
-          "reps": 10,
-          "weight": 150,
-          "restTime": 70
-        },
-        {
-          "id": "3f57cdb4-d1d2-40ca-a05e-30d9b56cdb3f",
-          "name": "Leg Curls",
-          "sets": 2,
-          "reps": 11,
-          "weight": 89,
-          "restTime": 110
-        },
-        {
-          "id": "88007e94-5f99-4e89-9a74-5f84879fc2b8",
-          "name": "Bulgarian Split Squats",
-          "sets": 4,
-          "reps": 9,
-          "weight": 20,
-          "restTime": 61
-        },
-        {
-          "id": "7796e610-dd73-4694-88d5-d6dc91a0162c",
+          "id": "05e9cf39-50ec-4cb7-9cb8-06dbd4bda99d",
           "name": "Leg Press",
-          "sets": 5,
+          "sets": 4,
           "reps": 10,
-          "weight": 274,
-          "restTime": 120
+          "weight": 276,
+          "restTime": 96
         },
         {
-          "id": "6ac291f8-ff03-4d2e-bb60-a98758d04e96",
-          "name": "Lateral Raises",
-          "sets": 3,
-          "reps": 10,
-          "weight": 9,
-          "restTime": 107
+          "id": "5312cb47-c805-4d1e-be06-184e6f980fcb",
+          "name": "Leg Curls",
+          "sets": 4,
+          "reps": 11,
+          "weight": 99,
+          "restTime": 92
         }
       ],
       "tags": [
         {
           "name": "Quick",
           "color": "#84cc16",
-          "id": "e2013620-f4ef-4e1e-afe2-e25b57a81be1"
-        },
-        {
-          "name": "Lower Body",
-          "color": "#22c55e",
-          "id": "d3aed509-05f6-4b09-aef2-e987abc1914d"
-        },
-        {
-          "name": "Gym",
-          "color": "#dc2626",
-          "id": "0bbfb2cc-b2b8-4192-8b85-4777817a33df"
-        },
-        {
-          "name": "Push",
-          "color": "#06b6d4",
-          "id": "f8a2c9ec-d9ea-4830-8ad8-4c40b554696f"
+          "id": "7d4b7ab7-04f4-40eb-a49c-9d35776bc714"
         }
       ],
-      "createdAt": "2025-06-09T17:07:00.000Z",
-      "updatedAt": "2025-07-04T02:13:00.000Z",
-      "lastCompleted": "2025-07-04T02:13:00.000Z",
-      "estimatedDuration": 49
+      "createdAt": "2025-06-03T02:45:00.000Z",
+      "updatedAt": "2025-06-23T03:29:00.000Z",
+      "lastCompleted": "2025-06-23T03:29:00.000Z",
+      "estimatedDuration": 31
     },
     {
-      "id": "ef10912e-9604-4103-9d00-0a8aa993bc9a",
-      "name": "Power Hour",
-      "description": "Effective circuit training for fat loss",
+      "id": "4cc27a53-b244-4ebc-b4aa-5279e07eaa07",
+      "name": "Iron Paradise",
       "exercises": [
         {
-          "id": "9c80fc5a-74f1-4b05-9b1f-945d63b729cb",
-          "name": "Walking Lunges",
-          "sets": 3,
-          "reps": 12,
-          "weight": 47,
-          "restTime": 81
-        },
-        {
-          "id": "c29af454-3079-4deb-a68f-7ee96fa13afd",
-          "name": "Bulgarian Split Squats",
-          "sets": 2,
-          "reps": 9,
-          "weight": 21,
-          "restTime": 79
-        },
-        {
-          "id": "c4340278-cf69-4c12-8706-29324b57828e",
-          "name": "Leg Press",
-          "sets": 5,
-          "reps": 12,
-          "weight": 276,
-          "restTime": 66
-        },
-        {
-          "id": "d1afc236-0f14-4e54-8422-4a1e656020fa",
+          "id": "28c9bd6a-aa78-4769-aaee-e64eefa93432",
           "name": "Lateral Raises",
-          "sets": 2,
-          "reps": 14,
-          "weight": 32,
-          "restTime": 61
-        },
-        {
-          "id": "48598f4e-4d9e-44dd-9c2e-97b917869065",
-          "name": "Calf Raises",
-          "sets": 5,
-          "reps": 13,
-          "weight": 124,
-          "restTime": 84
-        },
-        {
-          "id": "ea1600d2-079f-4d65-ad03-f46a21f6933f",
-          "name": "Russian Twists",
           "sets": 4,
-          "reps": 21,
-          "weight": 45,
-          "restTime": 113
+          "reps": 14,
+          "weight": 27,
+          "restTime": 109
+        },
+        {
+          "id": "02b71c92-8687-4418-b363-9859b5667276",
+          "name": "Romanian Deadlift",
+          "sets": 3,
+          "reps": 9,
+          "weight": 178,
+          "restTime": 85
+        },
+        {
+          "id": "6047471e-b353-4dad-a68b-96d755f5c934",
+          "name": "Barbell Rows",
+          "sets": 5,
+          "reps": 8,
+          "weight": 152,
+          "restTime": 116
+        },
+        {
+          "id": "2175e21b-8c1f-44d9-afe3-9dc920320c63",
+          "name": "Tricep Dips",
+          "sets": 2,
+          "reps": 8,
+          "restTime": 115
+        },
+        {
+          "id": "544cd7e9-60ed-4416-8834-26e6a274dbe3",
+          "name": "Overhead Press",
+          "sets": 3,
+          "reps": 6,
+          "weight": 83,
+          "restTime": 116
         }
       ],
       "tags": [
         {
+          "name": "HIIT",
+          "color": "#8b5cf6",
+          "id": "4ddbf87a-59db-4e2f-9b31-806c4cfaceef"
+        },
+        {
+          "name": "Full Body",
+          "color": "#ec4899",
+          "id": "612c02a3-754a-494f-8b42-88f8dbe2b668"
+        },
+        {
           "name": "Strength",
           "color": "#ef4444",
-          "id": "8983967b-71d4-4486-b102-0757a340c737"
+          "id": "f46334f5-7a0b-4102-bebe-fc468ee21ccf"
         }
       ],
-      "createdAt": "2025-06-22T18:53:00.000Z",
-      "updatedAt": "2025-06-23T18:50:00.000Z",
-      "lastCompleted": "2025-06-23T18:50:00.000Z",
+      "createdAt": "2025-05-26T04:43:00.000Z",
+      "updatedAt": "2025-06-27T00:57:00.000Z",
+      "lastCompleted": "2025-06-27T00:57:00.000Z",
       "estimatedDuration": 39
     },
     {
-      "id": "3cfe117a-de43-4ce8-bdb3-7ab2b59c5dcf",
+      "id": "05eecf78-a493-45f3-a7cc-a2d81f4cbd5d",
+      "name": "Cardio Burn",
+      "exercises": [
+        {
+          "id": "90c3d0cb-7a51-4358-b32e-39205aa7c121",
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 61
+        },
+        {
+          "id": "b861679c-6cbf-4d1b-8ab8-ceb31ffd30d9",
+          "name": "Pull-ups",
+          "sets": 3,
+          "reps": 8,
+          "restTime": 75
+        },
+        {
+          "id": "51e8a19b-24f6-4f3e-90cc-52adda780f07",
+          "name": "Incline Dumbbell Press",
+          "sets": 3,
+          "reps": 10,
+          "weight": 60,
+          "restTime": 72
+        },
+        {
+          "id": "4c8419ca-d622-42ae-94b3-cc543fa47e62",
+          "name": "Romanian Deadlift",
+          "sets": 3,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 73
+        },
+        {
+          "id": "971764c5-715d-478f-b2bb-a7679603f424",
+          "name": "Treadmill Running",
+          "duration": 30
+        }
+      ],
+      "tags": [
+        {
+          "name": "Evening",
+          "color": "#6366f1",
+          "id": "546879ba-1a50-4174-a79d-e046c972d9af"
+        },
+        {
+          "name": "Full Body",
+          "color": "#ec4899",
+          "id": "35745952-fe5a-49eb-b2bd-c440960e07a5"
+        },
+        {
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "a0dba4bb-7e56-4cd4-ab48-7a23072032b7"
+        },
+        {
+          "name": "Lower Body",
+          "color": "#22c55e",
+          "id": "ae80fd6a-8cf3-4978-8cad-489fb6bcd405"
+        }
+      ],
+      "createdAt": "2025-06-20T02:43:00.000Z",
+      "updatedAt": "2025-06-20T02:43:00.000Z",
+      "estimatedDuration": 52
+    },
+    {
+      "id": "23caeeac-4024-4212-a830-5cdc23aa73fc",
       "name": "Muscle Builder",
       "description": "Classic movements with proven results",
       "exercises": [
         {
-          "id": "ccb400db-2ee6-402f-af0f-d0de89524dbe",
-          "name": "Cycling",
-          "duration": 54
+          "id": "a8c857e4-88e2-4a3b-a1e9-6ed7ad6432a7",
+          "name": "Hammer Curls",
+          "sets": 3,
+          "reps": 13,
+          "weight": 36,
+          "restTime": 104
         },
         {
-          "id": "68b02835-dd32-428f-8f33-462242715460",
-          "name": "Stairmaster",
-          "duration": 21
-        },
-        {
-          "id": "d3b5e41b-0fd9-432b-b1c3-1dbbf56013e8",
-          "name": "Jump Rope",
-          "duration": 10
-        },
-        {
-          "id": "1b1bae73-6004-497d-99c3-0961ebae2d65",
-          "name": "Treadmill Running",
-          "duration": 31
-        }
-      ],
-      "tags": [
-        {
-          "name": "Lower Body",
-          "color": "#22c55e",
-          "id": "1d4925f0-68ae-4d9c-9a76-60c3028ee6ca"
-        },
-        {
-          "name": "HIIT",
-          "color": "#8b5cf6",
-          "id": "d375b8ac-0c4c-4a6e-b6d9-ad5fef0f86e5"
-        }
-      ],
-      "createdAt": "2025-07-02T14:06:00.000Z",
-      "updatedAt": "2025-06-30T21:27:00.000Z",
-      "lastCompleted": "2025-06-30T21:27:00.000Z",
-      "estimatedDuration": 116
-    },
-    {
-      "id": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "name": "Sweat Session",
-      "description": "Focused training for serious gains",
-      "exercises": [
-        {
-          "id": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "name": "Face Pulls",
-          "sets": 2,
-          "reps": 16,
-          "weight": 28,
-          "restTime": 88
-        },
-        {
-          "id": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
-          "name": "Close-Grip Bench Press",
-          "sets": 2,
+          "id": "f8584b58-9d42-461f-a69e-2ec9c23238db",
+          "name": "Overhead Press",
+          "sets": 4,
           "reps": 8,
-          "weight": 133,
+          "weight": 97,
+          "restTime": 82
+        },
+        {
+          "id": "f1c18c58-da12-420a-9c65-90edb9a59f74",
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 166,
+          "restTime": 105
+        },
+        {
+          "id": "48d3eaa8-b319-4d7b-bbe7-49c1b250b168",
+          "name": "Incline Dumbbell Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 42,
+          "restTime": 74
+        },
+        {
+          "id": "b095ec77-23c4-4568-865e-0e82db4947bd",
+          "name": "Back Squat",
+          "sets": 3,
+          "reps": 8,
+          "weight": 235,
+          "restTime": 108
+        },
+        {
+          "id": "1c23409e-c4b7-4a46-bffe-d5b8ce156741",
+          "name": "Bulgarian Split Squats",
+          "sets": 2,
+          "reps": 9,
+          "weight": 35,
           "restTime": 118
         },
         {
-          "id": "fada1bae-2db4-42b7-8a9e-52a94631b412",
-          "name": "Hammer Curls",
+          "id": "eb0e22e4-98ac-49a3-ab76-24ff10b33324",
+          "name": "Barbell Curls",
           "sets": 4,
-          "reps": 10,
-          "weight": 29,
-          "restTime": 69
+          "reps": 12,
+          "weight": 58,
+          "restTime": 76
         },
         {
-          "id": "8daaebb1-6827-4ed1-9b61-d22f63260903",
+          "id": "710574c7-7166-445f-9b6b-279d92a18402",
           "name": "Leg Curls",
-          "sets": 2,
-          "reps": 14,
-          "weight": 69,
-          "restTime": 75
-        },
-        {
-          "id": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "name": "Romanian Deadlift",
-          "sets": 2,
-          "reps": 10,
-          "weight": 190,
-          "restTime": 93
-        },
-        {
-          "id": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
-          "name": "Barbell Rows",
           "sets": 3,
-          "reps": 10,
-          "weight": 151,
-          "restTime": 66
+          "reps": 13,
+          "weight": 81,
+          "restTime": 76
         }
       ],
       "tags": [
         {
           "name": "Strength",
           "color": "#ef4444",
-          "id": "fc559b3b-de46-456a-aa9c-3377ef12ab6b"
-        },
-        {
-          "name": "Full Body",
-          "color": "#ec4899",
-          "id": "44692d4c-961e-4046-b58d-5cd00bfaa741"
+          "id": "73bc7d44-76dd-4f0f-bf3f-5165a0602cd3"
         }
       ],
-      "createdAt": "2025-06-01T16:07:00.000Z",
-      "updatedAt": "2025-06-09T02:09:00.000Z",
-      "lastCompleted": "2025-06-09T02:09:00.000Z",
-      "estimatedDuration": 28
+      "createdAt": "2025-06-16T16:35:00.000Z",
+      "updatedAt": "2025-06-16T16:35:00.000Z",
+      "estimatedDuration": 54
     },
     {
-      "id": "bc6c5b8e-325f-4ce5-921d-7a787d754251",
-      "name": "Pump Protocol",
+      "id": "09889eb2-b157-473d-b3f8-396b201822b0",
+      "name": "Upper Body Blast",
       "exercises": [
         {
-          "id": "026e0f4e-1561-4221-8473-01882a9056a2",
-          "name": "Bulgarian Split Squats",
-          "sets": 2,
-          "reps": 8,
-          "weight": 36,
-          "restTime": 88
-        },
-        {
-          "id": "9662bef9-7386-47a8-b325-824ad8e6a5ef",
+          "id": "d06f5525-da81-4ad9-b9af-c41c7ff0c30e",
           "name": "Romanian Deadlift",
-          "sets": 4,
+          "sets": 3,
           "reps": 8,
-          "weight": 169,
-          "restTime": 66
+          "weight": 185,
+          "restTime": 87
         },
         {
-          "id": "3f2c8400-7479-4933-a384-edcb0ae7515c",
-          "name": "Overhead Press",
-          "sets": 2,
-          "reps": 4,
-          "weight": 104,
+          "id": "b536539d-eadb-4f5b-8971-528d8fb0606d",
+          "name": "Close-Grip Bench Press",
+          "sets": 3,
+          "reps": 8,
+          "weight": 135,
+          "restTime": 67
+        },
+        {
+          "id": "4a4a7ce1-d84f-40f9-a27c-a7219ad0a8cb",
+          "name": "Pull-ups",
+          "sets": 3,
+          "reps": 8,
           "restTime": 77
         },
         {
-          "id": "85591e99-dcd4-47a9-87ea-0f871930590f",
-          "name": "Face Pulls",
-          "sets": 2,
-          "reps": 17,
-          "weight": 38,
-          "restTime": 104
-        },
-        {
-          "id": "74c64131-0f04-475a-af8f-368927243bcf",
-          "name": "Leg Curls",
-          "sets": 2,
-          "reps": 14,
-          "weight": 100,
-          "restTime": 110
-        },
-        {
-          "id": "05955187-4ed8-474d-ab2e-594adac0ee13",
-          "name": "Walking Lunges",
+          "id": "da863b6c-eb17-46ef-aaac-bbf224da0e61",
+          "name": "Tricep Dips",
           "sets": 3,
           "reps": 10,
-          "weight": 35,
-          "restTime": 80
+          "restTime": 87
+        },
+        {
+          "id": "e1de7888-54dd-4bfb-b5ae-e9291e1c0f74",
+          "name": "Stairmaster",
+          "duration": 15
+        },
+        {
+          "id": "70beb229-e781-43c6-a78b-8cdf3dfdb4d6",
+          "name": "Jump Rope",
+          "duration": 10
+        },
+        {
+          "id": "0ca5d8a3-c149-4bde-a604-1a73ed29ddc4",
+          "name": "Treadmill Running",
+          "duration": 30
         }
       ],
       "tags": [
-        {
-          "name": "Cardio",
-          "color": "#f97316",
-          "id": "c3ccf82c-8406-4060-9343-cd0daac61a3e"
-        },
         {
           "name": "Morning",
           "color": "#fbbf24",
-          "id": "26ee2362-9c70-4099-ad45-7560cde83638"
+          "id": "935074d8-1d1b-4ec3-aca6-31d4108000c6"
         },
         {
-          "name": "Upper Body",
-          "color": "#eab308",
-          "id": "756645f6-dbb6-481b-a717-506515db6b8e"
-        },
-        {
-          "name": "Evening",
-          "color": "#6366f1",
-          "id": "60579282-5999-4120-8230-401a2abed78e"
+          "name": "Beginner",
+          "color": "#10b981",
+          "id": "1b805300-dc71-46d3-9979-acf71ac244f9"
         }
       ],
-      "createdAt": "2025-06-23T20:31:00.000Z",
-      "updatedAt": "2025-06-08T22:18:00.000Z",
-      "lastCompleted": "2025-06-08T22:18:00.000Z",
-      "estimatedDuration": 29
+      "createdAt": "2025-06-14T18:56:00.000Z",
+      "updatedAt": "2025-06-08T17:07:00.000Z",
+      "lastCompleted": "2025-06-08T17:07:00.000Z",
+      "estimatedDuration": 77,
+      "scheduledDate": "2025-07-11T18:58:00.000Z"
     },
     {
-      "id": "a8438044-bb8a-45cd-86e4-58fa6333468a",
-      "name": "Weekend Warrior",
-      "description": "Focused training for serious gains",
+      "id": "0aa22650-cd64-476c-bfb9-7da2ce4bac03",
+      "name": "Pump Protocol",
+      "description": "Perfect for building strength and endurance",
       "exercises": [
         {
-          "id": "2075754a-6bd1-4834-8883-0a3dd0b25559",
-          "name": "Cycling",
-          "duration": 50
+          "id": "302169bf-f13e-44f8-824f-df9f02e8b721",
+          "name": "Romanian Deadlift",
+          "sets": 3,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 80
         },
         {
-          "id": "23ed585e-3080-4159-bf6a-4cc0a99e3177",
-          "name": "Stairmaster",
-          "duration": 11
+          "id": "111e1f39-3a77-4de9-9b4e-ec7f4cffc73f",
+          "name": "Barbell Rows",
+          "sets": 4,
+          "reps": 8,
+          "weight": 135,
+          "restTime": 60
+        },
+        {
+          "id": "9d152627-9759-4b73-a373-b486992a719f",
+          "name": "Leg Press",
+          "sets": 4,
+          "reps": 12,
+          "weight": 270,
+          "restTime": 60
+        },
+        {
+          "id": "6fd597e1-5186-44c9-b0a7-ffef211cf63f",
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": 8,
+          "weight": 185,
+          "restTime": 79
+        },
+        {
+          "id": "58379519-b579-4eca-8ccc-b567e0ad0b96",
+          "name": "Treadmill Running",
+          "duration": 30
+        },
+        {
+          "id": "f4cc882d-2aee-40c8-9456-c478da56bc71",
+          "name": "Elliptical",
+          "duration": 25
+        },
+        {
+          "id": "6d3a4220-c924-4496-bd22-45ede4d39b24",
+          "name": "Burpees",
+          "duration": 8
         }
       ],
       "tags": [
         {
-          "name": "Evening",
-          "color": "#6366f1",
-          "id": "1dfbce73-c4ec-4f7d-9377-ed108c28405b"
+          "name": "Full Body",
+          "color": "#ec4899",
+          "id": "7e90691d-a6f1-4e15-9ba7-7cb05fcb519c"
+        },
+        {
+          "name": "Lower Body",
+          "color": "#22c55e",
+          "id": "154fad71-fe38-4b6e-b0b9-bd01d92b4ce5"
         },
         {
           "name": "Cardio",
           "color": "#f97316",
-          "id": "9911f9d4-eaed-4ed0-b1b9-2d20a0213033"
+          "id": "f2c243e4-893e-4096-8303-3cefc8611ff8"
+        }
+      ],
+      "createdAt": "2025-07-03T21:47:00.000Z",
+      "updatedAt": "2025-07-07T15:36:00.000Z",
+      "lastCompleted": "2025-07-07T15:36:00.000Z",
+      "estimatedDuration": 88
+    },
+    {
+      "id": "c28fe020-992e-40ef-b172-97bfe89cad03",
+      "name": "Pump Protocol",
+      "description": "Challenging workout to push your limits",
+      "exercises": [
+        {
+          "id": "376ee6f9-adde-4aa4-a84d-b8c957aedd7e",
+          "name": "Treadmill Running",
+          "duration": 35
         },
+        {
+          "id": "22fab37b-03a0-4ef6-865a-0bed64e222d1",
+          "name": "Elliptical",
+          "duration": 26
+        }
+      ],
+      "tags": [
+        {
+          "name": "HIIT",
+          "color": "#8b5cf6",
+          "id": "d0645ec7-13d7-4a26-b069-e3622b37c446"
+        },
+        {
+          "name": "Push",
+          "color": "#06b6d4",
+          "id": "04dae150-3f03-40f3-a258-b22f717a7491"
+        },
+        {
+          "name": "Pull",
+          "color": "#3b82f6",
+          "id": "18f4f84b-a614-42ed-9988-4c27ecc93667"
+        }
+      ],
+      "createdAt": "2025-05-22T04:26:00.000Z",
+      "updatedAt": "2025-05-22T04:26:00.000Z",
+      "estimatedDuration": 61
+    },
+    {
+      "id": "e5e80089-c10d-43d5-a625-d858675c1cc0",
+      "name": "Pump Protocol",
+      "exercises": [
+        {
+          "id": "a394ab19-713b-433a-86d5-cba2dc978de8",
+          "name": "Treadmill Running",
+          "duration": 30
+        },
+        {
+          "id": "4a86a2cc-9c43-48cf-baae-4f431209282b",
+          "name": "Mountain Climbers",
+          "duration": 9
+        },
+        {
+          "id": "c8f685d1-3bd5-49da-bde9-c14ba810183c",
+          "name": "Elliptical",
+          "duration": 34
+        }
+      ],
+      "tags": [
         {
           "name": "Home",
           "color": "#14b8a6",
-          "id": "38e84263-963f-4d7a-9d61-151afafce7b9"
+          "id": "225a8651-f0b1-404e-ba73-6a033f766990"
         },
         {
-          "name": "Full Body",
-          "color": "#ec4899",
-          "id": "432aae3c-f446-4038-a620-78425c25dde6"
+          "name": "Strength",
+          "color": "#ef4444",
+          "id": "c3c63bef-c414-4a43-9d5b-16eefabf1195"
         }
       ],
-      "createdAt": "2025-05-18T16:55:00.000Z",
-      "updatedAt": "2025-05-18T16:55:00.000Z",
-      "estimatedDuration": 61
+      "createdAt": "2025-06-03T23:43:00.000Z",
+      "updatedAt": "2025-06-26T15:05:00.000Z",
+      "lastCompleted": "2025-06-26T15:05:00.000Z",
+      "estimatedDuration": 73
+    },
+    {
+      "id": "75a5c3fd-6bb1-45ce-96b6-0715c18b2592",
+      "name": "Endurance Test",
+      "description": "Focused training for serious gains",
+      "exercises": [
+        {
+          "id": "73905db2-51ac-4d5b-8ba2-c14ca4bd04ca",
+          "name": "Calf Raises",
+          "sets": 4,
+          "reps": 15,
+          "weight": 135,
+          "restTime": 75
+        },
+        {
+          "id": "b069548f-191b-4d79-b2ad-39fab3c0b0c5",
+          "name": "Russian Twists",
+          "sets": 3,
+          "reps": 20,
+          "weight": 25,
+          "restTime": 81
+        },
+        {
+          "id": "ab43f4dc-9fad-4b86-8ddf-335aa2a0083f",
+          "name": "Mountain Climbers",
+          "duration": 5
+        },
+        {
+          "id": "074c9393-ddd0-49d5-92b4-619c3d35621b",
+          "name": "Treadmill Running",
+          "duration": 30
+        }
+      ],
+      "tags": [
+        {
+          "name": "Quick",
+          "color": "#84cc16",
+          "id": "8f217b09-f2e5-4180-bf38-ce948e167b22"
+        },
+        {
+          "name": "Pull",
+          "color": "#3b82f6",
+          "id": "631ef965-d9ea-492c-9fdd-12c9638dd231"
+        },
+        {
+          "name": "Beginner",
+          "color": "#10b981",
+          "id": "4da6abd7-6f89-4939-888a-0b39c1b034ac"
+        }
+      ],
+      "createdAt": "2025-06-17T12:43:00.000Z",
+      "updatedAt": "2025-06-12T15:14:00.000Z",
+      "lastCompleted": "2025-06-12T15:14:00.000Z",
+      "estimatedDuration": 48
     }
   ],
   "sessions": [
     {
-      "id": "a3813e85-39a6-4b51-a88d-40f7c518feae",
-      "workoutId": "3dcc9dc0-8cab-46c4-b856-aa9c5b53e330",
-      "startedAt": "2025-05-13T20:58:00.000Z",
-      "completedAt": "2025-05-13T21:57:00.000Z",
-      "actualDuration": 3540,
+      "id": "5a374655-3406-4156-bc47-31ca95a50338",
+      "workoutId": "e77baa19-93c5-4d97-b29a-0b1e5feec89a",
+      "startedAt": "2025-05-11T15:32:00.000Z",
+      "completedAt": "2025-05-11T16:17:00.000Z",
+      "actualDuration": 2700,
       "exercises": [
         {
-          "exerciseId": "59daa17e-3f16-44d5-b091-1a76901d59d3",
+          "exerciseId": "22bad60a-76ea-4921-915d-27a190e0c3e6",
           "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "bcf46144-afed-4211-a1c6-b7d9348c8cf7",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "bb21b460-408d-4cde-88fe-6816a5c30e5b",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "e488f529-9169-4b10-888c-786ee2d73297",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "e664a682-dd82-4436-880b-7d471cca10d2",
-      "workoutId": "8a3027a6-0a39-4873-a06b-7235173dc6ba",
-      "startedAt": "2025-07-06T19:56:00.000Z",
-      "completedAt": "2025-07-06T21:08:00.000Z",
-      "actualDuration": 4320,
-      "exercises": [
-        {
-          "exerciseId": "7d41ab57-4d73-476f-b1f3-7c69f61e2b38",
-          "completedSets": 4,
-          "actualReps": [8, 9, 9, 10],
-          "actualWeight": [189, 178, 193, 187],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "896999bd-4e8b-46af-bf73-2a957fc6c0d6",
-          "completedSets": 3,
-          "actualReps": [8, 11, 9],
-          "actualWeight": [67, 68, 55],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "f6145848-34c1-478e-93cc-e85f2fa3d6d9",
-          "completedSets": 3,
-          "actualReps": [14, 10, 11],
-          "actualWeight": [26, 33, 32],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "eaabad26-6310-4313-8f46-5dddc5ef9844",
-          "completedSets": 4,
-          "actualReps": [8, 5, 9, 4],
-          "actualWeight": [231, 230, 224, 226],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "64041ff7-9996-4d62-a6b3-700e6adffa53",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d1fe8bbd-d65a-4826-a9e2-3f8994b579cd",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "35573259-b30a-4d05-814f-712146382e7f",
-      "workoutId": "8a3027a6-0a39-4873-a06b-7235173dc6ba",
-      "startedAt": "2025-05-11T12:20:00.000Z",
-      "completedAt": "2025-05-11T13:16:00.000Z",
-      "actualDuration": 3360,
-      "exercises": [
-        {
-          "exerciseId": "7d41ab57-4d73-476f-b1f3-7c69f61e2b38",
-          "completedSets": 4,
-          "actualReps": [11, 8, 9, 6],
-          "actualWeight": [183, 191, 187, 180],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "896999bd-4e8b-46af-bf73-2a957fc6c0d6",
-          "completedSets": 3,
-          "actualReps": [10, 9, 13],
-          "actualWeight": [61, 67, 70],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "f6145848-34c1-478e-93cc-e85f2fa3d6d9",
-          "completedSets": 3,
-          "actualReps": [10, 13, 12],
-          "actualWeight": [28, 37, 39],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "eaabad26-6310-4313-8f46-5dddc5ef9844",
-          "completedSets": 4,
-          "actualReps": [4, 8, 4, 4],
-          "actualWeight": [227, 228, 235, 231],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "64041ff7-9996-4d62-a6b3-700e6adffa53",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d1fe8bbd-d65a-4826-a9e2-3f8994b579cd",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "2f1118da-a273-461d-ab03-eccebd756928",
-      "workoutId": "8a3027a6-0a39-4873-a06b-7235173dc6ba",
-      "startedAt": "2025-06-26T04:39:00.000Z",
-      "completedAt": "2025-06-26T05:53:00.000Z",
-      "actualDuration": 4440,
-      "exercises": [
-        {
-          "exerciseId": "7d41ab57-4d73-476f-b1f3-7c69f61e2b38",
-          "completedSets": 4,
-          "actualReps": [10, 11, 10, 9],
-          "actualWeight": [181, 188, 187, 184],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "896999bd-4e8b-46af-bf73-2a957fc6c0d6",
-          "completedSets": 3,
-          "actualReps": [13, 10, 9],
-          "actualWeight": [58, 63, 64],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "f6145848-34c1-478e-93cc-e85f2fa3d6d9",
-          "completedSets": 3,
-          "actualReps": [15, 11, 14],
-          "actualWeight": [21, 38, 27],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "eaabad26-6310-4313-8f46-5dddc5ef9844",
-          "completedSets": 4,
-          "actualReps": [9, 6, 9, 4],
-          "actualWeight": [218, 227, 235, 234],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "64041ff7-9996-4d62-a6b3-700e6adffa53",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d1fe8bbd-d65a-4826-a9e2-3f8994b579cd",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "af63f87a-7ac5-48b2-aba1-b70d7e0f6402",
-      "workoutId": "08c653e2-b819-499c-84cf-74b7df8745fd",
-      "startedAt": "2025-05-16T20:52:00.000Z",
-      "completedAt": "2025-05-16T21:43:00.000Z",
-      "actualDuration": 3060,
-      "exercises": [
-        {
-          "exerciseId": "e350d580-4592-45f6-be80-2c4308aa1d29",
-          "completedSets": 4,
-          "actualReps": [20, 20, 17, 19],
-          "actualWeight": [149, 159, 143, 149],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "2819b701-be4a-43b8-a680-015acd511bd0",
-          "completedSets": 2,
-          "actualReps": [11, 7],
-          "actualWeight": [68, 68],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "653eccc6-f6cb-4bb4-8a0f-f3d553ff58a4",
-          "completedSets": 2,
-          "actualReps": [5, 7],
-          "actualWeight": [0, 0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "62bb895f-658f-4405-9f4e-5ecdbbb0d171",
-          "completedSets": 2,
-          "actualReps": [13, 10],
-          "actualWeight": [156, 141],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f57cdb4-d1d2-40ca-a05e-30d9b56cdb3f",
-          "completedSets": 2,
-          "actualReps": [11, 10],
-          "actualWeight": [99, 86],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "88007e94-5f99-4e89-9a74-5f84879fc2b8",
-          "completedSets": 4,
-          "actualReps": [10, 11, 12, 10],
-          "actualWeight": [23, 29, 22, 26],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "7796e610-dd73-4694-88d5-d6dc91a0162c",
-          "completedSets": 5,
-          "actualReps": [13, 12, 10, 10, 12],
-          "actualWeight": [266, 279, 268, 273, 273],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "6ac291f8-ff03-4d2e-bb60-a98758d04e96",
-          "completedSets": 3,
-          "actualReps": [11, 12, 12],
-          "actualWeight": [6, 13, 7],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "9bf432e3-768b-477e-bdf8-a06e36178cba",
-      "workoutId": "08c653e2-b819-499c-84cf-74b7df8745fd",
-      "startedAt": "2025-05-14T00:05:00.000Z",
-      "completedAt": "2025-05-14T00:51:00.000Z",
-      "actualDuration": 2760,
-      "exercises": [
-        {
-          "exerciseId": "e350d580-4592-45f6-be80-2c4308aa1d29",
-          "completedSets": 4,
-          "actualReps": [15, 16, 20, 16],
-          "actualWeight": [142, 150, 140, 144],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "2819b701-be4a-43b8-a680-015acd511bd0",
-          "completedSets": 1,
-          "actualReps": [8],
-          "actualWeight": [69],
+          "actualReps": [17],
+          "actualWeight": [48],
           "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "653eccc6-f6cb-4bb4-8a0f-f3d553ff58a4",
-          "completedSets": 2,
-          "actualReps": [10, 5],
-          "actualWeight": [0, 0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "62bb895f-658f-4405-9f4e-5ecdbbb0d171",
-          "completedSets": 2,
-          "actualReps": [11, 13],
-          "actualWeight": [157, 156],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f57cdb4-d1d2-40ca-a05e-30d9b56cdb3f",
-          "completedSets": 1,
-          "actualReps": [11],
-          "actualWeight": [88],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "88007e94-5f99-4e89-9a74-5f84879fc2b8",
-          "completedSets": 4,
-          "actualReps": [10, 7, 12, 8],
-          "actualWeight": [21, 18, 25, 12],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "7796e610-dd73-4694-88d5-d6dc91a0162c",
-          "completedSets": 5,
-          "actualReps": [10, 12, 11, 8, 13],
-          "actualWeight": [265, 284, 269, 277, 264],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "6ac291f8-ff03-4d2e-bb60-a98758d04e96",
-          "completedSets": 3,
-          "actualReps": [13, 9, 8],
-          "actualWeight": [2, -1, 0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "15e612c8-be44-4b05-b411-1d2d1c33c913",
-      "workoutId": "08c653e2-b819-499c-84cf-74b7df8745fd",
-      "startedAt": "2025-05-23T15:21:00.000Z",
-      "completedAt": "2025-05-23T16:16:00.000Z",
-      "actualDuration": 3300,
-      "exercises": [
-        {
-          "exerciseId": "e350d580-4592-45f6-be80-2c4308aa1d29",
-          "completedSets": 4,
-          "actualReps": [17, 15, 19, 15],
-          "actualWeight": [157, 142, 147, 156],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "2819b701-be4a-43b8-a680-015acd511bd0",
-          "completedSets": 2,
-          "actualReps": [7, 7],
-          "actualWeight": [83, 71],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "653eccc6-f6cb-4bb4-8a0f-f3d553ff58a4",
-          "completedSets": 2,
-          "actualReps": [10, 6],
-          "actualWeight": [0, 0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "62bb895f-658f-4405-9f4e-5ecdbbb0d171",
-          "completedSets": 2,
-          "actualReps": [13, 8],
-          "actualWeight": [152, 154],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f57cdb4-d1d2-40ca-a05e-30d9b56cdb3f",
-          "completedSets": 2,
-          "actualReps": [14, 10],
-          "actualWeight": [86, 86],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "88007e94-5f99-4e89-9a74-5f84879fc2b8",
-          "completedSets": 2,
-          "actualReps": [12, 8],
-          "actualWeight": [22, 16],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "7796e610-dd73-4694-88d5-d6dc91a0162c",
-          "completedSets": 5,
-          "actualReps": [13, 10, 12, 8, 10],
-          "actualWeight": [264, 284, 275, 269, 281],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "6ac291f8-ff03-4d2e-bb60-a98758d04e96",
-          "completedSets": 3,
-          "actualReps": [9, 12, 12],
-          "actualWeight": [16, 13, 15],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "646f2580-2299-4a40-abc4-c2dcb3676a42",
-      "workoutId": "ef10912e-9604-4103-9d00-0a8aa993bc9a",
-      "startedAt": "2025-05-21T00:19:00.000Z",
-      "completedAt": "2025-05-21T00:51:00.000Z",
-      "actualDuration": 1920,
-      "exercises": [
-        {
-          "exerciseId": "9c80fc5a-74f1-4b05-9b1f-945d63b729cb",
-          "completedSets": 3,
-          "actualReps": [10, 15, 11],
-          "actualWeight": [52, 42, 48],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "c29af454-3079-4deb-a68f-7ee96fa13afd",
+          "exerciseId": "ba1f8ca0-7fe5-4d4a-918e-1c748d0ca349",
           "completedSets": 2,
           "actualReps": [9, 8],
-          "actualWeight": [16, 15],
+          "actualWeight": [48, 60],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "c4340278-cf69-4c12-8706-29324b57828e",
-          "completedSets": 5,
-          "actualReps": [12, 13, 14, 15, 12],
-          "actualWeight": [278, 275, 278, 274, 274],
+          "exerciseId": "77ccb7fb-1047-441f-b19c-4f721449029c",
+          "completedSets": 4,
+          "actualReps": [9, 12, 7, 8],
+          "actualWeight": [0, 0, 0, 0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "d1afc236-0f14-4e54-8422-4a1e656020fa",
-          "completedSets": 2,
-          "actualReps": [16, 17],
-          "actualWeight": [37, 37],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "48598f4e-4d9e-44dd-9c2e-97b917869065",
-          "completedSets": 2,
-          "actualReps": [16, 13],
-          "actualWeight": [117, 127],
+          "exerciseId": "ef201674-5bad-4524-9e06-930c060fa6cf",
+          "completedSets": 3,
+          "actualReps": [4, 6, 4],
+          "actualWeight": [103, 98, 113],
           "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "ea1600d2-079f-4d65-ad03-f46a21f6933f",
-          "completedSets": 4,
-          "actualReps": [24, 23, 20, 20],
-          "actualWeight": [42, 53, 44, 49],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ],
-      "notes": "Great workout! Felt strong today."
-    },
-    {
-      "id": "6719eb04-322f-4916-a0db-6d3b65b8a666",
-      "workoutId": "3cfe117a-de43-4ce8-bdb3-7ab2b59c5dcf",
-      "startedAt": "2025-05-19T15:35:00.000Z",
-      "completedAt": "2025-05-19T17:45:00.000Z",
-      "actualDuration": 7800,
-      "exercises": [
-        {
-          "exerciseId": "ccb400db-2ee6-402f-af0f-d0de89524dbe",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "68b02835-dd32-428f-8f33-462242715460",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d3b5e41b-0fd9-432b-b1c3-1dbbf56013e8",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "1b1bae73-6004-497d-99c3-0961ebae2d65",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
+          "exerciseId": "9354e7ac-88e0-4191-b720-77b0bc97053e",
+          "completedSets": 3,
+          "actualReps": [12, 11, 11],
+          "actualWeight": [84, 96, 79],
           "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z"
         }
       ]
     },
     {
-      "id": "51f5f1f7-8636-4dcf-a5a4-c933fe4e086b",
-      "workoutId": "3cfe117a-de43-4ce8-bdb3-7ab2b59c5dcf",
-      "startedAt": "2025-05-30T01:40:00.000Z",
-      "completedAt": "2025-05-30T03:35:00.000Z",
-      "actualDuration": 6900,
+      "id": "e75536b4-251f-4b4f-b542-016466c4b29c",
+      "workoutId": "e77baa19-93c5-4d97-b29a-0b1e5feec89a",
+      "startedAt": "2025-06-22T01:53:00.000Z",
+      "completedAt": "2025-06-22T02:45:00.000Z",
+      "actualDuration": 3120,
       "exercises": [
         {
-          "exerciseId": "ccb400db-2ee6-402f-af0f-d0de89524dbe",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "68b02835-dd32-428f-8f33-462242715460",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d3b5e41b-0fd9-432b-b1c3-1dbbf56013e8",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "1b1bae73-6004-497d-99c3-0961ebae2d65",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "c5c897a2-7288-4df9-a511-4d6d2e3e8456",
-      "workoutId": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "startedAt": "2025-06-18T21:49:00.000Z",
-      "completedAt": "2025-06-18T22:14:00.000Z",
-      "actualDuration": 1500,
-      "exercises": [
-        {
-          "exerciseId": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "completedSets": 2,
-          "actualReps": [19, 18],
-          "actualWeight": [22, 38],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
-          "completedSets": 2,
-          "actualReps": [7, 9],
-          "actualWeight": [143, 138],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "fada1bae-2db4-42b7-8a9e-52a94631b412",
-          "completedSets": 4,
-          "actualReps": [12, 10, 13, 12],
-          "actualWeight": [28, 28, 36, 22],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "8daaebb1-6827-4ed1-9b61-d22f63260903",
-          "completedSets": 2,
-          "actualReps": [17, 13],
-          "actualWeight": [72, 72],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "completedSets": 2,
-          "actualReps": [11, 13],
-          "actualWeight": [197, 196],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
+          "exerciseId": "22bad60a-76ea-4921-915d-27a190e0c3e6",
           "completedSets": 3,
-          "actualReps": [10, 13, 11],
-          "actualWeight": [153, 152, 144],
+          "actualReps": [15, 13, 16],
+          "actualWeight": [60, 61, 49],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "1014807a-5ab4-49b8-863c-7c67f337473d",
-      "workoutId": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "startedAt": "2025-06-18T01:12:00.000Z",
-      "completedAt": "2025-06-18T01:35:00.000Z",
-      "actualDuration": 1380,
-      "exercises": [
-        {
-          "exerciseId": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "completedSets": 2,
-          "actualReps": [15, 16],
-          "actualWeight": [23, 21],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
+          "exerciseId": "ba1f8ca0-7fe5-4d4a-918e-1c748d0ca349",
           "completedSets": 2,
-          "actualReps": [10, 6],
-          "actualWeight": [135, 140],
+          "actualReps": [7, 10],
+          "actualWeight": [64, 53],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "fada1bae-2db4-42b7-8a9e-52a94631b412",
+          "exerciseId": "77ccb7fb-1047-441f-b19c-4f721449029c",
           "completedSets": 4,
-          "actualReps": [8, 11, 10, 13],
-          "actualWeight": [23, 25, 20, 29],
+          "actualReps": [8, 8, 9, 11],
+          "actualWeight": [0, 0, 0, 0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "8daaebb1-6827-4ed1-9b61-d22f63260903",
-          "completedSets": 2,
-          "actualReps": [12, 12],
-          "actualWeight": [68, 71],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "completedSets": 2,
-          "actualReps": [9, 9],
-          "actualWeight": [189, 182],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
-          "completedSets": 3,
-          "actualReps": [10, 10, 10],
-          "actualWeight": [158, 147, 148],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "ccb1a738-915f-4f14-a3c3-cca31732a101",
-      "workoutId": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "startedAt": "2025-06-29T01:46:00.000Z",
-      "completedAt": "2025-06-29T02:14:00.000Z",
-      "actualDuration": 1680,
-      "exercises": [
-        {
-          "exerciseId": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "completedSets": 2,
-          "actualReps": [16, 19],
-          "actualWeight": [20, 19],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
-          "completedSets": 2,
-          "actualReps": [10, 11],
-          "actualWeight": [139, 128],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "fada1bae-2db4-42b7-8a9e-52a94631b412",
+          "exerciseId": "ef201674-5bad-4524-9e06-930c060fa6cf",
           "completedSets": 4,
-          "actualReps": [12, 13, 9, 9],
-          "actualWeight": [20, 34, 22, 33],
+          "actualReps": [5, 4, 3, 8],
+          "actualWeight": [98, 100, 99, 102],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
         },
         {
-          "exerciseId": "8daaebb1-6827-4ed1-9b61-d22f63260903",
+          "exerciseId": "9354e7ac-88e0-4191-b720-77b0bc97053e",
           "completedSets": 2,
-          "actualReps": [17, 15],
-          "actualWeight": [60, 78],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "completedSets": 1,
-          "actualReps": [9],
-          "actualWeight": [192],
+          "actualReps": [11, 15],
+          "actualWeight": [99, 80],
           "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
-          "completedSets": 3,
-          "actualReps": [8, 8, 13],
-          "actualWeight": [145, 148, 158],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z"
         }
       ]
     },
     {
-      "id": "951f91f3-eb6f-40a4-9028-8f5dd131a41b",
-      "workoutId": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "startedAt": "2025-06-07T21:02:00.000Z",
-      "completedAt": "2025-06-07T21:24:00.000Z",
-      "actualDuration": 1320,
-      "exercises": [
-        {
-          "exerciseId": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "completedSets": 2,
-          "actualReps": [14, 14],
-          "actualWeight": [25, 18],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
-          "completedSets": 2,
-          "actualReps": [8, 8],
-          "actualWeight": [124, 130],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "fada1bae-2db4-42b7-8a9e-52a94631b412",
-          "completedSets": 4,
-          "actualReps": [12, 8, 13, 9],
-          "actualWeight": [36, 25, 26, 34],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "8daaebb1-6827-4ed1-9b61-d22f63260903",
-          "completedSets": 2,
-          "actualReps": [17, 15],
-          "actualWeight": [78, 65],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "completedSets": 2,
-          "actualReps": [9, 10],
-          "actualWeight": [185, 190],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
-          "completedSets": 3,
-          "actualReps": [8, 13, 12],
-          "actualWeight": [154, 142, 159],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "84e13c1a-e3e4-47f9-aa26-282c0c5a3b85",
-      "workoutId": "bc6c5b8e-325f-4ce5-921d-7a787d754251",
-      "startedAt": "2025-07-05T22:39:00.000Z",
-      "completedAt": "2025-07-05T23:07:00.000Z",
-      "actualDuration": 1680,
-      "exercises": [
-        {
-          "exerciseId": "026e0f4e-1561-4221-8473-01882a9056a2",
-          "completedSets": 2,
-          "actualReps": [9, 8],
-          "actualWeight": [38, 31],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "9662bef9-7386-47a8-b325-824ad8e6a5ef",
-          "completedSets": 4,
-          "actualReps": [7, 6, 11, 10],
-          "actualWeight": [177, 159, 176, 165],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f2c8400-7479-4933-a384-edcb0ae7515c",
-          "completedSets": 2,
-          "actualReps": [6, 3],
-          "actualWeight": [111, 111],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "85591e99-dcd4-47a9-87ea-0f871930590f",
-          "completedSets": 2,
-          "actualReps": [15, 19],
-          "actualWeight": [44, 47],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "74c64131-0f04-475a-af8f-368927243bcf",
-          "completedSets": 2,
-          "actualReps": [12, 17],
-          "actualWeight": [94, 97],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "05955187-4ed8-474d-ab2e-594adac0ee13",
-          "completedSets": 3,
-          "actualReps": [8, 13, 8],
-          "actualWeight": [30, 30, 35],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "e25471de-c3a5-4210-a6ce-087bffbc6048",
-      "workoutId": "bc6c5b8e-325f-4ce5-921d-7a787d754251",
-      "startedAt": "2025-06-30T13:00:00.000Z",
-      "completedAt": "2025-06-30T13:21:00.000Z",
-      "actualDuration": 1260,
-      "exercises": [
-        {
-          "exerciseId": "026e0f4e-1561-4221-8473-01882a9056a2",
-          "completedSets": 2,
-          "actualReps": [7, 6],
-          "actualWeight": [28, 35],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "9662bef9-7386-47a8-b325-824ad8e6a5ef",
-          "completedSets": 4,
-          "actualReps": [6, 8, 7, 10],
-          "actualWeight": [175, 179, 169, 176],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f2c8400-7479-4933-a384-edcb0ae7515c",
-          "completedSets": 2,
-          "actualReps": [4, 6],
-          "actualWeight": [98, 104],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "85591e99-dcd4-47a9-87ea-0f871930590f",
-          "completedSets": 2,
-          "actualReps": [15, 15],
-          "actualWeight": [38, 37],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "74c64131-0f04-475a-af8f-368927243bcf",
-          "completedSets": 2,
-          "actualReps": [13, 13],
-          "actualWeight": [106, 99],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "05955187-4ed8-474d-ab2e-594adac0ee13",
-          "completedSets": 1,
-          "actualReps": [13],
-          "actualWeight": [31],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "009d9aac-b10c-432b-9805-d20cb289eef1",
-      "workoutId": "a8438044-bb8a-45cd-86e4-58fa6333468a",
-      "startedAt": "2025-07-05T21:15:00.000Z",
-      "completedAt": "2025-07-05T22:26:00.000Z",
-      "actualDuration": 4260,
-      "exercises": [
-        {
-          "exerciseId": "2075754a-6bd1-4834-8883-0a3dd0b25559",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "23ed585e-3080-4159-bf6a-4cc0a99e3177",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "73ed0f24-57ba-46d6-8b31-7673d0320563",
-      "workoutId": "bc6c5b8e-325f-4ce5-921d-7a787d754251",
-      "startedAt": "2025-07-03T21:08:00.000Z",
-      "completedAt": "2025-07-03T21:43:00.000Z",
-      "actualDuration": 2100,
-      "exercises": [
-        {
-          "exerciseId": "026e0f4e-1561-4221-8473-01882a9056a2",
-          "completedSets": 2,
-          "actualReps": [9, 7],
-          "actualWeight": [32, 30],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "9662bef9-7386-47a8-b325-824ad8e6a5ef",
-          "completedSets": 4,
-          "actualReps": [7, 11, 9, 8],
-          "actualWeight": [173, 176, 172, 177],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f2c8400-7479-4933-a384-edcb0ae7515c",
-          "completedSets": 2,
-          "actualReps": [2, 6],
-          "actualWeight": [110, 102],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "85591e99-dcd4-47a9-87ea-0f871930590f",
-          "completedSets": 2,
-          "actualReps": [20, 16],
-          "actualWeight": [36, 40],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "74c64131-0f04-475a-af8f-368927243bcf",
-          "completedSets": 2,
-          "actualReps": [13, 12],
-          "actualWeight": [105, 92],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "05955187-4ed8-474d-ab2e-594adac0ee13",
-          "completedSets": 3,
-          "actualReps": [11, 12, 12],
-          "actualWeight": [44, 41, 36],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "e1931ea2-92f5-4b30-9277-915f3b89e6c3",
-      "workoutId": "c2ce7820-0432-4559-90db-feff390bbc26",
-      "startedAt": "2025-07-02T23:54:00.000Z",
-      "completedAt": "2025-07-03T01:50:00.000Z",
-      "actualDuration": 6960,
-      "exercises": [
-        {
-          "exerciseId": "4aab6179-7bb5-42cf-97eb-2b3a76ebb908",
-          "completedSets": 3,
-          "actualReps": [10, 10, 11],
-          "actualWeight": [40, 26, 35],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "8b60498a-7343-4762-ab34-93dd88c48a60",
-          "completedSets": 1,
-          "actualReps": [13],
-          "actualWeight": [35],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "42217d30-70e2-4094-8d33-e666fe3edc20",
-          "completedSets": 3,
-          "actualReps": [5, 6, 7],
-          "actualWeight": [86, 96, 90],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "80e7b0f9-9dcc-416c-884d-2eee9047438b",
-          "completedSets": 3,
-          "actualReps": [14, 12, 13],
-          "actualWeight": [24, 30, 17],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "9ef345a0-40e7-41ae-bc31-2d5c8a22b435",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "d1811b66-7693-45ac-9be0-a197fa2f8dd8",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "411b91af-2fe2-41cb-bb24-93d530a719b6",
-          "completedSets": 1,
-          "actualReps": [1],
-          "actualWeight": [0],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        }
-      ]
-    },
-    {
-      "id": "a4014acc-ce74-4069-9c5e-5d272817fa09",
-      "workoutId": "bc6c5b8e-325f-4ce5-921d-7a787d754251",
-      "startedAt": "2025-06-30T02:54:00.000Z",
-      "completedAt": "2025-06-30T03:38:00.000Z",
+      "id": "5572f977-f5c9-4a94-b2a6-675463ebe074",
+      "workoutId": "e77baa19-93c5-4d97-b29a-0b1e5feec89a",
+      "startedAt": "2025-05-24T19:14:00.000Z",
+      "completedAt": "2025-05-24T19:58:00.000Z",
       "actualDuration": 2640,
       "exercises": [
         {
-          "exerciseId": "026e0f4e-1561-4221-8473-01882a9056a2",
-          "completedSets": 2,
-          "actualReps": [7, 8],
-          "actualWeight": [33, 26],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "9662bef9-7386-47a8-b325-824ad8e6a5ef",
-          "completedSets": 4,
-          "actualReps": [9, 6, 11, 6],
-          "actualWeight": [171, 170, 163, 176],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "3f2c8400-7479-4933-a384-edcb0ae7515c",
-          "completedSets": 2,
-          "actualReps": [6, 7],
-          "actualWeight": [97, 100],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "85591e99-dcd4-47a9-87ea-0f871930590f",
-          "completedSets": 2,
-          "actualReps": [15, 19],
-          "actualWeight": [46, 41],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "74c64131-0f04-475a-af8f-368927243bcf",
-          "completedSets": 2,
-          "actualReps": [17, 16],
-          "actualWeight": [96, 98],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "05955187-4ed8-474d-ab2e-594adac0ee13",
+          "exerciseId": "22bad60a-76ea-4921-915d-27a190e0c3e6",
           "completedSets": 3,
-          "actualReps": [10, 11, 13],
-          "actualWeight": [36, 25, 26],
+          "actualReps": [15, 13, 13],
+          "actualWeight": [62, 64, 66],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
+        },
+        {
+          "exerciseId": "ba1f8ca0-7fe5-4d4a-918e-1c748d0ca349",
+          "completedSets": 2,
+          "actualReps": [7, 7],
+          "actualWeight": [64, 63],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
+        },
+        {
+          "exerciseId": "77ccb7fb-1047-441f-b19c-4f721449029c",
+          "completedSets": 4,
+          "actualReps": [7, 9, 7, 12],
+          "actualWeight": [0, 0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.649Z",
+          "completedAt": "2025-07-08T22:22:19.649Z"
+        },
+        {
+          "exerciseId": "ef201674-5bad-4524-9e06-930c060fa6cf",
+          "completedSets": 4,
+          "actualReps": [8, 5, 7, 7],
+          "actualWeight": [97, 100, 101, 103],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9354e7ac-88e0-4191-b720-77b0bc97053e",
+          "completedSets": 4,
+          "actualReps": [13, 10, 15, 11],
+          "actualWeight": [93, 91, 95, 91],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         }
       ]
     },
     {
-      "id": "3b747854-564e-43f9-acab-75219500bb5c",
-      "workoutId": "d63e3357-a439-42c1-9867-7adc4f6fa8d7",
-      "startedAt": "2025-06-28T14:35:00.000Z",
-      "completedAt": "2025-06-28T15:02:00.000Z",
-      "actualDuration": 1620,
+      "id": "4dab680c-cc44-49d8-a4fa-184d6bc09b5a",
+      "workoutId": "d3b947ac-e6cb-412a-9820-45049f362403",
+      "startedAt": "2025-06-21T23:44:00.000Z",
+      "completedAt": "2025-06-22T01:30:00.000Z",
+      "actualDuration": 6360,
       "exercises": [
         {
-          "exerciseId": "bcb8e8a9-9895-4a94-8082-626a9a2cafd6",
-          "completedSets": 2,
-          "actualReps": [19, 15],
-          "actualWeight": [27, 26],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "e5bf0b6e-5e09-4411-be09-2258defe0ec6",
-          "completedSets": 2,
-          "actualReps": [8, 11],
-          "actualWeight": [135, 124],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "fada1bae-2db4-42b7-8a9e-52a94631b412",
+          "exerciseId": "fbff0b0c-ff04-4ede-986e-5ca188e21355",
           "completedSets": 4,
-          "actualReps": [8, 12, 8, 9],
-          "actualWeight": [38, 20, 36, 30],
+          "actualReps": [7, 8, 8, 10],
+          "actualWeight": [181, 181, 175, 181],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "8daaebb1-6827-4ed1-9b61-d22f63260903",
-          "completedSets": 2,
-          "actualReps": [13, 14],
-          "actualWeight": [78, 79],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "65289816-506a-4a5e-8c72-3abd39e9bc78",
-          "completedSets": 1,
-          "actualReps": [11],
-          "actualWeight": [185],
-          "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "092c6eeb-9252-4fbf-ad15-ed86c970a698",
+          "exerciseId": "ceefaf0e-f273-4b06-9cbf-01b5d0ddf10d",
           "completedSets": 3,
-          "actualReps": [9, 9, 11],
-          "actualWeight": [155, 145, 155],
+          "actualReps": [12, 15, 10],
+          "actualWeight": [30, 32, 36],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "e7252ca6-2cde-4310-b40c-1cc5691ab629",
+          "completedSets": 3,
+          "actualReps": [23, 19, 18],
+          "actualWeight": [25, 27, 17],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2488fa66-ba6d-455c-a6af-50f81e865337",
+          "completedSets": 3,
+          "actualReps": [10, 11, 13],
+          "actualWeight": [90, 86, 86],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6b96a4ba-0d7c-417e-b967-02fc921590c9",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ef5c13ff-cd63-4164-a67f-7c08bd6869a7",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "5d19ef9b-19b4-4507-a276-78ad03bb2131",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         }
       ],
       "notes": "Great workout! Felt strong today."
     },
     {
-      "id": "b0b7cdd5-612f-4289-98ef-b24e5ff32351",
-      "workoutId": "8a3027a6-0a39-4873-a06b-7235173dc6ba",
-      "startedAt": "2025-06-27T01:24:00.000Z",
-      "completedAt": "2025-06-27T02:41:00.000Z",
-      "actualDuration": 4620,
+      "id": "2e543b96-989c-4bf0-a777-3455536eece5",
+      "workoutId": "d3b947ac-e6cb-412a-9820-45049f362403",
+      "startedAt": "2025-06-05T21:24:00.000Z",
+      "completedAt": "2025-06-05T23:28:00.000Z",
+      "actualDuration": 7440,
       "exercises": [
         {
-          "exerciseId": "7d41ab57-4d73-476f-b1f3-7c69f61e2b38",
+          "exerciseId": "fbff0b0c-ff04-4ede-986e-5ca188e21355",
           "completedSets": 4,
-          "actualReps": [8, 8, 7, 7],
-          "actualWeight": [186, 183, 190, 180],
+          "actualReps": [7, 9, 6, 7],
+          "actualWeight": [184, 184, 192, 183],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "896999bd-4e8b-46af-bf73-2a957fc6c0d6",
+          "exerciseId": "ceefaf0e-f273-4b06-9cbf-01b5d0ddf10d",
           "completedSets": 1,
-          "actualReps": [10],
-          "actualWeight": [64],
+          "actualReps": [13],
+          "actualWeight": [26],
           "completed": false,
-          "startedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "f6145848-34c1-478e-93cc-e85f2fa3d6d9",
+          "exerciseId": "e7252ca6-2cde-4310-b40c-1cc5691ab629",
+          "completedSets": 1,
+          "actualReps": [19],
+          "actualWeight": [24],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2488fa66-ba6d-455c-a6af-50f81e865337",
           "completedSets": 3,
-          "actualReps": [13, 12, 14],
-          "actualWeight": [24, 32, 21],
+          "actualReps": [11, 13, 10],
+          "actualWeight": [79, 72, 76],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "eaabad26-6310-4313-8f46-5dddc5ef9844",
-          "completedSets": 4,
-          "actualReps": [8, 8, 8, 7],
-          "actualWeight": [219, 216, 215, 222],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
-        },
-        {
-          "exerciseId": "64041ff7-9996-4d62-a6b3-700e6adffa53",
+          "exerciseId": "6b96a4ba-0d7c-417e-b967-02fc921590c9",
           "completedSets": 1,
           "actualReps": [1],
           "actualWeight": [0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "d1fe8bbd-d65a-4826-a9e2-3f8994b579cd",
+          "exerciseId": "ef5c13ff-cd63-4164-a67f-7c08bd6869a7",
           "completedSets": 1,
           "actualReps": [1],
           "actualWeight": [0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "5d19ef9b-19b4-4507-a276-78ad03bb2131",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         }
       ]
     },
     {
-      "id": "691a2bc6-7970-4210-8137-6b4b469524d2",
-      "workoutId": "c2ce7820-0432-4559-90db-feff390bbc26",
-      "startedAt": "2025-06-25T14:06:00.000Z",
-      "completedAt": "2025-06-25T16:02:00.000Z",
-      "actualDuration": 6960,
+      "id": "ab514401-3695-44da-9841-b82f8ae26cc6",
+      "workoutId": "a3a472e3-8a38-40be-b1c5-89e3346dac55",
+      "startedAt": "2025-06-07T14:36:00.000Z",
+      "completedAt": "2025-06-07T15:43:00.000Z",
+      "actualDuration": 4020,
       "exercises": [
         {
-          "exerciseId": "4aab6179-7bb5-42cf-97eb-2b3a76ebb908",
+          "exerciseId": "a9bf686f-6383-4eaa-bdcf-c575e676bb26",
           "completedSets": 3,
-          "actualReps": [12, 14, 10],
-          "actualWeight": [40, 29, 25],
+          "actualReps": [21, 22, 19],
+          "actualWeight": [29, 30, 31],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "8b60498a-7343-4762-ab34-93dd88c48a60",
-          "completedSets": 3,
-          "actualReps": [14, 12, 12],
-          "actualWeight": [23, 21, 39],
+          "exerciseId": "eceec883-c563-4977-b2c1-830dd90a4737",
+          "completedSets": 4,
+          "actualReps": [11, 7, 10, 7],
+          "actualWeight": [175, 192, 195, 188],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "42217d30-70e2-4094-8d33-e666fe3edc20",
+          "exerciseId": "08cb367b-7f62-4a01-8cd7-a2db1379a576",
           "completedSets": 3,
-          "actualReps": [9, 7, 4],
-          "actualWeight": [95, 96, 93],
+          "actualReps": [11, 9, 10],
+          "actualWeight": [195, 178, 185],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "80e7b0f9-9dcc-416c-884d-2eee9047438b",
-          "completedSets": 3,
-          "actualReps": [10, 14, 14],
-          "actualWeight": [30, 21, 22],
-          "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "exerciseId": "da5178c2-5bd2-4a89-b7ac-29677d44e8cb",
+          "completedSets": 1,
+          "actualReps": [10],
+          "actualWeight": [130],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "9ef345a0-40e7-41ae-bc31-2d5c8a22b435",
+          "exerciseId": "62aace46-40dc-4ea7-91a6-22f04c3565b2",
           "completedSets": 1,
           "actualReps": [1],
           "actualWeight": [0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "d1811b66-7693-45ac-9be0-a197fa2f8dd8",
+          "exerciseId": "0fbfc217-ac94-4349-8c55-dbcc4f4b7609",
           "completedSets": 1,
           "actualReps": [1],
           "actualWeight": [0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         },
         {
-          "exerciseId": "411b91af-2fe2-41cb-bb24-93d530a719b6",
+          "exerciseId": "1b08d278-36dc-4ba7-8d34-e16f87c9b210",
           "completedSets": 1,
           "actualReps": [1],
           "actualWeight": [0],
           "completed": true,
-          "startedAt": "2025-07-08T00:08:03.323Z",
-          "completedAt": "2025-07-08T00:08:03.323Z"
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "66b34a88-ab14-4e9d-aa2a-d9ea1be0fee5",
+      "workoutId": "76aa640d-39c5-4ec1-8c8f-e249d6072f8f",
+      "startedAt": "2025-05-12T18:25:00.000Z",
+      "completedAt": "2025-05-12T19:41:00.000Z",
+      "actualDuration": 4560,
+      "exercises": [
+        {
+          "exerciseId": "27928f8b-35ab-4566-85d2-47a6f4f4ce86",
+          "completedSets": 3,
+          "actualReps": [9, 10, 9],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "a9372cb4-f354-4c28-903a-84bb2c800893",
+          "completedSets": 3,
+          "actualReps": [12, 13, 13],
+          "actualWeight": [66, 67, 54],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "d9d2ccc3-0f06-4ee5-861f-6a4d957340f4",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "de3c67c2-2e58-42b8-ac40-88d23e19adea",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ddd08ffa-7dcf-4249-ace0-f1d00dab26c0",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "d5582724-1c77-4291-9172-ecc3b85e5a8d",
+      "workoutId": "76aa640d-39c5-4ec1-8c8f-e249d6072f8f",
+      "startedAt": "2025-05-17T23:47:00.000Z",
+      "completedAt": "2025-05-18T01:07:00.000Z",
+      "actualDuration": 4800,
+      "exercises": [
+        {
+          "exerciseId": "27928f8b-35ab-4566-85d2-47a6f4f4ce86",
+          "completedSets": 3,
+          "actualReps": [8, 9, 7],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "a9372cb4-f354-4c28-903a-84bb2c800893",
+          "completedSets": 3,
+          "actualReps": [11, 9, 8],
+          "actualWeight": [51, 50, 60],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "d9d2ccc3-0f06-4ee5-861f-6a4d957340f4",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "de3c67c2-2e58-42b8-ac40-88d23e19adea",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ddd08ffa-7dcf-4249-ace0-f1d00dab26c0",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "c9a4e84c-db02-42e2-a685-4229ee85fb5b",
+      "workoutId": "76aa640d-39c5-4ec1-8c8f-e249d6072f8f",
+      "startedAt": "2025-05-18T03:55:00.000Z",
+      "completedAt": "2025-05-18T04:57:00.000Z",
+      "actualDuration": 3720,
+      "exercises": [
+        {
+          "exerciseId": "27928f8b-35ab-4566-85d2-47a6f4f4ce86",
+          "completedSets": 3,
+          "actualReps": [6, 6, 10],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "a9372cb4-f354-4c28-903a-84bb2c800893",
+          "completedSets": 2,
+          "actualReps": [10, 9],
+          "actualWeight": [54, 68],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "d9d2ccc3-0f06-4ee5-861f-6a4d957340f4",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "de3c67c2-2e58-42b8-ac40-88d23e19adea",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ddd08ffa-7dcf-4249-ace0-f1d00dab26c0",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "ee686d61-3e7d-48fe-9a58-319bd80cf202",
+      "workoutId": "86a844f9-ee94-4ec7-a536-2fbabfc506f5",
+      "startedAt": "2025-06-15T03:07:00.000Z",
+      "completedAt": "2025-06-15T03:48:00.000Z",
+      "actualDuration": 2460,
+      "exercises": [
+        {
+          "exerciseId": "6a7fc4ad-59de-4645-bc45-d08b57ac8475",
+          "completedSets": 3,
+          "actualReps": [7, 10, 12],
+          "actualWeight": [45, 37, 50],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "26422c23-f85c-41a2-9c1b-69b4ef5e9453",
+          "completedSets": 2,
+          "actualReps": [10, 9],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "56df209c-03fe-4d38-9166-53b3f51fe5d1",
+          "completedSets": 2,
+          "actualReps": [17, 15],
+          "actualWeight": [19, 31],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f36c7e21-c92f-4911-8da8-9f9927c36e72",
+          "completedSets": 3,
+          "actualReps": [8, 9, 9],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab244f70-2f92-4fa3-9a31-d2bb2ba210d5",
+          "completedSets": 1,
+          "actualReps": [12],
+          "actualWeight": [171],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6e944748-07be-47c4-b849-09494ae1ca89",
+          "completedSets": 4,
+          "actualReps": [13, 14, 13, 15],
+          "actualWeight": [44, 56, 44, 48],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "80d8adf0-8768-479c-b4c8-cd941d238369",
+          "completedSets": 3,
+          "actualReps": [12, 9, 10],
+          "actualWeight": [55, 44, 53],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0b1537e4-dbd9-4daa-9d92-26cc6dd1179e",
+          "completedSets": 2,
+          "actualReps": [7, 5],
+          "actualWeight": [177, 186],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "abc2a567-f88d-484c-accb-11aedea8f947",
+      "workoutId": "86a844f9-ee94-4ec7-a536-2fbabfc506f5",
+      "startedAt": "2025-05-26T18:51:00.000Z",
+      "completedAt": "2025-05-26T19:27:00.000Z",
+      "actualDuration": 2160,
+      "exercises": [
+        {
+          "exerciseId": "6a7fc4ad-59de-4645-bc45-d08b57ac8475",
+          "completedSets": 3,
+          "actualReps": [7, 10, 10],
+          "actualWeight": [44, 48, 39],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "26422c23-f85c-41a2-9c1b-69b4ef5e9453",
+          "completedSets": 2,
+          "actualReps": [9, 13],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "56df209c-03fe-4d38-9166-53b3f51fe5d1",
+          "completedSets": 2,
+          "actualReps": [14, 17],
+          "actualWeight": [18, 14],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f36c7e21-c92f-4911-8da8-9f9927c36e72",
+          "completedSets": 3,
+          "actualReps": [4, 6, 9],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab244f70-2f92-4fa3-9a31-d2bb2ba210d5",
+          "completedSets": 3,
+          "actualReps": [9, 11, 9],
+          "actualWeight": [180, 165, 177],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6e944748-07be-47c4-b849-09494ae1ca89",
+          "completedSets": 4,
+          "actualReps": [10, 14, 13, 10],
+          "actualWeight": [56, 39, 49, 47],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "80d8adf0-8768-479c-b4c8-cd941d238369",
+          "completedSets": 3,
+          "actualReps": [10, 9, 11],
+          "actualWeight": [47, 47, 44],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0b1537e4-dbd9-4daa-9d92-26cc6dd1179e",
+          "completedSets": 2,
+          "actualReps": [10, 9],
+          "actualWeight": [170, 182],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "464e4345-c27d-4b61-9004-144f4fedea6f",
+      "workoutId": "8629615e-2223-48f3-b367-0b87e0cc9180",
+      "startedAt": "2025-06-12T00:18:00.000Z",
+      "completedAt": "2025-06-12T01:38:00.000Z",
+      "actualDuration": 4800,
+      "exercises": [
+        {
+          "exerciseId": "5adae254-6787-494d-a652-66abff620488",
+          "completedSets": 2,
+          "actualReps": [14, 11],
+          "actualWeight": [72, 77],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9e0681a5-87d0-40a9-a546-c269a07b9ae4",
+          "completedSets": 3,
+          "actualReps": [9, 8, 6],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "fd8c8e09-9d3f-4603-8337-437404ed4a79",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b40d7f77-123d-4bd0-9c32-56d87d36f2a2",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2501f38c-6bdc-4341-8649-8ae58c8af576",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "ea73a439-da78-4513-8d36-43f6bfc1b4a3",
+      "workoutId": "8629615e-2223-48f3-b367-0b87e0cc9180",
+      "startedAt": "2025-06-24T21:26:00.000Z",
+      "completedAt": "2025-06-24T22:39:00.000Z",
+      "actualDuration": 4380,
+      "exercises": [
+        {
+          "exerciseId": "5adae254-6787-494d-a652-66abff620488",
+          "completedSets": 3,
+          "actualReps": [11, 15, 11],
+          "actualWeight": [78, 81, 71],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9e0681a5-87d0-40a9-a546-c269a07b9ae4",
+          "completedSets": 3,
+          "actualReps": [7, 6, 10],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "fd8c8e09-9d3f-4603-8337-437404ed4a79",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b40d7f77-123d-4bd0-9c32-56d87d36f2a2",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2501f38c-6bdc-4341-8649-8ae58c8af576",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "eb9e490d-85fd-4339-b2c3-cfb04926ba7b",
+      "workoutId": "8629615e-2223-48f3-b367-0b87e0cc9180",
+      "startedAt": "2025-06-07T14:55:00.000Z",
+      "completedAt": "2025-06-07T16:10:00.000Z",
+      "actualDuration": 4500,
+      "exercises": [
+        {
+          "exerciseId": "5adae254-6787-494d-a652-66abff620488",
+          "completedSets": 3,
+          "actualReps": [10, 14, 13],
+          "actualWeight": [78, 82, 73],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9e0681a5-87d0-40a9-a546-c269a07b9ae4",
+          "completedSets": 3,
+          "actualReps": [9, 9, 7],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "fd8c8e09-9d3f-4603-8337-437404ed4a79",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b40d7f77-123d-4bd0-9c32-56d87d36f2a2",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2501f38c-6bdc-4341-8649-8ae58c8af576",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "36a58344-7a60-43e8-9115-9b72ef761043",
+      "workoutId": "81a79492-ee85-44e8-8c25-45dcf8fdb567",
+      "startedAt": "2025-05-15T00:48:00.000Z",
+      "completedAt": "2025-05-15T01:28:00.000Z",
+      "actualDuration": 2400,
+      "exercises": [
+        {
+          "exerciseId": "2a7f2f79-ce62-4815-be59-2f2929ffb7f2",
+          "completedSets": 4,
+          "actualReps": [25, 25, 22, 24],
+          "actualWeight": [38, 35, 24, 40],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "62ec92c3-40de-4746-9a97-70da0e3898f8",
+          "completedSets": 2,
+          "actualReps": [17, 14],
+          "actualWeight": [22, 22],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "514e971c-d4dd-44d3-ae92-4db44599f1ca",
+          "completedSets": 2,
+          "actualReps": [7, 6],
+          "actualWeight": [39, 52],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "05e9cf39-50ec-4cb7-9cb8-06dbd4bda99d",
+          "completedSets": 4,
+          "actualReps": [8, 9, 10, 11],
+          "actualWeight": [282, 273, 269, 276],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "5312cb47-c805-4d1e-be06-184e6f980fcb",
+          "completedSets": 4,
+          "actualReps": [12, 11, 9, 9],
+          "actualWeight": [104, 93, 105, 95],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "9254103a-0c66-4e13-b0b9-d3ac71897f2c",
+      "workoutId": "81a79492-ee85-44e8-8c25-45dcf8fdb567",
+      "startedAt": "2025-06-04T16:16:00.000Z",
+      "completedAt": "2025-06-04T16:41:00.000Z",
+      "actualDuration": 1500,
+      "exercises": [
+        {
+          "exerciseId": "2a7f2f79-ce62-4815-be59-2f2929ffb7f2",
+          "completedSets": 4,
+          "actualReps": [22, 24, 20, 24],
+          "actualWeight": [30, 28, 33, 29],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "62ec92c3-40de-4746-9a97-70da0e3898f8",
+          "completedSets": 2,
+          "actualReps": [18, 15],
+          "actualWeight": [24, 20],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "514e971c-d4dd-44d3-ae92-4db44599f1ca",
+          "completedSets": 1,
+          "actualReps": [10],
+          "actualWeight": [42],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "05e9cf39-50ec-4cb7-9cb8-06dbd4bda99d",
+          "completedSets": 3,
+          "actualReps": [13, 11, 10],
+          "actualWeight": [268, 278, 282],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "5312cb47-c805-4d1e-be06-184e6f980fcb",
+          "completedSets": 4,
+          "actualReps": [13, 13, 10, 14],
+          "actualWeight": [105, 95, 109, 101],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "f1bac51a-0697-4700-809d-fb5e14505a1f",
+      "workoutId": "81a79492-ee85-44e8-8c25-45dcf8fdb567",
+      "startedAt": "2025-06-22T00:43:00.000Z",
+      "completedAt": "2025-06-22T01:29:00.000Z",
+      "actualDuration": 2760,
+      "exercises": [
+        {
+          "exerciseId": "2a7f2f79-ce62-4815-be59-2f2929ffb7f2",
+          "completedSets": 4,
+          "actualReps": [24, 25, 20, 22],
+          "actualWeight": [21, 20, 21, 35],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "62ec92c3-40de-4746-9a97-70da0e3898f8",
+          "completedSets": 2,
+          "actualReps": [15, 18],
+          "actualWeight": [20, 23],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "514e971c-d4dd-44d3-ae92-4db44599f1ca",
+          "completedSets": 2,
+          "actualReps": [8, 10],
+          "actualWeight": [59, 47],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "05e9cf39-50ec-4cb7-9cb8-06dbd4bda99d",
+          "completedSets": 4,
+          "actualReps": [13, 13, 11, 9],
+          "actualWeight": [279, 282, 283, 283],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "5312cb47-c805-4d1e-be06-184e6f980fcb",
+          "completedSets": 4,
+          "actualReps": [14, 11, 9, 9],
+          "actualWeight": [101, 95, 109, 97],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "9b435815-4e7f-430d-8c37-53b64f90b8f3",
+      "workoutId": "4cc27a53-b244-4ebc-b4aa-5279e07eaa07",
+      "startedAt": "2025-06-30T04:49:00.000Z",
+      "completedAt": "2025-06-30T05:28:00.000Z",
+      "actualDuration": 2340,
+      "exercises": [
+        {
+          "exerciseId": "28c9bd6a-aa78-4769-aaee-e64eefa93432",
+          "completedSets": 1,
+          "actualReps": [13],
+          "actualWeight": [27],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "02b71c92-8687-4418-b363-9859b5667276",
+          "completedSets": 3,
+          "actualReps": [7, 8, 10],
+          "actualWeight": [170, 188, 178],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6047471e-b353-4dad-a68b-96d755f5c934",
+          "completedSets": 5,
+          "actualReps": [9, 11, 9, 9, 9],
+          "actualWeight": [143, 161, 152, 149, 144],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2175e21b-8c1f-44d9-afe3-9dc920320c63",
+          "completedSets": 2,
+          "actualReps": [9, 6],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "544cd7e9-60ed-4416-8834-26e6a274dbe3",
+          "completedSets": 3,
+          "actualReps": [8, 4, 9],
+          "actualWeight": [76, 86, 75],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "8ed61d38-85cd-4e17-83ed-29bb27a1c2a6",
+      "workoutId": "4cc27a53-b244-4ebc-b4aa-5279e07eaa07",
+      "startedAt": "2025-06-12T15:26:00.000Z",
+      "completedAt": "2025-06-12T15:58:00.000Z",
+      "actualDuration": 1920,
+      "exercises": [
+        {
+          "exerciseId": "28c9bd6a-aa78-4769-aaee-e64eefa93432",
+          "completedSets": 4,
+          "actualReps": [15, 16, 13, 15],
+          "actualWeight": [37, 24, 20, 31],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "02b71c92-8687-4418-b363-9859b5667276",
+          "completedSets": 3,
+          "actualReps": [11, 8, 12],
+          "actualWeight": [168, 170, 188],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6047471e-b353-4dad-a68b-96d755f5c934",
+          "completedSets": 4,
+          "actualReps": [11, 7, 8, 10],
+          "actualWeight": [146, 145, 150, 152],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2175e21b-8c1f-44d9-afe3-9dc920320c63",
+          "completedSets": 2,
+          "actualReps": [10, 8],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "544cd7e9-60ed-4416-8834-26e6a274dbe3",
+          "completedSets": 3,
+          "actualReps": [4, 5, 9],
+          "actualWeight": [79, 92, 89],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "0dc35919-8599-4f33-b014-20e8f7b40e5b",
+      "workoutId": "4cc27a53-b244-4ebc-b4aa-5279e07eaa07",
+      "startedAt": "2025-05-12T15:37:00.000Z",
+      "completedAt": "2025-05-12T16:17:00.000Z",
+      "actualDuration": 2400,
+      "exercises": [
+        {
+          "exerciseId": "28c9bd6a-aa78-4769-aaee-e64eefa93432",
+          "completedSets": 4,
+          "actualReps": [13, 13, 12, 12],
+          "actualWeight": [28, 32, 29, 28],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "02b71c92-8687-4418-b363-9859b5667276",
+          "completedSets": 3,
+          "actualReps": [8, 7, 10],
+          "actualWeight": [174, 169, 184],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6047471e-b353-4dad-a68b-96d755f5c934",
+          "completedSets": 4,
+          "actualReps": [7, 9, 8, 9],
+          "actualWeight": [151, 154, 150, 155],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2175e21b-8c1f-44d9-afe3-9dc920320c63",
+          "completedSets": 2,
+          "actualReps": [8, 7],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "544cd7e9-60ed-4416-8834-26e6a274dbe3",
+          "completedSets": 2,
+          "actualReps": [8, 4],
+          "actualWeight": [75, 75],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "8c1aae97-34bc-4db4-b94b-1575e208b2b0",
+      "workoutId": "09889eb2-b157-473d-b3f8-396b201822b0",
+      "startedAt": "2025-05-19T22:52:00.000Z",
+      "completedAt": "2025-05-20T00:11:00.000Z",
+      "actualDuration": 4740,
+      "exercises": [
+        {
+          "exerciseId": "d06f5525-da81-4ad9-b9af-c41c7ff0c30e",
+          "completedSets": 3,
+          "actualReps": [6, 6, 9],
+          "actualWeight": [179, 176, 183],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b536539d-eadb-4f5b-8971-528d8fb0606d",
+          "completedSets": 3,
+          "actualReps": [7, 11, 6],
+          "actualWeight": [136, 135, 137],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "4a4a7ce1-d84f-40f9-a27c-a7219ad0a8cb",
+          "completedSets": 3,
+          "actualReps": [11, 8, 11],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "da863b6c-eb17-46ef-aaac-bbf224da0e61",
+          "completedSets": 3,
+          "actualReps": [13, 13, 10],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "e1de7888-54dd-4bfb-b5ae-e9291e1c0f74",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "70beb229-e781-43c6-a78b-8cdf3dfdb4d6",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0ca5d8a3-c149-4bde-a604-1a73ed29ddc4",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "154c8e11-e724-45fa-9d23-197950b519b0",
+      "workoutId": "09889eb2-b157-473d-b3f8-396b201822b0",
+      "startedAt": "2025-05-21T20:38:00.000Z",
+      "completedAt": "2025-05-21T22:05:00.000Z",
+      "actualDuration": 5220,
+      "exercises": [
+        {
+          "exerciseId": "d06f5525-da81-4ad9-b9af-c41c7ff0c30e",
+          "completedSets": 3,
+          "actualReps": [6, 8, 8],
+          "actualWeight": [185, 180, 175],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b536539d-eadb-4f5b-8971-528d8fb0606d",
+          "completedSets": 3,
+          "actualReps": [6, 8, 9],
+          "actualWeight": [142, 129, 127],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "4a4a7ce1-d84f-40f9-a27c-a7219ad0a8cb",
+          "completedSets": 3,
+          "actualReps": [6, 10, 9],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "da863b6c-eb17-46ef-aaac-bbf224da0e61",
+          "completedSets": 3,
+          "actualReps": [8, 8, 11],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "e1de7888-54dd-4bfb-b5ae-e9291e1c0f74",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "70beb229-e781-43c6-a78b-8cdf3dfdb4d6",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0ca5d8a3-c149-4bde-a604-1a73ed29ddc4",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "d1bd4afd-da60-45a3-b340-16c3d86a7cc1",
+      "workoutId": "0aa22650-cd64-476c-bfb9-7da2ce4bac03",
+      "startedAt": "2025-06-04T18:33:00.000Z",
+      "completedAt": "2025-06-04T20:02:00.000Z",
+      "actualDuration": 5340,
+      "exercises": [
+        {
+          "exerciseId": "302169bf-f13e-44f8-824f-df9f02e8b721",
+          "completedSets": 3,
+          "actualReps": [7, 10, 11],
+          "actualWeight": [182, 177, 188],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "111e1f39-3a77-4de9-9b4e-ec7f4cffc73f",
+          "completedSets": 3,
+          "actualReps": [8, 7, 8],
+          "actualWeight": [143, 130, 136],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9d152627-9759-4b73-a373-b486992a719f",
+          "completedSets": 4,
+          "actualReps": [10, 15, 10, 14],
+          "actualWeight": [265, 272, 271, 275],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6fd597e1-5186-44c9-b0a7-ffef211cf63f",
+          "completedSets": 4,
+          "actualReps": [7, 9, 9, 10],
+          "actualWeight": [192, 191, 180, 182],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "58379519-b579-4eca-8ccc-b567e0ad0b96",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f4cc882d-2aee-40c8-9456-c478da56bc71",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6d3a4220-c924-4496-bd22-45ede4d39b24",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "dae32175-afa1-48b1-9594-c19b8f847505",
+      "workoutId": "0aa22650-cd64-476c-bfb9-7da2ce4bac03",
+      "startedAt": "2025-06-18T04:33:00.000Z",
+      "completedAt": "2025-06-18T05:51:00.000Z",
+      "actualDuration": 4680,
+      "exercises": [
+        {
+          "exerciseId": "302169bf-f13e-44f8-824f-df9f02e8b721",
+          "completedSets": 3,
+          "actualReps": [10, 11, 11],
+          "actualWeight": [192, 178, 193],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "111e1f39-3a77-4de9-9b4e-ec7f4cffc73f",
+          "completedSets": 4,
+          "actualReps": [6, 6, 6, 11],
+          "actualWeight": [144, 132, 130, 132],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9d152627-9759-4b73-a373-b486992a719f",
+          "completedSets": 4,
+          "actualReps": [15, 15, 15, 10],
+          "actualWeight": [276, 279, 275, 276],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6fd597e1-5186-44c9-b0a7-ffef211cf63f",
+          "completedSets": 4,
+          "actualReps": [9, 11, 10, 10],
+          "actualWeight": [191, 193, 194, 190],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "58379519-b579-4eca-8ccc-b567e0ad0b96",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f4cc882d-2aee-40c8-9456-c478da56bc71",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6d3a4220-c924-4496-bd22-45ede4d39b24",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "ea2b3b7f-0fc5-48cf-bb1a-2db4bcd4799d",
+      "workoutId": "0aa22650-cd64-476c-bfb9-7da2ce4bac03",
+      "startedAt": "2025-05-15T17:52:00.000Z",
+      "completedAt": "2025-05-15T19:27:00.000Z",
+      "actualDuration": 5700,
+      "exercises": [
+        {
+          "exerciseId": "302169bf-f13e-44f8-824f-df9f02e8b721",
+          "completedSets": 3,
+          "actualReps": [10, 7, 10],
+          "actualWeight": [187, 183, 194],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "111e1f39-3a77-4de9-9b4e-ec7f4cffc73f",
+          "completedSets": 2,
+          "actualReps": [10, 10],
+          "actualWeight": [142, 131],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9d152627-9759-4b73-a373-b486992a719f",
+          "completedSets": 4,
+          "actualReps": [15, 10, 12, 10],
+          "actualWeight": [272, 278, 271, 275],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6fd597e1-5186-44c9-b0a7-ffef211cf63f",
+          "completedSets": 4,
+          "actualReps": [7, 10, 6, 11],
+          "actualWeight": [183, 175, 181, 181],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "58379519-b579-4eca-8ccc-b567e0ad0b96",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f4cc882d-2aee-40c8-9456-c478da56bc71",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6d3a4220-c924-4496-bd22-45ede4d39b24",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "796dcc44-b1e5-4c0e-ac8b-b752b4419def",
+      "workoutId": "0aa22650-cd64-476c-bfb9-7da2ce4bac03",
+      "startedAt": "2025-06-25T00:18:00.000Z",
+      "completedAt": "2025-06-25T01:50:00.000Z",
+      "actualDuration": 5520,
+      "exercises": [
+        {
+          "exerciseId": "302169bf-f13e-44f8-824f-df9f02e8b721",
+          "completedSets": 3,
+          "actualReps": [6, 9, 7],
+          "actualWeight": [183, 193, 181],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "111e1f39-3a77-4de9-9b4e-ec7f4cffc73f",
+          "completedSets": 4,
+          "actualReps": [6, 9, 7, 9],
+          "actualWeight": [143, 130, 131, 137],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "9d152627-9759-4b73-a373-b486992a719f",
+          "completedSets": 4,
+          "actualReps": [11, 12, 13, 13],
+          "actualWeight": [273, 264, 280, 276],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6fd597e1-5186-44c9-b0a7-ffef211cf63f",
+          "completedSets": 4,
+          "actualReps": [6, 10, 7, 7],
+          "actualWeight": [176, 182, 183, 192],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "58379519-b579-4eca-8ccc-b567e0ad0b96",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f4cc882d-2aee-40c8-9456-c478da56bc71",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6d3a4220-c924-4496-bd22-45ede4d39b24",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "509f8458-beed-40fd-8446-5b3479f6ca85",
+      "workoutId": "e5e80089-c10d-43d5-a625-d858675c1cc0",
+      "startedAt": "2025-05-23T22:39:00.000Z",
+      "completedAt": "2025-05-23T23:57:00.000Z",
+      "actualDuration": 4680,
+      "exercises": [
+        {
+          "exerciseId": "a394ab19-713b-433a-86d5-cba2dc978de8",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "4a86a2cc-9c43-48cf-baae-4f431209282b",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "c8f685d1-3bd5-49da-bde9-c14ba810183c",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "9f152745-c4d3-4777-8298-c106f80710b9",
+      "workoutId": "75a5c3fd-6bb1-45ce-96b6-0715c18b2592",
+      "startedAt": "2025-05-21T13:27:00.000Z",
+      "completedAt": "2025-05-21T14:10:00.000Z",
+      "actualDuration": 2580,
+      "exercises": [
+        {
+          "exerciseId": "73905db2-51ac-4d5b-8ba2-c14ca4bd04ca",
+          "completedSets": 4,
+          "actualReps": [14, 17, 15, 15],
+          "actualWeight": [138, 140, 135, 128],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b069548f-191b-4d79-b2ad-39fab3c0b0c5",
+          "completedSets": 3,
+          "actualReps": [23, 22, 19],
+          "actualWeight": [25, 24, 15],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab43f4dc-9fad-4b86-8ddf-335aa2a0083f",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "074c9393-ddd0-49d5-92b4-619c3d35621b",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "8ca0d2a1-e5de-487f-aa8e-991c3ca9104e",
+      "workoutId": "75a5c3fd-6bb1-45ce-96b6-0715c18b2592",
+      "startedAt": "2025-05-25T23:06:00.000Z",
+      "completedAt": "2025-05-25T23:56:00.000Z",
+      "actualDuration": 3000,
+      "exercises": [
+        {
+          "exerciseId": "73905db2-51ac-4d5b-8ba2-c14ca4bd04ca",
+          "completedSets": 4,
+          "actualReps": [18, 14, 15, 17],
+          "actualWeight": [136, 131, 138, 130],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b069548f-191b-4d79-b2ad-39fab3c0b0c5",
+          "completedSets": 3,
+          "actualReps": [20, 20, 22],
+          "actualWeight": [25, 27, 18],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab43f4dc-9fad-4b86-8ddf-335aa2a0083f",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "074c9393-ddd0-49d5-92b4-619c3d35621b",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ],
+      "notes": "Great workout! Felt strong today."
+    },
+    {
+      "id": "d0c49d6b-8e05-4056-942f-a0c119945f8d",
+      "workoutId": "75a5c3fd-6bb1-45ce-96b6-0715c18b2592",
+      "startedAt": "2025-06-29T20:38:00.000Z",
+      "completedAt": "2025-06-29T21:32:00.000Z",
+      "actualDuration": 3240,
+      "exercises": [
+        {
+          "exerciseId": "73905db2-51ac-4d5b-8ba2-c14ca4bd04ca",
+          "completedSets": 4,
+          "actualReps": [13, 15, 13, 16],
+          "actualWeight": [126, 137, 126, 125],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "b069548f-191b-4d79-b2ad-39fab3c0b0c5",
+          "completedSets": 3,
+          "actualReps": [18, 22, 22],
+          "actualWeight": [31, 17, 35],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab43f4dc-9fad-4b86-8ddf-335aa2a0083f",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "074c9393-ddd0-49d5-92b4-619c3d35621b",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "655ee764-972f-4e4f-92c9-d89e4a6c63a4",
+      "workoutId": "a3a472e3-8a38-40be-b1c5-89e3346dac55",
+      "startedAt": "2025-07-07T19:57:00.000Z",
+      "completedAt": "2025-07-07T21:11:00.000Z",
+      "actualDuration": 4440,
+      "exercises": [
+        {
+          "exerciseId": "a9bf686f-6383-4eaa-bdcf-c575e676bb26",
+          "completedSets": 3,
+          "actualReps": [23, 23, 21],
+          "actualWeight": [33, 34, 32],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "eceec883-c563-4977-b2c1-830dd90a4737",
+          "completedSets": 4,
+          "actualReps": [10, 6, 9, 6],
+          "actualWeight": [186, 181, 187, 176],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "08cb367b-7f62-4a01-8cd7-a2db1379a576",
+          "completedSets": 2,
+          "actualReps": [11, 11],
+          "actualWeight": [190, 194],
+          "completed": false,
+          "startedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "da5178c2-5bd2-4a89-b7ac-29677d44e8cb",
+          "completedSets": 3,
+          "actualReps": [8, 8, 7],
+          "actualWeight": [145, 130, 128],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "62aace46-40dc-4ea7-91a6-22f04c3565b2",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0fbfc217-ac94-4349-8c55-dbcc4f4b7609",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "1b08d278-36dc-4ba7-8d34-e16f87c9b210",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "e999ae92-2797-40f7-b212-d3b1b11c192f",
+      "workoutId": "86a844f9-ee94-4ec7-a536-2fbabfc506f5",
+      "startedAt": "2025-07-06T14:14:00.000Z",
+      "completedAt": "2025-07-06T15:06:00.000Z",
+      "actualDuration": 3120,
+      "exercises": [
+        {
+          "exerciseId": "6a7fc4ad-59de-4645-bc45-d08b57ac8475",
+          "completedSets": 3,
+          "actualReps": [11, 7, 12],
+          "actualWeight": [47, 33, 43],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "26422c23-f85c-41a2-9c1b-69b4ef5e9453",
+          "completedSets": 2,
+          "actualReps": [12, 11],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "56df209c-03fe-4d38-9166-53b3f51fe5d1",
+          "completedSets": 2,
+          "actualReps": [13, 12],
+          "actualWeight": [31, 23],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "f36c7e21-c92f-4911-8da8-9f9927c36e72",
+          "completedSets": 3,
+          "actualReps": [5, 6, 5],
+          "actualWeight": [0, 0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "ab244f70-2f92-4fa3-9a31-d2bb2ba210d5",
+          "completedSets": 3,
+          "actualReps": [9, 9, 13],
+          "actualWeight": [177, 168, 167],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6e944748-07be-47c4-b849-09494ae1ca89",
+          "completedSets": 4,
+          "actualReps": [15, 15, 14, 14],
+          "actualWeight": [48, 49, 47, 42],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "80d8adf0-8768-479c-b4c8-cd941d238369",
+          "completedSets": 3,
+          "actualReps": [11, 10, 11],
+          "actualWeight": [45, 51, 41],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "0b1537e4-dbd9-4daa-9d92-26cc6dd1179e",
+          "completedSets": 2,
+          "actualReps": [5, 6],
+          "actualWeight": [170, 171],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "63350b07-d2b6-45d5-a98f-b387e21c4627",
+      "workoutId": "e5e80089-c10d-43d5-a625-d858675c1cc0",
+      "startedAt": "2025-07-02T22:42:00.000Z",
+      "completedAt": "2025-07-03T00:02:00.000Z",
+      "actualDuration": 4800,
+      "exercises": [
+        {
+          "exerciseId": "a394ab19-713b-433a-86d5-cba2dc978de8",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "4a86a2cc-9c43-48cf-baae-4f431209282b",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "c8f685d1-3bd5-49da-bde9-c14ba810183c",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "a9eda888-ba3a-484d-b50e-741d85394b7c",
+      "workoutId": "c28fe020-992e-40ef-b172-97bfe89cad03",
+      "startedAt": "2025-06-30T17:42:00.000Z",
+      "completedAt": "2025-06-30T18:53:00.000Z",
+      "actualDuration": 4260,
+      "exercises": [
+        {
+          "exerciseId": "376ee6f9-adde-4aa4-a84d-b8c957aedd7e",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "22fab37b-03a0-4ef6-865a-0bed64e222d1",
+          "completedSets": 1,
+          "actualReps": [1],
+          "actualWeight": [0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        }
+      ]
+    },
+    {
+      "id": "9373325f-5ccd-4295-9190-ddaf84ed83a5",
+      "workoutId": "4cc27a53-b244-4ebc-b4aa-5279e07eaa07",
+      "startedAt": "2025-06-25T13:19:00.000Z",
+      "completedAt": "2025-06-25T13:53:00.000Z",
+      "actualDuration": 2040,
+      "exercises": [
+        {
+          "exerciseId": "28c9bd6a-aa78-4769-aaee-e64eefa93432",
+          "completedSets": 4,
+          "actualReps": [16, 17, 15, 12],
+          "actualWeight": [21, 31, 33, 26],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "02b71c92-8687-4418-b363-9859b5667276",
+          "completedSets": 3,
+          "actualReps": [10, 8, 7],
+          "actualWeight": [179, 168, 174],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "6047471e-b353-4dad-a68b-96d755f5c934",
+          "completedSets": 5,
+          "actualReps": [9, 6, 10, 8, 6],
+          "actualWeight": [143, 149, 152, 150, 148],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "2175e21b-8c1f-44d9-afe3-9dc920320c63",
+          "completedSets": 2,
+          "actualReps": [10, 10],
+          "actualWeight": [0, 0],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
+        },
+        {
+          "exerciseId": "544cd7e9-60ed-4416-8834-26e6a274dbe3",
+          "completedSets": 3,
+          "actualReps": [7, 8, 9],
+          "actualWeight": [81, 84, 90],
+          "completed": true,
+          "startedAt": "2025-07-08T22:22:19.650Z",
+          "completedAt": "2025-07-08T22:22:19.650Z"
         }
       ]
     }

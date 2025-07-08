@@ -271,6 +271,7 @@ function createRandomWorkout(): Omit<Workout, 'id'> {
 
   // Randomly assign scheduled dates to some workouts (30% chance)
   const scheduledDate = Math.random() > 0.7 ? randomFutureDate(7) : undefined; // Future dates within 7 days
+  const completedCount = Math.random() > 0.4 ? randomInt(1, 10) : 0; // 40% chance of being completed
 
   return {
     name,
@@ -282,6 +283,7 @@ function createRandomWorkout(): Omit<Workout, 'id'> {
     lastCompleted,
     estimatedDuration,
     scheduledDate,
+    completedCount,
   };
 }
 

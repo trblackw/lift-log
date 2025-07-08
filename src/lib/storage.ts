@@ -17,14 +17,25 @@ class StorageManager {
   private initialized = false;
 
   async init(): Promise<void> {
-    if (this.initialized) return;
+    if (this.initialized) {
+      console.log('📦 Storage already initialized, skipping...');
+      return;
+    }
 
+    console.log('📦 Initializing storage system...');
     try {
+      console.log('🗄️ Initializing workoutDB...');
       await workoutDB.init();
+      console.log('✅ WorkoutDB initialized');
+
+      console.log('🔄 Migrating legacy data...');
       await this.migrateLegacyData();
+      console.log('✅ Legacy data migration complete');
+
       this.initialized = true;
+      console.log('✅ Storage system fully initialized');
     } catch (error) {
-      console.error('Failed to initialize storage:', error);
+      console.error('❌ Failed to initialize storage:', error);
       throw error;
     }
   }

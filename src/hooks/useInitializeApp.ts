@@ -19,16 +19,25 @@ export function useInitializeApp() {
         setAppLoading(true);
         setGlobalError(null);
 
+        console.log('🚀 Starting app initialization...');
+
         // Initialize IndexedDB
+        console.log('📦 Initializing storage...');
         await storage.init();
+        console.log('✅ Storage initialized successfully');
 
         // Initialize all stores in parallel
+        console.log('🏪 Initializing stores...');
         await Promise.all([initializeWorkouts(), initializeSessions()]);
+        console.log('✅ Stores initialized successfully');
 
         // Initialize debug utilities (only in development)
         initializeDebugUtils();
+        console.log('🛠️ Debug utilities initialized');
+
+        console.log('🎉 App initialization complete!');
       } catch (error) {
-        console.error('Failed to initialize app:', error);
+        console.error('❌ Failed to initialize app:', error);
         setGlobalError('Failed to load data. Please refresh the page.');
       } finally {
         setAppLoading(false);
