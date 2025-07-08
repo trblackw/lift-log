@@ -144,7 +144,11 @@ export function AppSidebarLayout({
   onEndWorkout,
 }: AppSidebarLayoutProps) {
   const displayActiveWorkoutBanner =
-    activeWorkoutSession && activeWorkout && onResumeWorkout && onEndWorkout;
+    activeWorkoutSession &&
+    activeWorkout &&
+    onResumeWorkout &&
+    onEndWorkout &&
+    currentView !== 'active';
 
   return (
     <SidebarProvider defaultOpen={true}>

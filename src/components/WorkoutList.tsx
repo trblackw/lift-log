@@ -162,7 +162,7 @@ export function WorkoutList({
                     {workout.name}
                   </h3>
                 </div>
-                <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
                   <span className="flex items-center">
                     <IconDumbbell className="size-4 mr-1" />
                     {workout.exercises.length}
@@ -174,12 +174,11 @@ export function WorkoutList({
                     </span>
                   )}
                   {workout.lastCompleted && (
-                    <span
-                      style={{ paddingBottom: '2.5px' }}
-                      className="text-green-600 text-xs whitespace-nowrap mt-auto dark:text-green-400 flex items-center"
-                    >
+                    <span className="text-green-600 text-xs dark:text-green-400 items-center hidden sm:flex">
                       <IconCheckCircle className="size-4 mr-1" />
-                      {formatRelativeTime(workout.lastCompleted)}
+                      <span className="truncate max-w-[120px]">
+                        {formatRelativeTime(workout.lastCompleted)}
+                      </span>
                     </span>
                   )}
                 </div>

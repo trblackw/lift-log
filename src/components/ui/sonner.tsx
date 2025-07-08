@@ -12,20 +12,24 @@ const Toaster = ({ ...props }: ToasterProps) => {
       position="bottom-center"
       toastOptions={{
         style: {
-          background: 'hsl(var(--popover))',
-          color: 'hsl(var(--popover-foreground))',
-          border: '1px solid hsl(var(--border))',
+          background: 'hsl(var(--toast-bg))',
+          color: 'hsl(var(--foreground))',
+          border: '1px solid hsl(var(--toast-border))',
+          borderRadius: '8px',
+          backdropFilter: 'blur(8px)',
         },
       }}
       style={
         {
-          '--normal-bg': 'hsl(var(--popover))',
-          '--normal-text': 'hsl(var(--popover-foreground))',
-          '--normal-border': 'hsl(var(--border))',
-          '--success-bg': 'hsl(var(--primary))',
-          '--success-text': 'hsl(var(--primary-foreground))',
-          '--error-bg': 'hsl(var(--destructive))',
-          '--error-text': 'hsl(var(--destructive-foreground))',
+          '--normal-bg': 'hsl(var(--toast-bg))',
+          '--normal-text': 'hsl(var(--foreground))',
+          '--normal-border': 'hsl(var(--toast-border))',
+          '--success-bg': 'hsl(210 100% 95%)',
+          '--success-text': 'hsl(210 100% 20%)',
+          '--success-border': 'hsl(210 100% 80%)',
+          '--error-bg': 'hsl(0 85% 95%)',
+          '--error-text': 'hsl(0 85% 20%)',
+          '--error-border': 'hsl(0 85% 80%)',
         } as React.CSSProperties
       }
       {...props}

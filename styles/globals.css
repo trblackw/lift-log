@@ -35,6 +35,10 @@
   --chart-3: hsl(197 30% 30%); /* fallback */
   --chart-4: hsl(43 60% 60%); /* fallback */
   --chart-5: hsl(27 70% 60%); /* fallback */
+  --toast-bg: hsl(
+    210 100% 98%
+  ); /* poppy blue toast background for light theme */
+  --toast-border: hsl(210 100% 88%); /* poppy blue border for light theme */
   --radius: 0.6rem;
   --sidebar-background: hsl(0 0% 98%); /* fallback */
   --sidebar-foreground: hsl(240 5.3% 26.1%); /* fallback */
@@ -77,6 +81,8 @@
   --chart-3: hsl(30 70% 55%);
   --chart-4: hsl(280 55% 60%);
   --chart-5: hsl(340 65% 55%);
+  --toast-bg: hsl(210 90% 10%); /* poppy blue toast background for dark theme */
+  --toast-border: hsl(210 80% 25%); /* poppy blue border for dark theme */
   --sidebar-background: hsl(240 8% 8%);
   --sidebar-foreground: hsl(240 5% 85%);
   --sidebar-primary: hsl(210 100% 60%);
