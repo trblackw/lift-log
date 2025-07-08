@@ -302,17 +302,17 @@ export function WorkoutList({
                 {workout.exercises.slice(0, 2).map(exercise => (
                   <div
                     key={exercise.id}
-                    className="flex justify-between text-xs lg:text-sm"
+                    className="flex flex-col justify-start text-xs lg:text-sm mb-2"
                   >
-                    <span className="truncate">{exercise.name}</span>
-                    <span className="text-muted-foreground ml-2 shrink-0">
+                    <span className="truncate pb-2">{exercise.name}</span>
+                    <div className="text-muted-foreground shrink-0 flex flex-col justify-start items-start gap-1">
                       <ExercisePreviewStat
                         type="duration"
                         exercise={exercise}
                       />
                       <ExercisePreviewStat type="set/rep" exercise={exercise} />
                       <ExercisePreviewStat type="weight" exercise={exercise} />
-                    </span>
+                    </div>
                   </div>
                 ))}
                 {workout.exercises.length > 2 && (
