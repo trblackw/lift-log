@@ -44,7 +44,7 @@ const navItems: NavItem[] = [
     id: 'list',
     label: 'Workouts',
     icon: <IconList />,
-    description: 'View and manage your workouts',
+    description: 'View & manage your workouts',
   },
   {
     id: 'composer',
