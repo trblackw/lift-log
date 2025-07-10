@@ -12,6 +12,12 @@ const server = serve({
         headers: { 'Content-Type': 'image/svg+xml' },
       }),
 
+    // Serve manifest.json
+    '/manifest.json': () =>
+      new Response(Bun.file('src/manifest.json'), {
+        headers: { 'Content-Type': 'application/json' },
+      }),
+
     // Serve index.html for all unmatched routes (SPA routing)
     '/*': index,
   },

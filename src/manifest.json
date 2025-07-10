@@ -1,0 +1,83 @@
+{
+  "name": "Lift Log - Workout Tracker",
+  "short_name": "Lift Log",
+  "description": "A modern workout tracking and management application",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F6F8D5",
+  "theme_color": "#205781",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["fitness", "health", "lifestyle", "productivity"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Start Workout",
+      "short_name": "Start",
+      "description": "Quick start an active workout",
+      "url": "/active",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Create Workout",
+      "short_name": "Create",
+      "description": "Create a new workout routine",
+      "url": "/workouts/create",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Composer",
+      "short_name": "Compose",
+      "description": "Build workouts from exercise library",
+      "url": "/composer",
+      "icons": [
+        {
+          "src": "/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+}
