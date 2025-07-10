@@ -270,7 +270,7 @@ export function CalendarView({
             <CardHeader>
               <CardTitle className="text-lg">This Month</CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-6 border border-muted-foreground/10 bg-muted-foreground/5">
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>Completed:</span>

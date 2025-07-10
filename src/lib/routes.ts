@@ -19,6 +19,7 @@ export const PATHS = {
 
   // Main path segments
   WORKOUTS: 'workouts',
+  COMPOSER: 'composer',
   ACTIVE: 'active',
   CALENDAR: 'calendar',
   HISTORY: 'history',
@@ -46,6 +47,9 @@ export const ROUTES = {
   WORKOUTS_CREATE: `/${PATHS.WORKOUTS}/${PATHS.CREATE}`,
   WORKOUTS_DETAIL: `/${PATHS.WORKOUTS}/${PATHS.WORKOUT_ID}`,
   WORKOUTS_EDIT: `/${PATHS.WORKOUTS}/${PATHS.WORKOUT_ID}/${PATHS.EDIT}`,
+
+  // Composer
+  COMPOSER: `/${PATHS.COMPOSER}`,
 
   // Active workout
   ACTIVE: `/${PATHS.ACTIVE}`,
@@ -148,6 +152,7 @@ export const navigation = {
   ):
     | 'list'
     | 'create'
+    | 'composer'
     | 'details'
     | 'active'
     | 'calendar'
@@ -158,6 +163,7 @@ export const navigation = {
     if (pathname === ROUTES.WORKOUTS_CREATE) return 'create';
     if (parseRoute.isRoute(pathname, ROUTES.WORKOUTS_EDIT)) return 'create';
     if (parseRoute.isRoute(pathname, ROUTES.WORKOUTS_DETAIL)) return 'details';
+    if (pathname === ROUTES.COMPOSER) return 'composer';
     if (pathname === ROUTES.ACTIVE) return 'active';
     if (pathname === ROUTES.CALENDAR) return 'calendar';
     if (parseRoute.isRoute(pathname, ROUTES.CALENDAR_DAY)) return 'day';
@@ -177,6 +183,8 @@ export const navigation = {
         return ROUTES.WORKOUTS;
       case 'create':
         return ROUTES.WORKOUTS_CREATE;
+      case 'composer':
+        return ROUTES.COMPOSER;
       case 'active':
         return ROUTES.ACTIVE;
       case 'calendar':

@@ -3,6 +3,7 @@ import { ROUTES, PATHS } from './lib/routes';
 import { AppLayout } from './components/AppLayout';
 import { ActiveWorkoutPage } from './pages/ActiveWorkoutPage';
 import { CalendarPage } from './pages/CalendarPage';
+import { ComposerPage } from './pages/ComposerPage';
 import { CreateWorkoutPage } from './pages/CreateWorkoutPage';
 import { DayViewPage } from './pages/DayViewPage';
 import { EditWorkoutPage } from './pages/EditWorkoutPage';
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: `${PATHS.WORKOUTS}/${PATHS.WORKOUT_ID}/${PATHS.EDIT}`,
         element: <EditWorkoutPage />,
+      },
+      {
+        path: PATHS.COMPOSER,
+        element: <ComposerPage />,
       },
       {
         path: PATHS.ACTIVE,

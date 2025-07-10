@@ -13,12 +13,13 @@ import { ActiveWorkoutBanner } from './ActiveWorkoutBanner';
 import type { ViewMode, Workout, ActiveWorkoutSession } from '@/lib/types';
 import IconList from './icons/icon-list';
 import IconPlusBordered from './icons/icon-plus-bordered';
+import IconBench from './icons/icon-bench';
 import IconActiveRun from './icons/icon-active-run';
 import IconCalendar from './icons/icon-calendar';
 import IconHistory from './icons/icon-history';
 import IconGear from './icons/icon-gear';
-import IconBench from './icons/icon-bench';
 import { format } from 'date-fns';
+import IconPuzzlePiece from './icons/icon-puzzle-piece';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -46,9 +47,15 @@ const navItems: NavItem[] = [
     description: 'View and manage your workouts',
   },
   {
+    id: 'composer',
+    label: 'Composer',
+    icon: <IconPuzzlePiece className="size-5" />,
+    description: 'Build workouts from exercise library',
+  },
+  {
     id: 'active',
     label: 'Active',
-    icon: <IconActiveRun />,
+    icon: <IconActiveRun className="size-5" />,
     description: 'Start or continue a workout',
   },
   {

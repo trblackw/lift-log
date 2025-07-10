@@ -24,6 +24,7 @@ import { CSS } from '@dnd-kit/utilities';
 import {
   GhostButton,
   DestructiveButton,
+  OutlineButton,
 } from '@/components/ui/standardButtons';
 import { cn } from '@/lib/utils';
 import type { Exercise } from '@/lib/types';
@@ -120,13 +121,13 @@ function ExerciseItem({
             >
               Edit
             </GhostButton>
-            <DestructiveButton
+            <OutlineButton
               size="sm"
               onClick={() => onRemove?.(exercise.id)}
-              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm touch-manipulation"
+              className="h-8 lg:h-9 px-2 lg:px-3 text-xs lg:text-sm touch-manipulation text-red-700"
             >
               Remove
-            </DestructiveButton>
+            </OutlineButton>
           </div>
         )}
       </div>
@@ -196,7 +197,6 @@ export function ComposableExerciseList({
   emptyMessage = 'No exercises added yet.',
   title,
   className,
-  droppableId = 'exercise-list',
 }: ComposableExerciseListProps) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 

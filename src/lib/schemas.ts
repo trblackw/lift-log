@@ -111,6 +111,7 @@ export const ScheduledWorkoutSchema = z.object({
 export const ViewModeSchema = z.enum([
   'list',
   'create',
+  'composer',
   'active',
   'details',
   'calendar',
