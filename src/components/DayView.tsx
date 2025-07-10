@@ -384,7 +384,7 @@ export function DayView({
                 })}
               </div>
             ) : (
-              <div className="text-center py-8 text-muted-foreground flex flex-col items-center">
+              <div className="text-center py-8 text-muted-foreground flex flex-col items-center rounded-md border border-muted-foreground/10 p-4 bg-foreground/5">
                 <div className="text-4xl mb-2">
                   <IconCalendarEmpty className="size-12" />
                 </div>

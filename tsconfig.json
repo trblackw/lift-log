@@ -1,8 +1,14 @@
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "allowJs": true,
-
+    "allowJs": false,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
     // Bundler mode
     "moduleResolution": "bundler",
     "module": "Preserve",
@@ -16,5 +22,5 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["dist", "node_modules", "build.ts"]
 }

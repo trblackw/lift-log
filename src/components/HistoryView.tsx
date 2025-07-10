@@ -225,7 +225,9 @@ export function HistoryView({ workoutSessions }: HistoryViewProps) {
           </Label>
           <Select
             value={selectedTimeFrame}
-            onValueChange={(value: TimeFrame) => setSelectedTimeFrame(value)}
+            onValueChange={(value: string) =>
+              setSelectedTimeFrame(value as TimeFrame)
+            }
             searchable={false}
           >
             {timeFrameOptions.map(option => (

@@ -1,105 +1,31 @@
-export interface Exercise {
-  id: string;
-  name: string;
-  sets?: number;
-  reps?: number;
-  weight?: number;
-  duration?: number; // in minutes for cardio exercises
-  restTime?: number; // in seconds
-  notes?: string;
-}
+// Re-export Zod-inferred types for backward compatibility
+export type {
+  Exercise,
+  Tag,
+  Workout,
+  ExerciseSession,
+  WorkoutSession,
+  ActiveWorkoutSession,
+  UniqueExercise,
+  ExerciseLibrary,
+  ScheduledWorkout,
+  ViewMode,
+  PartialWorkout,
+  PartialExercise,
+} from './schemas';
 
-export interface Tag {
-  id: string;
-  name: string;
-  color: string;
-}
+// Re-export validation functions for convenience
+export {
+  validateExercise,
+  validateWorkout,
+  validateWorkoutSession,
+  validateActiveWorkoutSession,
+  safeParseExercise,
+  safeParseWorkout,
+  safeParseWorkoutSession,
+  safeParseActiveWorkoutSession,
+} from './schemas';
 
-export interface Workout {
-  id: string;
-  name: string;
-  description?: string;
-  exercises: Exercise[];
-  tags: Tag[];
-  createdAt: Date;
-  updatedAt: Date;
-  lastCompleted?: Date; // When this workout was last completed
-  completedCount: number; // How many times this workout has been completed
-  estimatedDuration?: number; // in minutes
-  averageDuration?: number; // in minutes - calculated from completed sessions
-  scheduledDate?: Date; // When this workout is scheduled to be performed
-}
-
-export interface ExerciseSession {
-  exerciseId: string;
-  completedSets: number;
-  actualReps: number[];
-  actualWeight: number[];
-  completed: boolean;
-  startedAt?: Date;
-  completedAt?: Date;
-  actualDuration?: number; // Individual exercise duration in seconds
-}
-
-export interface WorkoutSession {
-  id: string;
-  workoutId: string;
-  startedAt: Date;
-  completedAt?: Date;
-  actualDuration?: number; // Total duration in seconds (excludes paused time)
-  exercises: ExerciseSession[];
-  notes?: string;
-}
-
-export interface ActiveWorkoutSession {
-  id: string;
-  workoutId: string;
-  startedAt: Date;
-  pausedAt?: Date;
-  totalPausedTime: number;
-  completedExercises: string[]; // Array of exercise IDs
-  duration: number; // Current duration in seconds
-  exerciseStartTimes: Record<string, Date>; // When each exercise was started
-  exerciseEndTimes: Record<string, Date>; // When each exercise was completed
-  currentExerciseId?: string; // Currently active exercise being performed
-}
-
-// Exercise Library Types
-export interface UniqueExercise {
-  name: string;
-  // Aggregated info from all instances
-  commonSets?: number;
-  commonReps?: number;
-  commonWeight?: number;
-  commonDuration?: number;
-  commonRestTime?: number;
-  usageCount: number; // How many times this exercise appears across workouts
-  workoutIds: string[]; // Which workouts contain this exercise
-  lastUsed: Date; // When this exercise was last used in a workout
-}
-
-export interface ExerciseLibrary {
-  exercises: UniqueExercise[];
-  lastUpdated: Date;
-  totalUniqueExercises: number;
-}
-
-export interface ScheduledWorkout {
-  id: string;
-  workoutId: string;
-  scheduledDate: Date;
-  completed: boolean;
-  completedAt?: Date;
-  notes?: string;
-  createdAt: Date;
-}
-
-export type ViewMode =
-  | 'list'
-  | 'create'
-  | 'active'
-  | 'details'
-  | 'calendar'
-  | 'day'
-  | 'history'
-  | 'settings';
+// Migration note: This file now uses Zod-inferred types instead of standalone interfaces.
+// All types are now validated at runtime, providing better data integrity and error handling.
+// The API remains the same, so existing code should continue to work without changes.

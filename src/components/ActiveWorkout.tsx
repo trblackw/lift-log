@@ -248,6 +248,14 @@ export function ActiveWorkout({
                   <span>{formatTimerDuration(duration)}</span>
                 )}
               </div>
+              {(workout.averageDuration || workout.estimatedDuration) && (
+                <div className="text-xs text-muted-foreground/65 mb-2">
+                  Estimated:{' '}
+                  {workout.averageDuration
+                    ? `${workout.averageDuration} min avg`
+                    : `${workout.estimatedDuration} min`}
+                </div>
+              )}
               <div className="text-xs text-muted-foreground">
                 {completedCount > 0 && startedCount > completedCount
                   ? `${completedCount} completed, ${startedCount - completedCount} in progress of ${totalCount} exercises`

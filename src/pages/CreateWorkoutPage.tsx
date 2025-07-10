@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'sonner';
 import { useWorkoutsStore } from '../stores';
 import { WorkoutForm } from '../components/WorkoutForm';
 import { buildRoute, ROUTES } from '../lib/routes';
@@ -41,6 +42,15 @@ export function CreateWorkoutPage() {
   };
 
   const handleCancel = () => {
+    const isEditing = !!editingWorkout;
+    const workoutName = editingWorkout?.name || 'workout';
+
+    toast.info(isEditing ? 'Changes discarded' : 'Workout discarded', {
+      description: isEditing
+        ? `Changes to "${workoutName}" were not saved.`
+        : 'Your workout draft was not saved.',
+    });
+
     navigate(ROUTES.WORKOUTS);
   };
 

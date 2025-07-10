@@ -48,7 +48,7 @@ interface WorkoutListProps {
   onStartWorkout?: (workoutId: string) => void;
   onDeleteWorkout?: (workoutId: string) => void;
   viewMode?: ViewMode;
-  onViewModeChange?: (viewMode: ViewMode) => void;
+  onViewModeChange: (viewMode: ViewMode) => void;
 }
 
 export function WorkoutList({
