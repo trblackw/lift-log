@@ -106,7 +106,7 @@ export function ExerciseLibrary({
       </div>
 
       {/* Exercise List */}
-      <div className="max-h-80 overflow-y-auto space-y-2">
+      <div className="max-h-80 overflow-y-auto space-y-2 scroll-container">
         {isLoading ? (
           // Loading skeleton
           Array.from({ length: 6 }).map((_, i) => (

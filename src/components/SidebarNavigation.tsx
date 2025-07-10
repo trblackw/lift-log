@@ -169,7 +169,7 @@ export function AppSidebarLayout({
           currentView={currentView}
           onViewChange={onViewChange}
         />
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto scroll-container">
           <div className="sticky top-0 z-20 flex items-center gap-4 p-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <SidebarTrigger />
             <div className="flex-1 flex flex-col items-center justify-center gap-1 lg:hidden">

@@ -6,7 +6,7 @@
   }
 
   body {
-    @apply grid place-items-center min-w-[320px] min-h-screen relative m-0 bg-background text-foreground;
+    @apply min-w-[320px] min-h-screen relative m-0 bg-background text-foreground;
     /* Prevent zoom on mobile input focus */
     font-size: 16px;
 
@@ -15,11 +15,11 @@
     -webkit-user-select: none; /* Disable text selection */
     -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
     user-select: none; /* Disable text selection */
-    overscroll-behavior: none; /* Prevent pull-to-refresh */
-    overflow: hidden; /* Prevent body scroll */
+    overscroll-behavior-x: none; /* Prevent horizontal overscroll */
+    overscroll-behavior-y: contain; /* Allow vertical scroll with containment */
 
-    /* Prevent zoom and bounce */
-    touch-action: manipulation;
+    /* Allow touch scrolling but prevent zoom */
+    touch-action: pan-y pinch-zoom;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -61,9 +61,10 @@
   #root {
     width: 100%;
     height: 100vh;
-    overflow: hidden;
     position: relative;
-    touch-action: manipulation;
+    /* Allow scrolling with proper touch handling */
+    touch-action: pan-y pinch-zoom;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Prevent default behaviors */
@@ -89,14 +90,18 @@
 
   .mobile-scroll {
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y pinch-zoom;
   }
 
   /* Native app scrolling behavior */
   .native-scroll {
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: contain;
     scroll-behavior: smooth;
+    touch-action: pan-y pinch-zoom;
   }
 
   /* Disable text selection for UI elements */
@@ -127,6 +132,14 @@
   /* Prevent zoom on double tap */
   .no-zoom {
     touch-action: manipulation;
+  }
+
+  /* Proper mobile scrolling container */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y pinch-zoom;
   }
 
   /* Full height containers for mobile */

@@ -109,24 +109,6 @@
           e.preventDefault();
         });
 
-        // Prevent pull-to-refresh
-        let startY = 0;
-        document.addEventListener('touchstart', function (e) {
-          startY = e.touches[0].pageY;
-        });
-
-        document.addEventListener(
-          'touchmove',
-          function (e) {
-            const y = e.touches[0].pageY;
-            // Prevent pull-to-refresh if at top of page and pulling down
-            if (window.scrollY === 0 && y > startY) {
-              e.preventDefault();
-            }
-          },
-          { passive: false }
-        );
-
         // Hide address bar on mobile
         if (
           window.navigator.standalone ||

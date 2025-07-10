@@ -639,7 +639,7 @@ export function WorkoutList({
       </div>
 
       {/* Workout List */}
-      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-visible p-2">
+      <div className="flex-1 min-h-0 overflow-y-auto overflow-x-visible p-2 scroll-container">
         {sortedWorkouts.length === 0 && !isSearching ? (
           <Card>
             <CardContent className="p-6">
