@@ -479,7 +479,7 @@ export function WorkoutList({
   return (
     <div className="h-full w-full flex flex-col overflow-visible">
       {/* Search and Filter Controls - Collapsible */}
-      <div className="flex-shrink-0 bg-background relative z-20">
+      <div className="flex-shrink-0 bg-background relative z-10">
         <Collapsible open={isFiltersOpen} onOpenChange={setIsFiltersOpen}>
           {/* Header with Toggle */}
           <div className="flex items-center justify-between p-3 bg-background">
@@ -572,7 +572,7 @@ export function WorkoutList({
           </div>
 
           {/* Collapsible Content */}
-          <CollapsibleContent className="relative z-30">
+          <CollapsibleContent className="relative z-10">
             <Card className="border-0 rounded-none shadow-none bg-background">
               <CardContent className="p-6 space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 overflow-visible">
@@ -596,7 +596,7 @@ export function WorkoutList({
                       <Label className="text-sm lg:text-base">
                         Filter by Tag
                       </Label>
-                      <div className="mt-1 relative z-40">
+                      <div className="mt-1 relative z-20">
                         <Select
                           value={selectedTagFilter}
                           onValueChange={setSelectedTagFilter}
