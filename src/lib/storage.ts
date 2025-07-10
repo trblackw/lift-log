@@ -4,6 +4,7 @@ import type {
   ActiveWorkoutSession,
   ExerciseLibrary,
   UniqueExercise,
+  Template,
 } from './types';
 import { workoutDB } from './database';
 
@@ -186,6 +187,87 @@ class StorageManager {
     }
   }
 
+  // Template operations
+  async saveTemplate(template: Template): Promise<void> {
+    this.ensureInitialized();
+
+    try {
+      await workoutDB.saveTemplate(template);
+    } catch (error) {
+      console.error('Failed to save template:', error);
+      throw error;
+    }
+  }
+
+  async loadTemplates(): Promise<Template[]> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.getTemplates();
+    } catch (error) {
+      console.error('Failed to load templates:', error);
+      return [];
+    }
+  }
+
+  async getTemplateById(id: string): Promise<Template | null> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.getTemplateById(id);
+    } catch (error) {
+      console.error('Failed to get template by id:', error);
+      return null;
+    }
+  }
+
+  async deleteTemplate(id: string): Promise<void> {
+    this.ensureInitialized();
+
+    try {
+      await workoutDB.deleteTemplate(id);
+    } catch (error) {
+      console.error('Failed to delete template:', error);
+      throw error;
+    }
+  }
+
+  async searchTemplates(query: string): Promise<Template[]> {
+    this.ensureInitialized();
+
+    try {
+      if (!query.trim()) {
+        return await this.loadTemplates();
+      }
+      return await workoutDB.searchTemplates(query);
+    } catch (error) {
+      console.error('Failed to search templates:', error);
+      return [];
+    }
+  }
+
+  async getTemplatesByCategory(category: string): Promise<Template[]> {
+    this.ensureInitialized();
+
+    try {
+      return await workoutDB.getTemplatesByCategory(category);
+    } catch (error) {
+      console.error('Failed to get templates by category:', error);
+      return [];
+    }
+  }
+
+  async incrementTemplateUsage(id: string): Promise<void> {
+    this.ensureInitialized();
+
+    try {
+      await workoutDB.incrementTemplateUsage(id);
+    } catch (error) {
+      console.error('Failed to increment template usage:', error);
+      throw error;
+    }
+  }
+
   // Session operations
   async saveSessions(sessions: WorkoutSession[]): Promise<void> {
     this.ensureInitialized();
@@ -324,6 +406,7 @@ class StorageManager {
     totalWorkouts: number;
     totalSessions: number;
     totalCompletedSessions: number;
+    totalTemplates: number;
   }> {
     this.ensureInitialized();
 
@@ -335,6 +418,7 @@ class StorageManager {
         totalWorkouts: 0,
         totalSessions: 0,
         totalCompletedSessions: 0,
+        totalTemplates: 0,
       };
     }
   }
@@ -477,6 +561,17 @@ export const storage = {
   searchWorkouts: (query: string) => storageManager.searchWorkouts(query),
   getWorkoutsByTag: (tagId: string) => storageManager.getWorkoutsByTag(tagId),
   getStats: () => storageManager.getStats(),
+
+  // Template methods
+  saveTemplate: (template: Template) => storageManager.saveTemplate(template),
+  loadTemplates: () => storageManager.loadTemplates(),
+  getTemplateById: (id: string) => storageManager.getTemplateById(id),
+  deleteTemplate: (id: string) => storageManager.deleteTemplate(id),
+  searchTemplates: (query: string) => storageManager.searchTemplates(query),
+  getTemplatesByCategory: (category: string) =>
+    storageManager.getTemplatesByCategory(category),
+  incrementTemplateUsage: (id: string) =>
+    storageManager.incrementTemplateUsage(id),
 
   // Date-based query methods
   getSessionsByDateRange: (startDate: Date, endDate: Date) =>

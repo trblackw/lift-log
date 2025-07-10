@@ -21,9 +21,9 @@ interface ExerciseLibraryProps {
 
 export function ExerciseLibrary({
   onAddExercise,
-  onEditExercise,
-  editingExercise,
-  onCancelEdit,
+  // onEditExercise,
+  // editingExercise,
+  // onCancelEdit, // TODO: Add edit and cancel edit functionality
 }: ExerciseLibraryProps) {
   const { library, isLoading, error, searchExercises } = useExerciseLibrary();
   const [searchTerm, setSearchTerm] = useState('');
@@ -153,7 +153,7 @@ export function ExerciseLibrary({
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2">
                       <h4 className="font-medium truncate">{exercise.name}</h4>
-                      <span className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-full">
+                      <span className="text-xs px-2 py-1 bg-muted-foreground/10 text-muted-foreground rounded-full whitespace-nowrap">
                         {exercise.usageCount}x used
                       </span>
                     </div>

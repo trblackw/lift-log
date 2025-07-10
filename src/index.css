@@ -142,6 +142,11 @@
     touch-action: pan-y pinch-zoom;
   }
 
+  /* Custom flex animation */
+  .animate-flex {
+    animation: flex 1.5s ease-in-out infinite;
+  }
+
   /* Full height containers for mobile */
   .mobile-full-height {
     height: 100vh;
@@ -172,6 +177,16 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes flex {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
   }
 }
 

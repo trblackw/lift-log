@@ -49,11 +49,13 @@ function AppContent() {
   if (isAppLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center flex flex-col items-center justify-center">
           <div className="text-4xl mb-4">
-            <IconArmFlex className="size-10" />
+            <IconArmFlex className="size-10 animate-flex" />
           </div>
-          <p className="text-muted-foreground">Loading Lift Log...</p>
+          <p className="text-muted-foreground animate-pulse">
+            Loading Lift Log...
+          </p>
         </div>
       </div>
     );

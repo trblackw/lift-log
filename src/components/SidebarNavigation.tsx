@@ -20,6 +20,7 @@ import IconHistory from './icons/icon-history';
 import IconGear from './icons/icon-gear';
 import { format } from 'date-fns';
 import IconPuzzlePiece from './icons/icon-puzzle-piece';
+import IconTemplate from './icons/icon-template';
 
 interface SidebarNavigationProps {
   currentView: ViewMode;
@@ -51,6 +52,12 @@ const navItems: NavItem[] = [
     label: 'Composer',
     icon: <IconPuzzlePiece className="size-5" />,
     description: 'Build workouts from exercise library',
+  },
+  {
+    id: 'templates',
+    label: 'Templates',
+    icon: <IconTemplate className="size-5" />,
+    description: 'Pre-built workout templates',
   },
   {
     id: 'active',

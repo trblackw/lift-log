@@ -5,6 +5,7 @@ import type {
   Exercise,
   WorkoutSession,
   ExerciseSession,
+  Template,
 } from './types';
 
 // Predefined exercise data for realistic workouts
@@ -95,6 +96,248 @@ const WORKOUT_DESCRIPTIONS = [
   'Effective circuit training for fat loss',
   'Classic movements with proven results',
   'Dynamic workout to keep things interesting',
+];
+
+// Template data for seeding
+const TEMPLATE_DATA = [
+  {
+    name: 'Beginner Full Body',
+    description:
+      'Perfect starter routine covering all major muscle groups with basic movements',
+    category: 'Beginner',
+    estimatedDuration: 45,
+    exercises: [
+      { name: 'Bodyweight Squats', sets: 3, reps: 12 },
+      { name: 'Push-ups', sets: 3, reps: 8 },
+      { name: 'Assisted Pull-ups', sets: 3, reps: 5 },
+      { name: 'Plank', duration: 1 },
+      { name: 'Walking Lunges', sets: 2, reps: 10 },
+      { name: 'Dumbbell Rows', sets: 3, reps: 10, weight: 15 },
+    ],
+    tags: [
+      { name: 'Beginner', color: '#10b981' },
+      { name: 'Full Body', color: '#ec4899' },
+    ],
+  },
+  {
+    name: 'Quick Morning Warm-up',
+    description: 'Energizing 15-minute routine to start your day right',
+    category: 'Warm-up',
+    estimatedDuration: 15,
+    exercises: [
+      { name: 'Arm Circles', sets: 2, reps: 10 },
+      { name: 'Leg Swings', sets: 2, reps: 10 },
+      { name: 'Cat-Cow Stretch', sets: 2, reps: 8 },
+      { name: 'Dynamic Lunges', sets: 2, reps: 6 },
+      { name: 'Shoulder Rolls', sets: 2, reps: 10 },
+      { name: 'Light Jogging in Place', duration: 2 },
+    ],
+    tags: [
+      { name: 'Warm-up', color: '#fbbf24' },
+      { name: 'Morning', color: '#fbbf24' },
+      { name: 'Quick', color: '#84cc16' },
+    ],
+  },
+  {
+    name: 'Evening Cool-down',
+    description:
+      'Relaxing stretches and movements to wind down after a long day',
+    category: 'Cool-down',
+    estimatedDuration: 20,
+    exercises: [
+      { name: "Child's Pose", duration: 2 },
+      { name: 'Forward Fold', duration: 2 },
+      { name: 'Seated Spinal Twist', sets: 2, reps: 5 },
+      { name: 'Hip Flexor Stretch', duration: 2 },
+      { name: 'Shoulder Stretch', duration: 1 },
+      { name: 'Deep Breathing', duration: 5 },
+    ],
+    tags: [
+      { name: 'Cool-down', color: '#6366f1' },
+      { name: 'Evening', color: '#6366f1' },
+      { name: 'Stretching', color: '#8b5cf6' },
+    ],
+  },
+  {
+    name: 'Upper Body Power',
+    description:
+      'Intense upper body workout focusing on chest, shoulders, and arms',
+    category: 'Upper Body',
+    estimatedDuration: 60,
+    exercises: [
+      {
+        name: 'Barbell Bench Press',
+        sets: 4,
+        reps: 6,
+        weight: 185,
+        restTime: 120,
+      },
+      {
+        name: 'Incline Dumbbell Press',
+        sets: 3,
+        reps: 8,
+        weight: 60,
+        restTime: 90,
+      },
+      { name: 'Pull-ups', sets: 4, reps: 8, restTime: 90 },
+      { name: 'Overhead Press', sets: 3, reps: 6, weight: 95, restTime: 120 },
+      { name: 'Barbell Rows', sets: 4, reps: 8, weight: 135, restTime: 90 },
+      { name: 'Dips', sets: 3, reps: 10, restTime: 90 },
+      { name: 'Barbell Curls', sets: 3, reps: 10, weight: 65, restTime: 60 },
+    ],
+    tags: [
+      { name: 'Upper Body', color: '#eab308' },
+      { name: 'Strength', color: '#ef4444' },
+      { name: 'Advanced', color: '#f59e0b' },
+    ],
+  },
+  {
+    name: 'Lower Body Blast',
+    description:
+      'Complete lower body workout targeting quads, hamstrings, and glutes',
+    category: 'Lower Body',
+    estimatedDuration: 55,
+    exercises: [
+      { name: 'Back Squat', sets: 4, reps: 8, weight: 225, restTime: 120 },
+      {
+        name: 'Romanian Deadlift',
+        sets: 4,
+        reps: 8,
+        weight: 185,
+        restTime: 120,
+      },
+      {
+        name: 'Bulgarian Split Squats',
+        sets: 3,
+        reps: 10,
+        weight: 25,
+        restTime: 90,
+      },
+      { name: 'Leg Press', sets: 3, reps: 12, weight: 270, restTime: 90 },
+      { name: 'Walking Lunges', sets: 3, reps: 12, weight: 30, restTime: 60 },
+      { name: 'Calf Raises', sets: 4, reps: 15, weight: 135, restTime: 60 },
+    ],
+    tags: [
+      { name: 'Lower Body', color: '#22c55e' },
+      { name: 'Strength', color: '#ef4444' },
+    ],
+  },
+  {
+    name: 'HIIT Cardio Blast',
+    description: 'High-intensity interval training for maximum calorie burn',
+    category: 'HIIT',
+    estimatedDuration: 25,
+    exercises: [
+      { name: 'Burpees', duration: 1 },
+      { name: 'Mountain Climbers', duration: 1 },
+      { name: 'Jump Squats', sets: 3, reps: 15 },
+      { name: 'High Knees', duration: 1 },
+      { name: 'Plank Jacks', duration: 1 },
+      { name: 'Jumping Jacks', duration: 2 },
+      { name: 'Rest', duration: 10 },
+    ],
+    tags: [
+      { name: 'HIIT', color: '#8b5cf6' },
+      { name: 'Cardio', color: '#f97316' },
+      { name: 'Quick', color: '#84cc16' },
+    ],
+  },
+  {
+    name: 'Push Day Classic',
+    description:
+      'Traditional push workout focusing on chest, shoulders, and triceps',
+    category: 'Push',
+    estimatedDuration: 50,
+    exercises: [
+      {
+        name: 'Barbell Bench Press',
+        sets: 4,
+        reps: 8,
+        weight: 185,
+        restTime: 120,
+      },
+      {
+        name: 'Incline Dumbbell Press',
+        sets: 3,
+        reps: 10,
+        weight: 60,
+        restTime: 90,
+      },
+      { name: 'Overhead Press', sets: 4, reps: 6, weight: 95, restTime: 120 },
+      { name: 'Lateral Raises', sets: 3, reps: 12, weight: 20, restTime: 60 },
+      {
+        name: 'Close-Grip Bench Press',
+        sets: 3,
+        reps: 8,
+        weight: 135,
+        restTime: 90,
+      },
+      { name: 'Tricep Dips', sets: 3, reps: 10, restTime: 60 },
+    ],
+    tags: [
+      { name: 'Push', color: '#06b6d4' },
+      { name: 'Upper Body', color: '#eab308' },
+      { name: 'Strength', color: '#ef4444' },
+    ],
+  },
+  {
+    name: 'Pull Day Power',
+    description: 'Complete pulling workout for back and biceps development',
+    category: 'Pull',
+    estimatedDuration: 50,
+    exercises: [
+      { name: 'Pull-ups', sets: 4, reps: 8, restTime: 90 },
+      { name: 'Barbell Rows', sets: 4, reps: 8, weight: 135, restTime: 90 },
+      { name: 'Lat Pulldowns', sets: 3, reps: 10, weight: 120, restTime: 90 },
+      { name: 'Face Pulls', sets: 3, reps: 15, weight: 40, restTime: 60 },
+      { name: 'Barbell Curls', sets: 3, reps: 10, weight: 65, restTime: 60 },
+      { name: 'Hammer Curls', sets: 3, reps: 12, weight: 30, restTime: 60 },
+    ],
+    tags: [
+      { name: 'Pull', color: '#3b82f6' },
+      { name: 'Upper Body', color: '#eab308' },
+      { name: 'Strength', color: '#ef4444' },
+    ],
+  },
+  {
+    name: 'Core Crusher',
+    description: 'Intensive core workout targeting all abdominal muscles',
+    category: 'Core',
+    estimatedDuration: 30,
+    exercises: [
+      { name: 'Plank', duration: 2 },
+      { name: 'Russian Twists', sets: 3, reps: 20, weight: 25, restTime: 60 },
+      { name: 'Dead Bug', sets: 3, reps: 10, restTime: 45 },
+      { name: 'Bicycle Crunches', sets: 3, reps: 20, restTime: 45 },
+      { name: 'Side Plank', duration: 1 },
+      { name: 'Mountain Climbers', duration: 1 },
+      { name: 'Leg Raises', sets: 3, reps: 12, restTime: 60 },
+    ],
+    tags: [
+      { name: 'Core', color: '#ec4899' },
+      { name: 'Quick', color: '#84cc16' },
+    ],
+  },
+  {
+    name: 'Home Bodyweight',
+    description: 'No equipment needed - effective bodyweight workout for home',
+    category: 'Bodyweight',
+    estimatedDuration: 35,
+    exercises: [
+      { name: 'Push-ups', sets: 4, reps: 12, restTime: 60 },
+      { name: 'Bodyweight Squats', sets: 4, reps: 15, restTime: 60 },
+      { name: 'Lunges', sets: 3, reps: 10, restTime: 60 },
+      { name: 'Plank', duration: 1 },
+      { name: 'Burpees', sets: 3, reps: 8, restTime: 90 },
+      { name: 'Pike Push-ups', sets: 3, reps: 8, restTime: 60 },
+      { name: 'Glute Bridges', sets: 3, reps: 15, restTime: 45 },
+    ],
+    tags: [
+      { name: 'Home', color: '#14b8a6' },
+      { name: 'Full Body', color: '#ec4899' },
+      { name: 'Beginner', color: '#10b981' },
+    ],
+  },
 ];
 
 /**
@@ -421,6 +664,48 @@ export function generateWorkoutData(count: number = 20): Workout[] {
 }
 
 /**
+ * Creates a single template from template data
+ */
+function createTemplate(templateData: (typeof TEMPLATE_DATA)[0]): Template {
+  const exercises: Exercise[] = templateData.exercises.map(ex => ({
+    id: crypto.randomUUID(),
+    name: ex.name,
+    sets: ex.sets,
+    reps: ex.reps,
+    weight: ex.weight,
+    duration: ex.duration,
+    restTime: 'restTime' in ex ? ex.restTime : undefined,
+  }));
+
+  const tags: Tag[] = templateData.tags.map(tag => ({
+    id: crypto.randomUUID(),
+    name: tag.name,
+    color: tag.color,
+  }));
+
+  return {
+    id: crypto.randomUUID(),
+    name: templateData.name,
+    description: templateData.description,
+    category: templateData.category,
+    exercises,
+    tags,
+    estimatedDuration: templateData.estimatedDuration,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    usageCount: 0,
+    isBuiltIn: true,
+  };
+}
+
+/**
+ * Generates all built-in templates
+ */
+export function generateTemplateData(): Template[] {
+  return TEMPLATE_DATA.map(templateData => createTemplate(templateData));
+}
+
+/**
  * Generates both workout and session data (works in both browser and Node.js)
  */
 export function generateCompleteWorkoutData(workoutCount: number = 20): {
@@ -434,12 +719,29 @@ export function generateCompleteWorkoutData(workoutCount: number = 20): {
 }
 
 /**
+ * Generates workout, session, and template data
+ */
+export function generateCompleteWorkoutDataWithTemplates(
+  workoutCount: number = 20
+): {
+  workouts: Workout[];
+  sessions: WorkoutSession[];
+  templates: Template[];
+} {
+  const workouts = generateWorkoutData(workoutCount);
+  const sessions = generateWorkoutSessions(workouts);
+  const templates = generateTemplateData();
+
+  return { workouts, sessions, templates };
+}
+
+/**
  * Seeds the database with debug workout data (browser only)
  */
 export async function seedDebugData(): Promise<void> {
   if (typeof window === 'undefined') {
     throw new Error(
-      'seedDebugData can only be run in a browser environment. Use generateCompleteWorkoutData() for Node.js environments.'
+      'seedDebugData can only be run in a browser environment. Use generateCompleteWorkoutDataWithTemplates() for Node.js environments.'
     );
   }
 
@@ -449,8 +751,9 @@ export async function seedDebugData(): Promise<void> {
     // Initialize storage if needed
     await storage.init();
 
-    // Generate workouts and sessions
-    const { workouts, sessions } = generateCompleteWorkoutData(20);
+    // Generate workouts, sessions, and templates
+    const { workouts, sessions, templates } =
+      generateCompleteWorkoutDataWithTemplates(20);
 
     // Save all workouts
     for (const workout of workouts) {
@@ -462,12 +765,18 @@ export async function seedDebugData(): Promise<void> {
       await storage.saveSession(session);
     }
 
+    // Save all templates
+    for (const template of templates) {
+      await storage.saveTemplate(template);
+    }
+
     console.log(
-      `✅ Successfully seeded ${workouts.length} workouts and ${sessions.length} sessions!`
+      `✅ Successfully seeded ${workouts.length} workouts, ${sessions.length} sessions, and ${templates.length} templates!`
     );
     console.log('📊 Summary:');
     console.log(`   • Total workouts: ${workouts.length}`);
     console.log(`   • Total sessions: ${sessions.length}`);
+    console.log(`   • Total templates: ${templates.length}`);
     console.log(
       `   • Completed workouts: ${workouts.filter(w => w.lastCompleted).length}`
     );
@@ -479,6 +788,9 @@ export async function seedDebugData(): Promise<void> {
     );
     console.log(
       `   • Unique tags created: ${new Set(workouts.flatMap(w => w.tags.map(t => t.name))).size}`
+    );
+    console.log(
+      `   • Built-in templates: ${templates.filter(t => t.isBuiltIn).length}`
     );
   } catch (error) {
     console.error('❌ Failed to seed debug data:', error);
@@ -526,11 +838,40 @@ export async function importWorkoutData(workouts: Workout[]): Promise<void> {
 }
 
 /**
+ * Imports template data into the browser database
+ */
+export async function importTemplateData(templates: Template[]): Promise<void> {
+  if (typeof window === 'undefined') {
+    throw new Error(
+      'importTemplateData can only be run in a browser environment.'
+    );
+  }
+
+  console.log(`🔄 Importing ${templates.length} templates...`);
+
+  try {
+    // Initialize storage if needed
+    await storage.init();
+
+    // Save all templates
+    for (const template of templates) {
+      await storage.saveTemplate(template);
+    }
+
+    console.log(`✅ Successfully imported ${templates.length} templates!`);
+  } catch (error) {
+    console.error('❌ Failed to import template data:', error);
+    throw error;
+  }
+}
+
+/**
  * Imports complete workout and session data into the browser database
  */
 export async function importCompleteData(data: {
   workouts: any[];
   sessions: any[];
+  templates?: any[];
 }): Promise<void> {
   if (typeof window === 'undefined') {
     throw new Error(
@@ -538,8 +879,9 @@ export async function importCompleteData(data: {
     );
   }
 
+  const hasTemplates = data.templates && data.templates.length > 0;
   console.log(
-    `🔄 Importing ${data.workouts.length} workouts and ${data.sessions.length} sessions...`
+    `🔄 Importing ${data.workouts.length} workouts, ${data.sessions.length} sessions${hasTemplates ? `, and ${data.templates!.length} templates` : ''}...`
   );
 
   try {
@@ -573,6 +915,15 @@ export async function importCompleteData(data: {
       })),
     }));
 
+    // Convert date strings back to Date objects for templates
+    const templates: Template[] = hasTemplates
+      ? data.templates!.map(template => ({
+          ...template,
+          createdAt: new Date(template.createdAt),
+          updatedAt: new Date(template.updatedAt),
+        }))
+      : [];
+
     // Save all workouts
     for (const workout of workouts) {
       await storage.saveWorkout(workout);
@@ -583,12 +934,22 @@ export async function importCompleteData(data: {
       await storage.saveSession(session);
     }
 
+    // Save all templates
+    if (hasTemplates) {
+      for (const template of templates) {
+        await storage.saveTemplate(template);
+      }
+    }
+
     console.log(
-      `✅ Successfully imported ${workouts.length} workouts and ${sessions.length} sessions!`
+      `✅ Successfully imported ${workouts.length} workouts, ${sessions.length} sessions${hasTemplates ? `, and ${templates.length} templates` : ''}!`
     );
     console.log('📊 Summary:');
     console.log(`   • Total workouts: ${workouts.length}`);
     console.log(`   • Total sessions: ${sessions.length}`);
+    if (hasTemplates) {
+      console.log(`   • Total templates: ${templates.length}`);
+    }
     console.log(
       `   • Completed workouts: ${workouts.filter(w => w.lastCompleted).length}`
     );

@@ -10,6 +10,7 @@ import { EditWorkoutPage } from './pages/EditWorkoutPage';
 import { HistoryPage } from './pages/HistoryPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { TemplatesPage } from './pages/TemplatesPage';
 import { WorkoutDetailsPage } from './pages/WorkoutDetailsPage';
 import { WorkoutListPage } from './pages/WorkoutListPage';
 
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
       {
         path: PATHS.COMPOSER,
         element: <ComposerPage />,
+      },
+      {
+        path: PATHS.TEMPLATES,
+        element: <TemplatesPage />,
       },
       {
         path: PATHS.ACTIVE,

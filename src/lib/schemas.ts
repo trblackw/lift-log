@@ -107,11 +107,27 @@ export const ScheduledWorkoutSchema = z.object({
   createdAt: DateSchema,
 });
 
+// Template schema
+export const TemplateSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1, 'Template name is required'),
+  description: z.string().optional(),
+  category: z.string().optional(), // e.g., "Beginner", "Advanced", "Warm-up", "Cool-down"
+  exercises: z.array(ExerciseSchema),
+  tags: z.array(TagSchema),
+  estimatedDuration: z.number().positive().optional(), // in minutes
+  createdAt: DateSchema,
+  updatedAt: DateSchema,
+  usageCount: z.number().int().min(0).default(0), // How many times this template has been used
+  isBuiltIn: z.boolean().default(false), // Whether this is a built-in template or user-created
+});
+
 // View mode schema
 export const ViewModeSchema = z.enum([
   'list',
   'create',
   'composer',
+  'templates',
   'active',
   'details',
   'calendar',
@@ -130,6 +146,7 @@ export type ActiveWorkoutSession = z.infer<typeof ActiveWorkoutSessionSchema>;
 export type UniqueExercise = z.infer<typeof UniqueExerciseSchema>;
 export type ExerciseLibrary = z.infer<typeof ExerciseLibrarySchema>;
 export type ScheduledWorkout = z.infer<typeof ScheduledWorkoutSchema>;
+export type Template = z.infer<typeof TemplateSchema>;
 export type ViewMode = z.infer<typeof ViewModeSchema>;
 
 // Validation helpers
@@ -139,6 +156,7 @@ export const validateWorkoutSession = (data: unknown) =>
   WorkoutSessionSchema.parse(data);
 export const validateActiveWorkoutSession = (data: unknown) =>
   ActiveWorkoutSessionSchema.parse(data);
+export const validateTemplate = (data: unknown) => TemplateSchema.parse(data);
 
 // Safe parsing helpers (returns result object instead of throwing)
 export const safeParseExercise = (data: unknown) =>
@@ -149,16 +167,22 @@ export const safeParseWorkoutSession = (data: unknown) =>
   WorkoutSessionSchema.safeParse(data);
 export const safeParseActiveWorkoutSession = (data: unknown) =>
   ActiveWorkoutSessionSchema.safeParse(data);
+export const safeParseTemplate = (data: unknown) =>
+  TemplateSchema.safeParse(data);
 
 // Array validation helpers
 export const validateWorkouts = (data: unknown) =>
   z.array(WorkoutSchema).parse(data);
 export const validateWorkoutSessions = (data: unknown) =>
   z.array(WorkoutSessionSchema).parse(data);
+export const validateTemplates = (data: unknown) =>
+  z.array(TemplateSchema).parse(data);
 
 // Partial schemas for updates
 export const PartialWorkoutSchema = WorkoutSchema.partial();
 export const PartialExerciseSchema = ExerciseSchema.partial();
+export const PartialTemplateSchema = TemplateSchema.partial();
 
 export type PartialWorkout = z.infer<typeof PartialWorkoutSchema>;
 export type PartialExercise = z.infer<typeof PartialExerciseSchema>;
+export type PartialTemplate = z.infer<typeof PartialTemplateSchema>;

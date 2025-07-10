@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
-import { useWorkoutsStore, useSessionsStore, useUIStore } from '../stores';
+import {
+  useWorkoutsStore,
+  useSessionsStore,
+  useUIStore,
+  useTemplatesStore,
+} from '../stores';
 import { storage } from '../lib/storage';
 import { initializeDebugUtils } from '../lib/debug';
 
@@ -11,6 +16,9 @@ export function useInitializeApp() {
   );
   const initializeSessions = useSessionsStore(
     state => state.initializeSessions
+  );
+  const initializeTemplates = useTemplatesStore(
+    state => state.initializeTemplates
   );
 
   useEffect(() => {
@@ -28,7 +36,11 @@ export function useInitializeApp() {
 
         // Initialize all stores in parallel
         console.log('🏪 Initializing stores...');
-        await Promise.all([initializeWorkouts(), initializeSessions()]);
+        await Promise.all([
+          initializeWorkouts(),
+          initializeSessions(),
+          initializeTemplates(),
+        ]);
         console.log('✅ Stores initialized successfully');
 
         // Initialize debug utilities (only in development)
@@ -45,5 +57,11 @@ export function useInitializeApp() {
     };
 
     initializeApp();
-  }, [setAppLoading, setGlobalError, initializeWorkouts, initializeSessions]);
+  }, [
+    setAppLoading,
+    setGlobalError,
+    initializeWorkouts,
+    initializeSessions,
+    initializeTemplates,
+  ]);
 }

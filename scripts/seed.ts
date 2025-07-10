@@ -11,7 +11,7 @@
 
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import { generateCompleteWorkoutData } from '../src/lib/seedData';
+import { generateCompleteWorkoutDataWithTemplates } from '../src/lib/seedData';
 
 async function main() {
   const args = process.argv.slice(2);
@@ -36,8 +36,11 @@ async function main() {
   console.log('🏋️ Lift Log Workout Data Generator\n');
 
   try {
-    console.log(`🌱 Generating ${count} random workouts with sessions...`);
-    const { workouts, sessions } = generateCompleteWorkoutData(count);
+    console.log(
+      `🌱 Generating ${count} random workouts with sessions and templates...`
+    );
+    const { workouts, sessions, templates } =
+      generateCompleteWorkoutDataWithTemplates(count);
 
     // Convert dates to strings for JSON serialization
     const serializedWorkouts = workouts.map(workout => ({
@@ -59,21 +62,29 @@ async function main() {
       })),
     }));
 
+    const serializedTemplates = templates.map(template => ({
+      ...template,
+      createdAt: template.createdAt.toISOString(),
+      updatedAt: template.updatedAt.toISOString(),
+    }));
+
     const data = {
       workouts: serializedWorkouts,
       sessions: serializedSessions,
+      templates: serializedTemplates,
     };
 
     console.log('💾 Writing workout and session data to file...');
     writeFileSync(outputPath, JSON.stringify(data, null, 2));
 
     console.log(
-      `✅ Successfully generated ${workouts.length} workouts and ${sessions.length} sessions!`
+      `✅ Successfully generated ${workouts.length} workouts, ${sessions.length} sessions, and ${templates.length} templates!`
     );
     console.log(`📁 File saved to: ${outputPath}`);
     console.log('📊 Summary:');
     console.log(`   • Total workouts: ${workouts.length}`);
     console.log(`   • Total sessions: ${sessions.length}`);
+    console.log(`   • Total templates: ${templates.length}`);
     console.log(
       `   • Completed workouts: ${workouts.filter(w => w.lastCompleted).length}`
     );
@@ -86,15 +97,20 @@ async function main() {
     console.log(
       `   • Unique tags created: ${new Set(workouts.flatMap(w => w.tags.map(t => t.name))).size}`
     );
+    console.log(
+      `   • Built-in templates: ${templates.filter(t => t.isBuiltIn).length}`
+    );
 
     console.log('\n🌐 To import this data into your browser:');
     console.log('1. Open your Lift Log app in the browser');
     console.log('2. Open the browser console (F12 → Console)');
     console.log('3. Copy the data from the generated file');
     console.log(
-      '4. Run: debug.importCompleteData(data) // imports both workouts and sessions'
+      '4. Run: debug.importCompleteData(data) // imports workouts, sessions, and templates'
     );
-    console.log('5. Refresh the page to see your workouts and history charts!');
+    console.log(
+      '5. Refresh the page to see your workouts, templates, and history charts!'
+    );
   } catch (error) {
     console.error('\n❌ Generation failed:', error);
     process.exit(1);

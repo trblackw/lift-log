@@ -21,7 +21,10 @@ import { CalendarIcon } from 'lucide-react';
 import { ExerciseForm } from '@/components/ExerciseForm';
 import { TagSelector } from '@/components/TagSelector';
 import { ComposableExerciseList } from '@/components/ComposableExerciseList';
-import type { Workout, Exercise, Tag } from '@/lib/types';
+import { useTemplatesStore } from '@/stores';
+import type { Workout, Exercise, Tag, Template } from '@/lib/types';
+import IconBench from './icons/icon-bench';
+import IconDumbbell from './icons/icon-dumbbell';
 
 interface WorkoutFormData {
   name: string;
@@ -48,6 +51,11 @@ export function WorkoutForm({
     new Date()
   );
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [showTemplates, setShowTemplates] = useState(false);
+
+  // Templates store
+  const templates = useTemplatesStore(state => state.templates);
+  const useTemplate = useTemplatesStore(state => state.useTemplate);
 
   const {
     register,
@@ -109,6 +117,38 @@ export function WorkoutForm({
 
   const cancelEdit = () => {
     setEditingExercise(null);
+  };
+
+  const applyTemplate = async (templateId: string) => {
+    const template = await useTemplate(templateId);
+    if (!template) return;
+
+    // Apply template data to form
+    setValue('name', template.name);
+    setValue('description', template.description || '');
+    setValue('estimatedDuration', template.estimatedDuration || 45);
+
+    // Apply template exercises (create new IDs to avoid conflicts)
+    const templateExercises = template.exercises.map(exercise => ({
+      ...exercise,
+      id: crypto.randomUUID(), // Generate new IDs for the workout
+    }));
+    setExercises(templateExercises);
+
+    // Apply template tags
+    setSelectedTags(template.tags);
+
+    // Hide template selector
+    setShowTemplates(false);
+  };
+
+  const clearForm = () => {
+    reset();
+    setValue('estimatedDuration', 45);
+    setExercises([]);
+    setSelectedTags([]);
+    setEditingExercise(null);
+    setScheduledDate(new Date());
   };
 
   const onSubmit = (data: WorkoutFormData) => {
@@ -256,6 +296,107 @@ export function WorkoutForm({
           />
         </CardContent>
       </Card>
+
+      {/* Template Selector - Only show when creating new workout */}
+      {!isEditing && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg lg:text-xl flex items-center justify-between">
+              <span>Start from Template</span>
+              <OutlineButton
+                size="sm"
+                onClick={() => setShowTemplates(!showTemplates)}
+                className="shrink-0"
+              >
+                {showTemplates ? 'Hide Templates' : 'Browse Templates'}
+              </OutlineButton>
+            </CardTitle>
+          </CardHeader>
+          {showTemplates && (
+            <CardContent className="p-6">
+              {templates.length === 0 ? (
+                <div className="text-center py-8">
+                  <IconBench className="size-12 mx-auto mb-4 text-muted-foreground" />
+                  <h3 className="text-lg font-semibold mb-2">
+                    No Templates Available
+                  </h3>
+                  <p className="text-muted-foreground text-sm">
+                    Create templates from the Templates page to use them here.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="text-sm text-muted-foreground">
+                    Choose a template to pre-fill your workout with exercises
+                    and settings:
+                  </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                    {templates.slice(0, 6).map(template => (
+                      <div
+                        key={template.id}
+                        className="p-4 border rounded-lg hover:bg-muted/50 transition-colors cursor-pointer"
+                        onClick={() => applyTemplate(template.id)}
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="font-medium text-sm lg:text-base truncate">
+                            {template.name}
+                          </h4>
+                          {template.isBuiltIn && (
+                            <span className="text-xs text-primary font-medium ml-2">
+                              Built-in
+                            </span>
+                          )}
+                        </div>
+
+                        {template.description && (
+                          <p className="text-xs text-muted-foreground mb-2 line-clamp-2">
+                            {template.description}
+                          </p>
+                        )}
+
+                        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <IconDumbbell className="size-3" />
+                            <span>{template.exercises.length} exercises</span>
+                          </div>
+                          {template.estimatedDuration && (
+                            <div className="flex items-center gap-1">
+                              <span>{template.estimatedDuration} min</span>
+                            </div>
+                          )}
+                          {template.category && (
+                            <div className="text-primary">
+                              {template.category}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {templates.length > 6 && (
+                    <div className="text-center">
+                      <p className="text-sm text-muted-foreground">
+                        Showing 6 of {templates.length} templates. Visit
+                        Templates page to see all.
+                      </p>
+                    </div>
+                  )}
+
+                  <div className="flex justify-between items-center pt-4 border-t">
+                    <OutlineButton size="sm" onClick={clearForm}>
+                      Clear Form
+                    </OutlineButton>
+                    <p className="text-xs text-muted-foreground">
+                      Using a template will replace current form data
+                    </p>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          )}
+        </Card>
+      )}
 
       <Card>
         <CardHeader>

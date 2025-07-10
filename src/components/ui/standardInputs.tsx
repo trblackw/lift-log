@@ -42,7 +42,7 @@ export function SearchInput({ className, ...props }: InputProps) {
       type="search"
       className={cn(
         // Enhanced search input styling
-        'bg-muted/30 text-foreground',
+        'bg-background/30 text-foreground',
         'border-border/60 hover:border-border',
         'focus-visible:bg-card focus-visible:border-primary/60 focus-visible:ring-primary/20',
         'placeholder:text-muted-foreground/60',
@@ -50,8 +50,8 @@ export function SearchInput({ className, ...props }: InputProps) {
         // Search-specific styling
         'pl-10', // Space for search icon if added later
         // Dark mode enhancements
-        'dark:bg-muted/20 dark:text-foreground',
-        'dark:border-border/40 dark:hover:border-border/60',
+        'dark:bg-background dark:text-foreground',
+        'dark:border-border dark:hover:border-border/60',
         'dark:focus-visible:bg-card dark:focus-visible:border-primary/50',
         className
       )}

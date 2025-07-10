@@ -9,9 +9,11 @@ export type {
   UniqueExercise,
   ExerciseLibrary,
   ScheduledWorkout,
+  Template,
   ViewMode,
   PartialWorkout,
   PartialExercise,
+  PartialTemplate,
 } from './schemas';
 
 // Re-export validation functions for convenience
@@ -20,10 +22,12 @@ export {
   validateWorkout,
   validateWorkoutSession,
   validateActiveWorkoutSession,
+  validateTemplate,
   safeParseExercise,
   safeParseWorkout,
   safeParseWorkoutSession,
   safeParseActiveWorkoutSession,
+  safeParseTemplate,
 } from './schemas';
 
 // Migration note: This file now uses Zod-inferred types instead of standalone interfaces.

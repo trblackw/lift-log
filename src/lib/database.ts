@@ -3,15 +3,17 @@ import type {
   WorkoutSession,
   UniqueExercise,
   ExerciseLibrary,
+  Template,
 } from './types';
 
 const DB_NAME = 'LiftLogDB';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Increment version for schema change
 
 // Store names
 const STORES = {
   WORKOUTS: 'workouts',
   SESSIONS: 'workoutSessions',
+  TEMPLATES: 'templates',
 } as const;
 
 class WorkoutDatabase {
@@ -51,6 +53,21 @@ class WorkoutDatabase {
           sessionStore.createIndex('workoutId', 'workoutId', { unique: false });
           sessionStore.createIndex('startedAt', 'startedAt', { unique: false });
           sessionStore.createIndex('completedAt', 'completedAt', {
+            unique: false,
+          });
+        }
+
+        // Create templates store
+        if (!db.objectStoreNames.contains(STORES.TEMPLATES)) {
+          const templateStore = db.createObjectStore(STORES.TEMPLATES, {
+            keyPath: 'id',
+          });
+          templateStore.createIndex('name', 'name', { unique: false });
+          templateStore.createIndex('category', 'category', { unique: false });
+          templateStore.createIndex('createdAt', 'createdAt', {
+            unique: false,
+          });
+          templateStore.createIndex('usageCount', 'usageCount', {
             unique: false,
           });
         }
@@ -154,6 +171,150 @@ class WorkoutDatabase {
     );
   }
 
+  // Template operations
+  async saveTemplate(template: Template): Promise<void> {
+    await this.performTransaction(
+      STORES.TEMPLATES,
+      'readwrite',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+        return new Promise<void>((resolve, reject) => {
+          const request = store.put(template);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+      }
+    );
+  }
+
+  async getTemplates(): Promise<Template[]> {
+    return this.performTransaction(
+      STORES.TEMPLATES,
+      'readonly',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+        const index = store.index('createdAt');
+
+        return new Promise<Template[]>((resolve, reject) => {
+          const request = index.getAll();
+          request.onsuccess = () => {
+            // Sort by creation date, newest first
+            const templates = request.result.sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            );
+            resolve(templates);
+          };
+          request.onerror = () => reject(request.error);
+        });
+      }
+    );
+  }
+
+  async getTemplateById(id: string): Promise<Template | null> {
+    return this.performTransaction(
+      STORES.TEMPLATES,
+      'readonly',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+
+        return new Promise<Template | null>((resolve, reject) => {
+          const request = store.get(id);
+          request.onsuccess = () => resolve(request.result || null);
+          request.onerror = () => reject(request.error);
+        });
+      }
+    );
+  }
+
+  async deleteTemplate(id: string): Promise<void> {
+    await this.performTransaction(
+      STORES.TEMPLATES,
+      'readwrite',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+
+        return new Promise<void>((resolve, reject) => {
+          const request = store.delete(id);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+      }
+    );
+  }
+
+  async searchTemplates(query: string): Promise<Template[]> {
+    const allTemplates = await this.getTemplates();
+    const lowercaseQuery = query.toLowerCase();
+
+    return allTemplates.filter(
+      template =>
+        template.name.toLowerCase().includes(lowercaseQuery) ||
+        (template.description?.toLowerCase().includes(lowercaseQuery) ??
+          false) ||
+        (template.category?.toLowerCase().includes(lowercaseQuery) ?? false) ||
+        template.exercises.some(exercise =>
+          exercise.name.toLowerCase().includes(lowercaseQuery)
+        )
+    );
+  }
+
+  async getTemplatesByCategory(category: string): Promise<Template[]> {
+    return this.performTransaction(
+      STORES.TEMPLATES,
+      'readonly',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+        const index = store.index('category');
+
+        return new Promise<Template[]>((resolve, reject) => {
+          const request = index.getAll(category);
+          request.onsuccess = () => {
+            const templates = request.result.sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime()
+            );
+            resolve(templates);
+          };
+          request.onerror = () => reject(request.error);
+        });
+      }
+    );
+  }
+
+  async incrementTemplateUsage(id: string): Promise<void> {
+    await this.performTransaction(
+      STORES.TEMPLATES,
+      'readwrite',
+      async transaction => {
+        const store = transaction.objectStore(STORES.TEMPLATES);
+
+        return new Promise<void>((resolve, reject) => {
+          // First get the template
+          const getRequest = store.get(id);
+          getRequest.onsuccess = () => {
+            const template = getRequest.result;
+            if (template) {
+              // Increment usage count
+              template.usageCount = (template.usageCount || 0) + 1;
+              template.updatedAt = new Date();
+
+              // Save the updated template
+              const putRequest = store.put(template);
+              putRequest.onsuccess = () => resolve();
+              putRequest.onerror = () => reject(putRequest.error);
+            } else {
+              resolve(); // Template not found, but don't error
+            }
+          };
+          getRequest.onerror = () => reject(getRequest.error);
+        });
+      }
+    );
+  }
+
   // Session operations
   async saveSession(session: WorkoutSession): Promise<void> {
     await this.performTransaction(
@@ -246,11 +407,12 @@ class WorkoutDatabase {
   // Utility operations
   async clearAllData(): Promise<void> {
     await this.performTransaction(
-      [STORES.WORKOUTS, STORES.SESSIONS],
+      [STORES.WORKOUTS, STORES.SESSIONS, STORES.TEMPLATES],
       'readwrite',
       async transaction => {
         const workoutStore = transaction.objectStore(STORES.WORKOUTS);
         const sessionStore = transaction.objectStore(STORES.SESSIONS);
+        const templateStore = transaction.objectStore(STORES.TEMPLATES);
 
         return Promise.all([
           new Promise<void>((resolve, reject) => {
@@ -263,6 +425,11 @@ class WorkoutDatabase {
             request.onsuccess = () => resolve();
             request.onerror = () => reject(request.error);
           }),
+          new Promise<void>((resolve, reject) => {
+            const request = templateStore.clear();
+            request.onsuccess = () => resolve();
+            request.onerror = () => reject(request.error);
+          }),
         ]).then(() => {});
       }
     );
@@ -272,15 +439,18 @@ class WorkoutDatabase {
     totalWorkouts: number;
     totalSessions: number;
     totalCompletedSessions: number;
+    totalTemplates: number;
   }> {
     const workouts = await this.getWorkouts();
     const sessions = await this.getSessions();
+    const templates = await this.getTemplates();
     const completedSessions = sessions.filter(s => s.completedAt);
 
     return {
       totalWorkouts: workouts.length,
       totalSessions: sessions.length,
       totalCompletedSessions: completedSessions.length,
+      totalTemplates: templates.length,
     };
   }
 

@@ -4,7 +4,11 @@ import {
   SecondaryButton,
   OutlineButton,
 } from '@/components/ui/standardButtons';
-import { StandardInput, FormTextarea } from '@/components/ui/standardInputs';
+import {
+  StandardInput,
+  FormTextarea,
+  FormInput,
+} from '@/components/ui/standardInputs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ComposableExerciseList } from './ComposableExerciseList';
 import { ExerciseLibrary } from './ExerciseLibrary';
@@ -82,9 +86,9 @@ export function Composer({
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-1">
-                Workout Name *
+                Workout Name <small className="text-destructive">*</small>
               </label>
-              <StandardInput
+              <FormInput
                 value={workoutName}
                 onChange={e => onWorkoutNameChange(e.target.value)}
                 placeholder="Enter workout name..."
